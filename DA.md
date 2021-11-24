@@ -64,7 +64,7 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-# Performance
+# Performance optimization on the backend
 Lorem Ipsum
 
 
@@ -204,7 +204,7 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-# Performance optimization
+# Performance optimization on the frontend
 Lorem Ipsum
 
 
