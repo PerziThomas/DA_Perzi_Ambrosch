@@ -103,7 +103,7 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-### MS SQL using SQLQueryStress and Performance Monitor
+### MS SQL using SQLQueryStress and Microsoft Performance Monitor
 Lorem Ipsum
 
 
