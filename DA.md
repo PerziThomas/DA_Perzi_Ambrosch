@@ -212,16 +212,22 @@ One of the biggest performance factors affecting performance of the React app ar
 By looking at the graph for our app, we can see that the _LeafletMap_ component takes significantly longer than all other components and should be optimized.\
 _[Image of graph]_
 
-The component is then wrapped in _React.memo_ with a custom check method _areEqual_ to rerender only when relevant props have changed. In this case, that means either the map, the map zoom or the geofence collection have changed.\
-_[Code snippet of React.memo and areEqual]_
+The component is then wrapped in _React.memo_ with a custom check function _isEqual_ to rerender only when relevant props have changed. In this case, that means either the map, the map zoom or the geofence collection have changed.\
+_[Code snippet of React.memo and isEqual]_
 
 ```jsx
-export default React.memo(LeafletMap, areEqual);
+export default withLocalize(React.memo(LeafletMap, isEqual));
 
-function areEqual(prevProps, nextProps) {
-    return (prevProps.map === nextProps.map &&
-            prevProps.zoom === nextProps.zoom &&
-            prevProps.geofences === nextProps.geofences);
+function isEqual(prevProps, nextProps) {
+    if (compareByReference(prevProps.geoFences, nextProps.geoFences) &&
+        objAreEqual(prevProps.currentUserName, nextProps.currentUserName) &&
+        objAreEqual(prevProps.swapLatLngOnExport, nextProps.swapLatLngOnExport) &&
+        objAreEqual(prevProps.selectedRoute, nextProps.selectedRoute) &&
+        objAreEqual(prevProps.routeMode, nextProps.routeMode) &&
+        objAreEqual(prevProps.polygonColor, nextProps.polygonColor)) {
+        return true;
+    }
+    return false;
 }
 ```
 
