@@ -207,15 +207,15 @@ Lorem Ipsum
 
 
 ## Reducing component rerenders with React.memo
-One of the biggest performance factors affecting performance of the React app are component rerenders. By using the profiler from React Developer Tools, a list of all component rerenders within the page can be shown ranked by the time taken.
+One of the biggest performance factors affecting performance of the React app are component rerenders. By using the profiler from _React Developer Tools_, a list of all component rerenders within the page can be shown ranked by the time taken.
 
-By looking at the graph for our app, we can see that the LeafletMap component takes significantly longer than all other components and should be optimized.\
-[Image of graph]
+By looking at the graph for our app, we can see that the _LeafletMap_ component takes significantly longer than all other components and should be optimized.\
+_[Image of graph]_
 
-The component is then wrapped in React.memo with a custom check method areEqual to rerender only when relevant props have changed. In this case, that means either the map, the map zoom or the geofence collection have changed.\
-[Code snippet of React.memo and areEqual] 
+The component is then wrapped in _React.memo_ with a custom check method _areEqual_ to rerender only when relevant props have changed. In this case, that means either the map, the map zoom or the geofence collection have changed.\
+_[Code snippet of React.memo and areEqual]_
 
-```javascript
+```jsx
 export default React.memo(LeafletMap, areEqual);
 
 function areEqual(prevProps, nextProps) {
@@ -226,12 +226,12 @@ function areEqual(prevProps, nextProps) {
 ```
 
 After making these changes, a new graph is recorded for the same actions.\
-[Image of new graph]
+_[Image of new graph]_
 
 The number of rerenders of the component has been reduced from … to …, saving loading times of …s, and the app also runs noticeably smoother.\
 Similar changes are also applied to other components that cause lag or rerender unnecessarily.
  
-(exact numbers and code need to be taken from the app itself)
+_(exact numbers and code need to be taken from the app itself)_
 
 
 ## Reducing number of points for road geofences
