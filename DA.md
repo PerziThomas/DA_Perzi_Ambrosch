@@ -206,8 +206,32 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-## Reducing component reloads (React.memo + move up state variables)
-Lorem Ipsum
+## Reducing component rerenders with React.memo
+One of the biggest performance factors affecting performance of the React app are component rerenders. By using the profiler from React Developer Tools, a list of all component rerenders within the page can be shown ranked by the time taken.
+
+By looking at the graph for our app, we can see that the LeafletMap component takes significantly longer than all other components and should be optimized.\
+[Image of graph]
+
+The component is then wrapped in React.memo with a custom check method areEqual to rerender only when relevant props have changed. In this case, that means either the map, the map zoom or the geofence collection have changed.\
+[Code snippet of React.memo and areEqual] 
+
+```javascript
+export default React.memo(LeafletMap, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (prevProps.map === nextProps.map &&
+            prevProps.zoom === nextProps.zoom &&
+            prevProps.geofences === nextProps.geofences);
+}
+```
+
+After making these changes, a new graph is recorded for the same actions.\
+[Image of new graph]
+
+The number of rerenders of the component has been reduced from … to …, saving loading times of …s, and the app also runs noticeably smoother.\
+Similar changes are also applied to other components that cause lag or rerender unnecessarily.
+ 
+(exact numbers and code need to be taken from the app itself)
 
 
 ## Reducing number of points for road geofences
