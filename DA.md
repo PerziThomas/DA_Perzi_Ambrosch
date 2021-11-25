@@ -1,7 +1,6 @@
 ---
-title: Diplomarbeit
+title: Development of a Full-Stack Geofencing Application 
 author: David Ambrosch & Thomas Perzi
-date: 14-02-2013
 ...
 
 # Backend Technologies used
