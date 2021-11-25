@@ -76,20 +76,11 @@ Lorem Ipsum
 
 
 # Testing
-This chapter will describe the multiple ways used to test the application. Besides testing the functionality of the classes and methods like it is common in every commercial
-application, the stressability of the application is critical in this particular use case, as it needs to be able to handle the positional data of up to 1000 cars in the span
-of a few seconds. Hence why it was vital to assure that each component of the applications architecture was able to perform under the heaviest load and ensure scalability
-in the future if more cars are added to the service.
+Lorem Ipsum
 
 
 ## Functional Testing
-There are several methods which are used when testing the functionality of an application, with four being the de-facto industry standard.
-
-1. Unit Testing
-2. Integration Testing
-3. System Testing
-4. Acceptance Testing
-
+Lorem Ipsum
 
 ### Frontend using Selenium
 Lorem Ipsum
