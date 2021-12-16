@@ -4,54 +4,78 @@ author: David Ambrosch & Thomas Perzi
 ...
 
 # I. Eidesstattliche Erklarung {-}
+Lorem Ipsum
+
 
 # II. Acknowledgment {-}
+Lorem Ipsum
+
 
 # III. Abstract {-}
+Lorem Ipsum
+
 
 # IV. Kurzfassung {-}
-
-# Backend Technologies used
 Lorem Ipsum
 
 
-## ASP.NET Core
+# Introduction
 Lorem Ipsum
 
 
-## MS SQL
-Lorem Ipsum
-
-
-### T-SQL
-Lorem Ipsum
-
-
-### SQL Spatial
-Lorem Ipsum
-
-
-## Ado.Net
-Lorem Ipsum
-
-
-### Comparison with Entity Framework
-Lorem Ipsum
-
-
-## NetTopologySuite
-Lorem Ipsum
+## Use Cases
+Lorem Impsum
 
 
 # Architecture
 Lorem Ipsum
 
 
+## Project Structure
+Lorem Ipsum
+
+
+## Technical Structure
+Lorem Impsum
+
+
 # Implementation
 Lorem Ipsum
 
 
-## REST Api communication with Frontend and Drivebox Server
+## Backend Technologies used
+Lorem Ipsum
+
+
+### ASP.NET Core
+Lorem Ipsum
+
+
+### MS SQL
+Lorem Ipsum
+
+
+#### T-SQL
+Lorem Ipsum
+
+
+#### SQL Spatial
+Lorem Ipsum
+
+
+### Ado.Net
+Lorem Ipsum
+
+
+#### Comparison with Entity Framework
+Lorem Ipsum
+
+
+### NetTopologySuite
+Lorem Ipsum
+
+
+## Communication between Frontend and Drivebox Server
 Lorem Ipsum
 
 
@@ -71,15 +95,15 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-# Performance optimization on the backend
+## Performance optimization on the backend
 Lorem Ipsum
 
 
-## Caching in ASP.NET
+### Caching in ASP.NET
 Lorem Ipsum
 
 
-## Using Geo-Indexes in MS SQL
+### Using Geo-Indexes in MS SQL
 Lorem Ipsum
 
 
@@ -90,11 +114,12 @@ Lorem Ipsum
 ## Functional Testing
 Lorem Ipsum
 
-### Frontend using Selenium
+
+### Frontend Functionality
 Lorem Ipsum
 
 
-### Backend Algorithms using Moq
+### Backend Algorithms
 Lorem Ipsum
 
 
@@ -102,11 +127,11 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-### MS SQL using SQLQueryStress and Microsoft Performance Monitor
+### MS SQL
 Lorem Ipsum
 
 
-### ASP.NET using Apache JMeter
+### ASP.NET
 Lorem Ipsum
 
 
@@ -147,10 +172,6 @@ Lorem Ipsum
 
 
 ## GeoJSON
-Lorem Ipsum
-
-
-# Project Structure
 Lorem Ipsum
 
 
