@@ -3,6 +3,14 @@ title: Development of a Full-Stack Geofencing Application
 author: David Ambrosch & Thomas Perzi
 ...
 
+# I. Eidesstattliche Erklarung {-}
+
+# II. Acknowledgment {-}
+
+# III. Abstract {-}
+
+# IV. Kurzfassung {-}
+
 # Backend Technologies used
 Lorem Ipsum
 
