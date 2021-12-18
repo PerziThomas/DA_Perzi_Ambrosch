@@ -3,47 +3,79 @@ title: Development of a Full-Stack Geofencing Application
 author: David Ambrosch & Thomas Perzi
 ...
 
-# Backend Technologies used
+# I. Eidesstattliche Erklarung {-}
 Lorem Ipsum
 
 
-## ASP.NET Core
+# II. Acknowledgment {-}
 Lorem Ipsum
 
 
-## MS SQL
+# III. Abstract {-}
 Lorem Ipsum
 
 
-### T-SQL
+# IV. Kurzfassung {-}
 Lorem Ipsum
 
 
-### SQL Spatial
+# Introduction
 Lorem Ipsum
 
 
-## Ado.Net
-Lorem Ipsum
-
-
-### Comparison with Entity Framework
-Lorem Ipsum
-
-
-## NetTopologySuite
-Lorem Ipsum
+## Use Cases
+Lorem Impsum
 
 
 # Architecture
 Lorem Ipsum
 
 
+## Project Structure
+Lorem Ipsum
+
+
+## Technical Structure
+Lorem Impsum
+
+
 # Implementation
 Lorem Ipsum
 
 
-## REST Api communication with Frontend and Drivebox Server
+## Backend Technologies used
+Lorem Ipsum
+
+
+### ASP.NET Core
+Lorem Ipsum
+
+
+### MS SQL
+Lorem Ipsum
+
+
+#### T-SQL
+Lorem Ipsum
+
+
+#### SQL Spatial
+Lorem Ipsum
+
+
+### Ado.Net
+Lorem Ipsum
+
+
+#### Comparison with Entity Framework
+Lorem Ipsum
+
+
+### NetTopologySuite
+Lorem Ipsum
+
+
+## Communication between Frontend and Drivebox Server
 Lorem Ipsum
 
 
@@ -63,15 +95,15 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-# Performance optimization on the backend
+## Performance optimization on the backend
 Lorem Ipsum
 
 
-## Caching in ASP.NET
+### Caching in ASP.NET
 Lorem Ipsum
 
 
-## Using Geo-Indexes in MS SQL
+### Using Geo-Indexes in MS SQL
 Lorem Ipsum
 
 
@@ -82,11 +114,12 @@ Lorem Ipsum
 ## Functional Testing
 Lorem Ipsum
 
-### Frontend using Selenium
+
+### Frontend Functionality
 Lorem Ipsum
 
 
-### Backend Algorithms using Moq
+### Backend Algorithms
 Lorem Ipsum
 
 
@@ -94,11 +127,11 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-### MS SQL using SQLQueryStress and Microsoft Performance Monitor
+### MS SQL
 Lorem Ipsum
 
 
-### ASP.NET using Apache JMeter
+### ASP.NET
 Lorem Ipsum
 
 
@@ -139,10 +172,6 @@ Lorem Ipsum
 
 
 ## GeoJSON
-Lorem Ipsum
-
-
-# Project Structure
 Lorem Ipsum
 
 
@@ -206,8 +235,38 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-## Reducing component reloads (React.memo + move up state variables)
-Lorem Ipsum
+## Reducing component rerenders with React.memo
+One of the biggest performance factors affecting performance of the React app are component rerenders. By using the profiler from _React Developer Tools_, a list of all component rerenders within the page can be shown ranked by the time taken.
+
+By looking at the graph for our app, we can see that the _LeafletMap_ component takes significantly longer than all other components and should be optimized.\
+_[Image of graph]_
+
+The component is then wrapped in _React.memo_ with a custom check function _isEqual_ to rerender only when relevant props have changed. In this case, that means either the map, the map zoom or the geofence collection have changed.\
+_[Code snippet of React.memo and isEqual]_
+
+```jsx
+export default withLocalize(React.memo(LeafletMap, isEqual));
+
+function isEqual(prevProps, nextProps) {
+    if (compareByReference(prevProps.geoFences, nextProps.geoFences) &&
+        objAreEqual(prevProps.currentUserName, nextProps.currentUserName) &&
+        objAreEqual(prevProps.swapLatLngOnExport, nextProps.swapLatLngOnExport) &&
+        objAreEqual(prevProps.selectedRoute, nextProps.selectedRoute) &&
+        objAreEqual(prevProps.routeMode, nextProps.routeMode) &&
+        objAreEqual(prevProps.polygonColor, nextProps.polygonColor)) {
+        return true;
+    }
+    return false;
+}
+```
+
+After making these changes, a new graph is recorded for the same actions.\
+_[Image of new graph]_
+
+The number of rerenders of the component has been reduced from … to …, saving loading times of …s, and the app also runs noticeably smoother.\
+Similar changes are also applied to other components that cause lag or rerender unnecessarily.
+ 
+_(exact numbers and code need to be taken from the app itself)_
 
 
 ## Reducing number of points for road geofences
