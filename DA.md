@@ -153,9 +153,46 @@ It is implemented as a React Web-Interface using Leaflet and related extensions 
 
 The frontend was developed as a quasi-stand-alone application to be later integrated into the already existing DriveBox application by iLogs.
 
+To give the user the ability to "draw" geofences directly on the map inside the application, the extension _react-leaflet-draw_ is used. This allows for a component _EditControl_ to be overwritten with custom draw controls and event handlers, which is then given to the _LeafletMap_ component.
+
+```jsx
+<EditControl
+    position='topleft'
+    draw={{
+        marker: false,
+        circlemarker: false,
+        polyline: false,
+        polygon: {
+            allowIntersection: false,
+        },
+    }}
+    edit={{
+        remove: false,
+    }}
+    onCreated={e => _onCreated(e)}
+    onEdited={e => _onEdited(e)}
+/>
+```
+
 
 ### Geofence creation
-To give the user the ability to "draw" geofences directly on the map inside the application, the extension _react-leaflet-draw_ is used. This allows for a component _EditControl_ to be overwritten with custom draw controls and event handlers.
+Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled seperately and will be discussed in chapter _Circle geofences_. All other types can be converted to and created as polygons.
+
+Any created geofence is checked for self-intersections.\
+_[Check self-intersection: https://stackoverflow.com/questions/4876065/is-there-an-easy-and-fast-way-of-checking-if-a-polygon-is-self-intersecting]_\
+_[Check if two lines intersect: https://stackoverflow.com/questions/9043805/test-if-two-lines-intersect-javascript-function]_
+
+If an error is found, the creation process is aborted. Since the Leaflet map only reacts to its own errors, the drawn geometry needs to be manually removed from the map.
+
+```jsx
+createdLayer._map.removeLayer(createdLayer);
+```
+
+If no error is found, the geofence is converted into a JSON object and sent to the POST endpoint _/geoFences/_ of the backend.
+
+If the backend returns a result, the geofence is added directly into the collection in the state of the React app, to avoid having to reload the entire page.
+
+If a backend error occurs, the creation process is once again aborted.
 
 
 ### Geofence editing
@@ -200,8 +237,6 @@ _[Image React_Profiler_before.png]_
 The map component is then wrapped in _React.memo_ to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, or some meta settings like the colour of polygons.\
 
 With a custom check function _isEqual_, the _React.memo_ function can be set to react only when one of these props changes.
-
-_[Code snippet of React.memo and isEqual]_
 
 ```jsx
 export default withLocalize(React.memo(LeafletMap, isEqual));
