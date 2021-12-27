@@ -8,7 +8,7 @@ jobs:
   buildDaJob:
 
     name: Build DA job
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     container: ghcr.io/ingokofler/pandoc4all:latest
 
     steps:
