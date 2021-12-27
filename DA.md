@@ -151,7 +151,7 @@ The frontend provides full CRUD operations for geofences.
 
 It is implemented as a React Web-Interface using Leaflet and related extensions to work with maps and geographical data.
 
-The frontend was developed as a quasi-stand-alone application to be later integrated into the already existing DriveBox application by iLogs.
+The frontend was developed as a stand-alone application to be later integrated into the already existing DriveBox application by iLogs.
 
 To give the user the ability to "draw" geofences directly on the map inside the application, the extension _react-leaflet-draw_ is used. This allows for a component _EditControl_ to be overwritten with custom draw controls and event handlers, which is then given to the _LeafletMap_ component.
 
@@ -207,6 +207,38 @@ Since multiple polygons can be edited at once, all actions need to be performed 
 Each geofence is converted to a JSON object and send to the PATCH endpoint _/geoFences/{id}_
 
 In case of a backend error, since the Leaflet map has already saved the changes to the polygons, the window is reloaded to restore the correct state of all geofences before editing.
+
+To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), it was necessary to store all already existing geofences in an array as Polygons, and then use this array to render all editable geometry inside a _FeatureGroup_ of the map.
+
+```jsx
+newGeoFences.map((e, idx) => {      
+  newEditableGeometry.push(
+      L.polygon(e.Polygon.coordinates)
+  );
+});
+```
+
+```jsx
+{editableGeometry.map((e, idx) => {
+  return(<Polygon
+    positions={e.getLatLngs()}
+    pathOptions={e.pathOptions ? e.pathOptions : loadedPolyOptions}
+    key={'poly_' + idx}
+    index={idx}
+  >
+    <Tooltip direction="top" opacity={0.8} permanent>
+      {geoFences[idx] ? geoFences[idx].Title : ''}
+    </Tooltip>
+  </Polygon>)
+})}
+```
+
+It was considered to have only one geofence be editable at a time.\
+This would have performance benefits, since a smaller number of draggable markers for editable geometry would be rendered at once.
+
+This functionality would be achieved by storing an _editable_ flag for that geofence, and then only rendering geofences that have this flag inside the _FeatureGroup_.
+
+This feature did not work as intended, since the _Leaflet_ map did not rerender correctly. Also, the performance benefit from this became less of a priority after implementing pagination.
 
 
 ### Circle geofences
@@ -274,7 +306,7 @@ This also has the effect that the application now runs noticably smoother, espec
 Similar changes are also applied to other components that cause lag or rerender unnecessarily.
 
 ### Reduction of points for road geofences
-Lorem Ipsum
+Lorem Ipsum (is acutally backend I think)
 
 
 ### Reduction of loaded geofences
