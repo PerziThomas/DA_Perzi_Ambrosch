@@ -1,0 +1,21 @@
+name: DA Build Workflow
+
+on:
+  workflow_dispatch:
+    push:
+      paths:
+        - source/**
+
+
+jobs:
+
+  buildDaJob:
+
+    name: Build DA job
+    runs-on: self-hosted
+    container: ghcr.io/ingokofler/pandoc4all:latest
+
+    steps:
+      - run: echo "Hello World"
+      - uses: actions/checkout@v2
+      - run: ls -la
