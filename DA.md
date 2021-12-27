@@ -249,7 +249,23 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-### Geofence locking
+### Map search
+Lorem Ipsum
+
+
+### Geofence labels
+Lorem Ipsum
+
+
+### Geofence deletion
+Lorem Ipsum
+
+
+### Geofence edit history
+Lorem Ipsum
+
+
+### Geofence visibility
 Lorem Ipsum
 
 
@@ -257,11 +273,23 @@ Lorem Ipsum
 Lorem Ipsum
 
 
+### Geofence renaming
+Lorem Ipsum
+
+
+### Geofence metadata
+Lorem Ipsum
+
+
+### Geofence locking
+Lorem Ipsum
+
+
 ### Pagination
 Lorem Ipsum
 
 
-### Geofence metadata filtering
+### Geofence display color
 Lorem Ipsum
 
 
