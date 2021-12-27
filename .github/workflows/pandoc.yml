@@ -13,5 +13,9 @@ jobs:
 
     steps:
       - run: echo "Hello World"
+      - run: mkdir da_repo
+      - run: cd da_repo
       - uses: actions/checkout@v2
+      - run: ls -la
+      - run: cd ..
       - run: ls -la
