@@ -196,7 +196,17 @@ If a backend error occurs, the creation process is once again aborted.
 
 
 ### Geofence editing
-Lorem Ipsum
+The geometry of geofences that are drawn or loaded from the backend can be changed by the user.\
+Circle geofences and road geofences cannot be edited, since changing individual points would be useless for these cases.
+
+The basic editing itself is provided by _leaflet-draw_. The map can be put into an edit mode, where individual points of polygons can be moved by the user. After this, the editing action can be confirmed or cancelled.\
+The confirm action _onEdit_ is overwritten to take care of confirmation and persistancy.
+
+Since multiple polygons can be edited at once, all actions need to be performed iteratively for an array of edited layers.
+
+Each geofence is converted to a JSON object and send to the PATCH endpoint _/geoFences/{id}_
+
+In case of a backend error, since the Leaflet map has already saved the changes to the polygons, the window is reloaded to restore the correct state of all geofences before editing.
 
 
 ### Circle geofences
