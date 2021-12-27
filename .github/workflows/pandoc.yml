@@ -1,10 +1,6 @@
 name: DA Build Workflow
 
-on:
-  workflow_dispatch:
-    push:
-      paths:
-        - source/**
+on: push
 
 
 jobs:
