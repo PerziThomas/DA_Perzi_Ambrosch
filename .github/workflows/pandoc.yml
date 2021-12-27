@@ -23,4 +23,8 @@ jobs:
           repository: PerziThomas/phd_thesis_markdown
       - run: ls -la
         working-directory: da_repo
+      - run: cp -r ./source ../pandoc_folder/source
+        working-directory: da_repo
+      - run: ls -la
+        working-directory: pandoc_folder/source
       
