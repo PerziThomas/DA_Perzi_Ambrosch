@@ -17,5 +17,8 @@ jobs:
         with:
           path: da_repo
       - run: ls -la
-      - run: cd ..
+      - uses: actions/checkout@v2
+        with:
+          path: pandoc_folder
+          repository: PerziThomas/phd_thesis_markdown
       - run: ls -la
