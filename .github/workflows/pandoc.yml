@@ -21,4 +21,6 @@ jobs:
         with:
           path: pandoc_folder
           repository: PerziThomas/phd_thesis_markdown
+      - run: cd da_repo 
       - run: ls -la
+      
