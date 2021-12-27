@@ -17,7 +17,7 @@ jobs:
       - run: cd ./da_repo
       - uses: actions/checkout@v2
         with:
-          path: ./da_repo
+          path: da_repo
       - run: ls -la
       - run: cd ..
       - run: ls -la
