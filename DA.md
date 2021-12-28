@@ -197,7 +197,6 @@ If a backend error occurs, the creation process is once again aborted.
 
 ### Geofence editing
 The geometry of geofences that are drawn or loaded from the backend can be changed by the user.\
-Circle geofences and road geofences cannot be edited, since changing individual points would be useless for these cases.
 
 The basic editing itself is provided by _leaflet-draw_. The map can be put into an edit mode, where individual points of polygons can be moved by the user. After this, the editing action can be confirmed or cancelled.\
 The confirm action _onEdit_ is overwritten to take care of confirmation and persistancy.
@@ -206,43 +205,105 @@ Since multiple polygons can be edited at once, all actions need to be performed 
 
 Each geofence is converted to a JSON object and send to the PATCH endpoint _/geoFences/{id}_
 
-In case of a backend error, since the Leaflet map has already saved the changes to the polygons, the window is reloaded to restore the correct state of all geofences before editing.
+In case of a backend error, since the Leaflet map has already saved the changes to the polygons, the window has to be reloaded to restore the correct state of all geofences before editing.
 
-To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), it was necessary to store all already existing geofences in an array as Polygons, and then use this array to render all editable geometry inside a _FeatureGroup_ of the map.
-
-```jsx
-newGeoFences.map((e, idx) => {      
-  newEditableGeometry.push(
-      L.polygon(e.Polygon.coordinates)
-  );
-});
-```
-
-```jsx
-{editableGeometry.map((e, idx) => {
-  return(<Polygon
-    positions={e.getLatLngs()}
-    pathOptions={e.pathOptions ? e.pathOptions : loadedPolyOptions}
-    key={'poly_' + idx}
-    index={idx}
-  >
-    <Tooltip direction="top" opacity={0.8} permanent>
-      {geoFences[idx] ? geoFences[idx].Title : ''}
-    </Tooltip>
-  </Polygon>)
-})}
-```
-
+#### Single edit functionality
 It was considered to have only one geofence be editable at a time.\
 This would have performance benefits, since a smaller number of draggable markers for editable geometry would be rendered at once.
 
 This functionality would be achieved by storing an _editable_ flag for that geofence, and then only rendering geofences that have this flag inside the _FeatureGroup_.
 
-This feature did not work as intended, since the _Leaflet_ map did not rerender correctly. Also, the performance benefit from this became less of a priority after implementing pagination.
+This feature did not work as intended, since the _Leaflet_ map did not rerender correctly. Also, the performance benefit became less of a priority after implementing pagination.
 
+#### Making loaded geofences editable
+To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), all geofences are stored in a collection, which is then used to render all editable geometry inside a _FeatureGroup_ of the map.
+
+```jsx
+for (let elem of res.data.geoJson) {
+  let currentGeoFence = JSON.parse(elem);
+
+  // swap lat and long
+  for (let subArr of currentGeoFence.Polygon.coordinates) {
+    for (let e of subArr) {
+      let temp = e[0];
+      e[0] = e[1];
+      e[1] = temp;
+    }
+  }
+
+  currentGeoFence.Hidden = tempVisibilityObj[`id_${currentGeoFence.ID}`] || false;
+  let newPoly = L.polygon(currentGeoFence.Polygon.coordinates);
+  newPoly.geoFence = currentGeoFence;
+  newGeoFences.set(currentGeoFence.ID, newPoly);
+}
+```
+
+```jsx
+<FeatureGroup>
+    <MyEditComponent
+        currentUserName={currentUserName}
+        geoFences={geoFences}
+        map={map}
+        addGeoFenceInState={addGeoFenceInState}
+        {...props}
+    ></MyEditComponent>
+
+    {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
+    {[...geoFences.keys()].filter(id => {
+        return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
+    }).map(id => {
+        return (
+            <MyPolygon
+                polygon={geoFences.get(id)}
+                idGeoFence={id}
+                key={'editPoly_' + id}
+                hidden={geoFences.get(id).geoFence.Hidden}
+                pathOptions={geoFences.get(id).pathOptions || (geoFences.get(id).geoFence.Highlighted ? highlightedPolyOptions : polygonColor)}
+                {...props}
+            ></MyPolygon>
+        );
+    })}
+</FeatureGroup>
+```
+
+#### Non-editable geofences
+Circle geofences and road geofences cannot be edited, since changing individual points would be useless for these cases.
+
+To achieve this, all geofences are given a boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints.
+
+This property is then used to seperate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
+
+```jsx
+<MapContainer ... >
+    ...
+    {/*display non-editable geofences (circles or roads)*/}
+    {[...geoFences.keys()].filter(id => {
+        return (geoFences.get(id).geoFence.SystemGeoFence || geoFences.get(id).geoFence.IsNotEditable)
+    }).map(id => {
+        return (
+            <MyPolygon ... ></MyPolygon>
+        );
+    })}
+
+    <FeatureGroup>
+        <MyEditComponent ... ></MyEditComponent>
+
+        {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
+        {[...geoFences.keys()].filter(id => {
+            return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
+        }).map(id => {
+            return (
+                <MyPolygon ... ></MyPolygon>
+            );
+        })}
+    </FeatureGroup>
+</MapContainer>
+```
 
 ### Circle geofences
-Lorem Ipsum
+Circles, when created with _leaflet-draw_, have a centerpoint defined by a lat- and a lng-coordinate, and a radius. This information is sent to the backend.
+
+In the backend, the circle is converted into a polygon, which can be saved to the Database. The geometry is also returned to the frontend, where it is then used to add the circle directly in the React state.
 
 
 ### Road geofences
@@ -261,7 +322,7 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-### Geofence edit history
+### Geofence update history
 Lorem Ipsum
 
 
