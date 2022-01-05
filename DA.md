@@ -325,7 +325,47 @@ The geofence is created in the backend, and the geometry of the new polygon is r
 
 
 ### Map search
-Lorem Ipsum
+A search function exists, to make it easier to find places on the map by searching for names or addresses.
+
+This function is provided by the package _leaflet-geosearch_, which can be easily used and was only slightly customized.
+
+A custom React component _GeoSearchField_ is used. In it, _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options. This is then added to the map in the _useEffect_ hook.
+
+The component _GeoSearchField_ is also used inside the _LeafletMap_ in order to make the search button available on the map.
+
+```jsx
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+import { useMap } from 'react-leaflet';
+import { useEffect } from 'react';
+import { withLocalize } from 'react-localize-redux';
+import '../../css/GeoSearch.css';
+
+const GeoSearchField = ({translate, activeLanguage}) => {
+    let map = useMap();
+
+    // @ts-ignore
+    const searchControl = new GeoSearchControl({
+        provider: new OpenStreetMapProvider({params: {'accept-language': activeLanguage.code.split("-")[0]}}),
+        autoComplete: true,
+        autoCompleteDelay: 500,
+        showMarker: false,
+        showPopup: false,
+        searchLabel: translate("searchGeo.hint"),
+        classNames: {
+            resetButton: 'gs-resetButton',
+        }
+    });
+
+    useEffect(() => {
+        map?.addControl(searchControl);
+        return () => map?.removeControl(searchControl);
+    }, [map])
+
+    return null;
+}
+
+export default withLocalize(GeoSearchField);
+```
 
 
 ### Geofence labels
