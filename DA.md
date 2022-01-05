@@ -307,7 +307,9 @@ In the backend, the circle is converted into a polygon, which can be saved to th
 
 
 ### Road geofences
-The routing function that is used to create road geofences is provided by the npm package _leaflet-routing-machine_. The package calculates a route between multiple waypoints on the map using road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
+Geofences can be created by setting waypoints, calculating a route and giving it width to make it a road.
+
+The routing function is provided by the npm package _leaflet-routing-machine_. The package calculates a route between multiple waypoints on the map using road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
 
 Every time the selected route changes, it is stored in a React state variable.
 
