@@ -307,7 +307,19 @@ In the backend, the circle is converted into a polygon, which can be saved to th
 
 
 ### Road geofences
-Lorem Ipsum
+The routing function that is used to create road geofences is provided by the npm package _leaflet-routing-machine_. The package calculates a route between multiple waypoints on the map using road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
+
+Every time the selected route changes, it is stored in a React state variable.
+
+When the button to create a new road geofence based on the current route is clicked, a dialog is shown, where a name can be given to the geofence. Also, the width of the road can be selected.
+
+The route stored in state and the given name, are sent to the backend endpoint _/geoFences/road?roadType=?_. RoadType refers to the width of the road to be created, by tracing a circle of a certain radius along the path. All accepted values for roadType are:
+
+- roadType=1: 3 meters
+- roadType=2: 7 meters
+- roadType=3: 10 meters
+
+The geofence is created in the backend, and the geometry of the new polygon is returned to the frontend. If a successful response is received, the geofence is added directly in state to avoid reloading.
 
 
 ### Map search
