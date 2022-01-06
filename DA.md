@@ -151,7 +151,7 @@ The frontend provides full CRUD operations for geofences.
 
 It is implemented as a React Web-Interface using Leaflet and related extensions to work with maps and geographical data.
 
-The frontend was developed as a stand-alone application to be later integrated into the already existing DriveBox application by iLogs.
+The frontend was developed as a stand-alone application to be later integrated into the already existing DriveBox application by ilogs.
 
 To give the user the ability to "draw" geofences directly on the map inside the application, the extension _react-leaflet-draw_ is used. This allows for a component _EditControl_ to be overwritten with custom draw controls and event handlers, which is then given to the _LeafletMap_ component.
 
@@ -417,7 +417,7 @@ One of the biggest performance factors affecting performance of the React app ar
 
 By looking at the graph for the geofence management app, it can be seen that the _LeafletMap_ component takes significantly more time reloading than all other components and should be optimized.\
 
-_[Image React_Profiler_before.png]_
+[comment]: <> (Image: React_Profiler_before.png)
 
 The map component is then wrapped in _React.memo_ to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, or some meta settings like the colour of polygons.\
 
@@ -441,7 +441,7 @@ function isEqual(prevProps, nextProps) {
 
 After making these changes, a new graph is recorded for the same actions.\
 
-_[Image React_Profiler_after.png]_
+[comment]: <> (Image: React_Profiler_after.png)
 
 The render duration of the map component has been reduced from 585.6ms to clearly below 0.5ms, where it does not show up in the ranked list of the profiler anymore.
 This also has the effect that the application now runs noticably smoother, especially when handling the map.
@@ -546,6 +546,13 @@ Lorem Ipsum
 
 
 ## Integration into DriveBox
-Lorem Ipsum
+Since the Geofencing app was developed to be integrated into the DriveBox application by ilogs, the look and feel of the User Interface had to be adapted. This mainly means three things:
 
+- Using a light theme instead of a dark theme
+- Using shadows instead of borders for cards
+- Using blue (the ilogs brand color) for accents
 
+Image [] shows the mockup before changes were made. Image [] shows the user interface with adaptations.
+
+[comment]: <> (image: UI_Integration_before.jpg)
+[comment]: <> (image: UI_Integration_after.jpg)
