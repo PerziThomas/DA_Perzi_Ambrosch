@@ -27,8 +27,8 @@ was done in this project. \
 Unlike other testing frameworks, which use annotations like [Test], xUnit uses [Fact] and [Theory]. \
 \textbf{Facts} are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
-```C#
-        // A sample Fact Test which ensures a succesful connection & authorization to the backend server.
+\begin{lstlisting}[caption=CSharp Test, label=lst:test]
+    // A sample Fact Test which ensures a succesful connection & authorization to the backend server.
         [Fact]
         public async Task SampleTestAsync()
         {
@@ -38,7 +38,7 @@ Unlike other testing frameworks, which use annotations like [Test], xUnit uses [
 
             response.EnsureSuccessStatusCode();
         }
-```
+\end{lstlisting}
 
 ### Frontend Functionality
 Lorem Ipsum
