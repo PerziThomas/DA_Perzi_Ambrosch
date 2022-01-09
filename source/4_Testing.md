@@ -24,10 +24,10 @@ integration tests as well with the use of other tools like the ASP.NET Core MVC 
 was done in this project. \
 
 ##### Fact vs. Theory
-Unlike other testing frameworks, which use annotations like [Test], xUnit uses [Fact] and [Theory]. \
+Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
 \textbf{Facts} are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
-\begin{lstlisting}[caption=CSharp Test, label=lst:test]
+\begin{lstlisting}[caption=CSharp Test, label=lst:test, language={[Sharp]C}]
     // A sample Fact Test which ensures a succesful connection & authorization to the backend server.
         [Fact]
         public async Task SampleTestAsync()
