@@ -27,6 +27,19 @@ was done in this project. \
 Unlike other testing frameworks, which use annotations like [Test], xUnit uses [Fact] and [Theory]. \
 \textbf{Facts} are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
+\begin{lstlisting}[caption=CSharp Test, label=lst:test]
+    // A sample Fact Test which ensures a succesful connection & authorization to the backend server.
+        [Fact]
+        public async Task SampleTestAsync()
+        {
+            HttpClient client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("sampleJWT");
+            HttpResponseMessage response = await client.GetAsync("api/geoFences");
+
+            response.EnsureSuccessStatusCode();
+        }
+\end{lstlisting}
+
 ### Frontend Functionality
 Lorem Ipsum
 
