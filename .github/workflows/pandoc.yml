@@ -35,9 +35,9 @@ jobs:
           name: DA_PDF
           path: pandoc_folder/output/thesis.pdf
       - name: Upload Log
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: make_log
-          if: ${{ failure() }}
           path: pandoc_folder/pandoc.pdf.log
       
