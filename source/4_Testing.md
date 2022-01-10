@@ -93,7 +93,46 @@ developed on top of ASP.NET Core, such as RESTful services. Using the **WebAppli
 \end{lstlisting} \
 
 ### Frontend Functionality
-Lorem Ipsum
+Testing the functionality of the React Frontend part of the application was achieved using the **Selenium**
+Framework, specifically the Selenium WebDriver. Selenium, being the industry standard for browser automation
+provides the ability to automate the actions a user would take in a browser, such as clicking, going to a specific URL or reading values of a web page. \
+
+Selenium runs on a system based on drivers for each individual browser, such as Google Chrome, Firefox or
+Safari, with these drivers being maintained by the browsers developers. 
+Selenium commands are a unified way of communicating with any of these drivers, providing the developer
+with the ability to run the same testing code for multiple browsers. Selenium only provides the framework
+to automate the browser, checking values still had to be done using xUnit. \
+
+Creating tests using Selenium is comparable to writing code in a sequential way, as the drivers are being
+instructed to execute a sequence of statement, similar to how a real user would do it.
+
+\begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers., label=lst:selenium]
+        [Theory]
+        [InlineData("chrome")]
+        [InlineData("firefox")]
+        public void OpenSideBarTest(string driverName)
+        {
+            IWebDriver driver = GetDriverByString(driverName);
+            driver.Url = URL;
+            // Check if navigation worked
+            Assert.Equal(URL, driver.Url);
+            // Set a timeout to wait for new elements to appear, simulating a real user wait time
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.FindElement(By.Id("leaflet-map"));
+            Thread.Sleep(1000);
+            // Check if close button of the sidebar is visible to Selenium.
+            bool displayed = driver.FindElement(By.Id("btn_closeDock")).Displayed;
+            driver.Quit();
+            Assert.True(displayed);  
+        }
+\end{lstlisting} \
+
+Firefox and Google Chrome were chosen as the testing browsers due to those two making up a large share of the
+Windows web userbase. While Safari does have a higher market share than Firefox, the Selenium WebDriver for 
+it is only available for MacOS systems. 
+
+In some cases, especially when the drawing of shapes was being tested, it was not possible to reuse the same test case for both browsers, in which case individual ones had to be written, due to the way that the Firefox
+driver handles mouse movement differently than the Chrome driver.
 
 
 ### Backend Algorithms
