@@ -23,7 +23,7 @@ ASP.NET Core projects. While its name implies the usage of Unit Testing, it can 
 integration tests as well with the use of other tools like the ASP.NET Core MVC Testing package, as
 was done in this project. \
 
-##### Fact vs. Theory
+##### Fact vs. Theory \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
 \textbf{Facts} are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
@@ -60,6 +60,35 @@ such as Firefox and Google Chrome. [@xUnitIntro] \
             driver.Quit();
             // Check if Browser navigated to provided URL.
             Assert.Equal(url, newUrl);
+        }
+\end{lstlisting} \
+
+##### xUnit and MVC Testing \
+Microsoft provides the *Microsoft.AspNetCore.Mvc.Testing* package for integration testing of applications
+developed on top of ASP.NET Core, such as RESTful services. Using the **WebApplicationFactory** as well as the
+**HttpClient** provided by this package one is able to test their RESTful applications. \
+
+\begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest]
+        //A Factory to build instances of the application to test.
+        private readonly WebApplicationFactory<DriveboxGeofencingBackend.Startup> _factory;
+
+        //Using Dependency Injection at the creation of the Test file to create the
+        //WebApplicationFactory instance which in turn will create HttpClients later.
+        public TripTestFixture(WebApplicationFactory<DriveboxGeofencingBackend.Startup> factory)
+        {
+            _factory = factory;
+        }
+
+        [Fact]
+        public async Task SampleTestAsync()
+        {
+            //Create a HttpClient from the factory, automatically configured for
+            //the application which is being tested.
+            HttpClient client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("sampleJWT");
+            HttpResponseMessage response = await client.GetAsync("api/geoFences");
+
+            response.EnsureSuccessStatusCode();
         }
 \end{lstlisting} \
 
