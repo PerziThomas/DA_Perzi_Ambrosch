@@ -27,8 +27,8 @@ was done in this project. \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
 \textbf{Facts} are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
-\begin{lstlisting}[caption=CSharp Test, label=lst:test, language={[Sharp]C}]
-    // A sample Fact Test which ensures a succesful connection & authorization to the backend server.
+\begin{lstlisting}[caption=Sample of a Fact, label=lst:test, language={[Sharp]C}]
+        // A sample Fact Test which ensures a succesful connection & authorization to the backend server.
         [Fact]
         public async Task SampleTestAsync()
         {
@@ -38,7 +38,30 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
 
             response.EnsureSuccessStatusCode();
         }
-\end{lstlisting}
+\end{lstlisting} \
+
+\textbf{Theories} on the other hand are tests which use parameters, this is used for test cases in which 
+one might wish to test a function which has a binary result with several values without the need to write
+multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
+such as Firefox and Google Chrome. [@xUnitIntro] \
+
+\begin{lstlisting}[caption=Sample of a Theory used to test the Frontend in several browsers., label=lst:theory]
+        //A connectivity test to check if both Selenium Browser drivers are working.
+        [Theory]
+        [InlineData("chrome")]
+        [InlineData("firefox")]
+        public void ConnectivityTest(string driverName)
+        {
+            //Receive a Browser Driver using a helper function.
+            IWebDriver driver = GetDriverByString(driverName); 
+            const string url = "https://www.google.at/";
+            driver.Url = url;
+            string newUrl = driver.Url;
+            driver.Quit();
+            // Check if Browser navigated to provided URL.
+            Assert.Equal(url, newUrl);
+        }
+\end{lstlisting} \
 
 ### Frontend Functionality
 Lorem Ipsum
