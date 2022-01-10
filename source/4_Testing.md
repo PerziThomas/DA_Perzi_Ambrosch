@@ -136,7 +136,25 @@ driver handles mouse movement differently than the Chrome driver.
 
 
 ### Backend Algorithms
-Lorem Ipsum
+To unit test the algorithms functionality there was a need to mock out the required
+components in normal application use. This was achieved using the **Moq** library,
+which is used to mock objects in C# for unit tests. \
+
+Mock testing is about only testing one thing in isolation, forcing all other dependecies
+of this component to work in a set way. This is achieved due to most components of the
+application making use of dependency injection, which allows for easy mocking. \
+
+
+\begin{lstlisting}[caption=Mocking the database access, label=lst:test, language={[Sharp]C}]
+        var databaseMock = new Mock<IDatabaseManager>();
+        //Setup the object to return a specific object on a specific call.
+        databaseMock.Setup(db => db.GetWeekdaysByGeoFence(47))
+        .Returns(new List<int> { 0, 3, 4 });
+\end{lstlisting} \
+
+Testing was done using the same classes as the main application used, to put the focus
+on the algorithm functionality, with routes and geofences being entered by hand to ensure
+clear test data. \
 
 
 ## Stress Testing
