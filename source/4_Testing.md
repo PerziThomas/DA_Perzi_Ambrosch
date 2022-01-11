@@ -169,7 +169,7 @@ The open source tool **SQLQueryStress** provides the ability to test an SQL Serv
 to operate under a constant stream of requests, achieved by making several threads execute
 SQL commands.
 
-![Using to test procedure \label{sql_stress1}](/source/figures/sqlstress1.png)
+![Using to test procedure](figures/sqlstress1.png)
 
 
 ### ASP.NET
