@@ -142,7 +142,7 @@ which is used to mock objects in C# for unit tests. \
 
 Mock testing is about only testing one thing in isolation, forcing all other dependecies
 of this component to work in a set way. This is achieved due to most components of the
-application making use of dependency injection, which allows for easy mocking. \
+application making use of dependency injection, which allows for easy mocking. [@moqTutorial] \
 
 
 \begin{lstlisting}[caption=Mocking the database access, label=lst:test, language={[Sharp]C}]
@@ -158,11 +158,18 @@ clear test data. \
 
 
 ## Stress Testing
-Lorem Ipsum
+Due to the company's need to handle the data coming from over 1000 Driveboxes at the same
+time, it was critical to ensure that the software is able to run under such circumstances.
+Simulations were done for the collission detection algorithms as well as the database which
+handled all the geofence data.
 
 
 ### MS SQL
-Lorem Ipsum
+The open source tool **SQLQueryStress** provides the ability to test an SQL Servers ability
+to operate under a constant stream of requests, achieved by making several threads execute
+SQL commands.
+
+![Using to test procedure \label{sql_stress1}](figures/sqlstress1.png)
 
 
 ### ASP.NET
