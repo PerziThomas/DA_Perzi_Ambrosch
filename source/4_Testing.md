@@ -167,10 +167,9 @@ handled all the geofence data.
 ### MS SQL
 The open source tool **SQLQueryStress** provides the ability to test an SQL Servers ability
 to operate under a constant stream of requests, achieved by making several threads execute
-SQL commands.
+SQL commands. \
 
-![Using the Stress Tool.](source/figures/sqlstress1.png "Screenshot"){#fig:stress_one width=100%}
-
+![Using the Stress Tool.](source/figures/sqlstress1.png "Screenshot"){#fig:stress_one width=50%} \
 
 ### ASP.NET
 Lorem Ipsum
