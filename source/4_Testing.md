@@ -24,6 +24,8 @@ ASP.NET Core projects. While its name implies the usage of Unit Testing, it can 
 integration tests as well with the use of other tools like the ASP.NET Core MVC Testing package, as it
 was done in this project. \
 
+\newpage
+
 ##### Fact vs. Theory \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
 **Facts** are tests which use constant data throughout each running, they are inflexible and always test the same thing.
