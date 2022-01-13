@@ -170,6 +170,7 @@ to operate under a constant stream of requests, achieved by making several threa
 SQL commands. \
 
 ![Using the Stress Tool.](source/figures/sqlstress1.png "Screenshot"){#fig:stress_one width=50%}
+\  
 
 ### ASP.NET
 Lorem Ipsum
