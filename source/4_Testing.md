@@ -2,7 +2,7 @@
 This chapter describes the use of common testing techniques and methods as well as the technologies used during development
 to ensure a stable and secure application which is ready to be used by the company clients.\
 Testing is an important aspect of every piece of software, as it ensures the functionality, security and the coverage
-of the implemented code. Software testing is generally organised into two categories, functional and non-functional testing,
+of the implemented code. Software testing is generally organized into two categories, functional and non-functional testing,
 with both types being used to test the DriveBox Geofencing software. [@testingTypes]
 
 
@@ -13,22 +13,23 @@ application.
 
 
 ### REST Endpoint Functionality
-Web endpoints using the REST architecture were tested using \textbf{xUnit} as a general testing framework and the \textbf{Microsoft ASP.NET CoreMVC Testing package} to send Web Requests to the server. 
-These tools were used due to the backend being written in C# on top of the ASP.NET Core web framework, keeping up a consistency in the used technologies, ensuring a higher maintainability of all parts of thesource code, 
-as well as the ability to use tools developed by Microsoft themselves. \
+Web endpoints using the REST architecture were tested using **xUnit** as a general testing framework and the **Microsoft ASP.NET Core MVC Testing package** 
+to send Web Requests to the server. 
+These tools were used due to the backend being written in C# on top of the ASP.NET Core web framework, keeping up a consistency in the used technologies, 
+ensuring a higher maintainability of all parts of the source code, as well as the ability to use tools developed by Microsoft themselves. \
 
 #### xUnit
 The xUnit Framework is a testing tool officially recommended by Microsoft for the use of testing
 ASP.NET Core projects. While its name implies the usage of Unit Testing, it can be used to run
-integration tests as well with the use of other tools like the ASP.NET Core MVC Testing package, as
+integration tests as well with the use of other tools like the ASP.NET Core MVC Testing package, as it
 was done in this project. \
 
 ##### Fact vs. Theory \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
-\textbf{Facts} are tests which use constant data throughout each running, they are inflexible and always test the same thing.
+**Facts** are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
 \begin{lstlisting}[caption=Sample of a Fact, label=lst:test, language={[Sharp]C}]
-        // A sample Fact Test which ensures a succesful connection & authorization to the backend server.
+        // A sample Fact Test which ensures a successful connection & authorization to the backend server.
         [Fact]
         public async Task SampleTestAsync()
         {
@@ -40,7 +41,7 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
         }
 \end{lstlisting} \
 
-\textbf{Theories} on the other hand are tests which use parameters, this is used for test cases in which 
+**Theories** on the other hand, are tests which use parameters, this is used for test cases in which 
 one might wish to test a function which has a binary result with several values without the need to write
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome. [@xUnitIntro] \
@@ -128,7 +129,7 @@ instructed to execute a sequence of statement, similar to how a real user would 
 \end{lstlisting} \
 
 Firefox and Google Chrome were chosen as the testing browsers due to those two making up a large share of the
-Windows web userbase. While Safari does have a higher market share than Firefox, the Selenium WebDriver for 
+Windows web user base. While Safari does have a higher market share than Firefox, the Selenium WebDriver for 
 it is only available for MacOS systems. 
 
 In some cases, especially when the drawing of shapes was being tested, it was not possible to reuse the same test case for both browsers, in which case individual ones had to be written, due to the way that the Firefox
@@ -140,7 +141,7 @@ To unit test the algorithms functionality there was a need to mock out the requi
 components in normal application use. This was achieved using the **Moq** library,
 which is used to mock objects in C# for unit tests. \
 
-Mock testing is about only testing one thing in isolation, forcing all other dependecies
+Mock testing is about only testing one thing in isolation, forcing all other dependencies
 of this component to work in a set way. This is achieved due to most components of the
 application making use of dependency injection, which allows for easy mocking. [@moqTutorial] \
 
@@ -160,7 +161,7 @@ clear test data. \
 ## Stress Testing
 Due to the company's need to handle the data coming from over 1000 Driveboxes at the same
 time, it was critical to ensure that the software is able to run under such circumstances.
-Simulations were done for the collission detection algorithms as well as the database which
+Simulations were done for the collision detection algorithms as well as the database which
 handled all the geofence data.
 
 
@@ -174,7 +175,7 @@ SQL commands. \
 
 After testing the pure procedures in the database alone, disregarding any other bottleneck which
 could come up due to the network, it was concluded that the Microsoft SQL Geospatial functions were
-not able to provide the efficiency needed to satisfy the Drivebox demands in scaleability, as the company
+not able to provide the efficiency needed to satisfy the Drivebox demands in scalability, as the company
 is looking to expand the pool of vehicles in the future. \
 
 ![Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.](source/figures/sqlstress2.png "Screenshot"){#fig:stress_one width=90%}
@@ -188,10 +189,10 @@ it was decided to abandon the optimization of the database based algorithm.
 
 ### ASP.NET
 To test the performance of the RESTful endpoints written in ASP.NET Core, the **Apache JMeter** tool was used,
-checking the efficency of the collision detection algorithm as well as the server's ability to run under load. \
+checking the efficiency of the collision detection algorithm as well as the server's ability to run under load. \
 
 JMeter uses Test Plans to send requests to servers, using a basic **Thread Group** to assign the number of clients
-accessing the server at the same time. Besides setting the number of simultanious threads running, developers are
+accessing the server at the same time. Besides setting the number of simultaneous threads running, developers are
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
 amount of requests each thread sends.
 
