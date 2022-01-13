@@ -169,8 +169,22 @@ The open source tool **SQLQueryStress** provides the ability to test an SQL Serv
 to operate under a constant stream of requests, achieved by making several threads execute
 SQL commands. \
 
-![Using the Stress Tool.](source/figures/sqlstress1.png "Screenshot"){#fig:stress_one width=50%}
+![Testing an algorithmic procedure on its performance under a constant load for a longer timeframe.](source/figures/sqlstress1.png "Screenshot"){#fig:stress_one width=80%}
 \  
+
+After testing the pure procedures in the database alone, disregarding any other bottleneck which
+could come up due to the network, it was concluded that the Microsoft SQL Geospatial functions were
+not able to provide the efficiency needed to satisfy the Drivebox demands in scaleability, as the company
+is looking to expand the pool of vehicles in the future. \
+
+![Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.](source/figures/sqlstress2.png "Screenshot"){#fig:stress_one width=80%}
+\  
+
+With the final and most accurate implementation of the algorithm being able to handle requests at an acceptable rate,
+it became clear that response times were rising exponentially with an increasing number of clients, which would not be
+acceptable in a scaling production environment. After tests were done using NetTopologySuite in the 
+ASP.NET Core backend, which proved to be much more efficient at handling the necessary calculations,
+it was decided to abandon the optimization of the database based algorithm.
 
 ### ASP.NET
 Lorem Ipsum
