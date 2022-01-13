@@ -66,6 +66,8 @@ such as Firefox and Google Chrome. [@xUnitIntro] \
         }
 \end{lstlisting} \
 
+\newpage
+
 ##### xUnit and MVC Testing \
 Microsoft provides the *Microsoft.AspNetCore.Mvc.Testing* package for integration testing of applications
 developed on top of ASP.NET Core, such as RESTful services. Using the **WebApplicationFactory** as well as the
