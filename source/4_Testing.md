@@ -200,28 +200,28 @@ accessing the server at the same time. Besides setting the number of simultaneou
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
 amount of requests each thread sends.
 
-![Creating a Test Group in JMeter.  ](source/figures/jmeter1.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic1]
+![Creating a Test Group in JMeter.](source/figures/jmeter1.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic1]
 \  
 
 Following that, the developer must add a **HTTP Request Defaults** object which provides JMeter with the basic
 information about the server to be tested, such as the base hostname, the port and the protocol, as well as
 parameters and body data.
 
-![Setting the base HTTP options. [@jmeterPic2] ](source/figures/jmeter2.png "Screenshot"){#fig:stress_one width=90%}
+![Setting the base HTTP options.](source/figures/jmeter2.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic2]
 \  
 
 Next, the specific **HTTP Request** details need to be specified, mainly the used HTTP Method, as well as
 the destination path, which is appended to the base host. This part should mainly take over the settings set
 in the **HTTP Request Defaults** object, but if needed, some of those can be edited.
 
-![Specifying Request options. [@jmeterPic3] ](source/figures/jmeter3.png "Screenshot"){#fig:stress_one width=90%}
+![Specifying Request options.](source/figures/jmeter3.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic3]
 \ 
 
 Finally, to display the results of the Test Plan, the developer needs to use a **Listener**. Listeners
 are mainly grouped into two categories, tables and graphs, depending on which is needed, with the
 table based reports being more detailed. [@jmeterTutorial]
 
-![Example of a graph based listener. [@jmeterPic4] ](source/figures/jmeter4.png "Screenshot"){#fig:stress_one width=90%}
+![Example of a graph based listener.](source/figures/jmeter4.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic4]
 \ 
 
 Test procedures in JMeter were designed similarly to the ones made in SQLQueryStress, with a main focus
