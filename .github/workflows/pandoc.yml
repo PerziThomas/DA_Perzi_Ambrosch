@@ -1,0 +1,37 @@
+name: DA Build Workflow
+
+on: push
+
+
+jobs:
+
+  buildDaJob:
+
+    name: Build DA job
+    runs-on: ubuntu-20.04
+    container: ghcr.io/ingokofler/pandoc4all:latest
+
+    steps:
+      - run: echo "Hello World"
+      - uses: actions/checkout@v2
+        with:
+          path: da_repo
+      - run: ls -la
+      - uses: actions/checkout@v2
+        with:
+          path: pandoc_folder
+          repository: PerziThomas/phd_thesis_markdown
+      - run: ls -la
+        working-directory: da_repo
+      - run: cp -fR ./source ../pandoc_folder
+        working-directory: da_repo
+      - run: ls -la
+        working-directory: pandoc_folder/source
+      - run: make pdf
+        working-directory: pandoc_folder
+      - name: Upload PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: DA_PDF
+          path: pandoc_folder/output/thesis.pdf
+      
