@@ -200,7 +200,7 @@ accessing the server at the same time. Besides setting the number of simultaneou
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
 amount of requests each thread sends.
 
-![Creating a Test Group in JMeter. [@jmeterPic1] ](source/figures/jmeter1.png "Screenshot"){#fig:stress_one width=90%}
+![Creating a Test Group in JMeter.  ](source/figures/jmeter1.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic1]
 \  
 
 Following that, the developer must add a **HTTP Request Defaults** object which provides JMeter with the basic
