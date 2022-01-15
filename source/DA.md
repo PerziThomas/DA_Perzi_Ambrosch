@@ -417,7 +417,8 @@ One of the biggest performance factors affecting performance of the React app ar
 
 By looking at the graph for the geofence management app, it can be seen that the _LeafletMap_ component takes significantly more time reloading than all other components and should be optimized.\
 
-[comment]: <> (Image: React_Profiler_before.png)
+![React Profiler View before implementing performance optimizations.](source/figures/React_Profiler_before.png "Screenshot"){#fig:stress_one width=90%}
+\  
 
 The map component is then wrapped in _React.memo_ to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, or some meta settings like the colour of polygons.\
 
@@ -441,7 +442,8 @@ function isEqual(prevProps, nextProps) {
 
 After making these changes, a new graph is recorded for the same actions.\
 
-[comment]: <> (Image: React_Profiler_after.png)
+![React Profiler View after implementing performance optimizations.](source/figures/React_Profiler_after.png "Screenshot"){#fig:stress_one width=90%}
+\ 
 
 The render duration of the map component has been reduced from 585.6ms to clearly below 0.5ms, where it does not show up in the ranked list of the profiler anymore.
 This also has the effect that the application now runs noticably smoother, especially when handling the map.
@@ -550,9 +552,10 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 
 - Using a light theme instead of a dark theme
 - Using shadows instead of borders for cards
-- Using blue (the ilogs brand color) for accents
+- Using blue (specifically the ilogs brand color) for accents
 
-Image [] shows the mockup before changes were made. Image [] shows the user interface with adaptations.
+![UI Mockup before adaptations for integration.](source/figures/UI_Integration_before.jpg "Screenshot"){#fig:stress_one width=90%}
+\ 
 
-[comment]: <> (image: UI_Integration_before.jpg)
-[comment]: <> (image: UI_Integration_after.jpg)
+![UI Mockup after adaptations for integration.](source/figures/UI_Integration_after.jpg "Screenshot"){#fig:stress_one width=90%}
+\ 
