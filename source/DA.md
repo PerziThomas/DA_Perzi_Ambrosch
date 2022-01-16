@@ -155,7 +155,10 @@ The frontend was developed as a stand-alone application to be later integrated i
 
 To give the user the ability to "draw" geofences directly on the map inside the application, the extension _react-leaflet-draw_ is used. This allows for a component _EditControl_ to be overwritten with custom draw controls and event handlers, which is then given to the _LeafletMap_ component.
 
-```jsx
+\begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers., label=lst:selenium]
+        [Theory]
+        [InlineData("chrome")]
+        [InlineData("firefox")]
 <EditControl
     position='topleft'
     draw={{
@@ -172,7 +175,7 @@ To give the user the ability to "draw" geofences directly on the map inside the 
     onCreated={e => _onCreated(e)}
     onEdited={e => _onEdited(e)}
 />
-```
+\end{lstlisting} \
 
 
 ### Geofence creation
