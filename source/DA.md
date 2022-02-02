@@ -3,7 +3,7 @@ title: Development of a Full-Stack Geofencing Application
 author: David Ambrosch & Thomas Perzi
 ...
 
-# I. Eidesstattliche Erklarung {-}
+# I. Eidesstattliche Erklärung {-}
 Lorem Ipsum
 
 
@@ -24,7 +24,7 @@ Lorem Ipsum
 
 
 ## Use Cases
-Lorem Impsum
+Lorem Ipsum
 
 
 # Architecture
@@ -36,7 +36,7 @@ Lorem Ipsum
 
 
 ## Technical Structure
-Lorem Impsum
+Lorem Ipsum
 
 
 # Implementation
@@ -151,7 +151,7 @@ The frontend provides full CRUD operations for geofences.
 
 It is implemented as a React Web-Interface using Leaflet and extensions to work with maps and geographical data.
 
-The frontend was developed as a stand-alone application to be later integrated into the already existing DriveBox application by ilogs.
+The frontend was developed as a stand-alone application to be later integrated into the already existing DriveBox application by the company.
 
 
 ### Interactive Map
@@ -179,11 +179,11 @@ The toolbar can also be customized with regards to what features are available. 
 #### React Leaflet Draw
 React Leaflet Draw is a node library for using Leaflet Draw features with React Leaflet. It achieves this by providing an _EditControl_ component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
 
-In the app, the event handlers by Leaflet Draw for creating and editing shapes are overwritten and used to handle things such as confirmation or persistance.
+In the app, the event handlers by Leaflet Draw for creating and editing shapes are overwritten and used to handle things such as confirmation or persistence.
 
 
 ### Geofence creation
-Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled seperately and will be discussed in chapter _Circle geofences_. All other types can be converted to and created as polygons.
+Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled separately and will be discussed in chapter _Circle geofences_. All other types can be converted to and created as polygons.
 
 Any created geofence is checked for self-intersections.\
 [@codeSelfIntersection]
@@ -206,7 +206,7 @@ If a backend error occurs, the creation process is once again aborted.
 The geometry of geofences that are drawn or loaded from the backend can be changed by the user.\
 
 The basic editing itself is provided by _leaflet-draw_. The map can be put into an edit mode, where individual points of polygons can be moved by the user. After this, the editing action can be confirmed or cancelled.\
-The confirm action _onEdit_ is overwritten to take care of confirmation and persistancy.
+The confirm action _onEdit_ is overwritten to take care of confirmation and persistence.
 
 Since multiple polygons can be edited at once, all actions need to be performed iteratively for an array of edited layers.
 
@@ -276,9 +276,9 @@ for (let elem of res.data.geoJson) {
 #### Non-editable geofences
 Circle geofences and road geofences cannot be edited, since changing individual points would be useless for these cases.
 
-To achieve this, all geofences are given a boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints.
+To achieve this, all geofences are given a Boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints.
 
-This property is then used to seperate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
+This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
 
 ```jsx
 <MapContainer ... >
@@ -308,7 +308,7 @@ This property is then used to seperate all editable from all non-editable geofen
 ```
 
 ### Circle geofences
-Circles, when created with _leaflet-draw_, have a centerpoint defined by a lat- and a lng-coordinate, and a radius. This information is sent to the backend.
+Circles, when created with _leaflet-draw_, have a centre point defined by a latitude, a longitude and a radius. This information is sent to the backend.
 
 In the backend, the circle is converted into a polygon, which can be saved to the Database. The geometry is also returned to the frontend, where it is then used to add the circle directly in the React state.
 
@@ -316,7 +316,7 @@ In the backend, the circle is converted into a polygon, which can be saved to th
 ### Road geofences
 Geofences can be created by setting waypoints, calculating a route and giving it width to make it a road.
 
-The routing function is provided by the npm package _leaflet-routing-machine_. The package calculates a route between multiple waypoints on the map using road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
+The routing function is provided by the node package _leaflet-routing-machine_. The package calculates a route between multiple waypoints on the map using road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
 
 Every time the selected route changes, it is stored in a React state variable.
 
@@ -411,7 +411,7 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-### Geofence display color
+### Geofence display colour
 Lorem Ipsum
 
 
@@ -452,13 +452,10 @@ After making these changes, a new graph is recorded for the same actions.\
 ![React Profiler View after implementing performance optimizations.](source/figures/React_Profiler_after.png "Screenshot"){#fig:stress_one width=90%}
 \ 
 
-The render duration of the map component has been reduced from 585.6ms to clearly below 0.5ms, where it does not show up in the ranked list of the profiler anymore.
-This also has the effect that the application now runs noticably smoother, especially when handling the map.
+The render duration of the map component has been reduced from 585.6 ms to clearly below 0.5 ms, where it does not show up in the ranked list of the profiler anymore.
+This also has the effect that the application now runs noticeably smoother, especially when handling the map.
 
 Similar changes are also applied to other components that cause lag or rerender unnecessarily.
-
-### Reduction of points for road geofences
-Lorem Ipsum (is acutally backend I think)
 
 
 ### Reduction of loaded geofences
@@ -498,7 +495,7 @@ The frontend should be an easily usable web-interface for managing geofences. It
 
 
 ## Requirements
-To get an overview of all needed funcionality, a basic list of use-cases was written.
+To get an overview of all needed functionality, a basic list of use-cases was written.
 
 - user login
 - user registration? (or admin dashboard)
@@ -518,7 +515,7 @@ To get an overview of all needed funcionality, a basic list of use-cases was wri
   - set default coordinates / zoom level of map? ...
 - account
 
-[comment]: <> (This is a list made when we started working, maybe it should be updated to include all current funcionality)
+[comment]: <> (This is a list made when we started working, maybe it should be updated to include all current functionality)
 
 
 ## Mockup
@@ -526,7 +523,7 @@ Lorem Ipsum
 
 
 ## Mobile compatibility
-The geofence management application would mainly be used on PCs, and sometines on tablets. Smaller devices like smartphones could therefore be neglected.
+The geofence management application would mainly be used on PCs, and sometimes on tablets. Smaller devices like smartphones could therefore be neglected.
 
 The UI consists of a map on the left and a sidebar on the right, which starts at a width of 410px, but can be dragged to any size between 410px and 120px less than the total window width.
 
@@ -555,11 +552,11 @@ Lorem Ipsum
 
 
 ## Integration into DriveBox
-Since the Geofencing app was developed to be integrated into the DriveBox application by ilogs, the look and feel of the User Interface had to be adapted. This mainly means three things:
+Since the Geofencing app was developed to be integrated into the DriveBox application by the company, the look and feel of the User Interface had to be adapted. This mainly means three things:
 
 - Using a light theme instead of a dark theme
 - Using shadows instead of borders for cards
-- Using blue (specifically the ilogs brand color) for accents
+- Using blue (specifically the company specific brand colour) for accents
 
 ![UI Mockup before adaptations for integration.](source/figures/UI_Integration_before.jpg "Screenshot"){#fig:stress_one width=90%}
 \ 
