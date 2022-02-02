@@ -336,7 +336,7 @@ A search function exists, to make it easier to find places on the map by searchi
 
 This function is provided by the package _leaflet-geosearch_, which can be easily used and was only slightly customized.
 
-A custom React component _GeoSearchField_ is used. In it, _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options. This is then added to the map in the _useEffect_ hook.
+A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options. This is then added to the map in the _useEffect_ hook.
 
 The component _GeoSearchField_ is also used inside the _LeafletMap_ in order to make the search button available on the map.
 
@@ -376,7 +376,17 @@ export default withLocalize(GeoSearchField);
 
 
 ### Geofence labels
-Lorem Ipsum
+A label is displayed for every geofence in the map to make it easier to associate a geofence with its corresponding polygon.
+
+TODO
+
+... default Method
+... display as separate react element necessary
+... tooltip precision problem
+
+#### Finding optimum label position
+... problem with complex shapes -> outside
+... custom calculation
 
 
 ### Geofence deletion
