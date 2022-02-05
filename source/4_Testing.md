@@ -134,7 +134,8 @@ instructed to execute a sequence of statement, similar to how a real user would 
 
 Firefox and Google Chrome were chosen as the testing browsers due to those two making up a large share of the
 Windows web user base. While Safari does have a higher market share than Firefox, the Selenium WebDriver for 
-it is only available for MacOS systems. 
+it is only available for MacOS systems, meaning it could not be used since the testing suite was developed
+on Microsoft Windows. 
 
 In some cases, especially when the drawing of shapes was being tested, it was not possible to reuse the same test case for both browsers, in which case individual ones had to be written, due to the way that the Firefox
 driver handles mouse movement differently than the Chrome driver.
