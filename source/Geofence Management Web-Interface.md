@@ -240,7 +240,7 @@ For this reason, labels are added manually by rendering a marker for each polygo
 Finding the best point in a polygon to display a label is not a trivial problem.\
 The easiest approach is to approximate the centroid by calculating the geometric centre of the bounds of the polygon. This works for simple shapes like rectangles and other convex polygons, but not for some more complex special cases, like for example a U-shaped polygon. In this case, the geometric centre of the bounds lies in the middle of the shape, and therefore outside the actual filled geometry.
 
-The JavaScript library _polylabel_ is used instead, which solves this problem by finding the _pole of inaccessibility_, the internal point with the greatest distance from the polygons' outline. 
+The JavaScript library _polylabel_ is used instead, which solves this problem by finding the _pole of inaccessibility_, the internal point with the greatest distance from the polygons' outline. [@polylabelIntro]
 
 
 ### Geofence deletion
