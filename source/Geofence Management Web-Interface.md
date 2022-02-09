@@ -232,7 +232,7 @@ A label is displayed for every geofence in the map to make it easier to associat
 
 Leaflet can by default display labels for polygons, however, these labels have some problems. The precision with which the position of the label is calculated seems to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centred within or completely outside its polygon. 
 
-![The two label (top left) are displayed on the same point and completely outside their corresponding polygons (bottom right).](source/figures/Label_precision_problem.png "Screenshot"){#fig:stress_one width=90%}
+![The two labels are displayed at the same point and completely outside their corresponding polygons.](source/figures/Label_precision_problem.png "Screenshot"){#fig:stress_one width=90%}
 \
 
 For this reason, labels are added manually by rendering a marker for each polygon at a calculated position within the map.
