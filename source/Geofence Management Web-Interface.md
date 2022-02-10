@@ -243,13 +243,21 @@ The easiest approach is to approximate the centroid by calculating the geometric
 
 The JavaScript library _polylabel_ is used instead, which solves this problem by finding the _pole of inaccessibility_, the internal point with the greatest distance from the polygons' outline. [@polylabelIntro]
 
+[comment]: <> (Add example image with U-shape)
+
 
 ### Geofence deletion
-Lorem Ipsum
+All geofences, whether they were created by drawing, route creation or from a system geofence, can be deleted via the User Interface. 
 
+The geofence is first deleted from the database by sending a request to the DELETE endpoint _/geoFences/${id}_ of the backend. In case of a success, the geofence is also deleted from the React state to avoid having to re-fetch all geofences.
 
-### Geofence update history
-Lorem Ipsum
+### Geofence edit history
+It was initially planned to display a list of all changes made to a geofence made to a geofence, containing the username of the editor and a timestamp.\
+This was later changed to just a timestamp after the company changed some demands regarding how the login and user management would work.
+
+In the backend, a timestamp is added every time a geofence is created or an updated.
+
+The edit history is accessed in the frontend when the geoFences are fetched from the server, and is then filtered and passed to the corresponding geofence list item to be displayed in an info card.
 
 
 ### Geofence visibility
