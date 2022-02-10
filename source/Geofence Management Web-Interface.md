@@ -269,7 +269,8 @@ Lorem Ipsum
 
 
 ### Geofence renaming
-Lorem Ipsum
+Any geofence can be renamed in the Web-Interface.\
+The user is shown a text dialog to enter a title. A request with this new title is then sent to the PATCH endpoint _/geoFences/${id}_ of the backend, where the database entry is updated. In case of a success, the title is also changed in the React state directly.
 
 
 ### Geofence metadata
