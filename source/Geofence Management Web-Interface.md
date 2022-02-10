@@ -261,7 +261,24 @@ The edit history is accessed in the frontend when the geoFences are fetched from
 
 
 ### Geofence visibility
-Lorem Ipsum
+Specific geofences can be hidden from the map to make it visually clearer.
+
+For any geofence with a tag _hidden_ set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon and therefore improving frontend performance when geofences with large numbers of points are hidden.
+
+
+#### Storing geofence visibilities
+The information on which geofences are hidden is stored for the convenience of the user. Since most geofences that are hidden can be assumed to stay hidden for the majority of the time, like system geofences, geofences with a large number of points or generally rarely used ones, this is done with _localStorage_, meaning that, contrary to _sessionStorage_, the information is stored not just on page reloads, but in entirely new sessions.
+
+```jsx
+let obj = {...visibilityObj};
+
+newGeoFences.forEach(e => {
+    obj[`id_${e.geoFence.ID}`] = e.geoFence.Hidden || false;
+});
+
+setVisibilityObj(obj);
+localStorage.setItem("visibility", JSON.stringify(obj));
+```
 
 
 ### Geofence highlighting
