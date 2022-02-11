@@ -55,7 +55,9 @@ If a backend error occurs, the creation process is once again aborted.
 
 
 ### Generation of geofences from presets
-Lorem Ipsum TODO
+Geofences can be created from a list of presets, which allows the user to use more complex geofences, like countries or states, without significant drawing effort.
+
+The available presets with their geometry are stored in the Database. A POST request is sent to the endpoint _/geoFences/createPreset?preset=${id}_ of the backend. This creates a new geofence in the Database with a copy of the preset's geometry. The geometry is also sent back to the frontend in the response, where the new geofence can be added directly in the React state.
 
 
 ### Geofence editing
