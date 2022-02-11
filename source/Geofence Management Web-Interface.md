@@ -237,6 +237,7 @@ Leaflet can by default display labels for polygons, however, these labels have s
 
 For this reason, labels are added manually by rendering a marker for each polygon at a calculated position within the map.
 
+
 #### Finding optimum label position
 Finding the best point in a polygon to display a label is not a trivial problem.\
 The easiest approach is to approximate the centroid by calculating the geometric centre of the bounds of the polygon. This works for simple shapes like rectangles and other convex polygons, but not for some more complex special cases, like for example a U-shaped polygon. In this case, the geometric centre of the bounds lies in the middle of the shape, and therefore outside the actual filled geometry.
@@ -246,10 +247,24 @@ The JavaScript library _polylabel_ is used instead, which solves this problem by
 [comment]: <> (Add example image with U-shape)
 
 
+#### Dynamic label size
+The size of the geofence labels changes depending on the current zoom level of the map, getting smaller as the user zooms out further, and is hidden for any zoom level smaller than or equal to 6.
+
+This dynamic sizing is achieved by using a CSS class selector that includes the current zoom level to select the corresponding option from the CSS classes _zoom6_ to _zoom13_.
+
+```jsx
+return L.divIcon({
+    className: "",
+    html: `<div class="tooltipMarker ${"zoom" + (zoomLevel > 6 ? zoomLevel : 6)}">${title}</div>`,
+});
+```
+
+
 ### Geofence deletion
 All geofences, whether they were created by drawing, route creation or from a system geofence, can be deleted via the User Interface. 
 
 The geofence is first deleted from the database by sending a request to the DELETE endpoint _/geoFences/${id}_ of the backend. In case of a success, the geofence is also deleted from the React state to avoid having to re-fetch all geofences.
+
 
 ### Geofence edit history
 It was initially planned to display a list of all changes made to a geofence made to a geofence, containing the username of the editor and a timestamp.\
@@ -303,5 +318,9 @@ Lorem Ipsum
 
 
 ### Geofence display colour
-Lorem Ipsum
+The user can select from a variety of display colours for the geofences on the map, for better contrast and visibility or for personal preference. This is a global setting, meaning that the colour can be changed for all geofences at once. It is not possible to set different colours for individual geofences.
+
+The currently selected colour is stored in a React state variable and used when drawing the Polygons on the map.
+
+A highlighted geofence is always coloured green, overriding the global display colour.
 
