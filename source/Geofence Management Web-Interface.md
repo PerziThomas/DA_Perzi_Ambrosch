@@ -322,6 +322,19 @@ The user is shown a text dialog to enter a title. A request with this new title 
 
 
 ### Geofence metadata
+While working on the app, the company decided to market the app to smaller districts and specifically, to be used for tracking road maintenance and snow clearing vehicles, which would make it necessary to store additional data for a geofence, like the workers tasked with clearing it.
+
+A metadata system was added, which allows for different metadata categories in which data entries can be added in the form of a collection of strings.\
+The app contains two categories, _Workers_ and _Others_, which are hardcoded in both the frontend and backend, since the company did not see the necessity to have a dynamic system for this.
+
+Metadata can be viewed and edited in a dialog window for each geofence. Selecting one of the categories shows all entries for that geofence in that category. New entries can also be created in this category, and existing entries can be deleted. The ability to edit entries is deliberately omitted because they are strings and usually very short, making it just as easy to delete and re-enter incorrect metadata.
+
+All geofence metadata is stored in an array separate from the geofences themselves, and is fetched from the GET endpoint _/GeoFenceMetadata_ on application start or reload. The data is filtered by _id_ of the geofence for display in the dialog.
+
+On adding a new entry, a POST request is sent to the _/GeoFenceMetadata_ endpoint, which in case of a success returns the _id_ of the new database object, which can be sent to the DELETE endpoint, enabling an entry to be deleted from the database directly after creation without the need to re-fetch the data.
+
+
+#### Metadata search
 Lorem Ipsum
 
 
@@ -338,8 +351,8 @@ The user can select from a variety of display colours for the geofences on the m
 
 The currently selected colour is stored in a React state variable and used when drawing the Polygons on the map.
 
-A highlighted geofence is always coloured green, overriding the global display colour.
+Highlighted geofences are always coloured green, overriding the global display colour.
 
 
 ### Bulk operations
-
+Lorem Ipsum
