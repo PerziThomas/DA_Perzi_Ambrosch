@@ -54,6 +54,10 @@ If the backend returns a success, the geofence is added directly into the collec
 If a backend error occurs, the creation process is once again aborted.
 
 
+### Generation of geofences from presets
+Lorem Ipsum TODO
+
+
 ### Geofence editing
 The geometry of geofences that are drawn or loaded from the backend can be changed by the user.\
 
@@ -66,6 +70,7 @@ Each geofence is converted to a JSON object and send to the PATCH endpoint _/geo
 
 In case of a backend error, since the Leaflet map has already saved the changes to the polygons, the window has to be reloaded to restore the correct state of all geofences before editing.
 
+
 #### Single edit functionality
 It was considered to have only one geofence be editable at a time.\
 This would have performance benefits, since a smaller number of draggable markers for editable geometry would be rendered at once.
@@ -73,6 +78,7 @@ This would have performance benefits, since a smaller number of draggable marker
 This functionality would be achieved by storing an _editable_ flag for that geofence, and then only rendering geofences that have this flag inside the _FeatureGroup_.
 
 This feature did not work as intended, since the _Leaflet_ map did not rerender correctly. Also, the performance benefit became less of a priority after implementing pagination.
+
 
 #### Making loaded geofences editable
 To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), all geofences are stored in a collection, which is then used to render all editable geometry inside a _FeatureGroup_ of the map.
@@ -124,6 +130,7 @@ for (let elem of res.data.geoJson) {
     })}
 </FeatureGroup>
 ```
+
 
 #### Non-editable geofences
 Circle geofences and road geofences cannot be edited, since changing individual points would be useless for these cases.
@@ -278,7 +285,7 @@ The edit history is accessed in the frontend when the geoFences are fetched from
 ### Geofence visibility
 Specific geofences can be hidden from the map to make it visually clearer.
 
-For any geofence with a tag _hidden_ set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon and therefore improving frontend performance when geofences with large numbers of points are hidden.
+For any geofence with a Boolean tag _Hidden_ set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon and therefore improving frontend performance when geofences with large numbers of points are hidden.
 
 
 #### Storing geofence visibilities
@@ -297,7 +304,14 @@ localStorage.setItem("visibility", JSON.stringify(obj));
 
 
 ### Geofence highlighting
-Lorem Ipsum
+Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight colour (green).
+
+The map movement is done by using the _Leaflet_ function _map.flyToBounds_, which changes the map's centre and zoom level with a smooth animation to fit the bounds of given geometry. [@leafletDocumentation]
+
+A Boolean tag _Highlighted_ is stored for every geofence.\
+If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.\
+If a hidden geofence is highlighted, it is also unhidden.\
+If a highlighted geofence is hidden, it is also set to not be highlighted.
 
 
 ### Geofence renaming
@@ -323,4 +337,7 @@ The user can select from a variety of display colours for the geofences on the m
 The currently selected colour is stored in a React state variable and used when drawing the Polygons on the map.
 
 A highlighted geofence is always coloured green, overriding the global display colour.
+
+
+### Bulk operations
 
