@@ -42,5 +42,9 @@ Similar changes are also applied to other components that cause lag or rerender 
 
 
 ### Reduction of loaded geofences
-Lorem Ipsum
+Lorem Ipsum (pagination)
+
+
+### Reduction of backend calls
+geofence locks move up to home to avoid polling
 

@@ -359,13 +359,20 @@ On adding a new entry, a POST request is sent to the _/GeoFenceMetadata_ endpoin
 #### Metadata search
 The app includes a search bar, to filter geofences based on their metadata entries, which consists of a selection of the metadata category and a text field to enter a search string.
 
-When the search button is pressed, a GET request is sent to the backend containing the category as well as the search term, to the endpoint _/geoFences/search?searchTerm=${searchTerm}&metadataCategory=${category}_, which returns a collection of all geofences that fit the search.\
+When the search button is pressed, a GET request is sent to the backend containing the category as well as the search term, to the endpoint _/geoFences/search?searchTerm=\${searchTerm}&metadataCategory=${category}_, which returns a collection of all geofences that fit the search.\
 The React state is then updated to include the returned geofences, and only these geofences are shown in the user interface.
 
 
 ### Geofence locking
-Lorem Ipsum
+One of the main use cases of the app is for theft protection. An object (a car or machine) can be tracked with the _DriveBox_, and if it leaves a geofence, an alarm can be sent out. For this feature, there is also the option to lock geofences on certain days of the week, so that for example no alarm is triggered on the weekend.
 
+In the app, every geofence has a button for each weekday, which shows the current state and allows the user to toggle the lock on or off. When one of these buttons is pressed, a GET request is sent to the endpoint _/geoFences/${id}/${weekday}/2_, including the _id_ of the geofence, the weekday and the locking method, with the following options:
+
+- 0: lock
+- 1: unlock
+- 2: toggle locking
+
+All geofence locks are fetched on app start or reload from the GET endpoint _/geoFences/timelocks_, which returns a map object containing all geofences that have locks, each with a list of all weekdays that are locked. This map is stored in the React state separate from the geofence and metadata collections.
 
 ### Pagination
 Lorem Ipsum
