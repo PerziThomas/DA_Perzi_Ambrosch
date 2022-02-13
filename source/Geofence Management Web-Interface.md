@@ -375,7 +375,11 @@ In the app, every geofence has a button for each weekday, which shows the curren
 All geofence locks are fetched on app start or reload from the GET endpoint _/geoFences/timelocks_, which returns a map object containing all geofences that have locks, each with a list of all weekdays that are locked. This map is stored in the React state separate from the geofence and metadata collections.
 
 ### Pagination
-Lorem Ipsum
+The geofence list in the app includes a pagination feature, to reduce the number of loaded geofences for performance improvement, and to make the user experience clearer by showing less elements at once. The feature includes buttons to go to the next and previous as well as to the first and last page, an input to go to a specific page requested by number, and the option to set the number of elements that should be displayed on every page.
+
+The currently selected page and page size are stored in React state and in a site cookie, so the user can stay on the same page when reloading. When a new page is requested by pressing a button or entering a page number, or when the page size is changed, a GET request is sent to the endpoint _/geoFences?size=\${size}&page=${page}_, which returns a collection of geofences corresponding to the page number of the given page size, and the total page count, which is used in the frontend for display and for checking if a next or specific page can be requested.
+
+The task of determining what geofences should be returned in which page is handled by the backend, eliminating the need to have all geofences available in the frontend, and therefore improving frontend performance.
 
 
 ### Geofence display colour
@@ -383,7 +387,7 @@ The user can select from a variety of display colours for the geofences on the m
 
 The currently selected colour is stored in a React state variable and used when drawing the Polygons on the map.
 
-Highlighted geofences are always coloured green, overriding the global display colour.
+Highlighted geofences are always coloured green, overriding the global geofence display colour.
 
 
 ### Bulk operations
