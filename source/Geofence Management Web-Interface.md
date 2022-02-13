@@ -292,7 +292,7 @@ return L.divIcon({
 
 
 ### Geofence deletion
-All geofences, whether they were created by drawing, route creation or from a system geofence, can be deleted via the User Interface. 
+All geofences, whether they were created by drawing, route creation or from a system geofence, can be deleted via the user interface. 
 
 The geofence is first deleted from the database by sending a request to the DELETE endpoint _/geoFences/${id}_ of the backend. In case of a success, the geofence is also deleted from the React state to avoid having to re-fetch all geofences.
 
@@ -357,7 +357,10 @@ On adding a new entry, a POST request is sent to the _/GeoFenceMetadata_ endpoin
 
 
 #### Metadata search
-Lorem Ipsum
+The app includes a search bar, to filter geofences based on their metadata entries, which consists of a selection of the metadata category and a text field to enter a search string.
+
+When the search button is pressed, a GET request is sent to the backend containing the category as well as the search term, to the endpoint _/geoFences/search?searchTerm=${searchTerm}&metadataCategory=${category}_, which returns a collection of all geofences that fit the search.\
+The React state is then updated to include the returned geofences, and only these geofences are shown in the user interface.
 
 
 ### Geofence locking
