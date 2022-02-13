@@ -391,4 +391,51 @@ Highlighted geofences are always coloured green, overriding the global geofence 
 
 
 ### Bulk operations
-Lorem Ipsum
+The app includes the option to perform certain actions for multiple geofences at once, including locking actions and geofence deletion. Backend requests are sent for each selected geofence individually, which is not problematic in terms of performance, but allows further room for improvement, for example by implementing a special endpoint for bulk operations to be handled by the backend.
+
+
+#### Selection checkboxes
+To allow the user to select geofences for which the bulk operations should be performed, a checkbox is added to each geofence in the list. An array of all currently selected geofences' ids is stored in React state, and if a geofence is selected or deselected, its id is pushed into this array or removed from it.
+
+Because the checkboxes are part of custom list elements, a select-all-checkbox also has to be added manually. The current _selectAllState_ (NONE, SOME or ALL) is determined after every clickEvent on a checkbox by counting the number of selected geofences, and is used to show an unchecked, indeterminate or checked select-all-checkbox respectively. This checkbox can also be clicked itself to select all loaded geofences if none are selected, or to deselect all if some or all are selected.
+
+```jsx
+<Checkbox
+    id="cb_all"
+    style={{ color: buttonColors.bright }}
+    indeterminate={selectAllState === selectionState.SOME}
+    checked={selectAllState !== selectionState.NONE}
+    onChange={() => onSelectAllChanged()}
+></Checkbox>
+```
+
+
+#### Bulk locking
+Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_.
+
+If the action should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
+
+```jsx
+function lockActionMulti(weekday, lockMethod) {
+    let weekdaysToLock = [];
+    if (weekday === -1)
+        weekdaysToLock = [1, 2, 3, 4, 5, 6, 0];
+    else
+        weekdaysToLock = [weekday];
+
+    let newGeoFenceLocks = geoFenceLocks;
+    for (let currentDayToLock of weekdaysToLock) {
+        for (let id of selection) {
+            switch (lockMethod) {
+                case 0: lockDay(newGeoFenceLocks, id, currentDayToLock);     break;
+                case 1: unlockDay(newGeoFenceLocks, id, currentDayToLock);   break;
+                case 2: toggleDay(newGeoFenceLocks, id, currentDayToLock);   break;
+                default: return;
+            }
+
+            callBackendLocking(id, weekday, lockMethod);
+        }
+    }
+    setGeoFenceLocks({...newGeoFenceLocks});
+}
+```
