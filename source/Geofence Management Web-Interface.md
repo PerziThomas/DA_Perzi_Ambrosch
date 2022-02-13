@@ -239,21 +239,43 @@ export default withLocalize(GeoSearchField);
 ### Geofence labels
 A label is displayed for every geofence in the map to make it easier to associate a geofence with its corresponding polygon.
 
-Leaflet can by default display labels for polygons, however, these labels have some problems. The precision with which the position of the label is calculated seems to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centred within or completely outside its polygon. 
+Leaflet can display labels for polygons, however, these default labels have some problems.\
+The precision with which the position of the label is calculated seems to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centred within or completely outside its polygon. 
 
 ![Labels (top left) are displayed at the same point outside their corresponding polygons (bottom right).](source/figures/Label_precision_problem.png "Screenshot"){#fig:stress_one width=90%}
 \ 
 
-For this reason, labels are added manually by rendering a marker for each polygon at a calculated position within the map.
+This problem can be solved by starting at a higher initial zoom level, but to keep flexibility in this regard, labels are added manually by rendering a marker on the map for each polygon at a calculated position.
 
 
 #### Finding optimum label position
-Finding the best point in a polygon to display a label is not a trivial problem.\
-The easiest approach is to approximate the centroid by calculating the geometric centre of the bounds of the polygon. This works for simple shapes like rectangles and other convex polygons, but not for some more complex special cases, like for example a U-shaped polygon. In this case, the geometric centre of the bounds lies in the middle of the shape, and therefore outside the actual filled geometry.
+Since the default labels were replaced with custom markers, the position of these relative to the rectangle has to be calculated manually. There are several ways in which this can be done, which will be described in detail.
 
-The JavaScript library _polylabel_ is used instead, which solves this problem by finding the _pole of inaccessibility_, the internal point with the greatest distance from the polygons' outline. [@polylabelIntro]
+
+##### Average of points
+The label position can be calculated by taking an average of the coordinates of all points of the polygon. This is a good approximation for simple, convex shapes with evenly distributed points.
+
+If points are distributed unevenly, meaning there is more detail on one side than the other, the average will shift to that side, and the calculated point will not appear centred anymore.
+
+This approach can also lead to problems with concave geometry, like for example a U-shaped polygon. The calculated centre lies in the middle of the shape, which in this case is not part of the polygon, causing the label to appear outside the geometry.
 
 [comment]: <> (Add example image with U-shape)
+
+
+##### Center of bounding box
+The label can be placed at the centre of the bounding box of the polygon, which can easily be done by using basic leaflet methods.
+
+```jsx
+polygon.getBounds().getCenter()
+```
+
+This approach solves the problem with unevenly distributed points, because the centre is always calculated from a rectangle with exactly four points. However, it is not a solution for concave polygons like the U-shape described above.
+
+
+##### Pole of inaccessibility
+The node package _polylabel_ uses an algorithm to calculate a polygon's _pole of inaccessibility_, defined as "the most distant internal point from the polygon outline". [@polylabelIntro]
+
+This approach solves the problem with concave shapes, because the calculated point always lies inside the polygon, and for this reason, it was used to calculate the label positions in the app.
 
 
 #### Dynamic label size
@@ -310,10 +332,10 @@ Any geofence can be highlighted, setting the map view to show it, as well as cha
 
 The map movement is done by using the _Leaflet_ function _map.flyToBounds_, which changes the map's centre and zoom level with a smooth animation to fit the bounds of given geometry. [@leafletDocumentation]
 
-A Boolean tag _Highlighted_ is stored for every geofence.\
-If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.\
-If a hidden geofence is highlighted, it is also unhidden.\
-If a highlighted geofence is hidden, it is also set to not be highlighted.
+A Boolean tag _Highlighted_ is stored for every geofence. Some special cases have to be considered in combination with the _Geofence visibility_ feature:\
+- If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.
+- If a hidden geofence is highlighted, it is also unhidden.
+- If a highlighted geofence is hidden, it is also set to not be highlighted.
 
 
 ### Geofence renaming
