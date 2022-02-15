@@ -259,7 +259,8 @@ If points are distributed unevenly, meaning there is more detail on one side tha
 
 This approach can also lead to problems with concave geometry, like for example a U-shaped polygon. The calculated centre lies in the middle of the shape, which in this case is not part of the polygon, causing the label to appear outside the geometry.
 
-[comment]: <> (Add example image with U-shape)
+![Geofence label is displayed outside the concave polygon's geometry](source/figures/Label_outside_concave_geometry.png "Screenshot"){#fig:stress_one width=90%}
+\ 
 
 
 ##### Center of bounding box
@@ -276,6 +277,9 @@ This approach solves the problem with unevenly distributed points, because the c
 The node package _polylabel_ uses an algorithm to calculate a polygon's _pole of inaccessibility_, defined as "the most distant internal point from the polygon outline". [@polylabelIntro]
 
 This approach solves the problem with concave shapes, because the calculated point always lies inside the polygon, and for this reason, it was used to calculate the label positions in the app.
+
+![Geofence label placed at the pole of inaccessibility](source/figures/Label_pole_of_inaccessibility.png "Screenshot"){#fig:stress_one width=90%}
+\ 
 
 
 #### Dynamic label size
