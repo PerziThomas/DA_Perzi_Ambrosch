@@ -62,7 +62,7 @@ A geofence hiding feature, as described in chapter _Geofence visibility_, also m
 
 
 ### Reduction of editable geometries
-While the edit mode provided by _leaflet-draw_ is enabled in the _leaflet_ map, all editable polygons are shown with draggable edit markers for each point of their geometry. These edit markers, when present in large quantities, cause considerably lag when edit mode is enabled. To improve this, the number of geofences that are shown in edit mode is reduced as described in chapter _Non-editable geofences_.
+While the edit mode provided by _leaflet-draw_ is enabled in the _leaflet_ map, all editable polygons are shown with draggable edit markers for each point of their geometry. These edit markers, when present in large quantities, cause considerably lag when edit mode is enabled. To improve this, certain geofences are marked as non-editable and are not shown in the map's edit mode, as described in chapter _Non-editable geofences_.
 
 
 ### Reduction of backend calls
