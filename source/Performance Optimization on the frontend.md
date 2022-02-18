@@ -17,7 +17,7 @@ After navigating to the _Profiler_ tab in the browser's Developer Tools, a recor
 The recorded data can be viewed in different graphical representations, including the render durations of each individual element. When testing performance for this app, mostly the _Ranked Chart_ was used, because it is ordered by the time taken to rerender for each component and gives the developer a quick overview where improvements need to be made.
 
 
-#### Reduction of unnecessary rerenders
+#### Avoiding unnecessary rerenders
 By looking at a graph of the geofence management app recorded with the _Profiler_, it can be seen that the _LeafletMap_ component takes significantly more time to rerender than all other components and should therefore be optimized.\
 
 ![React Profiler View before implementing performance optimizations.](source/figures/React_Profiler_before.png "Screenshot"){#fig:stress_one width=90%}
@@ -54,7 +54,15 @@ Similar changes are also applied to other components that cause lag or rerender 
 
 
 ### Reduction of loaded geofences
-Lorem Ipsum (pagination)
+During testing of the app, it became clear that frontend performance is connected to the number of geofences that are loaded at any given point in time. This effect was magnified when multiple geofences with high point counts, like state presets or road geofences, were displayed at once. This appears to be a limitation inherent to the _leaflet_ map that cannot be fixed in itself. Instead, the user of the app is given the option to have less geofences shown on the map at once.
+
+A pagination feature, as described in chapter _Pagination_, splits the total collection of geofences and only displays a portion in the frontend list and map. The feature also allows the user to change the number of geofences to be displayed per page, which can be chosen higher if performance allows it or lower if otherwise.
+
+A geofence hiding feature, as described in chapter _Geofence visibility_, also makes it possible to hide specific geofences from the map, which cleans up the view for the user, but can also improve performance by not rendering particularly complex geofences.
+
+
+### Reduction of editable geometries
+While the edit mode provided by _leaflet-draw_ is enabled in the _leaflet_ map, all editable polygons are shown with draggable edit markers for each point of their geometry. These edit markers, when present in large quantities, cause considerably lag when edit mode is enabled. To improve this, the number of geofences that are shown in edit mode is reduced as described in chapter _Non-editable geofences_.
 
 
 ### Reduction of backend calls
