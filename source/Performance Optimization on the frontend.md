@@ -76,6 +76,8 @@ The reason was that the locks for each geofence were stored in the React state o
 To solve this problem, a polling mechanism was implemented, where the _GeoFenceListItems_ repeatedly call the backend after a fixed interval of time. Any updates that happen in the backend are now displayed in the frontend, but can be delayed depending on the interval set for polling.\
 Performance is notably affected by this approach, due to the high number of network calls, even when no locking data has changed.
 
-##### Lifting state up
+
+#### Lifting state up
 While there are workarounds to force a child component to rerender from its parent [@reactForceChildRerender], in this case, it is more elegant to __lift the state__ of the geofence locks from the _GeoFenceListItems_ to a parent component like _GeoFenceList_ or even _Home_.\
 Now, when the state changes in the parent component, for example through _geofence bulk locking operations_, all child components are automatically updated by React and the the changes to geofence locks can be seen immediately. [@reactLiftingStateUp]
+
