@@ -142,7 +142,7 @@ To achieve this, all geofences are given a Boolean property _isNotEditable_, whi
 This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
 
 ```jsx
-<MapContainer ... >
+<MapContainer [TODO: code abbreviations?] ... >
     ...
     {/*display non-editable geofences (circles or roads)*/}
     {[...geoFences.keys()].filter(id => {
