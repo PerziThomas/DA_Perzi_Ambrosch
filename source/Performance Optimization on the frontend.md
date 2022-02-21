@@ -53,7 +53,7 @@ function isEqual(prevProps, nextProps) {
 
 After making these changes, a new graph is recorded for the same actions.\
 The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore.
-This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom is changed.
+This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
 
 ![React Profiler View after implementing performance optimizations.](source/figures/React_Profiler_after.png "Screenshot"){#fig:stress_one width=90%}
 \ 
@@ -62,7 +62,7 @@ Similar changes are also applied to other components that cause lag or rerender 
 
 
 ### Reduction of loaded geofences
-During testing of the app, it became clear that frontend performance is connected to the number of geofences that are loaded at any given point in time. This effect was magnified when multiple geofences with high point counts, like state presets or road geofences, were displayed at once. This appears to be a limitation inherent to the _leaflet_ map that cannot be fixed in itself. Instead, the user of the app is given the option to have less geofences shown on the map at once.
+During manual testing of the app, it became clear that frontend performance is connected to the number of geofences that are loaded at any given point in time. This effect was magnified when multiple geofences with high point counts, like state presets or road geofences, were displayed at once. This appears to be a limitation inherent to the _leaflet_ map that cannot be fixed in itself. Instead, the user of the app is given the option to have less geofences shown on the map at once.
 
 A pagination feature, as described in chapter [TODO: link/number] _Pagination_, splits the total collection of geofences and only displays a portion in the frontend list and map. The feature also allows the user to change the number of geofences to be displayed per page, which can be chosen higher if performance allows it or lower if otherwise.
 
@@ -86,6 +86,6 @@ Performance is notably affected by this approach, due to the high number of netw
 
 
 #### Lifting state up
-While there are workarounds to force a child component to rerender from its parent [@reactForceChildRerender], in this case, it is more elegant to __lift the state__ of the geofence locks from the _GeoFenceListItems_ to a parent component like _GeoFenceList_ or even _Home_.\
+While there are workarounds to force a child component to rerender from its parent [@reactForceChildRerender], in this case, it is more elegant to __lift the state__ of the geofence locks from the _GeoFenceListItems_ to a parent component like _GeoFenceList_ or _Home_.\
 Now, when the state changes in the parent component, for example through _geofence bulk locking operations_, all child components are automatically updated by React and the changes to geofence locks can be seen immediately. [@reactLiftingStateUp]
 
