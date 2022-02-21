@@ -1,5 +1,13 @@
 ## Performance optimization on the frontend
-Lorem Ipsum
+This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as and the changes made to the application to fix those issues.
+
+Optimizing the performance of the frontend can have several positive effects, including, but not limited to
+- improving usability by decreasing response times.
+- minimizing lag and making the UI more responsive.
+- allowing the app to run on less powerful devices.
+- reducing load on the network by reduction of backend calls.
+
+Hereafter, some particular solutions that are used in the geofence web-interface are described in greater detail.
 
 
 ### Reduction of component rerenders
