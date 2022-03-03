@@ -94,7 +94,7 @@ For a service to be considered RESTful, it must fulfil six criteria:
 6. Code on demand 
    : Optionally, code can be download to extend a clients functionality. 
 
-A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format.
+A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format. [@restful]
 
 ### Controllers
 Using ASP.NET Core's controller classes the creation of high level routing of HTTP-Requests, the web service is divided into three main components.
