@@ -108,7 +108,7 @@ Using ASP.NET Core's controller classes the creation of high level routing of HT
 
 Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready to use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body. 
 
-\begin{lstlisting}[caption=A sample delete endpoint, using a MVC approach to separate concerns., label=lst:restctrl, language={[Sharp]C}]
+\begin{lstlisting}[caption=A sample delete endpoint using a MVC approach to separate concerns., label=lst:restctrl, language={[Sharp]C}]
         [HttpDelete]
         [Route("{idGeoFence}")]
         public IActionResult DeleteGeofence(int idGeoFence)
