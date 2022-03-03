@@ -96,6 +96,28 @@ For a service to be considered RESTful, it must fulfil six criteria:
 
 A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format.
 
+### Controllers
+Using ASP.NET Core's controller classes the creation of high level routing of HTTP-Requests, the web service is divided into three main components.
+
+1. Geofences
+   : General interaction with geofence objects, providing actions such as adding, deleting, modifying and reading them (CRUD). Furthermore, options to lock geofences on certain days of the week are also provided.
+2. TimePoints
+    : Used to analyze trips either in real time or after the completion of one.
+3. Geofence Metadata
+    : Lorem Ipsum
+
+Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready to use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body. 
+
+\begin{lstlisting}[caption=A sample delete endpoint, using a MVC approach to separate concerns., label=lst:restctrl, language={[Sharp]C}]
+        [HttpDelete]
+        [Route("{idGeoFence}")]
+        public IActionResult DeleteGeofence(int idGeoFence)
+        {
+            databaseManager.DeleteGeofence(idGeoFence);
+            return StatusCode(204);
+        }
+\end{lstlisting} \
+
 
 
 ## Calculation Algorithm for intersections
