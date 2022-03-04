@@ -165,8 +165,9 @@ To avoid unnecessary with polygons that are outside of a points scope, at first 
 Afterwards, the only other requirement was to compare the collections and determine which polygons are being entered, left or stayed in. The webservice then returns a collection of all affected polygons with information about which event is happening currently. The processing of this information is handled by the main Drivebox server.
 
 ### Route based
-Lorem Ipsum
+Businesses are also interested in analysis of the trips their vehicles take. To achieve this, the webservice needs to process a trip sent to it by the main Drivebox server, and return a collection of all polygons it enters and leaves, as well as the associated timestamps. 
 
+The web service receives a list of coordinates from the Drivebox server, and processes those into a **LineString** object for easier calculation of intersections. To minify the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
 
 ## Polygon Creating
 Lorem Ipsum
