@@ -149,8 +149,20 @@ Using these methods either required doing all calculations inside the database, 
 To calculate intersections on the webserver, a third party library was needed. **NETTopologySuite** was picked, as it provides the same functionality as spatial data package. Additionally, due to the initial higher speed of C#, it was picked for the needed calculations. (See NETTopologySuite chapter)
 
 ### Point based
-Lorem Ipsum
+To notify businesses of their vehicles leaving a certain area defined by a geofence, the system needed the ability to work and calculate intersections in real-time. To achieve this, a specification was chosen to receive the last two points from the main Drivebox server, and calculate which polygons these points are interacting with. Practically, this could be done using three calculations.
 
+To avoid unnecessary with polygons that are outside of a points scope, at first all polygons are filtered by the conditions if a point is inside them.
+
+\begin{lstlisting}[caption=Filter polygons., label=lst:polyfilter, language={[Sharp]C}]
+         List<PolygonData> geoFencesPointOne = _databaseManager
+            .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
+            .Where(p => p.Polygon.Contains(p1)).ToList(); //Get all polygons point 1 is in
+         List<PolygonData> geoFencesPointTwo = _databaseManager
+            .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
+            .Where(p => p.Polygon.Contains(p2)).ToList(); // Do the same for point 2
+\end{lstlisting} \
+
+Afterwards, the only other requirement was to compare the collections and determine which polygons are being entered, left or stayed in. The webservice then returns a collection of all affected polygons with information about which event is happening currently. The processing of this information is handled by the main Drivebox server.
 
 ### Route based
 Lorem Ipsum
