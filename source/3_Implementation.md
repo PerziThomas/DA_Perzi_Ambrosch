@@ -169,6 +169,17 @@ Businesses are also interested in analysis of the trips their vehicles take. To 
 
 The web service receives a list of coordinates from the Drivebox server, and processes those into a **LineString** object for easier calculation of intersections. To minify the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
 
+Next, a new LineString object is built, including a representation of the initial LineStrings part inside the polygon. This is done for each polygon, and in cases in which a line string leaves and enters a polygon multiple times, it is converted in a MultiLineString and processed in a special way, otherwise it can be added to the intersection collection.
+If a MultiLineString is simple, it has no intersection points with itself. If this holds true, then it can be simply be split into multiple LineStrings and added to the list of intersections, otherwise it needs to be processed in a special way.
+
+To analyze a non simple MultiLineString, a list of intersection points of the MultiLineString and the outside bounds of a polygon is created. Next, the MultiLineString is split into points as well, and each point is associated with the nearest point on the bounding of the polygon. This way, an accurate approximation of the crossing points can be found.
+
+As a final step, each intersection is processed and modified with information if it enters or leaves a polygon, and when this happened, calculated by using the two coordinates with timestamp happening immediately after an event occurs. Using the distance between these points and the intersection point an approximate crossing time can also be interpolated. Entry and leave events are associated with each other and returned as a collection.
+
+![Processing of a trip as an UML Activity Diagram.](source/figures/acdia_trips.png "Screenshot"){#fig:dia_trips width=90%}
+\  
+
+
 ## Polygon Creating
 Lorem Ipsum
 
