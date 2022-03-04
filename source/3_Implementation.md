@@ -179,10 +179,53 @@ As a final step, each intersection is processed and modified with information if
 ![Processing of a trip as an UML Activity Diagram.](source/figures/acdia_trips.png "Screenshot"){#fig:dia_trips width=90%}
 \  
 
-
 ## Polygon Creating
-Lorem Ipsum
+To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different way to process the data received from the frontend.
 
+To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a **SqlServerBytesWriter** object to serialize the object.
+
+\begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
+         public byte[] ConvertGeometryToBytes(Geometry geometry)
+         {
+            SqlServerBytesWriter writer = new SqlServerBytesWriter();
+            byte[] bytes = writer.Write(geometry);
+            return bytes;
+         }
+\end{lstlisting} \
+
+### Polygons
+Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinated provided in the input GeoJSON file and creating a **Polygon** with the use of a **GeometryFactoryEX** object, provided by NETTopologySuite. 
+
+\begin{lstlisting}[caption=Building a Polygon which can be saved in the Database., label=lst:polyfilter, language={[Sharp]C}]
+        public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
+        {
+            Coordinate[] coordinates = new Coordinate[points.Count];
+            for (int i = 0; i < points.Count; i++)
+            {
+                GeoPoint p = points[i];
+                coordinates[i] = new Coordinate(p.Long.Value, p.Lat.Value);
+            }
+
+            GeometryFactoryEx factory = new GeometryFactoryEx() {
+                OrientationOfExteriorRing = LinearRingOrientation.CCW 
+               //Set a counter clockwise orientation to work on both
+               // hemispheres.    
+            };
+            Polygon poly = factory.CreatePolygon(coordinates);
+            poly.SRID = 4326; // Using the global coordinate system
+            if(!poly.IsValid) //Throw error if data is processed wrong on the frontend
+            {
+                throw new TopologyException("Entered invalid Polygon");
+            }
+            return poly;
+        }
+\end{lstlisting} \
+
+### Circles
+To create a circle, only two parameters are required. The center point of the circle, as well as a radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the **Point.STBuffer(radius)** call, which build a circle from a given point.
+
+### Roads
+To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the **STBuffer(width)** method, which has a **.Reduce(1)** method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
 
 ## Performance optimization on the backend
 Lorem Ipsum
