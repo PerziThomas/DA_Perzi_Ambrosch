@@ -228,11 +228,24 @@ To create a circle, only two parameters are required. The center point of the ci
 To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the **STBuffer(width)** method, which has a **.Reduce(1)** method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
 
 ## Performance optimization on the backend
-Lorem Ipsum
-
+After performing multiple tests using various tools as described in the chapter *Testing*, a conclusion was reached that the database bottlenecked the system the most. Therefore, two ways were found to counteract this issue.
 
 ### Caching in ASP.NET
-Lorem Ipsum
+First, minimizing the number of requests made to the database could decrease the average response times for the trade off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
+
+To cache polygon data, the **MemoryCache** object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
+
+\begin{lstlisting}[caption=Set a new cache entry, label=lst:polyfilter, language={[Sharp]C}]
+      MemoryCacheEntryOptions entryOptions = new MemoryCacheEntryOptions()
+         {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
+            SlidingExpiration = TimeSpan.FromMinutes(1)
+         };
+
+         _cache.Set("dbPolygons", polygons, entryOptions);
+\end{lstlisting} \
+
+
 
 
 ### Using Geo-Indexes in MS SQL
