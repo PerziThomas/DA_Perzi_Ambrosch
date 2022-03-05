@@ -231,7 +231,7 @@ To create a road, a line of coordinates, similar to how trips are processed, is 
 After performing multiple tests using various tools as described in the chapter *Testing*, a conclusion was reached that the database bottlenecked the system the most. Therefore, two ways were found to counteract this issue.
 
 ### Caching in ASP.NET
-First, minimizing the number of requests made to the database could decrease the average response times for the trade off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
+First, minimizing the number of requests made to the database could decrease the average response times for the trade-off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
 
 To cache polygon data, the **MemoryCache** object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
 
@@ -246,10 +246,10 @@ To cache polygon data, the **MemoryCache** object provided by ASP.NET Core throu
 \end{lstlisting} \
 
 
-
-
 ### Using Geo-Indexes in MS SQL
-Lorem Ipsum
+Using Geo-Indexes for more effective calculation of intersections on the database was an option first considered to be implemented. When creating a Spatial Index, grid levels are set to **Medium** by default, when doing calculations with point data, setting these to **High** can have a positive performance impact.
+
+This only led to a marginal increase in performance after testing it with practical data, hence why further research into the topic was abandoned.
 
 
 ## Geofence Management Web-Interface
