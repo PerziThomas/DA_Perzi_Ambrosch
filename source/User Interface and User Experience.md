@@ -25,6 +25,7 @@ To get an overview of all needed functionality, a basic list of use-cases was wr
 
 [comment]: <> (This is a list made when we started working, maybe it should be updated to include all current functionality)
 
+[TODO: use case diagram of updated features/use cases]
 
 ## Mockup
 Lorem Ipsum
