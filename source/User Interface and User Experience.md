@@ -40,12 +40,33 @@ The drawing tools from _leaflet-draw_ were tested briefly on a touchscreen devic
 Since geofences would mainly be drawn and edited on PC, no further attempt was made to improve the drawing experience on touchscreens.
 
 
-## Specific elements
-Lorem Ipsum
+## Specific design decisions
+In order to improve the usability of the app and to bring it closer to a finished product which could be used in reality, numerous different aspects of User Experience Design were taken into consideration, some of which will be described in the following chapter.
 
 
 ### Confirmation dialogs
-Lorem Ipsum
+A confirmation dialogs is usually used when a significant action is performed. It informs the user of the action to be taken and requires them to confirm the same action a second time.\
+The dialog purposely adds difficulty to performing certain actions in order to avoid triggers that happen by accident or because the user did not understand the consequences of the action. (see [@confirmationDialogs])
+
+Standard confirmation dialogs are used in the app whenever any item is deleted, and when geofence geometry is edited. Additionally, all pop-ups that require the user to enter data, for example when creating or renaming geofences, function as confirm dialogs by offering both _confirm_ and _cancel_ options.
+
+
+#### Confirm vs. Undo
+An alternative to confirm dialogs are _Undo notifications_, where the action in question is not interrupted, but the user is given the option to revert any changes made afterwards, usually for a limited time.
+
+This approach is especially useful for frequent or lightweight actions, since it does not disrupt the workflow as much. However, for actions that are irreversible, require substantial amounts of time or resources to be undone, or initiate complex changes, a confirmation dialog should be used. (see [@confirmationDialogs])
+
+Since it was not planned to make any of the actions in the web-interface reversible, it was neither possible nor necessary to implement an _Undo_ function, and only confirmation dialogs were used.
+
+
+#### Headline texts
+Lorem
+
+Any additional information to the headline was deemed unnecessary, as there are no actions complex or abstract enough to require a detailed explanation. This way, the headline is also stronger because there are less other elements that the user could focus on.
+
+
+#### Button texts
+Lorem
 
 
 ### Plural(s) in UI
@@ -61,7 +82,7 @@ Lorem Ipsum
 
 
 ## Integration into DriveBox
-Since the Geofencing app was developed to be integrated into the DriveBox application by the company, the look and feel of the User Interface had to be adapted. This mainly means three things:
+Since the Geofencing app was developed to be integrated into the DriveBox application by the company, the look and feel of the User Interface had to be adapted. This mainly meant three things:
 
 - Using a light theme instead of a dark theme
 - Using shadows instead of borders for cards
