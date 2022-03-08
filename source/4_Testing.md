@@ -43,7 +43,7 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
         }
 \end{lstlisting} \
 
-**Theories** on the other hand, are tests which use parameters, this is used for test cases in which 
+**Theories** on the other hand, are tests which use parameters. This is used for test cases in which 
 one might wish to test a function which has a binary result with several values without the need to write
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome. [@xUnitIntro] \
@@ -142,7 +142,7 @@ driver handles mouse movement differently than the Chrome driver.
 
 
 ### Backend Algorithms
-To unit test the algorithms functionality there was a need to mock out the required
+For unit testing the algorithms functionality there was a need to mock out the required
 components in normal application use. This was achieved using the **Moq** library,
 which is used to mock objects in C# for unit tests. \
 
@@ -196,7 +196,7 @@ it was decided to abandon the optimization of the database based algorithm.
 To test the performance of the RESTful endpoints written in ASP.NET Core, the **Apache JMeter** tool was used,
 checking the efficiency of the collision detection algorithm as well as the server's ability to run under load. \
 
-JMeter uses Test Plans to send requests to servers, using a basic **Thread Group** to assign the number of clients
+JMeter uses *Test Plans* to send requests to servers, using a basic *Thread Group* to assign the number of clients
 accessing the server at the same time. Besides setting the number of simultaneous threads running, developers are
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
 amount of requests each thread sends.
@@ -204,21 +204,21 @@ amount of requests each thread sends.
 ![Creating a Test Group in JMeter.](source/figures/jmeter1.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic1]
 \  
 
-Following that, the developer must add a **HTTP Request Defaults** object which provides JMeter with the basic
+Following that, the developer must add a *HTTP Request Defaults* object which provides JMeter with the basic
 information about the server to be tested, such as the base hostname, the port and the protocol, as well as
 parameters and body data.
 
 ![Setting the base HTTP options.](source/figures/jmeter2.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic2]
 \  
 
-Next, the specific **HTTP Request** details need to be specified, mainly the used HTTP Method, as well as
+Next, the specific *HTTP Request* details need to be specified, mainly the used HTTP Method, as well as
 the destination path, which is appended to the base host. This part should mainly take over the settings set
-in the **HTTP Request Defaults** object, but if needed, some of those can be edited.
+in the *HTTP Request Defaults* object, but if needed, some of those can be edited.
 
 ![Specifying Request options.](source/figures/jmeter3.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic3]
 \ 
 
-Finally, to display the results of the Test Plan, the developer needs to use a **Listener**. Listeners
+Finally, to display the results of the Test Plan, the developer needs to use a *Listener*. Listeners
 are mainly grouped into two categories, tables and graphs, depending on which is needed, with the
 table based reports being more detailed. [@jmeterTutorial]
 
