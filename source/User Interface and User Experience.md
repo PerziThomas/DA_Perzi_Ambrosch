@@ -26,6 +26,7 @@ To get an overview of all needed functionality, a basic list of use-cases was wr
 [comment]: <> (This is a list made when we started working, maybe it should be updated to include all current functionality)
 
 [TODO: use case diagram of updated features/use cases]
+[hier wahrscheinlich verweis, use case diagram ganz am Anfang von DA]
 
 ## Mockup
 Lorem Ipsum
@@ -62,23 +63,26 @@ Since it was not planned to make any of the actions in the web-interface reversi
 #### Headline texts
 Lorem
 
-Any additional information to the headline was deemed unnecessary, as there are no actions complex or abstract enough to require a detailed explanation. This way, the headline is also stronger because there are less other elements that the user could focus on.
+Any additional information to the headline was deemed unnecessary, as there are no actions in the app that are complex or abstract enough to require a detailed explanation. This way, the headline is also stronger because there are less other elements in the dialog that the user could focus on.
 
 
 #### Button texts
 Lorem
 
 
-### Plural(s) in UI
+### Use of plural forms
 Lorem Ipsum
 
 
-### Remove vs Delete
+### Remove vs. Delete
 Lorem Ipsum
 
 
 ### Use of ellipsis
 Lorem Ipsum
+
+
+## Multi-language support
 
 
 ## Integration into DriveBox
