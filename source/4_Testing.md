@@ -5,11 +5,11 @@ Testing is an important aspect of every piece of software, as it ensures the fun
 of the implemented code. Software testing is generally organized into two categories, functional and non-functional testing,
 with both types being used to test the DriveBox Geofencing software. [@testingTypes]
 
+Functional testing will be described in its own sub chapter, while non functional testing will mainly be described in the form of stress testing.
+
 
 ## Functional Testing
-There are several ways to test a piece of software on its functionality, with Unit- and Integration-Testing being the most
-broadly used examples of these, with those methods also being used to test the back- and frontend parts of the Geofencing
-application.
+There are several ways to test a piece of software on its functionality. Unit- and Integration-Testing make up the majority of these methods. These methods also implemented to test the back- and frontend parts of the Geofencing application. 
 
 
 ### REST Endpoint Functionality
