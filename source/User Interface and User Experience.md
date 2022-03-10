@@ -61,13 +61,20 @@ Since it was not planned to make any of the actions in the web-interface reversi
 
 
 #### Headline texts
-Lorem
+Each confirmation dialog contains a headline, the function of which is to inform the user about the action and its consequences. Speaking from personal previous experience with different software, additional confirmation steps are often quickly "learnt" by the user, and are then performed without carefully reading the information presented in the user interface. Therefore, it is important to catch the attention of the user by using short and unambiguous texts. This is achieved in two ways: [@confirmationDialogs]
+
+- First, by avoiding generic texts and using verbs specific to the action. The user should be able to read the dialog without any additional context.\
+_Example: "Delete geofence?" instead of "Are you sure?"_
+
+- Second, by leaving out unnecessary sentence openings or endings.\
+_Example: "Delete geofence?" instead of "Do you want to delete this geofence?"_
 
 Any additional information to the headline was deemed unnecessary, as there are no actions in the app that are complex or abstract enough to require a detailed explanation. This way, the headline is also stronger because there are less other elements in the dialog that the user could focus on.
 
 
 #### Button texts
-Lorem
+The principles for headlines also apply to the buttons in the dialog. Specifically, their meaning should be clear without additional context or significant thinking. To achieve this, descriptive verbs are used instead of generic options.\
+_Example: "Delete" and "Cancel" instead of "Yes" and "No"_ 
 
 
 ### Use of plural forms
