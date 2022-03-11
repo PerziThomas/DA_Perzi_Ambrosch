@@ -16,7 +16,7 @@ To get an overview of all needed functionality, a basic list of needed functiona
 - set activation days for geofence + alarm when geofence is left in active period
 - view driveboxes
   - view trips (per drivebox)
-- analyse finished trips of driveboxes
+- analyze finished trips of driveboxes
 - -> show entries/exits of all geofences crossed (timestamps + stay duration)
 - -> show route on map?
 - general settings
@@ -115,7 +115,7 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 
 - Using a light theme instead of a dark theme
 - Using shadows instead of borders for cards
-- Using the colour blue for accents
+- Using the color blue for accents
 
 The specific shade of blue to be used was derived from the _Drivebox_ application logo, but this was altered in some places to increase readability of the user interface.
 
