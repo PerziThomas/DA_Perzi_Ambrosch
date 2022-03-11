@@ -30,7 +30,7 @@ By looking at a graph of the geofence management app recorded with the _Profiler
 ![React Profiler View before implementing performance optimizations.](source/figures/React_Profiler_before.png "Screenshot"){#fig:stress_one width=90%}
 \  
 
-The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon colour or some meta settings.\
+The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings.\
 
 With a custom check function _isEqual_, the _React.memo_ function can be set to rerender only when one of these props changes.
 
