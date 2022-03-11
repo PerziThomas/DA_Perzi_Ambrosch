@@ -80,13 +80,26 @@ _Example: "Delete" and "Cancel" instead of "Yes" and "No"_
 
 ### Use of plural forms
 In software, when a label refers to a variable number of items, usually greater than or equal to one, the plural form of the item is often written statically with an "s" in brackets to account for all possibilities, e.g. _geofence(s)_.\
-This is usually only a minor inconvenience for the user, but can be fixed with equally minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise. [@UiPlurals]
+This is usually only a minor inconvenience for the user, but can be fixed with equally minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise. [@UIPlurals]
 
 Additionally, in the app, when the geofence bulk delete function (chapter _Bulk operations_ [TODO: link/number]) is used with only one item (geofence) selected, the confirmation dialog is displayed like it would be for a conventional, single delete operation, including the name of the geofence instead of the number of geofences to be deleted.
 
 
-### Remove vs. Delete
-Lorem Ipsum
+### Word choice for deletion
+The _New York State User Experience Toolkit_ defines the difference between the words as follows:\
+"Remove and Delete are defined quite similarly, but the main difference between them is that delete means erase (i.e. rendered nonexistent or nonrecoverable), while remove denotes take away and set aside (but kept in existence)." (Source: [@NYStateUXToolkit])
+
+Since all deletion actions in the app are destructive without an undo-option, as described in chapter _Confirm vs. Undo_ [TODO: link/number], "Delete" is used in all cases, for geofences as well as metadata entries.
+
+
+### Word choice for creation
+Like with deletion, there are also different words that can be used to describe a creation process.
+
+All buttons that enable the user to create a geofence on the map, by placing points or via route finding, are labelled with "Draw". Once the drawing process is finished, "Create" indicates the actual creation of the geofence with the drawn geometry.
+
+The action for creating a geofence from a preset is marked as "Generate", to indicate that it is not created from scratch, but as a copy of an already existing preset geofence.
+
+In the geofence metadata dialog, the action to create a new entry is called "Add", because since metadata is a simple list of strings, no new item is **created**, and the text input itself is **added** to the list as an item.
 
 
 ### Use of ellipsis
@@ -102,7 +115,9 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 
 - Using a light theme instead of a dark theme
 - Using shadows instead of borders for cards
-- Using blue (specifically the companies brand colour) for accents
+- Using the colour blue for accents
+
+The specific shade of blue to be used was derived from the _Drivebox_ application logo, but this was altered in some places to increase readability of the user interface.
 
 ![UI Mockup before adaptations for integration.](source/figures/UI_Integration_before.jpg "Screenshot"){#fig:stress_one width=90%}
 \ 
