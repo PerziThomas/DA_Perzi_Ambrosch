@@ -3,7 +3,7 @@ The frontend should be an easily usable web-interface for managing geofences. It
 
 
 ## Requirements
-To get an overview of all needed functionality, a basic list of use-cases was written.
+To get an overview of all needed functionality, a basic list of needed functionalities was compiled before starting work on the app:
 
 - user login
 - user registration? (or admin dashboard)
@@ -27,6 +27,7 @@ To get an overview of all needed functionality, a basic list of use-cases was wr
 
 [TODO: use case diagram of updated features/use cases]
 [hier wahrscheinlich verweis, use case diagram ganz am Anfang von DA]
+
 
 ## Mockup
 Lorem Ipsum
@@ -78,7 +79,10 @@ _Example: "Delete" and "Cancel" instead of "Yes" and "No"_
 
 
 ### Use of plural forms
-Lorem Ipsum
+In software, when a label refers to a variable number of items, usually greater than or equal to one, the plural form of the item is often written statically with an "s" in brackets to account for all possibilities, e.g. _geofence(s)_.\
+This is usually only a minor inconvenience for the user, but can be fixed with equally minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise. [@UiPlurals]
+
+Additionally, in the app, when the geofence bulk delete function (chapter _Bulk operations_ [TODO: link/number]) is used with only one item (geofence) selected, the confirmation dialog is displayed like it would be for a conventional, single delete operation, including the name of the geofence instead of the number of geofences to be deleted.
 
 
 ### Remove vs. Delete
@@ -90,6 +94,7 @@ Lorem Ipsum
 
 
 ## Multi-language support
+Lorem
 
 
 ## Integration into DriveBox
