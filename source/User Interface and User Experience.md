@@ -102,8 +102,13 @@ The action for creating a geofence from a preset is marked as "Generate", to ind
 In the geofence metadata dialog, the action to create a new entry is called "Add", because since metadata is a simple list of strings, no new item is **created**, and the text input itself is **added** to the list as an item.
 
 
-### Use of ellipsis
-Lorem Ipsum
+### Search bar design
+The _Salesforce Style Guide_ suggests using ellipses at the end of text prompts. [@SalesforceEllipses] Therefore, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
+
+The geofence metadata search bar is not visible by default, but can be toggled on with a button. It then takes the place of the pagination functions, which clears up the interface, since search and pagination can not be used at the same time.
+
+When the search bar is shown, it includes a "Search"-button, which is connected to the search prompt input field, and a "Clear"-button, which is only shown once at least one character has been entered.\
+The "Clear"-button only clears the text in the input field, but does not reset the actual search. This is only done once the search bar is toggled off, to reduce the chance of accidental resets and unnecessary backend calls.
 
 
 ## Multi-language support
