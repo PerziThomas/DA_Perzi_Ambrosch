@@ -37,7 +37,7 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
 
 To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method *ConfigureSerivces* is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs.
 
-\begin{lstlisting}[caption=The backends Startup.cs file, shortened for readability., label=lst:startupcs, language={[Sharp]C}]
+\begin{lstlisting}[caption=The backends Startup.cs file shortened for readability., label=lst:startupcs, language={[Sharp]C}]
       public class Startup
       {
         public Startup(IConfiguration configuration)
