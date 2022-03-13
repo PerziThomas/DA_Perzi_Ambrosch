@@ -1,14 +1,140 @@
 # Implementation
-Lorem Ipsum
+This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the ASP.NET Core backend, the Microsoft SQL Server as well as the React frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
 
 
 ## Backend Technologies used
-Lorem Ipsum
+The backend consists of two major parts, those being the ASP.NET Core webservice and the Microsoft SQL Server database. With ASP.NET Core running on top of the C# programming language, third party libraries are obtainable using the NuGet package manager. All functionality on the database is natively provided and doesn't require the installation of any further extensions. To work with the database and geographical objects the webservice needed to be extended with libraries such as ADO.NET and NetTopologySuite.
 
 
 ### ASP.NET Core
-Lorem Ipsum
+ASP.NET Core is a framework for building web apps and services, IoT apps as well as mobile backends developed by Microsoft as an evolution of ASP.NET 4.x. Unlike its predecessor ASP.NET Core is multiplatform (contrary to just being working on Windows) and open source. Besides creating traditional webservices, such as RESTful webapps, it can also be used to create other webapps using technologies like Razor Pages and Blazor. [@aspintro]
 
+#### Project Creation
+When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, *Program.cs* and *Startup.cs*. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default *WebHostBuilder*.
+
+\begin{lstlisting}[caption=The backends Programm.cs file., label=lst:programmcs, language={[Sharp]C}]
+      public class Program
+      {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureLogging((hostingContext, logging) =>
+                    {
+                        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                        logging.AddConsole();
+                        logging.AddDebug();
+                    });
+                });
+      }
+\end{lstlisting} \
+
+To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method *ConfigureSerivces* is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs.
+
+\begin{lstlisting}[caption=The backends Startup.cs file, shortened for readability., label=lst:startupcs, language={[Sharp]C}]
+      public class Startup
+      {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+
+            services.AddControllers();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICollisionDetector, TripCollisionDetectionService>(); //Add a new Service for each Request via Dependency Injection
+            
+            services.AddMemoryCache(); // Create the cache
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DriveboxGeofencingBackend", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            }); // Initialize Swagger documentation
+            services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("sqlServer"), x => x.UseNetTopologySuite()));
+            services.AddCors(o => o.AddPolicy("wildcardCors", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            }));
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Drivebox Geofencing Backend v1"));
+            }
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseCors("wildcardCors");
+            app.UseAuthHeaderMiddleware();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+      }
+\end{lstlisting} \
+
+#### Services
+Services are classes serviced by the application by making use of Dependency Injection. After registering a service in the Startup.cs file, it can be accessed from anywhere within the application using the associated interface. To define a service, it must simply be registered in Startup.cs, the service itself therefore does not "know" of itself as being one. Services consist of two files, an interface and an associated class which implements the defined methods. 
+
+When registering a service there are three different options to choose from. These options are also defined as lifetimes.
+1. Transient
+   : Whenever this service is requested a new instance is created. This lifetime works best for non resource intensive services. Once a request ends these services are disposed.
+2. Scoped
+   : Scoped services are created once per client request meaning that they have the same behavior as transient services in a web application.
+3. Singleton
+   : Singleton services are created once the first time they are requested. When the service is requested again the same instance is provided to the requesting object. Singleton objects are disposed once the application shuts down. These services are used when there has to be exactly one instance of a service, for the geofencing application this was chosen when creating the database manager service.
+[@servicelife]
+
+To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core.
+
+\begin{lstlisting}[caption=The TimePointController requesting two services., label=lst:servicereq, language={[Sharp]C}]
+         public TimePointController(ICollisionDetector collisionDetector, IPointAnalyzer pointAnalyzer)
+         {
+            this.collisionDetectorService = collisionDetector;
+            this.pointAnalyzer = pointAnalyzer;
+         }
+\end{lstlisting} \
+
+#### Middleware
+To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware and the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used. [@middleware]
+
+![Example of a middleware workflow.](source/figures/middleware_pipe.png "Screenshot"){#fig:middleware width=90%}
+\  
+
+To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the *IApplicationBuilder* interface must be extended with a method registering the middleware. This methods is then called in the startup file.
+
+\begin{lstlisting}[caption=Extending the IApplicationBuilder interface., label=lst:middlewareext, language={[Sharp]C}]
+      // Extension method used to add the middleware to the HTTP request pipeline.
+      public static class AuthHeaderMiddlewareExtensions
+      {
+        public static IApplicationBuilder UseAuthHeaderMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<AuthHeaderMiddleware>();
+        }
+      }
+\end{lstlisting} \
 
 ### MS SQL
 Lorem Ipsum
@@ -22,7 +148,7 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-### Ado.Net
+### ADO.NET
 Lorem Ipsum
 
 
