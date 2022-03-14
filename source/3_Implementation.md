@@ -171,6 +171,21 @@ T-SQL is an extension of the standard SQL language. It provides further features
     FROM Products ORDER BY Name;
 \end{lstlisting} \
 
+##### Tables
+To create tables with T-SQL a syntax similar to the SQL one is required. Tables consist of attributes and constraints. Each attribute in a table has a name and a datatype alongside information if it is allowed to be NULL. Attributes may also be referred to as columns. Constraints are special conditions data must fulfill to be insert into the table. The most important constraints in a table are the following:
+1. Primary Key
+   : Primary keys are indexes applied to a single or multiple columns in a table. These columns are often also seen as the identifying columns of a table used to reference data inside this table in a different one. There can only be one primary key per table.
+2. Unique
+   : Functionally has the same behavior as a primary key. The only difference being that there can be multiple unique constraints and the values of the affected columns may be NULL.
+3. Foreign Key
+   : Foreign key constrains are used to associate a column with another column in a different table. This may only be done if the column(s) on the referenced table are either part of a primary key or a unique constraint. When data related to the foreign key is deleted on the associated table there are different handling approaches. Firstly nothing can be done about it at all and the values of the foreign key columns stay the same. Secondly the delete may be cascaded downwards and the row referencing the deleted row is also deleted. Finally the value of the foreign key columns can also be set to NULL.
+4. Check 
+   : The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
+
+In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using an UML-diagram.
+
+![Logical Model of the Database.](source/figures/db_model.png "Screenshot"){#fig:dbmodel width=90%}
+\ 
 
 #### SQL Spatial
 Lorem Ipsum
