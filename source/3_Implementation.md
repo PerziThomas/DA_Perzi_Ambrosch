@@ -136,6 +136,30 @@ To add custom middleware into the ASP.NET Core pipeline, the developer must simp
       }
 \end{lstlisting} \
 
+#### Controller
+Controllers are classes which handle the routing and processing of requests to the web service. When using the annotation *[ApiController]* a controller is declared as an API controller. This holds the benefit of automatically converting responses to a requested format like JSON or XML. Alongside the ApiController annotation the *[Route(route)]* annotation is used to set a general route for all requests going into this controller. An example of this would to use *[Route("api/v1")]* resulting in every request to https://driver.box/api/v1 being routed through this controller.
+
+To map methods to routes and HTTP methods a different set of annotations needs to be used on the desired methods. To associate a method with a route and a method, two annotations need to be used. Firstly, the *[Route(route)]* annotation is reused from the controller. To register the method to a specific HTTP methods ASP.NET Core provides several annotation.
+- HttpGet
+- HttpPost
+- HttpPut
+- HttpPatch
+- HttpDelete
+- HttpOptions
+- HttpHead
+
+Each annotation corresponds to the HTTP method with the same name. Apart from routing purposes they do not provide any functionality to the developer. Building the application according to REST and HTTP principles therefore remains a responsibility of the developer.
+
+Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to *IActionResult*. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then *StatusCode* can be used as a code can be customly assigned to it.
+
+\begin{lstlisting}[caption=Return a No Content response., label=lst:nocontent, language={[Sharp]C}]
+       return StatusCode(204);
+\end{lstlisting} \
+
+\begin{lstlisting}[caption=Return an OK response with status code 200., label=lst:okaycode, language={[Sharp]C}]
+       return Ok(databaseManager.GeoFenceHistoryById(idGeoFence));
+\end{lstlisting} \
+
 ### MS SQL
 Lorem Ipsum
 
