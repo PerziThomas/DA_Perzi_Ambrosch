@@ -160,12 +160,16 @@ Controllers provide the ability to plainly return objects as a JSON representati
        return Ok(databaseManager.GeoFenceHistoryById(idGeoFence));
 \end{lstlisting} \
 
-### MS SQL
-Lorem Ipsum
+### Microsoft SQL Server
+SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL is runs on top of SQL. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
 
+#### Transact-SQL
+T-SQL is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the *TOP* keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. [@tsql]
 
-#### T-SQL
-Lorem Ipsum
+\begin{lstlisting}[caption=Example of using the TOP keyword., label=lst:topkeyword, language={SQL}]
+    SELECT TOP 12 Id, Name, Description 
+    FROM Products ORDER BY Name;
+\end{lstlisting} \
 
 
 #### SQL Spatial
