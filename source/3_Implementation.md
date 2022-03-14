@@ -188,6 +188,32 @@ In the geofencing application a combination of several constraints was used to c
 ![Logical Model of the Database.](source/figures/db_model.png "Screenshot"){#fig:dbmodel width=90%}
 \ 
 
+##### Procedures
+Stored procedures are segments of code which are compiled and executed on the database server. Contrary to a function, a procedure does not have a return value and processed values can only be passed along using out variables. Creating a procedure on SQL Server is simplified by using the GUI of SSMS to create a template of a procedure. Inside the procedure a sequence of T-SQL commands is being executed. Procedures provide the ability to make use of typical programming control structures such as conditions and loops. To execute a stored procedure the *EXEC* command can be used in the SQL editor or the functions provided by libraries in C# like ADO.NET. 
+
+Variables can be declared inside the body of a stored procedure. These can have a name and a datatype. A special useable datatype for these variables is *TABLE* which creates a temporary table for results of a select to be saved in. Normal select queries can then be performed on this temporary table.
+
+The geofencing application makes use of stored procedures in several ways. A main application is the creation of special geofences such as circles and roads, as those need a special type of processing. Next the logic for locking geofences on certain days of the weeks is also implemented using stored procedures. 
+
+\begin{lstlisting}[caption=Procedure to create a circle geofence., label=lst:procCircle, language={SQL}]
+    CREATE PROCEDURE [dbo].[createCircle] (@lat DECIMAL(18,10), @long DECIMAL(18,10), @radius INT, @title VARCHAR(300), @username VARCHAR(100))
+    AS
+    BEGIN
+        SET NOCOUNT ON;
+        DECLARE @idGeoFence INT;
+        SET @idGeoFence = NEXT VALUE FOR SQGeoFence;
+        INSERT INTO geoFence VALUES (@idGeoFence, @title, geography::Point(@lat, @long, 4326).STBuffer(@radius), 0, 1, '91617248-D1C3-4C70-8496-0F9AF01B649D');
+        INSERT INTO geoFenceHistory VALUES (@idGeoFence, @username, DATEDIFF(s, '1970-01-01', GETUTCDATE()));
+        SELECT id, geoObj FROM geoFence WHERE id = @idGeoFence;
+    END
+    GO
+\end{lstlisting} \
+
+##### Trigger
+Triggers are pieces of code that are executed when data in a table is modified. This can apply for adding, deleting or modifying rows. Triggers are created in a similar way to stored procedures and creation is equally simplified by SSMS. Contrary to procedures, triggers are assigned to a table along a specification if the code should be executed before or after data is inserted. On which action the code should be executed can also be specified. These actions can be specified as *INSERT*, *UPDATE* or *DELETE*. Triggers can be used to block data from being inserted into a table or insert data into another table based on the incoming data.
+
+In the final version of the geofencing application, triggers are not used. They were implemented when calculation of intersections was still based on the database.
+
 #### SQL Spatial
 Lorem Ipsum
 
