@@ -196,14 +196,14 @@ Variables can be declared inside the body of a stored procedure. These can have 
 The geofencing application makes use of stored procedures in several ways. A main application is the creation of special geofences such as circles and roads, as those need a special type of processing. Next the logic for locking geofences on certain days of the weeks is also implemented using stored procedures. 
 
 \begin{lstlisting}[caption=Procedure to create a circle geofence., label=lst:procCircle, language={SQL}]
-    CREATE PROCEDURE [dbo].[createCircle] (@lat DECIMAL(18,10), @long DECIMAL(18,10), @radius INT, @title VARCHAR(300), @username VARCHAR(100))
+    CREATE PROCEDURE [dbo].[createCircle] (@lat DECIMAL(18,10), @long DECIMAL(18,10), @radius INT, @title VARCHAR(300), @idUser uniqueidentifier(100))
     AS
     BEGIN
         SET NOCOUNT ON;
         DECLARE @idGeoFence INT;
         SET @idGeoFence = NEXT VALUE FOR SQGeoFence;
-        INSERT INTO geoFence VALUES (@idGeoFence, @title, geography::Point(@lat, @long, 4326).STBuffer(@radius), 0, 1, '91617248-D1C3-4C70-8496-0F9AF01B649D');
-        INSERT INTO geoFenceHistory VALUES (@idGeoFence, @username, DATEDIFF(s, '1970-01-01', GETUTCDATE()));
+        INSERT INTO geoFence VALUES (@idGeoFence, @title, geography::Point(@lat, @long, 4326).STBuffer(@radius), 0, 1, @idUser);
+        INSERT INTO geoFenceHistory VALUES (@idGeoFence, DATEDIFF(s, '1970-01-01', GETUTCDATE()));
         SELECT id, geoObj FROM geoFence WHERE id = @idGeoFence;
     END
     GO
