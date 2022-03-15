@@ -215,7 +215,17 @@ Triggers are pieces of code that are executed when data in a table is modified. 
 In the final version of the geofencing application, triggers are not used. They were implemented when calculation of intersections was still based on the database.
 
 #### SQL Spatial
-Lorem Ipsum
+The spatial extension was an addition provided to SQL Server by Microsoft in 2008. It essentially adds two datatypes to the software, *geometry* and *geography*. These datatypes are provided along a set of functionality to perform spatial calculations and queries on the database. Spatial data is data with geometrical or geographical information attached to it. In most cases those are coordinates. Geometry and geography are different in the fact that geometry is indented for use in a flat coordinate system like a plane. Geography on the other hand is intended for use with globe like coordinates to reflect real world locations and objects. For persisting geofences in the database, geography was chosen, as it makes use of real world GPS coordinates. [@spatext]
+
+On top of the basic data types, there are two mains groups of object types provided by the spatial extension. These objects are available for both geometry and geography-
+1. Simple objects
+   : Simple, single spatial objects that are completely connected in their instance. These include *Points*, *LineStrings* and *Polygons*.
+2. Collection objects
+   : Collections of simple objects with multiple independent instances. These include *MultiPoints*, *MultiLineStrings* and *MultiPolygons*.
+
+To create these spatial objects the well-known-text (WKT) format is used. The spatial extension provides methods to create objects from WKT. To create a polygon from a WKT source, the method *geography::STPolyFromText(wkt, 4326)* is used. To create a point object, the method *geography::Point(lat, long, 4326)* is used. To create any other geography object the method *geography::STGeomFromText(wkt, 4326)* can be used. The number 4326 at the end of every methods specifies the coordinate system used for the object. This number is specified as the Spatial Referencing System Identifier (SRID). SRID 4326 is the system that specifies the latitudes and longitudes along the entire globe. For applications working in a specific area of the world which need an additional grade of coordinate accuracy another SRID can be chosen. Due to drivebox not needing accuracy in the range of centimeters and the market being open to grow the global SRID 4326 was chosen.
+
+To manipulate and work with geographical data the extension provides a variety of methods. The geofencing application mainly makes use of the *STBuffer()* method on objects. This method increases the size of a object in every direction, turning it either into a Polygon or a MultiPolygon, depending on the initial object. It is used to create circle and road geofences on the database, as these use a Point and a LineString as a base respectively. These Polygons often have over one hundred points, resulting in a loss of performance on the frontend and when calculating intersections. To simplify these shapes, the method *Reduce(1)* is used. It removes unnecessary points of a Polygon and returns a new, more performant object with less points.
 
 
 ### ADO.NET
