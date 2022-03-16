@@ -227,10 +227,67 @@ To create these spatial objects the well-known-text (WKT) format is used. The sp
 
 To manipulate and work with geographical data the extension provides a variety of methods. The geofencing application mainly makes use of the *STBuffer()* method on objects. This method increases the size of a object in every direction, turning it either into a Polygon or a MultiPolygon, depending on the initial object. It is used to create circle and road geofences on the database, as these use a Point and a LineString as a base respectively. These Polygons often have over one hundred points, resulting in a loss of performance on the frontend and when calculating intersections. To simplify these shapes, the method *Reduce(1)* is used. It removes unnecessary points of a Polygon and returns a new, more performant object with less points.
 
+\begin{lstlisting}[caption=Creating of a circle., label=lst:statCircle, language={SQL}]   
+    geography::Point(@lat, @long, 4326).STBuffer(@radius)
+\end{lstlisting} \
 
 ### ADO.NET
-Lorem Ipsum
+To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, *ADO.NET* and the *Entity Framework*. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
 
+In the ASP.NET Core application database operations are managed by a *DatabaseManager* object. This object is created and distributed as a singleton service by making use of Dependency Injection. This way the existence of exactly one instance of the class is guaranteed across the whole application at runtime.
+
+To create a connection to the database a new instance of the class *SqlConnection* is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation.
+
+\begin{lstlisting}[caption=Creating and opening a connection., label=lst:adoOpen, language={[Sharp]C}]   
+                using (SqlConnection connection = new SqlConnection(SQL_STRING))
+                {
+                    connection.Open();
+                }
+\end{lstlisting} \
+
+To send SQL command to the server a new instance of the *SqlCommand* class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using @geofenceName when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET.
+
+\begin{lstlisting}[caption=Creating a command to delete a geofence by id while using a placeholder for the id., label=lst:adoPlaceholder, language={[Sharp]C}]       
+            SqlCommand cmd = new SqlCommand("DELETE FROM geoFence WHERE id = @id", connection);
+            cmd.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int));
+            cmd.Parameters["@id"].Value = idGeoFence;
+\end{lstlisting} \
+
+There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. 
+
+\begin{lstlisting}[caption=Executing a command with and without query., label=lst:adoQuery, language={[Sharp]C}]
+            // Reading every selected row to get geofences       
+            using (SqlDataReader rdr = cmd.ExecuteReader())
+            {
+                while (rdr.Read())
+                {
+                    geos.Add(new GeoFence()
+                    {
+                        Id = rdr.GetInt32(0),
+                        Title = rdr.GetString(1),
+                        GeoObj = (Polygon)serverBytesReader.Read(rdr.GetSqlBytes(2).Value)
+                    });
+                }
+            }
+
+            // Executing a command that selects nothing
+            cmd.ExecuteNonQuery();
+
+            //Closing the connection
+            connection.Close();
+\end{lstlisting} \
+
+To execute stored procedures from the webapp a command needs to be created with the name of the procedure as it's construction parameter. Next the commands *CommandType* needs to be set as *CommandType.StoredProcedure* to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected.
+
+\begin{lstlisting}[caption=Creating a command of a procedure and setting the variables., label=lst:adoProcedure, language={[Sharp]C}]       
+            SqlCommand cmd = new SqlCommand("createCircle", connection);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@lat", p.Lat.Value));
+            cmd.Parameters.Add(new SqlParameter("@long", p.Long.Value));
+            cmd.Parameters.Add(new SqlParameter("@radius", p.Radius.Value));
+            cmd.Parameters.Add(new SqlParameter("@title", p.Title));
+\end{lstlisting} \
 
 #### Comparison with Entity Framework
 Lorem Ipsum
