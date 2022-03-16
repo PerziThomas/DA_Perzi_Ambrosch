@@ -2,11 +2,11 @@
 The frontend should be an easily usable web-interface for managing geofences. It should also have a slick and smart user interface that can be integrated into the existing _DriveBox_-application.
 
 
-## Requirements
-To get an overview of all needed functionality, a basic list of needed functionalities was compiled before starting work on the app:
+## Feature requirements
+To get a basic overview of the needed functionality, a list was compiled before starting work on the app:
 
 - user login
-- user registration? (or admin dashboard)
+- user registration (or admin dashboard)
 - view geofences
 - create geofence (polygon/rectangle, circle)
   - persistence separately (first create, then 'commit')?
@@ -17,16 +17,14 @@ To get an overview of all needed functionality, a basic list of needed functiona
 - view driveboxes
   - view trips (per drivebox)
 - analyze finished trips of driveboxes
-- -> show entries/exits of all geofences crossed (timestamps + stay duration)
-- -> show route on map?
+  - show entries/exits of all geofences crossed (timestamps + stay duration)
+  - show route on map?
 - general settings
-  - set default coordinates / zoom level of map? ...
+  - set default coordinates / zoom level of map ...
 - account
 
-[comment]: <> (This is a list made when we started working, maybe it should be updated to include all current functionality)
-
-[TODO: use case diagram of updated features/use cases]
-[hier wahrscheinlich verweis, use case diagram ganz am Anfang von DA]
+Some features were added later, while others were changed or became obsolete.\
+An updated list of features was later written in the form of a Use-Case-Diagram, which can be seen in chapter _Use Cases_ [TODO: link/number].
 
 
 ## Mockup
