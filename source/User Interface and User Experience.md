@@ -53,7 +53,7 @@ A compromise solution was found that could fulfill all design requirements:
 - works when starting in geofence (exit without entry)
 - works when ending in geofence (entry without exit)
 
-![Mockup for drive log display](source/figures/UI_Integration_before.jpg "Screenshot"){#fig:stress_one width=90%}
+![The final mockup for the display of drive logs](source/figures/Mockup_drive_logs.PNG "Screenshot"){#fig:stress_one width=90%}
 \
 
 Even though the feature to display drive logs was not needed, the mockup was kept in case it would be implemented at a later point.
