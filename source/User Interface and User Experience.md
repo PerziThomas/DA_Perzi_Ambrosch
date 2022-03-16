@@ -28,7 +28,35 @@ An updated list of features was later written in the form of a Use-Case-Diagram,
 
 
 ## Mockup
-Lorem Ipsum
+During the development process, mockups of the user interface were used to evaluate different workflows, layouts and designs before they were implemented.
+
+The software chosen for this was _Adobe XD_, because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take.
+
+Some of the specific things that were evaluated with the use of mockups will be mentioned below:
+
+
+### Basic layout
+Early on, it was decided to split the interface into two main parts, a map view and a collapsible sidebar that contains all other info, like the list of geofences
+
+It was originally planned to have a tab view in this sidebar with tabs for different categories, e.g. a list of geofences and a list of drive logs. This became obsolete when it became clear that the app would only be used for managing the geofences themselves.
+
+The mockups also included concepts for how the layout would change on smartphones, which also was not needed because the management interface would only have to be used on computers and tablets.
+
+
+### Drive log display
+Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated.
+
+A compromise solution was found that could fulfill all design requirements:
+- display entry and exit events
+- display the time spent in each geofence
+- works with overlapping geofences
+- works when starting in geofence (exit without entry)
+- works when ending in geofence (entry without exit)
+
+![Mockup for drive log display](source/figures/UI_Integration_before.jpg "Screenshot"){#fig:stress_one width=90%}
+\
+
+Even though the feature to display drive logs was not needed, the mockup was kept in case it would be implemented at a later point.
 
 
 ## Mobile compatibility
