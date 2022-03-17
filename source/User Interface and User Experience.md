@@ -32,7 +32,7 @@ During the development process, mockups of the user interface were used to evalu
 
 The software chosen for this was _Adobe XD_, because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take.
 
-Some of the specific things that were evaluated with the use of mockups will be mentioned below:
+Some of the specific things that were evaluated with the use of mockups will be mentioned below.
 
 
 ### Basic layout
@@ -57,6 +57,17 @@ A compromise solution was found that could fulfill all design requirements:
 \ 
 
 Even though the feature to display drive logs was not needed, the mockup was kept in case it would be implemented at a later point.
+
+
+### Bulk selection and locking
+Since it would be common for users to want to change locks for several geofences at once, for example locking a group of geofences on the weekend, it was necessary to implement the option to select geofences and perform bulk operations. For this, four different options were evaluated in the mockup:
+
+1. A select-all checkbox for each day of the week, allowing the user to lock or unlock all geofences for that day. This solution is easy to use and intuitive, but actions can only be performed for **all** geofences, since there is no selection model.
+2. Checkboxes to select geofences and dropdown buttons for each weekday to lock, unlock or toggle all selected geofences' locks on that day. This offers the user more options and flexibility, but clutters the user interface due to the higher number of buttons.
+3. Checkboxes to select geofences and a button bar with buttons to lock, unlock or toggle the selected geofences' locks, and dropdowns when one of these buttons is clicked to select a weekday.\
+This solution was used in the app, as it offers the extended functionality, but keeping a cleaner interface, especially since a button bar was later needed for other features anyway.
+4. A fourth solution was conceptualized that would enable the user to set geofence locks not just on weekdays, but as customizable time slots, which again gives the user more flexibility, but would make it hard to implement bulk operations.\
+This feature was not seen as necessary and was therefore not implemented in the app.
 
 
 ## Mobile compatibility
