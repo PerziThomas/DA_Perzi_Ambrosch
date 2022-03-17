@@ -69,6 +69,8 @@ This solution was used in the app, as it offers the extended functionality, but 
 4. A fourth solution was conceptualized that would enable the user to set geofence locks not just on weekdays, but as customizable time slots, which again gives the user more flexibility, but would make it hard to implement bulk operations.\
 This feature was not seen as necessary and was therefore not implemented in the app.
 
+[TODO: maybe just rewrite as bullet points]
+
 
 ## Mobile compatibility
 The geofence management application would mainly be used on PCs, and sometimes on tablets. Smaller devices like smartphones could therefore be neglected.
