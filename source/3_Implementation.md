@@ -290,15 +290,62 @@ To execute stored procedures from the webapp a command needs to be created with 
 \end{lstlisting} \
 
 #### Comparison with Entity Framework
-Lorem Ipsum
+The Entity Framework (EF), being the Entity Framework Core when using with a .NET Core application, is a higher level database access library by Microsoft for .NET applications. It is built on top of ADO.NET and provides the developer with a higher level object-relational mapper to work with objects retrieved from a database. Entity Framework Core provides two ways of creating models, a database-first and a code-first model, generating the other part from the given one. To map classes to database tables and vice-versa, scaffoldings and migrations are used.
 
+Compared to ADO.NET, EF provides a higher abstraction of database operations to the developer. Operations such as SELECT and INSERT are being handled by the library instead of the developer. To filter selected data, LINQ [@linq] is used. In contrary when doing operations in ADO.NET, commands and connections need to be defined by the developer manually, giving greater control about the processing of data. [@efcore]
+
+Due to Microsoft phasing out spatial support in EF Core and the official recommended library for spatial processing being NetTopologySuite, ADO.NET was chosen in the geofencing application. EF Core not providing any native support resulted in operations needing an equal amount of manual processing as in ADO.NET, but with the drawback of additional overhead. Furthermore the low level of ADO.NET allowed for much more performance to be extracted out of the application, contributing positively to the time critical requirement.
 
 ### NetTopologySuite
-Lorem Ipsum
+NetTopologySuite [@nts] (NTS) is a .NET implementation of the JTS Topology Suite software for Java. It implements the Open Geospatial Consortiums (OGC) Simple Features Specification for SQL like the spatial extension of SQL Server. Due to this a base compatibility is given between the two pieces of software, making communication possible and straightforward. The OGC specification defines a set of objects and methods for geometrical data, all of which are implemented in NTS.
 
+As NTS provides the same functionality when processing geographical data as does SQL Server, it can be used to calculate intersections of driveboxes and geofences. Furthermore it offers ways to convert GeoJSON data into NTS objects, as well as those objects into SQL Bytes to be persisted in the database. Geographical objects follow the OGC specification and have the same labels as described in the Spatial Extension chapter.
+
+To work with NTS a simple installation from the NuGet package manager has to be made. After the installation NTS functionality is accessible from the entire project. To convert a geographical object from SQL Server to one readable by NTS, a new instance of the *SqlServerBytesReader* class needs to be created. To specify the data to be of the geography datatype the parameter *IsGeography* needs to be set to true.
+
+\begin{lstlisting}[caption=Reading geographical objects from the database., label=lst:sqlbytesreader, language={[Sharp]C}]       
+            SqlServerBytesReader bytesReader = new SqlServerBytesReader() { IsGeography = true };
+            cmd.Parameters.Add(new SqlParameter("@guid", userId))
+
+            using (SqlDataReader rdr = cmd.ExecuteReader())
+            {
+                while (rdr.Read())
+                {
+                    PolygonData p = new PolygonData()
+                    {
+                        Title = rdr.GetString(0),
+                        Polygon = (Polygon)bytesReader.Read(rdr.GetSqlBytes(1).Value),
+                        ID = rdr.GetInt32(2),
+                        SystemGeoFence = rdr.GetByte(3) == 1,
+                        IsNotEditable = rdr.GetByte(4) == 1
+                    };
+                    polygons.Add(p);
+                }
+            }
+\end{lstlisting} \
+
+To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the *GeoJsonSerializer* class to create a JSON.NET serializer that works with GeoJSON. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
+
+\begin{lstlisting}[caption=Get all geofences and convert them to GeoJSON., label=lst:geojsonget, language={[Sharp]C}]       
+            List<PolygonDataWithHistory> polygonDataWithHistories = databaseManager.GetGeoFenceHistories(polys);
+            List<string> geoJsons = new List<string>();
+            JsonSerializer jsonWriter = GeoJsonSerializer.Create();
+            using (StringWriter stringWriter = new StringWriter())
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                foreach (PolygonDataWithHistory p in polygonDataWithHistories)
+                {
+                    jsonWriter.Serialize(jsonTextWriter, p);
+                    geoJsons.Add(stringWriter.ToString());
+
+                    stringWriter.GetStringBuilder().Clear();
+                }
+            }
+\end{lstlisting} \
+
+Creation of polygons and the calculation of intersections are described in the according chapters.
 
 ## Frontend Technologies used
-
 
 ### React
 Lorem Ipsum
