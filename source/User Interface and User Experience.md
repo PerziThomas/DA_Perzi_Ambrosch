@@ -60,16 +60,23 @@ Even though the feature to display drive logs was not needed, the mockup was kep
 
 
 ### Bulk selection and locking
-Since it would be common for users to want to change locks for several geofences at once, for example locking a group of geofences on the weekend, it was necessary to implement the option to select geofences and perform bulk operations. For this, four different options were evaluated in the mockup:
+Since it would be common for users to want to change locks for several geofences at once, for example locking a group of geofences on the weekend, it was necessary to implement the option to select geofences and perform bulk operations. For this, four different options were evaluated in the mockup. These options, as well as their advantages and disadvantages, will be described below:
 
-1. A select-all checkbox for each day of the week, allowing the user to lock or unlock all geofences for that day. This solution is easy to use and intuitive, but actions can only be performed for **all** geofences, since there is no selection model.
-2. Checkboxes to select geofences and dropdown buttons for each weekday to lock, unlock or toggle all selected geofences' locks on that day. This offers the user more options and flexibility, but clutters the user interface due to the higher number of buttons.
-3. Checkboxes to select geofences and a button bar with buttons to lock, unlock or toggle the selected geofences' locks, and dropdowns when one of these buttons is clicked to select a weekday.\
-This solution was used in the app, as it offers the extended functionality, but keeping a cleaner interface, especially since a button bar was later needed for other features anyway.
-4. A fourth solution was conceptualized that would enable the user to set geofence locks not just on weekdays, but as customizable time slots, which again gives the user more flexibility, but would make it hard to implement bulk operations.\
-This feature was not seen as necessary and was therefore not implemented in the app.
+1. A select-all checkbox for each day of the week, allowing the user to lock or unlock all geofences for that day
+  - easy to use and intuitive
+  - actions can only be performed for all geofences, since there is no selection model
+2. Checkboxes to select geofences, and dropdown buttons for each weekday to lock, unlock or toggle all selected geofences' locks on that day
+  - more options and flexibility
+  - more buttons - cluttered interface
+3. Checkboxes to select geofences and a button bar with dropdown buttons to lock, unlock or toggle certain weekdays
+  - more options and flexibility
+  - cleaner interface
+4. A fourth solution was conceptualized that would enable the user to set geofence locks not just on weekdays, but as customizable time slots
+  - even more flexibility
+  - hard to implement bulk operations
 
-[TODO: maybe just rewrite as bullet points]
+Option three was chosen for the app because of the added flexibility of the selection model, and because a button bar was needed for other features anyway.\
+Customizable timeslots, like in option four, were not implemented in the app, but the mockup was kept in case they would be added later.
 
 
 ## Mobile compatibility
