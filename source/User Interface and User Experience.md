@@ -158,7 +158,9 @@ The "Clear"-button only clears the text in the input field, but does not reset t
 
 
 ## Multi-language support
-Lorem
+To comply with the already existing Drivebox-App, the user interface is offered in both English and German. This includes all texts, like labels, tooltips, error messages, and also native texts used by libraries such as labels in the _Leaflet_-map, wherever they could be changed.
+
+The language is selected by the user in the Drivebox-App and is then handed to the Geofencing application.
 
 
 ## Integration into DriveBox
