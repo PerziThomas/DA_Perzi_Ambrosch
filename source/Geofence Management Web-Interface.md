@@ -175,26 +175,27 @@ To achieve this, all geofences are given a boolean property _isNotEditable_, whi
 This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
 
 ```jsx
-<MapContainer [TODO: code abbreviations?] ... >
-    ...
+<MapContainer /* shortened */ >
+    {/* shortened */}
+
     {/*display non-editable geofences (circles or roads)*/}
     {[...geoFences.keys()].filter(id => {
         return (geoFences.get(id).geoFence.SystemGeoFence || geoFences.get(id).geoFence.IsNotEditable)
     }).map(id => {
         return (
-            <MyPolygon ... ></MyPolygon>
+            <MyPolygon /* shortened */ ></MyPolygon>
         );
     })}
 
     <FeatureGroup>
-        <MyEditComponent ... ></MyEditComponent>
+        <MyEditComponent /* shortened */ ></MyEditComponent>
 
         {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
         {[...geoFences.keys()].filter(id => {
             return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
         }).map(id => {
             return (
-                <MyPolygon ... ></MyPolygon>
+                <MyPolygon /* shortened */ ></MyPolygon>
             );
         })}
     </FeatureGroup>
