@@ -19,10 +19,6 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-# Introduction
-Lorem Ipsum
-
-
 ## Use Cases
 Lorem Impsum
 
