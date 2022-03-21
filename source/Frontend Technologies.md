@@ -72,8 +72,6 @@ await axios(reqObj)
 })
 ```
 
-For the purposes of the Geofence management application described in this thesis, the difference is neglectable, as only basic requests are used and there is no significant benefit from the additional features. Axios was chosen to comply with standards of the company, and because it was used in the existing parts of the Drivebox application.
-
 
 ### React-localize-redux
 Lorem Ipsum
