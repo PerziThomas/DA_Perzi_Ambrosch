@@ -9,7 +9,7 @@ To summarize, the app possessed three main requirements. Firstly, it needed to b
 After the original pitch by the managing director, DI Klaus Kienzl, the idea was further developed in weekly meetings and occasional informal talks by the two inters, DI Klaus Kienzl, head of sales Heinz Kienzl and senior developer Christian Polanc.
 
 ## Way of working
-At iLogs, a SCRUM-like framework was used to define project goals. Every week on Monday a longer sprint meeting was held to discuss the goals for the coming week, with daily stand up meetings defining daily goals and progress. These meetings had no defined time frame and were held as long as they needed to be.
+At ilogs, a SCRUM-like framework was used to define project goals. Every week on Monday a longer sprint meeting was held to discuss the goals for the coming week, with daily stand up meetings defining daily goals and progress. These meetings had no defined time frame and were held as long as they needed to be.
 
 Version control was handled using a Git server hosted on a Microsoft Azure instance. No git flow was followed while working on the project due to it being an overengineered solution for a project with only two people working on it. 
 
