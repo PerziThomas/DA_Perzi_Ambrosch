@@ -85,9 +85,14 @@ Localize has to be initialized with settings, which must include an array of sup
 
 
 #### Adding translation data
-Translation data is stored in JSON files and is then imported and added to localize. There are two different ways to add translations:
+There are two different ways to add translations:
 - The _addTranslation_ method is used to add translation data in an _all languages_ format, which means the translations for all languages are stored together in a single file.
 - The _addTranslationForLangage_ method adds translation data in _single language_ format, meaning that there is one resource file for each supported language.
+
+Translation data is stored in JSON files and is then imported and added to localize. When using the _single language_ format, each translation consists of a property name and the translation for that language.
+
+
+When using the _single language_ format, for every property name, 
 
 
 ### Leaflet
