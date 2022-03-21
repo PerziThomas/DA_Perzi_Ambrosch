@@ -20,7 +20,7 @@ After navigating to the app with _cd my-app_, it can be executed by running _npm
 Axios is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js. [@axios]
 
 
-### Comparison with the Fetch API
+### Comparison with fetch
 The Fetch API provides the _fetch()_ method to make promise-based API requests via the HTTP protocol.\
 Fetch and axios are very similar to use, with the main difference being different syntax and property names.\
 Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
@@ -71,6 +71,8 @@ await axios(reqObj)
     // error handling
 })
 ```
+
+For the purposes of the Geofence management application described in this thesis, the difference is neglectable, as only basic requests are used and there is no significant benefit from the additional features. Axios was chosen to comply with standards of the company, and because it was used in the existing parts of the Drivebox application.
 
 
 ### React-localize-redux
