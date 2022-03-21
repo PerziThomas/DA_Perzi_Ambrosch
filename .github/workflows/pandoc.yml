@@ -27,11 +27,11 @@ jobs:
         working-directory: da_repo
       - run: ls -la
         working-directory: pandoc_folder/source
-      - run: make pdf
+      - run: make docx
         working-directory: pandoc_folder
       - name: Upload PDF
         uses: actions/upload-artifact@v2
         with:
           name: DA_PDF
-          path: pandoc_folder/output/thesis.pdf
+          path: pandoc_folder/output/thesis.docx
       
