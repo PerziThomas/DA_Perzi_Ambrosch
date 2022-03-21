@@ -1,0 +1,46 @@
+\documentclass[11pt, oneside, numbers=noenddot]{scrbook}  
+\input{./includes/htl_definintions.tex}	
+
+% Required by pandoc
+\usepackage{hyperref}
+\def\tightlist{}
+\newcommand{\autocite}{\cite}
+
+% Titel der Arbeit:
+\def\htlArbeitsthema{$title$}
+\def\betreuer{$betreuer$}
+\def\autor{$author$}
+\def\autorB{$authorB$}
+\def\abgabeDatum{$date$}
+
+\begin{document}
+
+
+\pagenumbering{roman}	
+		
+\input{./chapters/00_deckblatt.tex}
+\input{./chapters/00_ee.tex}
+	
+\tableofcontents
+\pagenumbering{arabic}	
+
+$body$
+
+\appendix
+
+\addcontentsline{toc}{chapter}{Listings}
+\lstlistoflistings
+
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}
+\bibliography{references}
+
+\input{./chapters/99_authors.tex}
+
+
+
+\end{document}  
