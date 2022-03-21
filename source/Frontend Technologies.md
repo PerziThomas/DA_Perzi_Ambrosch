@@ -74,11 +74,20 @@ await axios(reqObj)
 
 
 ### React-localize-redux
-Lorem Ipsum
+React-localize-redux is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_, but understanding or using context is not necessary when using the library.\
+The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language.
 
 
-### Material UI
-Lorem Ipsum
+#### Initialization
+All child components of the _LocalizeProvider_ component can work with the _localize_ function. Therefore, it makes sense to place this high in the hierarchy by wrapping the application in an instance of _LocalizeProvider_.
+
+Localize has to be initialized with settings, which must include an array of supported languages, and can include translation settings and initialization options, such as the default language or different rendering options.
+
+
+#### Adding translation data
+Translation data is stored in JSON files and is then imported and added to localize. There are two different ways to add translations:
+- The _addTranslation_ method is used to add translation data in an _all languages_ format, which means the translations for all languages are stored together in a single file.
+- The _addTranslationForLangage_ method adds translation data in _single language_ format, meaning that there is one resource file for each supported language.
 
 
 ### Leaflet
