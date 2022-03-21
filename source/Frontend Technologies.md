@@ -6,14 +6,18 @@ The frontend part of the app is a user interface for managing geofences, which w
 React is a JavaScript library that allows developers to build declarative and component-based user interfaces. Complex UIs can be built with modular, reusable components, which are automatically rendered and updated by React.
 
 
-#### React app creation
-The _create-react-app_ tool is an officially supported
+#### Create React App
+React can be integrated into existing websites easily by using script-tags and creating components through JS code. However, when starting from scratch or when creating a more complex application, it is advantageous to use additional tools.
+
+_Create React App_ is an officially supported setup tool without configuration and builds a small one-page example application as a starting point.
+
+To start, if npm is used as a package manager, the command _npx create-react-app my-app_ is run, where _my-app_ is replaced with then name of the application. This creates a directory of that name at the current location which contains the example application.
+
+After navigating to the app with _cd my-app_, it can be executed by running _npm start_. The app will then by default be available at _http://localhost:3000/_. [@createReactApp]
 
 
 ### Axios
-Axios is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js.
-
-The package can be installed by using _node package manager_ with the command _npm install axios_.
+Axios is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js. [@axios]
 
 
 ### Comparison with the Fetch API
@@ -27,19 +31,19 @@ Both fetch and axios provide all basic functionality needed for making and handl
 - built-in support for download progress
 - wider range of supported browsers
 
-An example GET request, including a header and handling of the request promise, will be demonstrated with _fetch_ below.
+An example GET request, including an Authorization header and handling of the request promise, is written with _fetch_ as demonstrated below.
 
 ```jsx
 const headersObj = new Headers({
     'Authorization': 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
 });
 
-const reqObj = new Request('https://locahost:44301/api', {
+const request = new Request('https://locahost:44301/api', {
     method: 'get',
     headers: headersObj
 })
 
-await axios(reqObj)
+await axios(request)
 .then((res) => res.json()) // convert response stream
 .then(data => {
     // work with response data
