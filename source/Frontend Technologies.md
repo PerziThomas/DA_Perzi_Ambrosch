@@ -75,13 +75,13 @@ await axios(reqObj)
 
 ### React-localize-redux
 React-localize-redux is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_, but understanding or using context is not necessary when using the library.\
-The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language.
+The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
 
 
 #### Initialization
 All child components of the _LocalizeProvider_ component can work with the _localize_ function. Therefore, it makes sense to place this high in the hierarchy by wrapping the application in an instance of _LocalizeProvider_.
 
-Localize has to be initialized with settings, which must include an array of supported languages, and can include translation settings and initialization options, such as the default language or different rendering options.
+Localize has to be initialized with settings, which must include an array of supported languages, and can include translation settings and initialization options, such as the default language or different rendering options. [@reactLocalizeRedux]
 
 
 #### Adding translation data
@@ -90,7 +90,7 @@ There are two different ways to add translations:
 - The _addTranslationForLangage_ method adds translation data in _single language_ format, meaning that there is one resource file for each supported language.
 
 Translation data is stored in JSON files which are then imported and added to localize. When using the _single language_ format, each translation consists of a property name and the translation for that language. When using the all languages_ format, for every property name, an array of translation texts for the different languages is used instead, in the order used for initialization.\
-In both cases, translation data can be nested for easier naming and grouping of properties. This nested structure is represented via periods (".") in the id when calling the translation values.
+In both cases, translation data can be nested for easier naming and grouping of properties. This nested structure is represented via periods (".") in the id when calling the translation values. [@reactLocalizeRedux]
 
 An example of a resource file in _all languages_ format could be called _translations.json_ and would look as follows:
 
@@ -189,7 +189,7 @@ There are two notably different ways in which translations can be integrated in 
 <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
 ```
 
-- The _translate_ function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props.
+- The _translate_ function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
 
 ```jsx
 translate("units.length.meter.plural") /* returns "meters" or "Meter" */
