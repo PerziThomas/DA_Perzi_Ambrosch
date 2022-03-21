@@ -89,10 +89,111 @@ There are two different ways to add translations:
 - The _addTranslation_ method is used to add translation data in an _all languages_ format, which means the translations for all languages are stored together in a single file.
 - The _addTranslationForLangage_ method adds translation data in _single language_ format, meaning that there is one resource file for each supported language.
 
-Translation data is stored in JSON files and is then imported and added to localize. When using the _single language_ format, each translation consists of a property name and the translation for that language.
+Translation data is stored in JSON files which are then imported and added to localize. When using the _single language_ format, each translation consists of a property name and the translation for that language. When using the all languages_ format, for every property name, an array of translation texts for the different languages is used instead, in the order used for initialization.\
+In both cases, translation data can be nested for easier naming and grouping of properties. This nested structure is represented via periods (".") in the id when calling the translation values.
+
+An example of a resource file in _all languages_ format could be called _translations.json_ and would look as follows:
+
+```json
+{
+    "units": {
+        "length": {
+            "meter": {
+                "singular": [
+                    "meter",    (en)
+                    "Meter",    (de)
+                ],
+                "plural": [
+                    "meters",   (en)
+                    "Meter",    (de)
+                ],
+                "symbol": [
+                    "m",        (en)
+                    "m",        (de)
+                ],
+            }
+        },
+        "time": {
+            "second": {
+                "singular": [
+                    "second",   (en)
+                    "Sekunde",  (de)
+                ],
+                "plural": [
+                    "seconds",  (en)
+                    "Sekunden", (de)
+                ],
+                "symbol": [
+                    "s",        (en)
+                    "s",        (de)
+                ],
+            }
+        }
+    }
+}
+```
+
+With _single language format_, this would instead be split in two files, _en.translations.json_:
+
+```json
+{
+    "units": {
+        "length": {
+            "meter": {
+                "singular": "meter",
+                "plural": "meters",
+                "symbol": "m"
+            }
+        },
+        "time": {
+            "second": {
+                "singular": "second",
+                "plural": "seconds",
+                "symbol": "s"
+            }
+        }
+    }
+}
+```
+
+and _de.translations.json_:
+
+```json
+{
+    "units": {
+        "length": {
+            "meter": {
+                "singular": "Meter",
+                "plural": "Meter",
+                "symbol": "m"
+            }
+        },
+        "time": {
+            "second": {
+                "singular": "Sekunde",
+                "plural": "Sekunden",
+                "symbol": "s"
+            }
+        }
+    }
+}
+```
 
 
-When using the _single language_ format, for every property name, 
+#### Using translations in components
+There are two notably different ways in which translations can be integrated in the React code.
+
+- The _Translate_ tag can be used in a self-closing form, with an _id_ prop referencing the translation property name in the resource files.
+
+```jsx
+<Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
+```
+
+- The _translate_ function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props.
+
+```jsx
+translate("units.length.meter.plural") /* returns "meters" or "Meter" */
+```
 
 
 ### Leaflet
