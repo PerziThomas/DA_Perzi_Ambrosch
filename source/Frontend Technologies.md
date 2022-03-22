@@ -222,7 +222,7 @@ Lorem Ipsum
 
 
 ### GeoJSON
-GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_, which was published in August 2016. [@geoJsonSpecification]
+GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_, which was published in August 2016.
 
 The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
 
@@ -267,7 +267,7 @@ A Feature has a member "geometry" which can be either a geometry object or null 
 
 
 #### Feature collection
-A FeatureCollection can be used to group different features together. It has a member "features", which is an array where each element is a Feature object as described above. This array can also be empty.
+A FeatureCollection can be used to group different features together. It has a member "features", which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
 
 
 #### Example
