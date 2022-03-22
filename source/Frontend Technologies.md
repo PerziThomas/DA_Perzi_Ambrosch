@@ -222,4 +222,11 @@ Lorem Ipsum
 
 
 ### GeoJSON
-Lorem Ipsum
+GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_, which was published in 2016. [@geoJsonSpecification]
+
+The format supports the geometric objects _Point, LineString, Polygon, MultiPoint, MultiLineString and MultiPolygon_, _Feature_ objects, which can have additional information, and _FeatureCollection_ objects to group sets of features.
+
+
+#### Geometry objects
+(with examples teilweise)
+
