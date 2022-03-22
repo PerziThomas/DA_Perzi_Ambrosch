@@ -35,20 +35,20 @@ An example GET request, including an Authorization header and handling of the re
 
 ```jsx
 const headersObj = new Headers({
-    'Authorization': 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
+	'Authorization': 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
 });
 
 const request = new Request('https://locahost:44301/api', {
-    method: 'get',
-    headers: headersObj
+	method: 'get',
+	headers: headersObj
 })
 
 await axios(request)
 .then((res) => res.json()) // convert response stream
 .then(data => {
-    // work with response data
+	// work with response data
 }).catch(err => {
-    // error handling
+	// error handling
 })
 ```
 
@@ -56,19 +56,19 @@ The same request with _axios_ can be rewritten as follows:
 
 ```jsx
 const reqObj = {
-    method: 'get',
-    url: 'https://localhost:44301/api',
-    headers: {
-        Authorization: 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
-    }
+	method: 'get',
+	url: 'https://localhost:44301/api',
+	headers: {
+		Authorization: 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
+	}
 }
 
 await axios(reqObj)
 .then(res => {
-    let resObj = res.data; // access the response object
-    // work with response data
+	let resObj = res.data; // access the response object
+	// work with response data
 }).catch(err => {
-    // error handling
+	// error handling
 })
 ```
 
@@ -96,40 +96,40 @@ An example of a resource file in _all languages_ format could be called _transla
 
 ```json
 {
-    "units": {
-        "length": {
-            "meter": {
-                "singular": [
-                    "meter",    (en)
-                    "Meter",    (de)
-                ],
-                "plural": [
-                    "meters",   (en)
-                    "Meter",    (de)
-                ],
-                "symbol": [
-                    "m",        (en)
-                    "m",        (de)
-                ],
-            }
-        },
-        "time": {
-            "second": {
-                "singular": [
-                    "second",   (en)
-                    "Sekunde",  (de)
-                ],
-                "plural": [
-                    "seconds",  (en)
-                    "Sekunden", (de)
-                ],
-                "symbol": [
-                    "s",        (en)
-                    "s",        (de)
-                ],
-            }
-        }
-    }
+	"units": {
+		"length": {
+			"meter": {
+				"singular": [
+					"meter",    (en)
+					"Meter",    (de)
+				],
+				"plural": [
+					"meters",   (en)
+					"Meter",    (de)
+				],
+				"symbol": [
+					"m",        (en)
+					"m",        (de)
+				],
+			}
+		},
+		"time": {
+			"second": {
+				"singular": [
+					"second",   (en)
+					"Sekunde",  (de)
+				],
+				"plural": [
+					"seconds",  (en)
+					"Sekunden", (de)
+				],
+				"symbol": [
+					"s",        (en)
+					"s",        (de)
+				],
+			}
+		}
+	}
 }
 ```
 
@@ -137,22 +137,22 @@ With _single language format_, this would instead be split in two files, _en.tra
 
 ```json
 {
-    "units": {
-        "length": {
-            "meter": {
-                "singular": "meter",
-                "plural": "meters",
-                "symbol": "m"
-            }
-        },
-        "time": {
-            "second": {
-                "singular": "second",
-                "plural": "seconds",
-                "symbol": "s"
-            }
-        }
-    }
+	"units": {
+		"length": {
+			"meter": {
+				"singular": "meter",
+				"plural": "meters",
+				"symbol": "m"
+			}
+		},
+		"time": {
+			"second": {
+				"singular": "second",
+				"plural": "seconds",
+				"symbol": "s"
+			}
+		}
+	}
 }
 ```
 
@@ -160,22 +160,22 @@ and _de.translations.json_:
 
 ```json
 {
-    "units": {
-        "length": {
-            "meter": {
-                "singular": "Meter",
-                "plural": "Meter",
-                "symbol": "m"
-            }
-        },
-        "time": {
-            "second": {
-                "singular": "Sekunde",
-                "plural": "Sekunden",
-                "symbol": "s"
-            }
-        }
-    }
+	"units": {
+		"length": {
+			"meter": {
+				"singular": "Meter",
+				"plural": "Meter",
+				"symbol": "m"
+			}
+		},
+		"time": {
+			"second": {
+				"singular": "Sekunde",
+				"plural": "Sekunden",
+				"symbol": "s"
+			}
+		}
+	}
 }
 ```
 
@@ -222,11 +222,116 @@ Lorem Ipsum
 
 
 ### GeoJSON
-GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_, which was published in 2016. [@geoJsonSpecification]
+GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_, which was published in August 2016. [@geoJsonSpecification]
 
-The format supports the geometric objects _Point, LineString, Polygon, MultiPoint, MultiLineString and MultiPolygon_, _Feature_ objects, which can have additional information, and _FeatureCollection_ objects to group sets of features.
+The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
 
 
-#### Geometry objects
-(with examples teilweise)
+#### Geometry object
+There are seven basic geometry objects types:
 
+1. Position
+: an array of two or more numbers, representing longitude, latitude and optionally height
+
+For the remaining six types, the explanation refers to the content of that objects "coordinates" property:
+
+2. Point
+: a single position
+3. MultiPoint
+: an array of positions
+4. LineString
+: an array of two or more points
+5. MultiLineString
+: an array of LineString coordinate arrays
+6. Polygon
+: an array of linear ring coordinate arrays
+7. MultiPolygon
+: an array of Polygon coordinate arrays
+
+
+##### Polygon
+A polygon consists of one or more coordinate arrays that should be linear rings. A linear ring is a closed LineString, meaning the first and last position share the same coordinates. It must have a minimum of four positions, which would describe a triangle.
+
+If multiple coordinate rings are used in a polygon, the first one must be an outer exterior ring. All other rings must be interior rings that describe holes in the previously defined exterior ring.
+
+
+#### Geometry collection
+A GeometryCollection has a member "geometries" which contains an array of geometry objects as described above, which can also be empty.\
+GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
+
+
+#### Feature object
+Features are objects that represent a thing that is spatially bounded. They contain geometry information, but do not represent the geometry itself.
+
+A Feature has a member "geometry" which can be either a geometry object or null if no location is specified.
+
+
+#### Feature collection
+A FeatureCollection can be used to group different features together. It has a member "features", which is an array where each element is a Feature object as described above. This array can also be empty.
+
+
+#### Example
+The following example of a GeoJSON objects consists of a FeatureCollection, which includes five features with different geometries: one LineString, two Points and one Polygon.
+
+```json
+{
+	"type": "FeatureCollection", /* an array of features */
+	"features": [
+	{
+		"type": "Feature", /* declared as feature */
+		"properties": {}, /* no additional properties */
+		"geometry": { /* geometry object*/
+			"type": "LineString", /* geometry type*/
+			"coordinates": [ /* coordinates depending on geometry type */
+				[-122.47979164123535, 37.830124319877235],
+				[-122.47721672058105, 37.809377088502615]
+			]
+		}
+	},
+	{
+		"type": "Feature",
+		"properties": {},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-122.48399734497069, 37.83466623607849] /* lat lng coordinate pair / position */
+		}
+	},
+	{
+		"type": "Feature",
+		"properties": {},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-122.47867584228514, 37.81893781173967]
+		}
+	},
+	{
+		"type": "Feature",
+		"properties": {},
+		"geometry": {
+			"type": "Polygon",
+			"coordinates": [
+				[
+					[-122.48043537139893, 37.82564992009924],
+					[-122.48129367828368, 37.82629397920697],
+					[-122.48240947723389, 37.82544653184479],
+					[-122.48373985290527, 37.82632787689904],
+					[-122.48425483703613, 37.82680244295304],
+					[-122.48605728149415, 37.82639567223645],
+					[-122.4898338317871, 37.82663295542695],
+					[-122.4930953979492, 37.82415839321614],
+					[-122.49700069427489, 37.821887146654376],
+					[-122.4991464614868, 37.82171764783966],
+					[-122.49850273132326, 37.81798857543524],
+					[-122.50923156738281, 37.82090404811055],
+					[-122.51232147216798, 37.823344820392535],
+					[-122.50150680541992, 37.8271414168374],
+					[-122.48743057250977, 37.83093781796035],
+					[-122.48313903808594, 37.82822612280363],
+					[-122.48043537139893, 37.82564992009924]
+				]
+			]
+		}
+	}
+	]
+}
+```
