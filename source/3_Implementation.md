@@ -126,8 +126,17 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 ![A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.](source/figures/seq_rest.png "Screenshot"){#fig:stress_one width=90%}
 \  
 
--- TODO (David) - Describe Frontend part of communication
 
+### Sending requests from the frontend
+The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios, to comply with the company's standards and the existing Drivebox application.\
+Since only basic get and post requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax.\
+An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
+
+Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because geofences would normally only be viewed and managed by a single user.\
+Request polling was initially implemented because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
+
+When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state.\
+For this reason, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state, so that further requests, like for updates or deletion, can be made for that resource.
 
 
 ## Calculation Algorithm for intersections
