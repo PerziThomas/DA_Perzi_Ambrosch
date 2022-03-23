@@ -12,7 +12,7 @@ Interactive, in this case, means that all operations that involve direct interac
 
 The map is provided by _Leaflet_. Since this library is open-source, a lot of additional libraries exist, some of which were used to extend the functionality of the app.
 
-_React Leaflet_ is also used, which does not replace Leaflet, but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
+_React Leaflet_ is also used to enable working with _Leaflet_ in React components more easily. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
 
 _Leaflet Draw_ and _React Leaflet Draw_ are used to add drawing functions in the map. These libraries offer event handlers for creating and editing shapes, which are overwritten in the app to handle custom behavior like confirmation dialogs and communication with the backend.
 

@@ -216,8 +216,6 @@ The toolbar can also be customized with regards to what features are available. 
 #### React Leaflet Draw
 _React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an _EditControl_ component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
 
-The library offers event handlers for creating and editing shapes, which are overwritten in the app to handle custom behavior like confirmation dialogs and communication with the backend.
-
 
 #### Leaflet Routing Machine
 Leaflet Routing Machine is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints. [@leafletRoutingMachine]
