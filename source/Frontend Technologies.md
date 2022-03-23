@@ -218,7 +218,9 @@ Lorem Ipsum
 
 
 ### OpenStreetMap
-Lorem Ipsum
+OpenStreetMap is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries. [@openStreetMapAbout]
+
+OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
 
 ### GeoJSON
