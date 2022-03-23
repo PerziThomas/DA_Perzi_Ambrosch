@@ -210,11 +210,30 @@ Lorem Ipsum
 
 
 #### Leaflet Routing Machine
-Lorem Ipsum
+Leaflet Routing Machine is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints. [@leafletRoutingMachine]
+
+
+##### Getting started
+The package has to be installed in the project, with the use of a script tag or by installing _leaflet-routing-machine_ with a package manager such as npm.\
+A basic example of the routing machine with two initial waypoints can be added as follows:
+
+```jsx
+const instance = L.Routing.control({ // create an instance of routing machine
+	waypoints: [
+		map.getBounds().getCenter(), // set initial waypoints within current map bounds
+		{
+			lat: map.getBounds().pad(-0.6).getNorth(),
+			lng: map.getBounds().pad(-0.6).getWest()
+		},
+	]
+}
+
+instance.addTo(map); // add routing machine to leaflet map
+```
 
 
 #### Leaflet Geosearch
-Lorem Ipsum
+Lorem Ipsum [@leafletGeosearch]
 
 
 ### OpenStreetMap
