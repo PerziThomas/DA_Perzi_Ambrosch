@@ -209,11 +209,11 @@ Lorem Ipsum
 #### React Leaflet Draw
 
 
-#### Road extension
+#### Leaflet Routing Machine
 Lorem Ipsum
 
 
-#### Search extension
+#### Leaflet Geosearch
 Lorem Ipsum
 
 
