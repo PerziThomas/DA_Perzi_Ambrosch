@@ -11,27 +11,15 @@ The central part of the frontend is an interactive map that can be used to view,
 Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data, can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
 
 
-#### Leaflet
-_Leaflet_ is the leading open-source JavaScript library for interactive maps. It is a technology used by the company for maps in existing apps, and is also ideal for testing applications, since the library - including all of its features - is free to use, with no restrictions like monthly time or data limits for the map services. [@leafletOverview]
+### Interactive Map
+The central part of the frontend is an interactive map that can be used to view, create and edit geofences.\
+Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data, can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
 
-Because Leaflet is open-source, a lot of additional libraries exist, some of which were used in the app and will be described in the following sections.
+The map is provided by _Leaflet_. Since this library is open-source, a lot of additional libraries exist, some of which were used to extend the functionality of the app.
 
+_React Leaflet_ is also used, which does not replace Leaflet, but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
 
-#### React Leaflet
-_React Leaflet_ is a node library that offers React components for Leaflet maps, making it easier to use in a React context. It is responsible for things such as providing hooks or rendering Leaflet layers by itself to avoid updating the DOM tree. [@reactLeafletIntro]
-
-React Leaflet does not replace Leaflet, but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
-
-
-#### Leaflet Draw
-The JavaScript library _Leaflet Draw_ adds interactive drawing features to Leaflet maps. The library can be used to add a toolbar to Leaflet maps, containing options for drawing different shapes, as well as editing them.\
-The toolbar can also be customized with regards to what features are available. [@leafletDrawDocumentation]
-
-
-#### React Leaflet Draw
-_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an _EditControl_ component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
-
-The library offers event handlers for creating and editing shapes, which are overwritten in the app to handle custom behavior like confirmation dialogs and communication with the backend.
+_Leaflet Draw_ and _React Leaflet Draw_ are used to add drawing functions in the map. These libraries offer event handlers for creating and editing shapes, which are overwritten in the app to handle custom behavior like confirmation dialogs and communication with the backend.
 
 
 ### Geofence creation
