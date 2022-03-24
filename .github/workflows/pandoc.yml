@@ -33,7 +33,6 @@ jobs:
           --listings \
           2>htl-latex.log
         working-directory: da_repo
-      
       - run: mkdir -p source
         working-directory: output
       - run: cp -rf ../source/figures source
@@ -42,7 +41,6 @@ jobs:
         working-directory: output
       - run: cp -rf ../style/htl-da/chapters ../style/htl-da/includes ../style/htl-da/media .
         working-directory: output
-
       - run: pdflatex diplomarbeit.tex
         working-directory: output
       - run: bibtex diplomarbeit
@@ -51,7 +49,6 @@ jobs:
         working-directory: output
       - run: pdflatex diplomarbeit.tex
         working-directory: output
-
       - name: Upload Log
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
