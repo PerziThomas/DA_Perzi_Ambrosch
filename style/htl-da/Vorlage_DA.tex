@@ -1,0 +1,49 @@
+\documentclass[11pt, oneside, numbers=noenddot]{scrbook}  
+\input{./includes/htl_definintions.tex}	
+
+% Titel der Arbeit:
+\def\htlArbeitsthema{Thema der Diplomarbeit}	
+
+\begin{document}
+
+
+\pagenumbering{roman}	
+		
+\input{./chapters/00_deckblatt.tex}
+\input{./chapters/00_ee.tex}
+	
+\tableofcontents
+\pagenumbering{arabic}	
+
+\input{./chapters/01_introduction.tex}
+\input{./chapters/02_systemoverview.tex}
+\input{./chapters/03_contenta.tex}
+\input{./chapters/04_contentb.tex}
+\input{./chapters/05_contentc.tex}
+\input{./chapters/06_evaluation.tex}
+\input{./chapters/07_projectmanagement.tex}
+\input{./chapters/08_futurework.tex}
+\input{./chapters/09_relatedwork.tex}
+\input{./chapters/10_conclusion.tex}
+
+
+\appendix
+
+\input{./chapters/99_acknowledgements.tex}
+
+\addcontentsline{toc}{chapter}{Listings}
+\lstlistoflistings
+
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}
+\bibliography{literature}
+
+\input{./chapters/99_authors.tex}
+
+
+
+\end{document}  
