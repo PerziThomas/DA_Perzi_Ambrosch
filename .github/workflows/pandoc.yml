@@ -32,3 +32,9 @@ jobs:
           --top-level-division=chapter \
           --listings \
           2>htl-latex.log
+      - name: Upload Log
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: make_log
+          path: htl-latex.log
