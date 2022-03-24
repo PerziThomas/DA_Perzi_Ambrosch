@@ -666,11 +666,6 @@ const instance = L.Routing.control({ // create an instance of routing machine
 instance.addTo(map); // add routing machine to leaflet map
 ```
 
-
-#### Leaflet Geosearch
-Lorem Ipsum [@leafletGeosearch]
-
-
 ### OpenStreetMap
 OpenStreetMap is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries. [@openStreetMapAbout]
 
