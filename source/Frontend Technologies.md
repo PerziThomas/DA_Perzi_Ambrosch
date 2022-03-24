@@ -208,6 +208,21 @@ _React Leaflet_ is a node library that offers React components for Leaflet maps,
 React Leaflet does not replace Leaflet, but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
 
 
+##### Setup
+After installing the required dependencies _react, react-dom_ and _leaflet_, a simple map can be added to a React application by adding the following code:
+
+```jsx
+<MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
+	<TileLayer
+		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
+	/>
+
+	<Polygon positions={coordinates /* lat lng coordinate array */} />
+</MapContainer>
+```
+
+
 #### Leaflet Draw
 The JavaScript library _Leaflet Draw_ adds interactive drawing features to Leaflet maps. The library can be used to add a toolbar to Leaflet maps, containing options for drawing different shapes, as well as editing them.\
 The toolbar can also be customized with regards to what features are available. [@leafletDrawDocumentation]
@@ -215,6 +230,51 @@ The toolbar can also be customized with regards to what features are available. 
 
 #### React Leaflet Draw
 _React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an _EditControl_ component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
+
+
+##### Setup
+To be able to include drawing functions in a map, the _leaflet-draw_ styles have to be added to the project by including
+
+```jsx
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+```
+
+or
+
+```
+node_modules/leaflet-draw/dist/leaflet.draw.css
+```
+
+Afterwards, an _EditControl_ component can be added to a map to enable drawing features to be used. This component must be placed in a _FeatureGroup_ component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.\
+The EditControl component provides event handlers for all events related to the drawing functions, like _onCreated, onEdited_ and _onDeleted_, which can be overwritten by the developer to add custom functionality.\
+The _draw_ property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
+
+Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
+
+```jsx
+<MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
+	<TileLayer
+		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
+	/>
+
+	<FeatureGroup>
+		<EditControl
+			position='topright' /* position of the leaflet-draw toolbar */
+			onEdited={this._onEdited}
+			onCreated={this._onCreate}
+			onDeleted={this._onDeleted}
+			draw={{
+				circle: false /* hide circle drawing function */
+			}}
+		/>
+
+		<Polygon positions={coordinates /* editable polygon */} />
+	</FeatureGroup>
+
+	<Polygon positions={coordinates /* non-editable polygon */} />
+</MapContainer>
+```
 
 
 #### Leaflet Routing Machine
