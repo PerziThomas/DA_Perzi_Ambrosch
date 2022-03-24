@@ -1,4 +1,4 @@
-# I. Eidesstattliche Erklarung {-}
+# I. Eidesstattliche Erklärung {-}
 Lorem Ipsum
 
 
