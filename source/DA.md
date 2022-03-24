@@ -231,34 +231,6 @@ Lorem Ipsum
 Lorem Ipsum
 
 
-# Testing
-Lorem Ipsum
-
-
-## Functional Testing
-Lorem Ipsum
-
-
-### Frontend Functionality
-Lorem Ipsum
-
-
-### Backend Algorithms
-Lorem Ipsum
-
-
-## Stress Testing
-Lorem Ipsum
-
-
-### MS SQL
-Lorem Ipsum
-
-
-### ASP.NET
-Lorem Ipsum
-
-
 # User Interface & User Experience
 Lorem Ipsum
 
