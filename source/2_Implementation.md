@@ -140,7 +140,7 @@ To request a service from the application a class must simple include the servic
 #### Middleware
 To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware and the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used. [@middleware]
 
-![Example of a middleware workflow.](source/figures/middleware_pipe.png "Screenshot"){#fig:middleware width=90%}
+![Example of a middleware workflow. [@middleware]](source/figures/middleware_pipe.png "Screenshot"){#fig:middleware width=90%}
 \  
 
 To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the *IApplicationBuilder* interface must be extended with a method registering the middleware. This methods is then called in the startup file.
@@ -864,7 +864,7 @@ To calculate intersections between geofences and points in time (POI), two oppor
 ### Raycasting
 Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the POI to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. 
 
-![An example of how a raycasting algorithm works with a polygon.](source/figures/raycasting_polygon.png "Screenshot"){#fig:ray_poly width=90%}
+![An example of how a raycasting algorithm works with a polygon. [@raycasting]](source/figures/raycasting_polygon.png "Screenshot"){#fig:ray_poly width=90%}
 \  
 
 This algorithm comes with some drawbacks. First, having to implement it by hand and second, needing to implement every kind of error check that might be needed. Additionally, the speed of calculations is not acceptable for time critical applications, such as Drivebox, and would need even more manual optimizations to match the speed of the methods provided by third party libraries. [@raycasting]
