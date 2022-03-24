@@ -49,7 +49,7 @@ The available presets with their geometry are stored in the backend. A POST requ
 
 
 ### Circular geofences
-Circles, when created with _leaflet-draw_, have a centre point defined by a latitude, a longitude and a radius. This information is sent to the backend.
+Circles, when created with _leaflet-draw_, have a center point defined by a latitude, a longitude and a radius. This information is sent to the backend.
 
 In the backend, the circle is converted into a polygon, which can be saved to the database. The coordinates of this polygon are returned to the frontend, where they are used to add the circle directly in the React state.
 
@@ -151,33 +151,34 @@ The _LeafletMap_ component contains a _FeatureGroup_ that includes the component
 
 
 #### Non-editable geofences
-Circular geofences and road geofences cannot be edited. Since all geofences are stored as polygons in the backend, circles are converted to an equilateral polygon with over 100 vertices. Moving individual points to change the circle's centre or radius would be infeasible for the user. The same applies to road geofences, which, once stored as polygons, cannot be converted back to a route that can easily be changed.
+Circular geofences and road geofences cannot be edited. Since all geofences are stored as polygons in the backend, circles are converted to an equilateral polygon with over 100 vertices. Moving individual points to change the circle's center or radius would be infeasible for the user. The same applies to road geofences, which, once stored as polygons, cannot be converted back to a route that can easily be changed.
 
 To achieve this, all geofences are given a boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints.
 
 This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
 
 ```jsx
-<MapContainer [TODO: code abbreviations?] ... >
-    ...
+<MapContainer /* shortened */ >
+    {/* shortened */}
+
     {/*display non-editable geofences (circles or roads)*/}
     {[...geoFences.keys()].filter(id => {
         return (geoFences.get(id).geoFence.SystemGeoFence || geoFences.get(id).geoFence.IsNotEditable)
     }).map(id => {
         return (
-            <MyPolygon ... ></MyPolygon>
+            <MyPolygon /* shortened */ ></MyPolygon>
         );
     })}
 
     <FeatureGroup>
-        <MyEditComponent ... ></MyEditComponent>
+        <MyEditComponent /* shortened */ ></MyEditComponent>
 
         {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
         {[...geoFences.keys()].filter(id => {
             return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
         }).map(id => {
             return (
-                <MyPolygon ... ></MyPolygon>
+                <MyPolygon /* shortened */ ></MyPolygon>
             );
         })}
     </FeatureGroup>
@@ -233,7 +234,7 @@ export default withLocalize(GeoSearchField);
 A label is displayed for every geofence in the map to make it easier to associate a geofence with its corresponding polygon.
 
 Leaflet can display labels for polygons, however, these default labels have some problems.\
-The precision with which the position of the label is calculated seems to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centred within or completely outside its polygon. 
+The precision with which the position of the label is calculated seems to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centered within or completely outside its polygon. 
 
 ![Labels (top left) are displayed at the same point outside their corresponding polygons (bottom right).](source/figures/Label_precision_problem.png "Screenshot"){#fig:stress_one width=90%}
 \ 
@@ -248,22 +249,22 @@ Since the default labels were replaced with custom markers, the position of thes
 ##### Average of points
 The label position can be calculated by taking an average of the coordinates of all points of the polygon. This is a good approximation for simple, convex shapes with evenly distributed points.
 
-If points are distributed unevenly, meaning there is more detail on one side than the other, the average will shift to that side, and the calculated point will not appear centred anymore.
+If points are distributed unevenly, meaning there is more detail on one side than the other, the average will shift to that side, and the calculated point will not appear centered anymore.
 
-This approach can also lead to problems with concave geometry, like for example a U-shaped polygon. The calculated centre lies in the middle of the shape, which in this case is not part of the polygon, causing the label to appear outside the geometry.
+This approach can also lead to problems with concave geometry, like for example a U-shaped polygon. The calculated center lies in the middle of the shape, which in this case is not part of the polygon, causing the label to appear outside the geometry.
 
 ![Geofence label is displayed outside the concave polygon's geometry](source/figures/Label_outside_concave_geometry.png "Screenshot"){#fig:stress_one width=90%}
 \ 
 
 
 ##### Center of bounding box
-The label can be placed at the centre of the bounding box of the polygon, which can easily be done by using basic leaflet methods.
+The label can be placed at the center of the bounding box of the polygon, which can easily be done by using basic leaflet methods.
 
 ```jsx
 polygon.getBounds().getCenter()
 ```
 
-This approach solves the problem with unevenly distributed points, because the centre is always calculated from a rectangle with exactly four points. However, it is not a solution for concave polygons like the U-shape described above.
+This approach solves the problem with unevenly distributed points, because the center is always calculated from a rectangle with exactly four points. However, it is not a solution for concave polygons like the U-shape described above.
 
 
 ##### Pole of inaccessibility
@@ -324,9 +325,9 @@ localStorage.setItem("visibility", JSON.stringify(obj));
 
 
 ### Geofence highlighting
-Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight colour (green).
+Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green).
 
-The map movement is done by using the _Leaflet_ function _map.flyToBounds_, which changes the map's centre and zoom level with a smooth animation to fit the bounds of given geometry. [@leafletDocumentation]
+The map movement is done by using the _Leaflet_ function _map.flyToBounds_, which changes the map's center and zoom level with a smooth animation to fit the bounds of given geometry. [@leafletDocumentation]
 
 A boolean tag _Highlighted_ is stored for every geofence. Some special cases have to be considered in combination with the _Geofence visibility_ feature:\
 - If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.
@@ -383,12 +384,12 @@ The currently selected page and page size are stored in the React state and in a
 The task of determining what geofences should be returned in which page is handled by the backend, eliminating the need to have all geofences available in the frontend, and therefore improving frontend performance.
 
 
-### Geofence display colour
-The user can select from a variety of display colours for the geofences on the map, for better contrast and visibility or for personal preference. This is a global setting, meaning that the colour can be changed for all geofences at once. It is not possible to set different colours for individual geofences.
+### Geofence display color
+The user can select from a variety of display colors for the geofences on the map, for better contrast and visibility or for personal preference. This is a global setting, meaning that the color can be changed for all geofences at once. It is not possible to set different colors for individual geofences.
 
-The currently selected colour is stored in a React state variable and used when drawing the Polygons on the map.
+The currently selected color is stored in a React state variable and used when drawing the Polygons on the map.
 
-Highlighted geofences are always coloured green, overriding the global geofence display colour.
+Highlighted geofences are always colored green, overriding the global geofence display color.
 
 
 ### Bulk operations
