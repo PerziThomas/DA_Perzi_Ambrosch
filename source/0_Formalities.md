@@ -1,8 +1,4 @@
-# I. Eidesstattliche Erklärung {-}
-Lorem Ipsum
-
-
-# II. Acknowledgment {-}
+# Acknowledgment {-}
 We wish to thank the following people for assisting in the creation of the software project, as well as the creation of this thesis:
 
 - DI Klaus Kienzl for giving us the opportunity to work at ilogs and create the application.
@@ -11,7 +7,7 @@ We wish to thank the following people for assisting in the creation of the softw
 - Prof. DI Dr. Ingo Kofler for supervising the creation of this thesis.
 
 
-# III. Abstract {-}
+# Abstract {-}
 This thesis describes the development of a fullstack application for managing geofences as well as running calculations on these geofences. A geofence is an area defined by boundaries set by the user.
 
 The company ilogs sells a product called Drivebox. It is a GPS box which tracks the position of vehicles operated by businesses. These businesses wish to be alerted when a vehicle leaves a defined area. This may only be an issue on certain days of the week such as during the weekend.
@@ -20,7 +16,7 @@ The task was to implement a set of features to create and manage geofences using
 
 The main criteria when developing the app were the amount of data it had to be able to handle at the same time, as well as making the creation and management of geofences as easy as possible for the end user. The web interface needed a modern look which fit in line with the rest of the Drivebox system. The calculation functionality needed to be able to handle up to 1000 geospatial data inputs a second while keeping response times under two seconds for each and every one of those. To fulfil these criteria, a variety of testing frameworks as well as tools were used.
 
-# IV. Kurzfassung {-}
+# Kurzfassung {-}
 Diese Diplomarbeit beschreibt die Entwicklung einer Fullstack Geofencing Applikation zum Management von Geofences, sowie zur Durchführung von Berechnung anhand dieser Geofences. Ein Geofence ist eine Fläche mit Grenzen, welche vom Benutzer definiert werden.
 
 Die Firma ilogs verkauf ein Produkt mit dem Namen Drivebox. Dies ist eine GPS Box, welche die Position von Firmenfahrzeugen aufzeichnet. Firmen wollen benachrichtigt werden, wenn eines ihrer Fahrzeuge einen vordefinierten Bereich verlässt. Dies könnte jedoch nur an bestimmten Tagen der Fall sein, zum Beispiel am Wochenende.
