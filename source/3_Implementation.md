@@ -404,7 +404,7 @@ Lorem Ipsum
 
 
 ## Communication between Frontend and Drivebox Server
-To handle the required communication between the frontend and backend applications of the geofence system, a RESTful webservice was implemented using the ASP.NET Core framework. This service provided the capability to use HTTP for exchanging the information about geofences required to create and modify geofences, as well as calculating intersections.
+To handle the required communication between the frontend and backend applications of the geofence system, a RESTful webservice was implemented using the ASP.NET Core framework. This service provides the capability to use HTTP for exchanging the information about geofences required to create and modify geofences, as well as calculating intersections.
 
 ### REST
 REST (Representational State Transfer) is a software architectural style which defines several principles which makes a service RESTful.
@@ -412,7 +412,7 @@ REST (Representational State Transfer) is a software architectural style which d
 For a service to be considered RESTful, it must fulfil six criteria:
 
 1. Uniform Interface
-   : This defines the need for all components of the system to follow the same set of rules and thus allowing for a standard way of communication.
+   : This defines the need for all components of the system to follow the same set of rules and thus allows for a standard way of communication.
 2. Client-Server
    : Tasks and concerns have to be strictly separated between the client and the server. 
 3. Stateless
@@ -436,7 +436,7 @@ Using ASP.NET Cores controller classes, to create high level routing of incoming
 3. Geofence Metadata
     : This data is used to sort Geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering Geofences.
 
-Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests. Such as request and response objects, as well as automatic parsing of the request body to a C# object.
+Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object.
 
 \begin{lstlisting}[caption=A sample delete endpoint using a MVC approach to separate concerns., label=lst:restctrl, language={[Sharp]C}]
         [HttpDelete]
@@ -456,12 +456,21 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 ![A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.](source/figures/seq_rest.png "Screenshot"){#fig:stress_one width=90%}
 \  
 
--- TODO (David) - Describe Frontend part of communication
 
+### Sending requests from the frontend
+The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios, to comply with the company's standards and the existing Drivebox application.\
+Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax.\
+An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
+
+Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because geofences would normally only be viewed and managed by a single user.\
+Request polling was initially implemented because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
+
+When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state.\
+For this reason, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state, so that further requests, like for updates or deletion, can be made for that resource.
 
 
 ## Calculation Algorithm for intersections
-To calculate intersections between geofences and points in time (POI), two opportunities presented itself. First, manual calculation of intersection was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
+To calculate intersections between geofences and points in time (POI), two opportunities presented themselves. First, manual calculation of intersection was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
 
 ### Raycasting
 Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the POI to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. 
@@ -497,20 +506,20 @@ Afterwards, the only other requirement was to compare the collections and determ
 ### Route based
 Businesses are also interested in analysis of the trips their vehicles take. To achieve this, the webservice needs to process a trip sent to it by the main Drivebox server and return a collection of all polygons it enters and leaves, as well as the associated timestamps. 
 
-The web service receives a list of coordinates from the Drivebox server, and processes those into a **LineString** object for easier calculation of intersections. To minify the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
+The web service receives a list of coordinates from the Drivebox server, and processes those into a **LineString** object for easier calculation of intersections. To minimize the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
 
 Next, a new LineString object is built, including a representation of the initial LineStrings part inside the polygon. This is done for each polygon, and in cases in which a line string leaves and enters a polygon multiple times, it is converted in a MultiLineString and processed in a special way. Otherwise it can be added to the intersection collection.
-If a MultiLineString is simple, it has no intersection points with itself. If this holds true, then it can be simply be split into multiple LineStrings and added to the list of intersections, otherwise it needs to be processed in a special way.
+If a MultiLineString is simple, it has no intersection points with itself. If this holds true, then it can simply be split into multiple LineStrings and added to the list of intersections, otherwise it needs to be processed in a special way.
 
 To analyze a non simple MultiLineString, a list of intersection points of the MultiLineString and the outside bounds of a polygon is created. Next, the MultiLineString is split into points as well, and each point is associated with the nearest point on the bounding of the polygon. This way, an accurate approximation of the crossing points can be found.
 
-As a final step, each intersection is processed and modified with information if it enters or leaves a polygon, and when this happened, calculated by using the two coordinates with timestamp happening immediately after an event occurs. Using the distance between these points and the intersection point an approximate crossing time can also be interpolated. Entry and leave events are associated with each other and returned as a collection. If the leave and enter events are equal to the beginning and end of a trip, the trip as classified as staying inside a polygon.
+As a final step, each intersection is processed and modified with information if it enters or leaves a polygon, and when this happened, calculated by using the two coordinates with timestamp happening immediately after an event occurs. Using the distance between these points and the intersection point an approximate crossing time can also be interpolated. Entry and leave events are associated with each other and returned as a collection. If the leave and enter events are equal to the beginning and end of a trip, the trip is classified as staying inside a polygon.
 
 ![Processing of a trip as an UML Activity Diagram.](source/figures/acdia_trips.png "Screenshot"){#fig:dia_trips width=90%}
 \  
 
 ## Polygon Creating
-To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different way to process the data received from the frontend.
+To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend.
 
 To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a **SqlServerBytesWriter** object to serialize the object.
 
@@ -524,7 +533,7 @@ To send a NETTopologySuite geometric object to the database, it first needs to b
 \end{lstlisting} \
 
 ### Polygons
-Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinated provided in the input GeoJSON file and creating a **Polygon** with the use of a **GeometryFactoryEX** object, provided by NETTopologySuite. 
+Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a **Polygon** with the use of a **GeometryFactoryEX** object, provided by NETTopologySuite. 
 
 \begin{lstlisting}[caption=Building a Polygon which can be saved in the Database., label=lst:polyfilter, language={[Sharp]C}]
         public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
@@ -552,7 +561,7 @@ Normal polygons are polygons which are neither a circle nor a road. These are cr
 \end{lstlisting} \
 
 ### Circles
-To create a circle, only two parameters are required. The center point of the circle, as well as a radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the **Point.STBuffer(radius)** call, which build a circle from a given point.
+To create a circle, only two parameters are required. The center point of the circle, as well as a radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the **Point.STBuffer(radius)** call, which builds a circle from a given point.
 
 ### Roads
 To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the **STBuffer(width)** method. The resulting object has a **.Reduce(1)** method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
