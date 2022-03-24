@@ -1,0 +1,50 @@
+@startuml Geofence Database
+entity DriveBox {
+    *ID: UUID
+    --
+    *ownerID: UUID
+}
+
+entity GeoFence {
+    *ID: int
+    ---
+    *title: varchar
+    *geoObj: Geography
+    *systemGeoFence: boolean
+    *isNotEditable: boolean
+    *idUser: UUID
+}
+entity GeoFenceHistory {
+    *idGeoFence: int
+    *timeOfChange: int
+}
+entity GeoFenceMetadata {
+    *id: int
+    ---
+    *idGeoFence: int
+    *idCategory: int
+    *dataValue: varchar
+}
+entity GeoFenceMetadataCategory {
+    *id: int
+    ---
+    *category: varchar
+}
+entity DriveBoxUser {
+    *ID: UUID
+    ---
+    *name: varchar
+}
+entity LockedOn {
+    *idGeoFence: int
+    *day: int
+}
+
+DriveBox }|--|| DriveBoxUser
+DriveBoxUser |o--o{ GeoFence
+GeoFenceHistory }|--|| GeoFence
+GeoFenceMetadata }o--|| GeoFence
+GeoFenceMetadataCategory ||--o{ GeoFenceMetadata
+GeoFence ||--o{ LockedOn
+
+@enduml
