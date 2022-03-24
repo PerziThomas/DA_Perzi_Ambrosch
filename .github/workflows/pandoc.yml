@@ -2,6 +2,10 @@ name: DA Build Workflow
 
 on: push
 
+env:
+  OUTPUTDIR: output
+  STYLEDIR: style
+  INPUTDIR: sources
 
 jobs:
 
@@ -9,7 +13,7 @@ jobs:
 
     name: Build DA job
     runs-on: ubuntu-20.04
-    container: ghcr.io/ingokofler/pandoc4all:latest
+    container: ghcr.io/ingokofler/pandoc4all:feat-support-da-template
 
     steps:
       - run: echo "Hello World"
@@ -17,27 +21,14 @@ jobs:
         with:
           path: da_repo
       - run: ls -la
-      - uses: actions/checkout@v2
-        with:
-          path: pandoc_folder
-          repository: PerziThomas/phd_thesis_markdown
-      - run: ls -la
-        working-directory: da_repo
-      - run: cp -fR ./source ../pandoc_folder
-        working-directory: da_repo
-      - run: ls -la
-        working-directory: pandoc_folder/source
-      - run: make pdf
-        working-directory: pandoc_folder
-      - name: Upload PDF
-        uses: actions/upload-artifact@v2
-        with:
-          name: DA_PDF
-          path: pandoc_folder/output/thesis.pdf
-      - name: Upload Log
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: make_log
-          path: pandoc_folder/pandoc.pdf.log
-      
+      - run: |
+          pandoc \
+          --output "$(OUTPUTDIR)/diplomarbeit.tex" \
+          --template="$(STYLEDIR)/htl-da/Pandoc_DA.tex" \
+          "$(INPUTDIR)/metadata.yml" \
+          "$(INPUTDIR)"/*.md \
+          --verbose \
+          --biblatex \
+          --top-level-division=chapter \
+          --listings \
+          2>htl-latex.log
