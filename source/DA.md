@@ -18,7 +18,6 @@ Lorem Ipsum
 # IV. Kurzfassung {-}
 Lorem Ipsum
 
-
 ## Use Cases
 Lorem Ipsum
 
