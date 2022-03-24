@@ -23,10 +23,10 @@ jobs:
       - run: ls -la
       - run: |
           pandoc \
-          --output "$(OUTPUTDIR)/diplomarbeit.tex" \
-          --template="$(STYLEDIR)/htl-da/Pandoc_DA.tex" \
-          "$(INPUTDIR)/metadata.yml" \
-          "$(INPUTDIR)"/*.md \
+          --output "$OUTPUTDIR/diplomarbeit.tex" \
+          --template="$STYLEDIR/htl-da/Pandoc_DA.tex" \
+          "$INPUTDIR/metadata.yml" \
+          "$INPUTDIR"/*.md \
           --verbose \
           --biblatex \
           --top-level-division=chapter \
