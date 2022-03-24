@@ -32,6 +32,7 @@ jobs:
           --top-level-division=chapter \
           --listings \
           2>htl-latex.log
+        working-directory: da_repo
       - name: Upload Log
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
