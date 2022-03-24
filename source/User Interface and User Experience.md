@@ -1,30 +1,5 @@
----
-title: Development of a Full-Stack Geofencing Application 
-author: David Ambrosch & Thomas Perzi
-...
-
-# I. Eidesstattliche Erklärung {-}
-Lorem Ipsum
-
-
-# II. Acknowledgment {-}
-Lorem Ipsum
-
-
-# III. Abstract {-}
-Lorem Ipsum
-
-
-# IV. Kurzfassung {-}
-Lorem Ipsum
-
-
-## Use Cases
-Lorem Ipsum
-
-
-# User Interface & User Experience
-Lorem Ipsum
+# User Interface and User Experience
+The frontend should be an easily usable web-interface for managing geofences. It should also have a slick and smart user interface that can be integrated into the existing _DriveBox_-application.
 
 
 ## Requirements
