@@ -27,18 +27,6 @@ Lorem Ipsum
 Lorem Impsum
 
 
-# Architecture
-Lorem Ipsum
-
-
-## Project Structure
-Lorem Ipsum
-
-
-## Technical Structure
-Lorem Impsum
-
-
 # User Interface & User Experience
 Lorem Ipsum
 
