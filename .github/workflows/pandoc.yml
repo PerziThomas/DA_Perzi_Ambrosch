@@ -49,9 +49,10 @@ jobs:
         working-directory: output
       - run: pdflatex diplomarbeit.tex
         working-directory: output
+
       - name: Upload Log
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: make_log
-          path: htl-latex.log
+          path: output/htl-latex.log
