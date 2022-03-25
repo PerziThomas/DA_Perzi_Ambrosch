@@ -644,6 +644,48 @@ Adding _React Leaflet Draw_ to the map example given above in the chapter _React
 ```
 
 
+#### Leaflet Geosearch
+Leaflet Geosearch is an extension that adds geosearch functions to a web application, with functions including coordinate search as well as address lookup. The data for this is supplied by a provider, with default options such as _Google,_ or _OpenStreetMap_. The library supports easy integration with Leaflet maps, but the functionality can also be used without Leaflet. [@leafletGeosearch]
+
+
+##### Usage with react-leaflet
+To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called _GeoSearchField_, where a _GeoSearchControl_ element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
+
+```jsx
+const GeoSearchField = ({activeLanguage}) => {
+	const map = useMap();
+
+	const searchControl = new GeoSearchControl({ /* create control (with options) */
+		provider: new OpenStreetMapProvider({params: {'accept-language': activeLanguage}}), /* required */
+		showMarker: false,
+		autoComplete: true,
+	});
+
+	useEffect(() => {
+		map?.addControl(searchControl); /* add control to map */
+		return () => map?.removeControl(searchControl);
+	}, [map]);
+
+	return null;
+};
+```
+
+This component is then added in the Leaflet _MapContainer_ component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
+
+```jsx
+<MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
+	<TileLayer
+		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
+	/>
+
+	{ showSearch && <GeoSearchField /> /* geosearch, conditionally rendered */ }
+
+	<Polygon positions={coordinates /* lat lng coordinate array */} />
+</MapContainer>
+```
+
+
 #### Leaflet Routing Machine
 Leaflet Routing Machine is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints. [@leafletRoutingMachine]
 
