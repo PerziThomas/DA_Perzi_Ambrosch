@@ -888,7 +888,7 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 
 
 ### Sending requests from the frontend
-The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios, to comply with the company's standards and the existing Drivebox application.\
+The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application.\
 Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax.\
 An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
 
