@@ -14,39 +14,39 @@ At ilogs, a SCRUM-like framework was used to define project goals. Every week on
 Version control was handled using a Git server hosted on a Microsoft Azure instance. No git flow was followed while working on the project due to it being an overengineered solution for a project with only two people working on it. 
 
 ## Overview
-The contents of the thesis are structured into several chapters. Chapter 2 describes the technologies and software engineering techniques used in the front- and backend parts of the application. Furthermore, algorithms and performance optimizations are described. Chapter 3 highlights the importance of testing in this application and shows the several testing frameworks implemented into it. Chapter 5 describes the various considerations that were taken to evaluate requirements and improve usability and user experience of the frontend. Chapter 6 is a resume which summarizes the projects and the learnings taken from it.
+The content of this thesis is structured into several chapters. Chapter 2 describes the technologies and software engineering techniques used in the front- and backend parts of the application. Furthermore, algorithms and performance optimizations are described. Chapter 3 highlights the importance of testing in this application and shows the several testing frameworks implemented into it. Chapter 5 describes the various considerations that were taken to evaluate requirements and improve usability and user experience of the frontend. Chapter 6 is a resume which summarizes the projects and the learnings taken from it.
 
 ## Use Cases
 To summarize all functionality of the app, a use case diagram is used which shows all the ways a user can interact with the application.\
 The use cases have been grouped into categories for visual clarity and easier understanding. These basic groups and their use cases will be described below.
 The boundary of system in all the following diagrams is considered to be the Geofencing application.
 
-The first category contains all use cases for geofence creation. Since geofences can be created in several ways, which are fundamentally different in the way they work, multiple use cases are displayed that are generalized under a parent use case "Create Geofence".
+The category _Geofence creation_ contains all use cases for geofence creation. Since geofences can be created in several ways, which are fundamentally different in the way they work, multiple use cases are displayed that are generalized under a parent use case "Create Geofence".
 
 ![Use cases for geofence creation](source/figures/Use_Cases/Geofence_creation.png "Diagram"){#fig:stress_one width=90%}
 \ 
 
-The geofence locking functions include viewing and toggling locks, as well as bulk operations, which make use of the toggle feature and are therefore associated.
+The _Geofence locking_ category includes functions for viewing and toggling locks, as well as bulk operations, which make use of the toggle feature and are therefore associated.
 
 ![Use cases for geofence locking](source/figures/Use_Cases/Geofence_locking.png "Diagram"){#fig:stress_one width=90%}
 \ 
 
-Geofence metadata can be viewed, created, deleted or used to filter the list of geofences.
+_Geofence metadata_ can be viewed, created, deleted or used to filter the list of geofences.
 
 ![Use cases for geofence metadata](source/figures/Use_Cases/Geofence_metadata.png "Diagram"){#fig:stress_one width=90%}
 \ 
 
-Use cases for geofence functions consist of all remaining functions that are directly related to geofences, but are not covered by the previous categories. This includes view, edit and delete operations as well as the geofence edit history and visibility features.
+Use cases for _Geofence functions_ consist of all remaining functions that are directly related to geofences, but are not covered by the previous categories. This includes view, edit and delete operations as well as the geofence edit history and visibility features.
 
 ![Use cases for geofence functions](source/figures/Use_Cases/Geofence_functions.png "Diagram"){#fig:stress_one width=90%}
 \ 
 
-Two use cases are provided by the program in the form of API services not connected to any frontend, a feature to get all intersections between a path and geofences, and a feature that shows geofence entry or exit events.
+Two use cases are provided by the program in the form of _API services_ not connected to any frontend, a feature to get all intersections between a path and geofences, and a feature that shows geofence entry or exit events.
 
 ![Use cases for API services](source/figures/Use_Cases/API_Services.png "Diagram"){#fig:stress_one width=90%}
 \ 
 
-Miscellaneous use cases are not covered by any of the categories above and include geofence color selection as well as a map search.
+_Miscellaneous_ use cases are not covered by any of the categories above and include geofence color selection as well as a map search.
 
 ![Use cases for miscellaneous functions](source/figures/Use_Cases/Miscellaneous.png "Diagram"){#fig:stress_one width=90%}
 \ 
