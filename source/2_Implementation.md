@@ -1030,8 +1030,7 @@ The frontend was developed as a stand-alone application to be later integrated i
 
 
 ### Interactive Map
-The central part of the frontend is an interactive map that can be used to view, create and edit geofences.\
-Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data, can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
+The central part of the frontend is an interactive map that can be used to view, create and edit geofences. Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data, can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
 
 The map is provided by _Leaflet_. Since this library is open-source, a lot of additional libraries exist, some of which were used to extend the functionality of the app.
 
@@ -1048,9 +1047,7 @@ The different types of geofences are shown in a class diagram. The meaning of no
 ![Types of geofences.](source/figures/Geofence_types_class_diagram.png "Diagram"){#fig:stress_one width=90%}
 \ 
 
-Any created geofence is checked for self-intersections.\
-[@codeSelfIntersection]
-[@codeLineIntersection]
+Any created geofence is checked for self-intersections. [@codeSelfIntersection][@codeLineIntersection] If no problems are found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
 
 If an error occurs in the backend, the creation process is aborted. Because the error did not occur in the frontend, Leaflet does not react to it, and the new geofence is added to the map. The drawn geometry therefore needs to be manually removed from the map.
 
@@ -1058,11 +1055,7 @@ If an error occurs in the backend, the creation process is aborted. Because the 
 createdLayer._map.removeLayer(createdLayer);
 ```
 
-If no error is found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
-
-If the backend returns a success, the geofence is added directly into the collection in the state of the React app, to avoid having to reload the entire page.
-
-If a backend error occurs, the creation process is aborted.
+If the backend returns a success, the geofence is added directly into the collection in the state of the React app, to avoid having to reload the entire page or re-fetch all geofences.
 
 
 ### Generation of geofences from presets
@@ -1096,16 +1089,11 @@ The geofence is created in the backend, and the geometry of the new polygon is r
 
 
 ### Geofence editing
-The geometry of geofences that are drawn or loaded from the backend can be changed by the user.\
+The geometry of geofences that are drawn or loaded from the backend can be changed by the user. The basic editing itself is provided by _leaflet-draw_. The map can be put into an edit mode, where individual points of polygons can be moved by the user. After this, the editing action can be confirmed or cancelled.
 
-The basic editing itself is provided by _leaflet-draw_. The map can be put into an edit mode, where individual points of polygons can be moved by the user. After this, the editing action can be confirmed or cancelled.\
-The confirm action _onEdit_ is overwritten to take care of confirmation and persistence.
+Since multiple polygons can be edited at once, all actions need to be performed iteratively for an array of edited layers. Each geofence is converted to a JSON object and sent in a PATCH request to the endpoint _/geoFences/{id}_.
 
-Since multiple polygons can be edited at once, all actions need to be performed iteratively for an array of edited layers.
-
-Each geofence is converted to a JSON object and sent in a PATCH request to the endpoint _/geoFences/{id}_.
-
-In case of a backend error, the window has to be reloaded to restore the correct state of all geofences before editing, since the Leaflet map has already saved the changes to the polygons.
+In case of a backend error, the window is reloaded to restore the correct state of all geofences before editing, since the Leaflet map has already saved the changes to the polygons.
 
 
 #### Single edit functionality
@@ -1210,13 +1198,9 @@ This property is then used to separate all editable from all non-editable geofen
 
 
 ### Map search
-A search function exists, to make it easier to find places on the map by searching for names or addresses.
+A search function exists, to make it easier to find places on the map by searching for names or addresses. This function is provided by the package _leaflet-geosearch_, which can be easily used and was only slightly customized.
 
-This function is provided by the package _leaflet-geosearch_, which can be easily used and was only slightly customized.
-
-A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options. This is then added to the map in the _useEffect_ hook.
-
-The component _GeoSearchField_ is also used inside the _LeafletMap_ in order to make the search button available on the map.
+A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options. This is then added to the map in the _useEffect_ hook. The component _GeoSearchField_ is also used inside the _LeafletMap_ in order to make the search button available on the map.
 
 ```jsx
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
@@ -1556,8 +1540,8 @@ function lockActionMulti(weekday, lockMethod) {
 ```
 
 
-##### Bit masking
-A bit mask is used to store and access data as individual bits. This can be useful for storing certain types of data efficiently.
+#### Bit masking
+A bit mask is a technique used to store and access data as individual bits. This can be useful for storing certain types of data efficiently.
 
 This could be used as an alternative way to store the days on which a geofence is locked. Since there are seven days, a mask with at least seven bits has to be used, where the first bit represents Monday, the second bit represents Tuesday, and so on. Each bit can be either true (1) or false (0), indicating if that day of the week is locked or not. This way, every combination of locked days can be represented by using one number between 0 (0000000) and 127 (1111111).
 
