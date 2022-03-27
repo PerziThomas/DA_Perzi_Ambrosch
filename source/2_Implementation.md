@@ -438,7 +438,7 @@ await axios(reqObj)
 
 
 ### React-localize-redux
-_React-localize-redux_ is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_, but understanding or using context is not necessary when using the library.\
+_React-localize-redux_ is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library.\
 The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
 
 
@@ -548,13 +548,13 @@ and _de.translations.json_:
 #### Using translations in components
 There are two notably different ways in which translations can be integrated in the React code.
 
-- The _Translate_ tag can be used in a self-closing form with an _id_ prop referencing the translation property name in the resource files.
+- The <code>Translate</code> tag can be used in a self-closing form with a property <code>id</code> referencing the translation property name in the resource files.
 
 ```jsx
 <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
 ```
 
-- The _translate_ function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
+- The <code>translate</code> function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
 
 ```jsx
 translate("units.length.meter.plural") /* returns "meters" or "Meter" */
@@ -594,7 +594,7 @@ The toolbar can also be customized with regards to what features are available. 
 
 
 ### React Leaflet Draw
-_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an _EditControl_ component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
+_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an <code>EditControl</code> component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
 
 
 #### Setup
@@ -610,7 +610,7 @@ or
 node_modules/leaflet-draw/dist/leaflet.draw.css
 ```
 
-Afterwards, an _EditControl_ component can be added to a map to enable drawing features to be used. This component must be placed in a _FeatureGroup_ component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
+Afterwards, an <code>EditControl</code> component can be added to a map to enable drawing features to be used. This component must be placed in a <code>FeatureGroup</code> component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
 
 Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
 
@@ -639,8 +639,8 @@ Adding _React Leaflet Draw_ to the map example given above in the chapter _React
 </MapContainer>
 ```
 
-The EditControl component provides event handlers for all events related to the drawing functions, like _onCreated, onEdited_ and _onDeleted_, which can be overwritten by the developer to add custom functionality.\
-The _draw_ property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
+The EditControl component provides event handlers for all events related to the drawing functions, like </code>>nCreated, onEdited</code> and <code>onDeleted</code>, which can be overwritten by the developer to add custom functionality.\
+The <code>draw</code> property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
 
 
 ### Leaflet Geosearch
@@ -648,7 +648,7 @@ _Leaflet Geosearch_ is an extension that adds geosearch functions to a web appli
 
 
 #### Usage with react-leaflet
-To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called _GeoSearchField_, where a _GeoSearchControl_ element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
+To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called <code>GeoSearchField</code>, where a <code>GeoSearchControl</code> element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
 
 ```jsx
 const GeoSearchField = ({activeLanguage}) => {
@@ -669,7 +669,7 @@ const GeoSearchField = ({activeLanguage}) => {
 };
 ```
 
-This component is then added in the Leaflet _MapContainer_ component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
+This component is then added in the Leaflet <code>MapContainer</code> component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
 
 ```jsx
 <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
@@ -690,7 +690,7 @@ _Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the 
 
 
 #### Setup
-The package has to be installed in the project, with the use of a script tag or by installing _leaflet-routing-machine_ with a package manager such as npm.\
+The package has to be installed in the project, with the use of a script tag or by installing <code>leaflet-routing-machine</code> with a package manager such as npm.\
 A basic example of the routing machine with two initial waypoints can be added as follows:
 
 ```jsx
@@ -725,7 +725,7 @@ There are seven basic geometry objects types:
 1. _Position_
 : an array of two or more numbers, representing longitude, latitude and optionally height
 
-For the remaining six types, the explanation refers to the content of that objects "coordinates" property:
+For the remaining six types, the explanation refers to the content of that objects <code>coordinates</code> property:
 
 2. _Point_
 : a single position
@@ -737,6 +737,11 @@ For the remaining six types, the explanation refers to the content of that objec
 : an array of LineString coordinate arrays
 6. _Polygon_
 : an array of linear ring coordinate arrays
+
+A linear ring is a closed LineString, meaning the first and last position share the same coordinates. It must have a minimum of four positions, which would describe a triangle.
+
+If multiple coordinate rings are used in a polygon, the first one must be an outer exterior ring. All other rings must be interior rings that describe holes in the previously defined exterior ring.
+
 7. _MultiPolygon_
 : an array of Polygon coordinate arrays
 
