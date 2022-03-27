@@ -172,8 +172,8 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 
 The specific shade of blue to be used was derived from the _Drivebox_ application logo, but this was altered in some places to increase readability of the user interface.
 
-![UI Mockup before adaptations for integration.](source/figures/UI_Integration_before.jpg "Screenshot"){#fig:stress_one width=90%}
+![UI Mockup before adaptations for integration.](source/figures/UI_Integration_before.png "Screenshot"){#fig:stress_one width=90%}
 \ 
 
-![UI Mockup after adaptations for integration.](source/figures/UI_Integration_after.jpg "Screenshot"){#fig:stress_one width=90%}
+![UI Mockup after adaptations for integration.](source/figures/UI_Integration_after.png "Screenshot"){#fig:stress_one width=90%}
 \ 
