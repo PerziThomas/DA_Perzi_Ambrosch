@@ -5,23 +5,24 @@ The frontend should be an easily usable web-interface for managing geofences. It
 ## Feature requirements
 To get a basic overview of the needed functionality, a list was compiled before starting work on the app:
 
-- user login
-- user registration (or admin dashboard)
-- view geofences
-- create geofence (polygon/rectangle, circle)
-  - persistence separately (first create, then 'commit')?
-- edit geofence
-  - if circle has to be editable as Center and radius, it can't be stored as a polygon in DB
-- delete geofence
-- set activation days for geofence + alarm when geofence is left in active period
-- view driveboxes
-  - view trips (per drivebox)
-- analyze finished trips of driveboxes
-  - show entries/exits of all geofences crossed (timestamps + stay duration)
-  - show route on map?
-- general settings
-  - set default coordinates / zoom level of map ...
-- account
+- A user is able to log in with an account.
+- A user can register to create a new account.
+  - Alternatively, new users can be created by an admin in a dashboard.
+- The user has access to a page with account information and settings.
+- The user can change some general settings, such as default coordinates or zoom level of the map.
+- Geofences can be viewed in a list and are displayed on a map.
+- Geofences can be created either as circles, polygons or rectangles.
+  - Persistence is handled separately, by creating geofences first, then commiting them to the database.
+- Geofences can be edited.
+  - It is not clear yet if circles should be edited by changing center and radius, if yes, they cannot be stored as polygons.
+- Geofences can be deleted.
+- Certain activation days can be set for individual geofences.
+  - If a Drivebox leaves a geofence while it is active, an alarm is sent.
+- A list of Driveboxes can be viewed.
+  - A list of recorded trips is displayed, grouped by Drivebox.
+- Finished trips of Driveboxes can be analyzed.
+  - Entry and exit events for geofences that occurred during the trip are shown, including timestamps and the duration spent in each geofence.
+  - The route of the trip can be displayed on a map.
 
 Some features were added later, while others were changed or became obsolete.\
 An updated list of features was later written in the form of a Use-Case-Diagram, which can be seen in chapter _Use Cases_ [TODO: link/number].
@@ -30,7 +31,7 @@ An updated list of features was later written in the form of a Use-Case-Diagram,
 ## Mockup
 During the development process, mockups of the user interface were used to evaluate different workflows, layouts and designs before they were implemented.
 
-The software chosen for this was _Adobe XD_, because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take.
+The software chosen for this was _Adobe XD_[@adobexdref], because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take.
 
 Some of the specific things that were evaluated with the use of mockups will be mentioned below.
 
@@ -47,6 +48,7 @@ The mockups also included concepts for how the layout would change on smartphone
 Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated.
 
 A compromise solution was found that could fulfill all design requirements:
+
 - display entry and exit events
 - display the time spent in each geofence
 - works with overlapping geofences
@@ -75,7 +77,7 @@ Since it would be common for users to want to change locks for several geofences
   - even more flexibility
   - hard to implement bulk operations
 
-Option three was chosen for the app because of the added flexibility of the selection model, and because a button bar was needed for other features anyway.\
+Option 3 was chosen for the app because of the added flexibility of the selection model, and because a button bar was needed for other features anyway.\
 Customizable timeslots, like in option four, were not implemented in the app, but the mockup was kept in case they would be added later.
 
 
@@ -108,7 +110,7 @@ Since it was not planned to make any of the actions in the web-interface reversi
 
 
 #### Headline texts
-Each confirmation dialog contains a headline, the function of which is to inform the user about the action and its consequences. Speaking from personal previous experience with different software, additional confirmation steps are often quickly "learnt" by the user, and are then performed without carefully reading the information presented in the user interface. Therefore, it is important to catch the attention of the user by using short and unambiguous texts. This is achieved in two ways: [@confirmationDialogs]
+Each confirmation dialog contains a headline, the function of which is to inform the user about the action and its consequences. Speaking from personal previous experience with different software, additional confirmation steps are often quickly learnt by the user, and are then performed without carefully reading the information presented in the user interface. Therefore, it is important to catch the attention of the user by using short and unambiguous texts. This is achieved in two ways: [@confirmationDialogs]
 
 - First, by avoiding generic texts and using verbs specific to the action. The user should be able to read the dialog without any additional context.\
 _Example: "Delete geofence?" instead of "Are you sure?"_
@@ -132,7 +134,7 @@ Additionally, in the app, when the geofence bulk delete function (chapter _Bulk 
 
 
 ### Word choice for deletion
-The _New York State User Experience Toolkit_ defines the difference between the words as follows:\
+The _New York State User Experience Toolkit_[@nysuxtoolkitref] defines the difference between the words as follows:\
 "Remove and Delete are defined quite similarly, but the main difference between them is that delete means erase (i.e. rendered nonexistent or nonrecoverable), while remove denotes take away and set aside (but kept in existence)." (Source: [@NYStateUXToolkit])
 
 Since all deletion actions in the app are destructive without an undo-option, as described in chapter _Confirm vs. Undo_ [TODO: link/number], "Delete" is used in all cases, for geofences as well as metadata entries.
@@ -153,8 +155,7 @@ The _Salesforce Style Guide_ suggests using ellipses at the end of text prompts,
 
 The geofence metadata search bar is not visible by default, but can be toggled on with a button. It then takes the place of the pagination functions. This  is done to clear up the interface, since search and pagination can functionally not be used at the same time.
 
-When the search bar is shown, it includes a "Search"-button, which is connected to the search prompt input field, and a "Clear"-button, which is only shown once at least one character has been entered.\
-The "Clear"-button only clears the text in the input field, but does not reset the actual search. This is only done once the search bar is toggled off, to reduce the chance of accidental resets and unnecessary backend calls.
+When the search bar is shown, it includes a "Search"-button, which is connected to the search prompt input field, and a "Clear"-button, which is only shown once at least one character has been entered. The "Clear"-button only clears the text in the input field, but does not reset the actual search. This is only done once the search bar is toggled off, to reduce the chance of accidental resets and unnecessary backend calls.
 
 
 ## Multi-language support
