@@ -365,32 +365,29 @@ To then relay this information to the React webapp, it needs to be converted int
 
 Creation of polygons and the calculation of intersections are described in the according chapters.
 
-## Frontend Technologies used
-The frontend part of the app is a user interface for managing geofences, which was realized as a React web application. The main part of the interface consists of a map provided by _Leaflet_. Due to its open-source nature, additional functionality can be added thanks to a large number of available extensions.
+## Frontend Technologies
+The frontend part of the app is a user interface for managing geofences, which was realized as a _React_[@react] web application. The main part of the interface consists of a map provided by _Leaflet_[@leafletOverview]. Due to its open-source nature, additional functionality can be added thanks to a large number of available extensions.
 
 
 ### React
 React is a JavaScript library that allows developers to build declarative and component-based user interfaces. Complex UIs can be built with modular, reusable components, which are automatically rendered and updated by React.
 
-
-#### Create React App
 React can be integrated into existing websites easily by using script-tags and creating components through JS code. However, when starting from scratch or when creating a more complex application, it is advantageous to use additional tools.
 
-_Create React App_ is an officially supported setup tool without configuration and builds a small one-page example application as a starting point.
-
-To start, if npm is used as a package manager, the command _npx create-react-app my-app_ is run, where _my-app_ is replaced with then name of the application. This creates a directory of that name at the current location which contains the example application.
-
-After navigating to the app with _cd my-app_, it can be executed by running _npm start_. The app will then by default be available at _http://localhost:3000/_. [@createReactApp]
+_Create React App_[@createReactApp] is an officially supported setup tool without configuration and builds a small one-page example application as a starting point.\
+To start, if npm is used as a package manager, the command _npx create-react-app my-app_ is run, where _my-app_ is replaced with then name of the application. This creates a directory of that name at the current location which contains the example application.\
+After navigating to the app with _cd my-app_, it can be executed by running _npm start_. The app will then by default be available at _http://localhost:3000/_. [@createReactAppGettingStarted]
 
 
 ### Axios
 Axios is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js. [@axios]
 
 
-### Comparison with fetch
-The Fetch API provides the _fetch()_ method to make promise-based API requests via the HTTP protocol.\
+#### Comparison with fetch
+The _Fetch API_[@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol.\
 Fetch and axios are very similar to use, with the main difference being different syntax and property names.\
 Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
+
 - built-in XSRF protection
 - automatic JSON conversion of the message body
 - request cancelling and request timeout
@@ -441,7 +438,7 @@ await axios(reqObj)
 
 
 ### React-localize-redux
-React-localize-redux is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_, but understanding or using context is not necessary when using the library.\
+_React-localize-redux_ is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_, but understanding or using context is not necessary when using the library.\
 The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
 
 
@@ -453,6 +450,7 @@ Localize has to be initialized with settings, which must include an array of sup
 
 #### Adding translation data
 There are two different ways to add translations:
+
 - The _addTranslation_ method is used to add translation data in an _all languages_ format, which means the translations for all languages are stored together in a single file.
 - The _addTranslationForLangage_ method adds translation data in _single language_ format, meaning that there is one resource file for each supported language.
 
@@ -550,7 +548,7 @@ and _de.translations.json_:
 #### Using translations in components
 There are two notably different ways in which translations can be integrated in the React code.
 
-- The _Translate_ tag can be used in a self-closing form, with an _id_ prop referencing the translation property name in the resource files.
+- The _Translate_ tag can be used in a self-closing form with an _id_ prop referencing the translation property name in the resource files.
 
 ```jsx
 <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
@@ -563,19 +561,19 @@ translate("units.length.meter.plural") /* returns "meters" or "Meter" */
 ```
 
 
-#### Leaflet
+### Leaflet
 _Leaflet_ is the leading open-source JavaScript library for interactive maps. It is a technology used by the company for maps in existing apps, and is also ideal for testing applications, since the library - including all of its features - is free to use, with no restrictions like monthly time or data limits for the map services. [@leafletOverview]
 
 Because Leaflet is open-source, a lot of additional libraries exist, some of which were used in the app and will be described in the following sections.
 
 
-#### React Leaflet
+### React Leaflet
 _React Leaflet_ is a node library that offers React components for Leaflet maps, making it easier to use in a React context. It is responsible for things such as providing hooks or rendering Leaflet layers by itself to avoid updating the DOM tree. [@reactLeafletIntro]
 
-React Leaflet does not replace Leaflet, but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
+React Leaflet does not replace Leaflet but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases solutions involving standard Leaflet have to be used to achieve a specific task.
 
 
-##### Setup
+#### Setup
 After installing the required dependencies _react, react-dom_ and _leaflet_, a simple map can be added to a React application by adding the following code:
 
 ```jsx
@@ -590,16 +588,16 @@ After installing the required dependencies _react, react-dom_ and _leaflet_, a s
 ```
 
 
-#### Leaflet Draw
+### Leaflet Draw
 The JavaScript library _Leaflet Draw_ adds interactive drawing features to Leaflet maps. The library can be used to add a toolbar to Leaflet maps, containing options for drawing different shapes, as well as editing them.\
 The toolbar can also be customized with regards to what features are available. [@leafletDrawDocumentation]
 
 
-#### React Leaflet Draw
+### React Leaflet Draw
 _React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an _EditControl_ component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
 
 
-##### Setup
+#### Setup
 To be able to include drawing functions in a map, the _leaflet-draw_ styles have to be added to the project by including
 
 ```jsx
@@ -612,9 +610,7 @@ or
 node_modules/leaflet-draw/dist/leaflet.draw.css
 ```
 
-Afterwards, an _EditControl_ component can be added to a map to enable drawing features to be used. This component must be placed in a _FeatureGroup_ component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.\
-The EditControl component provides event handlers for all events related to the drawing functions, like _onCreated, onEdited_ and _onDeleted_, which can be overwritten by the developer to add custom functionality.\
-The _draw_ property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
+Afterwards, an _EditControl_ component can be added to a map to enable drawing features to be used. This component must be placed in a _FeatureGroup_ component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
 
 Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
 
@@ -643,12 +639,15 @@ Adding _React Leaflet Draw_ to the map example given above in the chapter _React
 </MapContainer>
 ```
 
+The EditControl component provides event handlers for all events related to the drawing functions, like _onCreated, onEdited_ and _onDeleted_, which can be overwritten by the developer to add custom functionality.\
+The _draw_ property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
 
-#### Leaflet Geosearch
-Leaflet Geosearch is an extension that adds geosearch functions to a web application, with functions including coordinate search as well as address lookup. The data for this is supplied by a provider, with default options such as _Google,_ or _OpenStreetMap_. The library supports easy integration with Leaflet maps, but the functionality can also be used without Leaflet. [@leafletGeosearch]
+
+### Leaflet Geosearch
+_Leaflet Geosearch_ is an extension that adds geosearch functions to a web application, with functions including coordinate search as well as address lookup. The data for this is supplied by a provider, with default options such as _Google,_ or _OpenStreetMap_. The library supports easy integration with Leaflet maps, but the functionality can also be used without Leaflet. [@leafletGeosearch]
 
 
-##### Usage with react-leaflet
+#### Usage with react-leaflet
 To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called _GeoSearchField_, where a _GeoSearchControl_ element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
 
 ```jsx
@@ -686,11 +685,11 @@ This component is then added in the Leaflet _MapContainer_ component. Since the 
 ```
 
 
-#### Leaflet Routing Machine
-Leaflet Routing Machine is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints. [@leafletRoutingMachine]
+### Leaflet Routing Machine
+_Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints. [@leafletRoutingMachine]
 
 
-##### Getting started
+#### Setup
 The package has to be installed in the project, with the use of a script tag or by installing _leaflet-routing-machine_ with a package manager such as npm.\
 A basic example of the routing machine with two initial waypoints can be added as follows:
 
@@ -709,13 +708,13 @@ instance.addTo(map); // add routing machine to leaflet map
 ```
 
 ### OpenStreetMap
-OpenStreetMap is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries. [@openStreetMapAbout]
+_OpenStreetMap_ is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries. [@openStreetMapAbout]
 
 OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
 
 ### GeoJSON
-GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_, which was published in August 2016.
+GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016.
 
 The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
 
@@ -723,22 +722,22 @@ The format supports seven different geometry objects as well as _Feature_ object
 #### Geometry object
 There are seven basic geometry objects types:
 
-1. Position
+1. _Position_
 : an array of two or more numbers, representing longitude, latitude and optionally height
 
 For the remaining six types, the explanation refers to the content of that objects "coordinates" property:
 
-2. Point
+2. _Point_
 : a single position
-3. MultiPoint
+3. _MultiPoint_
 : an array of positions
-4. LineString
+4. _LineString_
 : an array of two or more points
-5. MultiLineString
+5. _MultiLineString_
 : an array of LineString coordinate arrays
-6. Polygon
+6. _Polygon_
 : an array of linear ring coordinate arrays
-7. MultiPolygon
+7. _MultiPolygon_
 : an array of Polygon coordinate arrays
 
 
@@ -749,18 +748,18 @@ If multiple coordinate rings are used in a polygon, the first one must be an out
 
 
 #### Geometry collection
-A GeometryCollection has a member "geometries" which contains an array of geometry objects as described above, which can also be empty.\
+A GeometryCollection has a <code>geometries</code> which contains an array of geometry objects as described above, which can also be empty.\
 GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
 
 
 #### Feature object
 Features are objects that represent a thing that is spatially bounded. They contain geometry information, but do not represent the geometry itself.
 
-A Feature has a member "geometry" which can be either a geometry object or null if no location is specified.
+A Feature has a member <code>geometry</code> which can be either a geometry object or null if no location is specified.
 
 
 #### Feature collection
-A FeatureCollection can be used to group different features together. It has a member "features", which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
+A FeatureCollection can be used to group different features together. It has a member <code>features</code>, which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
 
 
 #### Example
