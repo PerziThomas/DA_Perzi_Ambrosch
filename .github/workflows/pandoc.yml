@@ -21,6 +21,8 @@ jobs:
         with:
           path: da_repo
       - run: ls -la
+      - run: mkdir -p output
+        working-directory: da_repo
       - run: |
           pandoc \
           --output "$OUTPUTDIR/diplomarbeit.tex" \
