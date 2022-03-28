@@ -53,6 +53,16 @@ jobs:
         working-directory: da_repo/output
       - run: ls -la
         working-directory: da_repo/output
+      - name: Upload Tex
+        uses: actions/upload-artifact@v2
+        with:
+          name: DA_Tex
+          path: da_repo/output/diplomarbeit.tex
+      - name: Upload PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: DA_PDF
+          path: da_repo/output/diplomarbeit.pdf
 
       - name: Upload Log
         if: ${{ failure() }}
