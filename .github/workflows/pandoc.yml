@@ -36,21 +36,21 @@ jobs:
           2>htl-latex.log
         working-directory: da_repo
       - run: mkdir -p source
-        working-directory: output
+        working-directory: da_repo/output
       - run: cp -rf ../source/figures source
-        working-directory: output
+        working-directory: da_repo/output
       - run: cp -rf ../source/references.bib .
-        working-directory: output
+        working-directory: da_repo/output
       - run: cp -rf ../style/htl-da/chapters ../style/htl-da/includes ../style/htl-da/media .
-        working-directory: output
+        working-directory: da_repo/output
       - run: pdflatex diplomarbeit.tex
-        working-directory: output
+        working-directory: da_repo/output
       - run: bibtex diplomarbeit
-        working-directory: output
+        working-directory: da_repo/output
       - run: pdflatex diplomarbeit.tex
-        working-directory: output
+        working-directory: da_repo/output
       - run: pdflatex diplomarbeit.tex
-        working-directory: output
+        working-directory: da_repo/output
 
       - name: Upload Log
         if: ${{ failure() }}
