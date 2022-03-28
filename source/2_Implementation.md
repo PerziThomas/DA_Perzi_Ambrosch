@@ -397,7 +397,7 @@ Both fetch and axios provide all basic functionality needed for making and handl
 
 An example GET request, including an Authorization header and handling of the request promise, is written with _fetch_ as demonstrated below.
 
-```jsx
+\begin{lstlisting}[caption=Example GET request with fetch, label=lst:fetchExample, language={JavaScript}] 
 const headersObj = new Headers({
 	'Authorization': 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
 });
@@ -414,11 +414,11 @@ await axios(request)
 }).catch(err => {
 	// error handling
 })
-```
+\end{lstlisting} \
 
 The same request with _axios_ can be rewritten as follows:
 
-```jsx
+\begin{lstlisting}[caption=Example GET request with axios, label=lst:axiosExample, language={JavaScript}]
 const reqObj = {
 	method: 'get',
 	url: 'https://localhost:44301/api',
@@ -434,7 +434,7 @@ await axios(reqObj)
 }).catch(err => {
 	// error handling
 })
-```
+\end{lstlisting} \
 
 
 ### React-localize-redux
@@ -459,7 +459,7 @@ In both cases, translation data can be nested for easier naming and grouping of 
 
 An example of a resource file in _all languages_ format could be called _translations.json_ and would look as follows:
 
-```json
+\begin{lstlisting}[caption=Resource file in all-languages format, label=lst:localizeReduxResource, language={JavaScript}]
 {
 	"units": {
 		"length": {
@@ -496,11 +496,11 @@ An example of a resource file in _all languages_ format could be called _transla
 		}
 	}
 }
-```
+\end{lstlisting} \
 
 With _single language format_, this would instead be split in two files, _en.translations.json_:
 
-```json
+\begin{lstlisting}[caption=English resource file in single-language format, label=lst:localizeReduxResource, language={JavaScript}]
 {
 	"units": {
 		"length": {
@@ -519,11 +519,11 @@ With _single language format_, this would instead be split in two files, _en.tra
 		}
 	}
 }
-```
+\end{lstlisting} \
 
 and _de.translations.json_:
 
-```json
+\begin{lstlisting}[caption=German resource file in single-language format, label=lst:localizeReduxResource, language={JavaScript}]
 {
 	"units": {
 		"length": {
@@ -542,7 +542,7 @@ and _de.translations.json_:
 		}
 	}
 }
-```
+\end{lstlisting} \
 
 
 #### Using translations in components
@@ -550,15 +550,15 @@ There are two notably different ways in which translations can be integrated in 
 
 - The <code>Translate</code> tag can be used in a self-closing form with a property <code>id</code> referencing the translation property name in the resource files.
 
-```jsx
+\begin{lstlisting}[caption=Translation using tag, label=lst:translateTag, language={JavaScript}]
 <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
-```
+\end{lstlisting} \
 
 - The <code>translate</code> function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
 
-```jsx
+\begin{lstlisting}[caption=Translation using function, label=lst:translateFunction, language={JavaScript}]
 translate("units.length.meter.plural") /* returns "meters" or "Meter" */
-```
+\end{lstlisting} \
 
 
 ### Leaflet
@@ -576,7 +576,7 @@ React Leaflet does not replace Leaflet but it is used in conjunction with it. Wh
 #### Setup
 After installing the required dependencies _react, react-dom_ and _leaflet_, a simple map can be added to a React application by adding the following code:
 
-```jsx
+\begin{lstlisting}[caption=Simple React Leaflet map, label=lst:leafletSetup, language={JavaScript}]
 <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
 	<TileLayer
 		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -585,7 +585,7 @@ After installing the required dependencies _react, react-dom_ and _leaflet_, a s
 
 	<Polygon positions={coordinates /* lat lng coordinate array */} />
 </MapContainer>
-```
+\end{lstlisting} \
 
 
 ### Leaflet Draw
@@ -600,21 +600,21 @@ _React Leaflet Draw_ is a library for using Leaflet Draw features with React Lea
 #### Setup
 To be able to include drawing functions in a map, the _leaflet-draw_ styles have to be added to the project by including
 
-```jsx
+\begin{lstlisting}[caption=Adding styles via link, label=lst:leafletDrawStyles, language={JavaScript}]
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
-```
+\end{lstlisting} \
 
 or
 
-```
+\begin{lstlisting}[caption=Adding styles via import, label=lst:leafletDrawStyles, language={JavaScript}]
 node_modules/leaflet-draw/dist/leaflet.draw.css
-```
+\end{lstlisting} \
 
 Afterwards, an <code>EditControl</code> component can be added to a map to enable drawing features to be used. This component must be placed in a <code>FeatureGroup</code> component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
 
 Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
 
-```jsx
+\begin{lstlisting}[caption=Adding React Leaflet Draw to Leaflet map, label=lst:leafletDrawSetup, language={JavaScript}]
 <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
 	<TileLayer
 		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -637,7 +637,7 @@ Adding _React Leaflet Draw_ to the map example given above in the chapter _React
 
 	<Polygon positions={coordinates /* non-editable polygon */} />
 </MapContainer>
-```
+\end{lstlisting} \
 
 The EditControl component provides event handlers for all events related to the drawing functions, like </code>>nCreated, onEdited</code> and <code>onDeleted</code>, which can be overwritten by the developer to add custom functionality.\
 The <code>draw</code> property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
@@ -650,7 +650,7 @@ _Leaflet Geosearch_ is an extension that adds geosearch functions to a web appli
 #### Usage with react-leaflet
 To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called <code>GeoSearchField</code>, where a <code>GeoSearchControl</code> element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
 
-```jsx
+\begin{lstlisting}[caption=Initializing geosearch component, label=lst:geosearchSetup, language={JavaScript}]
 const GeoSearchField = ({activeLanguage}) => {
 	const map = useMap();
 
@@ -667,11 +667,11 @@ const GeoSearchField = ({activeLanguage}) => {
 
 	return null;
 };
-```
+\end{lstlisting} \
 
 This component is then added in the Leaflet <code>MapContainer</code> component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
 
-```jsx
+\begin{lstlisting}[caption=Adding Geosearch to Leaflet map, label=lst:geosearchSetup, language={JavaScript}]
 <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
 	<TileLayer
 		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -682,7 +682,7 @@ This component is then added in the Leaflet <code>MapContainer</code> component.
 
 	<Polygon positions={coordinates /* lat lng coordinate array */} />
 </MapContainer>
-```
+\end{lstlisting} \
 
 
 ### Leaflet Routing Machine
@@ -693,7 +693,7 @@ _Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the 
 The package has to be installed in the project, with the use of a script tag or by installing <code>leaflet-routing-machine</code> with a package manager such as npm.\
 A basic example of the routing machine with two initial waypoints can be added as follows:
 
-```jsx
+\begin{lstlisting}[caption=Initializing Routing Machine, label=lst:routingMachineSetup, language={JavaScript}]
 const instance = L.Routing.control({ // create an instance of routing machine
 	waypoints: [
 		map.getBounds().getCenter(), // set initial waypoints within current map bounds
@@ -705,7 +705,7 @@ const instance = L.Routing.control({ // create an instance of routing machine
 }
 
 instance.addTo(map); // add routing machine to leaflet map
-```
+\end{lstlisting} \
 
 ### OpenStreetMap
 _OpenStreetMap_ is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries. [@openStreetMapAbout]
@@ -770,7 +770,7 @@ A FeatureCollection can be used to group different features together. It has a m
 #### Example
 The following example of a GeoJSON objects consists of a FeatureCollection, which includes five features with different geometries: one LineString, two Points and one Polygon.
 
-```json
+\begin{lstlisting}[caption=An example GeoJSON object, label=lst:geoJson, language={JavaScript}]
 {
 	"type": "FeatureCollection", /* an array of features */
 	"features": [
@@ -831,7 +831,7 @@ The following example of a GeoJSON objects consists of a FeatureCollection, whic
 	}
 	]
 }
-```
+\end{lstlisting} \
 
 ## Communication between Frontend and Drivebox Server
 To handle the required communication between the frontend and backend applications of the geofence system, a RESTful webservice was implemented using the ASP.NET Core framework. This service provides the capability to use HTTP for exchanging the information about geofences required to create and modify geofences, as well as calculating intersections.
@@ -1051,9 +1051,9 @@ Any created geofence is checked for self-intersections. [@codeSelfIntersection][
 
 If an error occurs in the backend, the creation process is aborted. Because the error did not occur in the frontend, Leaflet does not react to it, and the new geofence is added to the map. The drawn geometry therefore needs to be manually removed from the map.
 
-```jsx
+\begin{lstlisting}[caption=Removing geometry from map, label=lst:geofenceCreation, language={JavaScript}]
 createdLayer._map.removeLayer(createdLayer);
-```
+\end{lstlisting} \
 
 If the backend returns a success, the geofence is added directly into the collection in the state of the React app, to avoid having to reload the entire page or re-fetch all geofences.
 
@@ -1110,8 +1110,8 @@ To make all geofences editable (not just those that were drawn, but also those t
 
 The geofences fetched from the backend are iterated and a new _Leaflet_ polygon (L.polygon) is created in the frontend from each geofence's coordinates.
 
-```jsx
-for (let elem of res.data.geoJson) {
+\begin{lstlisting}[caption=Geofences are fetched and added in frontend, label=lst:geofenceLoading, language={JavaScript}]
+for (let elem of res.data.geoJson) { // iterate fetched geofences
   let currentGeoFence = JSON.parse(elem);
 
   // swap lat and long
@@ -1124,17 +1124,17 @@ for (let elem of res.data.geoJson) {
   }
 
   currentGeoFence.Hidden = tempVisibilityObj[`id_${currentGeoFence.ID}`] || false;
-  let newPoly = L.polygon(currentGeoFence.Polygon.coordinates);
-  newPoly.geoFence = currentGeoFence;
+  let newPoly = L.polygon(currentGeoFence.Polygon.coordinates); // create polygon from coordinates of fetched geofence
+  newPoly.geoFence = currentGeoFence; // add geofence object in polygon object (for later use of metadata)
   newGeoFences.set(currentGeoFence.ID, newPoly);
 }
-```
+\end{lstlisting} \
 
 The _LeafletMap_ component contains a _FeatureGroup_ that includes the component _MyEditComponent_ from _Leaflet Draw_. This means that all geofences that are rendered in this same _FeatureGroup_ are affected by _Leaflet Draw_ and can therefore be edited.
 
-```jsx
+\begin{lstlisting}[caption=Rendering editable geofences, label=lst:geofenceEditing, language={JavaScript}]
 <FeatureGroup>
-    <MyEditComponent
+    <MyEditComponent /* for on-map drawing functions */
         currentUserName={currentUserName}
         geoFences={geoFences}
         map={map}
@@ -1147,7 +1147,7 @@ The _LeafletMap_ component contains a _FeatureGroup_ that includes the component
         return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
     }).map(id => {
         return (
-            <MyPolygon
+            <MyPolygon /* custom polygon component for handling visibility and color */
                 polygon={geoFences.get(id)}
                 idGeoFence={id}
                 key={'editPoly_' + id}
@@ -1158,7 +1158,7 @@ The _LeafletMap_ component contains a _FeatureGroup_ that includes the component
         );
     })}
 </FeatureGroup>
-```
+\end{lstlisting} \
 
 
 #### Non-editable geofences
@@ -1168,11 +1168,11 @@ To achieve this, all geofences are given a boolean property _isNotEditable_, whi
 
 This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
 
-```jsx
+\begin{lstlisting}[caption=Rendering non-editable geofences, label=lst:geofenceEditing, language={JavaScript}]
 <MapContainer /* shortened */ >
     {/* shortened */}
 
-    {/*display non-editable geofences (circles or roads)*/}
+    {/*display non-editable geofences (circles, roads and geofences generated from presets)*/}
     {[...geoFences.keys()].filter(id => {
         return (geoFences.get(id).geoFence.SystemGeoFence || geoFences.get(id).geoFence.IsNotEditable)
     }).map(id => {
@@ -1194,7 +1194,7 @@ This property is then used to separate all editable from all non-editable geofen
         })}
     </FeatureGroup>
 </MapContainer>
-```
+\end{lstlisting} \
 
 
 ### Map search
@@ -1202,7 +1202,7 @@ A search function exists, to make it easier to find places on the map by searchi
 
 A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options. This is then added to the map in the _useEffect_ hook. The component _GeoSearchField_ is also used inside the _LeafletMap_ in order to make the search button available on the map.
 
-```jsx
+\begin{lstlisting}[caption=addingMapSearch, label=lst:mapSearch, language={JavaScript}]
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useMap } from 'react-leaflet';
 import { useEffect } from 'react';
@@ -1213,20 +1213,20 @@ const GeoSearchField = ({translate, activeLanguage}) => {
     let map = useMap();
 
     // @ts-ignore
-    const searchControl = new GeoSearchControl({
+    const searchControl = new GeoSearchControl({ // define search control with options
         provider: new OpenStreetMapProvider({params: {'accept-language': activeLanguage.code.split("-")[0]}}),
         autoComplete: true,
         autoCompleteDelay: 500,
         showMarker: false,
         showPopup: false,
-        searchLabel: translate("searchGeo.hint"),
-        classNames: {
+        searchLabel: translate("searchGeo.hint"), // handle multi-language support
+        classNames: { // used for custom styling
             resetButton: 'gs-resetButton',
         }
     });
 
     useEffect(() => {
-        map?.addControl(searchControl);
+        map?.addControl(searchControl); // add search control to map
         return () => map?.removeControl(searchControl);
     }, [map])
 
@@ -1234,7 +1234,7 @@ const GeoSearchField = ({translate, activeLanguage}) => {
 }
 
 export default withLocalize(GeoSearchField);
-```
+\end{lstlisting} \
 
 
 ### Geofence labels
@@ -1267,9 +1267,9 @@ This approach can also lead to problems with concave geometry, like for example 
 ##### Center of bounding box
 The label can be placed at the center of the bounding box of the polygon, which can easily be done by using basic leaflet methods.
 
-```jsx
+\begin{lstlisting}[caption=Get center of bounding box, label=lst:labelPosition, language={JavaScript}]
 polygon.getBounds().getCenter()
-```
+\end{lstlisting} \
 
 This approach solves the problem with unevenly distributed points, because the center is always calculated from a rectangle with exactly four points. However, it is not a solution for concave polygons like the U-shape described above.
 
@@ -1288,12 +1288,12 @@ The size of the geofence labels changes depending on the current zoom level of t
 
 This dynamic sizing is achieved by using a CSS class selector that includes the current zoom level to select the corresponding option from the CSS classes _zoom6_ to _zoom13_.
 
-```jsx
+\begin{lstlisting}[caption=Icon with dynamic class name, label=lst:dynamicLabelSize, language={JavaScript}]
 return L.divIcon({
     className: "",
     html: `<div class="tooltipMarker ${"zoom" + (zoomLevel > 6 ? zoomLevel : 6)}">${title}</div>`,
 });
-```
+\end{lstlisting} \
 
 
 ### Geofence deletion
@@ -1319,16 +1319,16 @@ For any geofence with a boolean tag _Hidden_ set to true, no _react-leaflet_ Pol
 #### Storing geofence visibilities
 The information on which geofences are hidden is stored for the convenience of the user. Since most geofences that are hidden can be assumed to stay hidden for the majority of the time, like system geofences, geofences with a large number of points or generally rarely used ones, this is done with _localStorage_, meaning that, contrary to _sessionStorage_, the information is stored not just on page reloads, but in entirely new sessions.
 
-```jsx
+\begin{lstlisting}[caption=Geofence visibility is saved to localStorage, label=lst:geofenceVisibility, language={JavaScript}]
 let obj = {...visibilityObj};
 
 newGeoFences.forEach(e => {
-    obj[`id_${e.geoFence.ID}`] = e.geoFence.Hidden || false;
+    obj[`id_${e.geoFence.ID}`] = e.geoFence.Hidden || false; // if no value is stored, set as not hidden
 });
 
 setVisibilityObj(obj);
-localStorage.setItem("visibility", JSON.stringify(obj));
-```
+localStorage.setItem("visibility", JSON.stringify(obj)); // save to localStorage
+\end{lstlisting} \
 
 
 ### Geofence highlighting
@@ -1406,7 +1406,7 @@ To allow the user to select geofences for which the bulk operations should be pe
 
 Because the checkboxes are part of custom list elements, a select-all-checkbox also has to be added manually. The current _selectAllState_ (NONE, SOME or ALL) is determined after every clickEvent on a checkbox by counting the number of selected geofences, and is used to show an unchecked, indeterminate or checked select-all-checkbox respectively. This checkbox can also be clicked itself to select all loaded geofences if none are selected, or to deselect all if some or all are selected.
 
-```jsx
+\begin{lstlisting}[caption=Checkboxes are displayed depending on selectionState, label=lst:selectionCheckboxes, language={JavaScript}]
 <Checkbox
     id="cb_all"
     style={{ color: buttonColors.bright }}
@@ -1414,7 +1414,7 @@ Because the checkboxes are part of custom list elements, a select-all-checkbox a
     checked={selectAllState !== selectionState.NONE}
     onChange={() => onSelectAllChanged()}
 ></Checkbox>
-```
+\end{lstlisting} \
 
 
 #### Bulk locking
@@ -1422,17 +1422,17 @@ Bulk actions are available for locking, unlocking and toggling locks for geofenc
 
 If the action should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
 
-```jsx
+\begin{lstlisting}[caption=The function for handling bulk locking operations, label=lst:bulkLockingFunction, language={JavaScript}]
 function lockActionMulti(weekday, lockMethod) {
-    let weekdaysToLock = [];
-    if (weekday === -1)
+    let weekdaysToLock = []; // use array to allow handling of multiple days
+    if (weekday === -1) // all weekdays
         weekdaysToLock = [1, 2, 3, 4, 5, 6, 0];
     else
         weekdaysToLock = [weekday];
 
     let newGeoFenceLocks = geoFenceLocks;
-    for (let currentDayToLock of weekdaysToLock) {
-        for (let id of selection) {
+    for (let currentDayToLock of weekdaysToLock) { // repeat for each weekday
+        for (let id of selection) { // repeat for each selected geofence
             switch (lockMethod) {
                 case 0: lockDay(newGeoFenceLocks, id, currentDayToLock);     break;
                 case 1: unlockDay(newGeoFenceLocks, id, currentDayToLock);   break;
@@ -1440,12 +1440,12 @@ function lockActionMulti(weekday, lockMethod) {
                 default: return;
             }
 
-            callBackendLocking(id, weekday, lockMethod);
+            callBackendLocking(id, weekday, lockMethod); // locking on backend, separately from frontend in state
         }
     }
     setGeoFenceLocks({...newGeoFenceLocks});
 }
-```
+\end{lstlisting} \
 
 
 #### Bit masking
@@ -1495,7 +1495,7 @@ The map component is wrapped in _React.memo_ in order to rerender only when rele
 
 With a custom check function _isEqual_, the _React.memo_ function can be set to rerender only when one of these props changes.
 
-```jsx
+\begin{lstlisting}[caption=Using React.memo with custom equality check, label=lst:reactMemo, language={JavaScript}]
 export default withLocalize(React.memo(LeafletMap, isEqual));
 
 function isEqual(prevProps, nextProps) {
@@ -1509,7 +1509,7 @@ function isEqual(prevProps, nextProps) {
     }
     return false;
 }
-```
+\end{lstlisting} \
 
 After making these changes, a new graph is recorded for the same actions.\
 The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore.
