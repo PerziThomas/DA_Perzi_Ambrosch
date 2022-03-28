@@ -5,7 +5,7 @@ on: push
 env:
   OUTPUTDIR: output
   STYLEDIR: style
-  INPUTDIR: sources
+  INPUTDIR: source
 
 jobs:
 
