@@ -1394,9 +1394,70 @@ The task of determining what geofences should be returned in which page is handl
 ### Geofence display color
 The user can select from a variety of display colors for the geofences on the map, for better contrast and visibility or for personal preference. This is a global setting, meaning that the color can be changed for all geofences at once. It is not possible to set different colors for individual geofences.
 
-The currently selected color is stored in a React state variable and used when drawing the Polygons on the map.
+The currently selected color is stored in a React state variable and used when drawing the Polygons on the map. Highlighted geofences are always colored green, overriding the global geofence display color.
 
-Highlighted geofences are always colored green, overriding the global geofence display color.
+
+### Bulk operations
+The app includes the option to perform certain actions for multiple geofences at once, including locking actions and geofence deletion. Backend requests are sent for each selected geofence individually, which is not problematic in terms of performance, but allows further room for improvement, for example by implementing a special endpoint for bulk operations to be handled by the backend.
+
+
+#### Selection checkboxes
+To allow the user to select geofences for which the bulk operations should be performed, a checkbox is added to each geofence in the list. An array of all currently selected geofences' ids is stored in the React state, and if a geofence is selected or deselected, its id is pushed into this array or removed from it.
+
+Because the checkboxes are part of custom list elements, a select-all-checkbox also has to be added manually. The current _selectAllState_ (NONE, SOME or ALL) is determined after every clickEvent on a checkbox by counting the number of selected geofences, and is used to show an unchecked, indeterminate or checked select-all-checkbox respectively. This checkbox can also be clicked itself to select all loaded geofences if none are selected, or to deselect all if some or all are selected.
+
+```jsx
+<Checkbox
+    id="cb_all"
+    style={{ color: buttonColors.bright }}
+    indeterminate={selectAllState === selectionState.SOME}
+    checked={selectAllState !== selectionState.NONE}
+    onChange={() => onSelectAllChanged()}
+></Checkbox>
+```
+
+
+#### Bulk locking
+Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_.
+
+If the action should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
+
+```jsx
+function lockActionMulti(weekday, lockMethod) {
+    let weekdaysToLock = [];
+    if (weekday === -1)
+        weekdaysToLock = [1, 2, 3, 4, 5, 6, 0];
+    else
+        weekdaysToLock = [weekday];
+
+    let newGeoFenceLocks = geoFenceLocks;
+    for (let currentDayToLock of weekdaysToLock) {
+        for (let id of selection) {
+            switch (lockMethod) {
+                case 0: lockDay(newGeoFenceLocks, id, currentDayToLock);     break;
+                case 1: unlockDay(newGeoFenceLocks, id, currentDayToLock);   break;
+                case 2: toggleDay(newGeoFenceLocks, id, currentDayToLock);   break;
+                default: return;
+            }
+
+            callBackendLocking(id, weekday, lockMethod);
+        }
+    }
+    setGeoFenceLocks({...newGeoFenceLocks});
+}
+```
+
+
+#### Bit masking
+A bit mask is a technique used to store and access data as individual bits. This can be useful for storing certain types of data efficiently.
+
+This could be used as an alternative way to store the days on which a geofence is locked. Since there are seven days, a mask with at least seven bits has to be used, where the first bit represents Monday, the second bit represents Tuesday, and so on. Each bit can be either true (1) or false (0), indicating if that day of the week is locked or not. This way, every combination of locked days can be represented by using one number between 0 (0000000) and 127 (1111111).
+
+To set an individual bit (set it to 1/true), an OR operation is used on the storage variable and the value 2^n, where n is the number of the bit starting from the least significant bit on the right at n=0.\
+To delete an individual bit (set it to 0/false), an AND operation is used on the storage variable and the inverse of 2^n (the value after a NOT operation).\
+A bit can be toggled with an XOR operation on the storage variable and the value 2^n.\
+By using an AND operation on the storage variable and 2^n, the value of an individual bit can be read. [@bitmasks]
+
 
 ## Performance optimization on the frontend
 This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as and the changes made to the application to fix those issues.
@@ -1487,66 +1548,4 @@ Performance is notably affected by this approach, due to the high number of netw
 #### Lifting state up
 While there are workarounds to force a child component to rerender from its parent [@reactForceChildRerender], in this case, it is more elegant to __lift the state__ of the geofence locks from the _GeoFenceListItems_ to a parent component like _GeoFenceList_ or _Home_.\
 Now, when the state changes in the parent component, for example through _geofence bulk locking operations_, all child components are automatically updated by React and the changes to geofence locks can be seen immediately. [@reactLiftingStateUp]
-
-
-### Bulk operations
-The app includes the option to perform certain actions for multiple geofences at once, including locking actions and geofence deletion. Backend requests are sent for each selected geofence individually, which is not problematic in terms of performance, but allows further room for improvement, for example by implementing a special endpoint for bulk operations to be handled by the backend.
-
-
-#### Selection checkboxes
-To allow the user to select geofences for which the bulk operations should be performed, a checkbox is added to each geofence in the list. An array of all currently selected geofences' ids is stored in the React state, and if a geofence is selected or deselected, its id is pushed into this array or removed from it.
-
-Because the checkboxes are part of custom list elements, a select-all-checkbox also has to be added manually. The current _selectAllState_ (NONE, SOME or ALL) is determined after every clickEvent on a checkbox by counting the number of selected geofences, and is used to show an unchecked, indeterminate or checked select-all-checkbox respectively. This checkbox can also be clicked itself to select all loaded geofences if none are selected, or to deselect all if some or all are selected.
-
-```jsx
-<Checkbox
-    id="cb_all"
-    style={{ color: buttonColors.bright }}
-    indeterminate={selectAllState === selectionState.SOME}
-    checked={selectAllState !== selectionState.NONE}
-    onChange={() => onSelectAllChanged()}
-></Checkbox>
-```
-
-
-#### Bulk locking
-Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_.
-
-If the action should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
-
-```jsx
-function lockActionMulti(weekday, lockMethod) {
-    let weekdaysToLock = [];
-    if (weekday === -1)
-        weekdaysToLock = [1, 2, 3, 4, 5, 6, 0];
-    else
-        weekdaysToLock = [weekday];
-
-    let newGeoFenceLocks = geoFenceLocks;
-    for (let currentDayToLock of weekdaysToLock) {
-        for (let id of selection) {
-            switch (lockMethod) {
-                case 0: lockDay(newGeoFenceLocks, id, currentDayToLock);     break;
-                case 1: unlockDay(newGeoFenceLocks, id, currentDayToLock);   break;
-                case 2: toggleDay(newGeoFenceLocks, id, currentDayToLock);   break;
-                default: return;
-            }
-
-            callBackendLocking(id, weekday, lockMethod);
-        }
-    }
-    setGeoFenceLocks({...newGeoFenceLocks});
-}
-```
-
-
-#### Bit masking
-A bit mask is a technique used to store and access data as individual bits. This can be useful for storing certain types of data efficiently.
-
-This could be used as an alternative way to store the days on which a geofence is locked. Since there are seven days, a mask with at least seven bits has to be used, where the first bit represents Monday, the second bit represents Tuesday, and so on. Each bit can be either true (1) or false (0), indicating if that day of the week is locked or not. This way, every combination of locked days can be represented by using one number between 0 (0000000) and 127 (1111111).
-
-To set an individual bit (set it to 1/true), an OR operation is used on the storage variable and the value 2^n, where n is the number of the bit starting from the least significant bit on the right at n=0.\
-To delete an individual bit (set it to 0/false), an AND operation is used on the storage variable and the inverse of 2^n (the value after a NOT operation).\
-A bit can be toggled with an XOR operation on the storage variable and the value 2^n.\
-By using an AND operation on the storage variable and 2^n, the value of an individual bit can be read. [@bitmasks]
 
