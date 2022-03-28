@@ -47,9 +47,11 @@ jobs:
         working-directory: da_repo/output
       - run: bibtex diplomarbeit
         working-directory: da_repo/output
-      - run: pdflatex -interaction=nonstopmode diplomarbeit.tex
+      - run: "pdflatex -interaction=nonstopmode diplomarbeit.tex || :"
         working-directory: da_repo/output
-      - run: pdflatex -interaction=nonstopmode diplomarbeit.tex
+      - run: "pdflatex -interaction=nonstopmode diplomarbeit.tex || :"
+        working-directory: da_repo/output
+      - run: ls -la
         working-directory: da_repo/output
 
       - name: Upload Log
