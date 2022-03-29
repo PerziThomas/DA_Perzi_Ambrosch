@@ -168,6 +168,7 @@ To add custom middleware into the ASP.NET Core pipeline, the developer must simp
 Controllers are classes which handle the routing and processing of requests to the web service. When using the annotation *[ApiController]* a controller is declared as an API controller. This holds the benefit of automatically converting responses to a requested format like JSON or XML. Alongside the ApiController annotation the *[Route(route)]* annotation is used to set a general route for all requests going into this controller. An example of this would to use *[Route("api/v1")]* resulting in every request to https://driver.box/api/v1 being routed through this controller.
 
 To map methods to routes and HTTP methods a different set of annotations needs to be used on the desired methods. To associate a method with a route and a method, two annotations need to be used. Firstly, the *[Route(route)]* annotation is reused from the controller. To register the method to a specific HTTP methods ASP.NET Core provides several annotation.
+
 - HttpGet
 - HttpPost
 - HttpPut
@@ -249,7 +250,8 @@ In the final version of the geofencing application, triggers are not used. They 
 #### SQL Spatial
 The spatial extension was an addition provided to SQL Server by Microsoft in 2008. It essentially adds two datatypes to the software, *geometry* and *geography*. These datatypes are provided along a set of functionality to perform spatial calculations and queries on the database. Spatial data is data with geometrical or geographical information attached to it. In most cases those are coordinates. Geometry and geography are different in the fact that geometry is indented for use in a flat coordinate system like a plane. Geography on the other hand is intended for use with globe like coordinates to reflect real world locations and objects. For persisting geofences in the database, geography was chosen, as it makes use of real world GPS coordinates. [@spatext]
 
-On top of the basic data types, there are two mains groups of object types provided by the spatial extension. These objects are available for both geometry and geography-
+On top of the basic data types, there are two mains groups of object types provided by the spatial extension. These objects are available for both geometry and geography.
+
 1. Simple objects
    : Simple, single spatial objects that are completely connected in their instance. These include *Points*, *LineStrings* and *Polygons*.
 2. Collection objects
