@@ -178,8 +178,8 @@ SQL commands. \
 \begin{figure}[ht]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress1.png}
-	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe. \protect\autocite{sqlstressref}}
-	\label{fig1}
+	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe.}
+	\label{fig3_1}
 \end{figure}
 
 After testing the pure procedures in the database alone, disregarding any other bottleneck which
@@ -187,8 +187,12 @@ could come up due to the network, it was concluded that the Microsoft SQL Geospa
 not able to provide the efficiency needed to satisfy the Drivebox demands in scalability, as the company
 is looking to expand the pool of vehicles in the future. \
 
-![Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.](source/figures/sqlstress2.png "Screenshot"){#fig:stress_one width=90%}
-\  
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/sqlstress2.png}
+	\caption{Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.}
+	\label{fig3_2}
+\end{figure}
 
 With the final and most accurate implementation of the algorithm being able to handle requests at an acceptable rate,
 it became clear that response times were rising exponentially with an increasing number of clients, which would not be
@@ -205,29 +209,45 @@ accessing the server at the same time. Besides setting the number of simultaneou
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
 amount of requests each thread sends.
 
-![Creating a Test Group in JMeter.](source/figures/jmeter1.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic1]
-\  
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/jmeter1.png}
+	\caption{Creating a Test Group in JMeter.\protect\autocite{jmeterPic1}}
+	\label{fig3_3}
+\end{figure}
 
 Following that, the developer must add a *HTTP Request Defaults* object which provides JMeter with the basic
 information about the server to be tested, such as the base hostname, the port and the protocol, as well as
 parameters and body data.
 
-![Setting the base HTTP options.](source/figures/jmeter2.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic2]
-\  
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/jmeter2.png}
+	\caption{Setting the base HTTP options.\protect\autocite{jmeterPic2}}
+	\label{fig3_4}
+\end{figure}
 
 Next, the specific *HTTP Request* details need to be specified, mainly the used HTTP Method, as well as
 the destination path, which is appended to the base host. This part should mainly take over the settings set
 in the *HTTP Request Defaults* object, but if needed, some of those can be edited.
 
-![Specifying Request options.](source/figures/jmeter3.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic3]
-\ 
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/jmeter3.png}
+	\caption{Specifying Request options.\protect\autocite{jmeterPic3}}
+	\label{fig3_5}
+\end{figure}
 
 Finally, to display the results of the Test Plan, the developer needs to use a *Listener*. Listeners
 are mainly grouped into two categories, tables and graphs, depending on which is needed, with the
 table based reports being more detailed. [@jmeterTutorial]
 
-![Example of a graph based listener.](source/figures/jmeter4.png "Screenshot"){#fig:stress_one width=90%}[@jmeterPic4]
-\ 
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/jmeter4.png}
+	\caption{Example of a graph based listener.\protect\autocite{jmeterPic4}}
+	\label{fig3_5}
+\end{figure}
 
 Test procedures in JMeter were designed similarly to the ones made in SQLQueryStress, with a main focus
 on operation during a constant load and occasional spike testing to estimate the approximate scale of
