@@ -178,7 +178,7 @@ SQL commands. \
 \begin{figure}[ht]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress1.png}
-	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe. \protect[@sqlstressref]}
+	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe. \protect\autocite{sqlstressref}}
 	\label{fig1}
 \end{figure}
 
