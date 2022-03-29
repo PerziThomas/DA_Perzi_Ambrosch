@@ -55,7 +55,7 @@ A compromise solution was found that could fulfill all design requirements:
 - works when starting in geofence (exit without entry)
 - works when ending in geofence (entry without exit)
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Mockup_drive_logs.PNG}
 	\caption{The final mockup for displaying drive logs.}
@@ -177,14 +177,14 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 
 The specific shade of blue to be used was derived from the _Drivebox_ application logo, but this was altered in some places to increase readability of the user interface.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/UI_Integration_before.png}
 	\caption{UI Mockup before adaptations for integration.}
 	\label{fig4_2}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/UI_Integration_after.png}
 	\caption{UI Mockup after adaptations for integration.}
