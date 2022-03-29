@@ -175,8 +175,12 @@ The open source tool **SQLQueryStress** [@sqlstressref] provides the ability to 
 to operate under a constant stream of requests, achieved by making several threads execute
 SQL commands. \
 
-![Testing an algorithmic procedure on its performance under a constant load for a longer timeframe.](source/figures/sqlstress1.png "Screenshot"){#fig:stress_one width=90%}
-\  
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/sqlstress1.png}
+	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe.}
+	\label{fig1}
+\end{figure}
 
 After testing the pure procedures in the database alone, disregarding any other bottleneck which
 could come up due to the network, it was concluded that the Microsoft SQL Geospatial functions were
