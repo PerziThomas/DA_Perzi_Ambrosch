@@ -175,7 +175,7 @@ The open source tool **SQLQueryStress** [@sqlstressref] provides the ability to 
 to operate under a constant stream of requests, achieved by making several threads execute
 SQL commands. \
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress1.png}
 	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe.}
@@ -187,7 +187,7 @@ could come up due to the network, it was concluded that the Microsoft SQL Geospa
 not able to provide the efficiency needed to satisfy the Drivebox demands in scalability, as the company
 is looking to expand the pool of vehicles in the future. \
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress2.png}
 	\caption{Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.}
@@ -209,7 +209,7 @@ accessing the server at the same time. Besides setting the number of simultaneou
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
 amount of requests each thread sends.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter1.png}
 	\caption{Creating a Test Group in JMeter.\protect\autocite{jmeterPic1}}
@@ -220,7 +220,7 @@ Following that, the developer must add a *HTTP Request Defaults* object which pr
 information about the server to be tested, such as the base hostname, the port and the protocol, as well as
 parameters and body data.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter2.png}
 	\caption{Setting the base HTTP options.\protect\autocite{jmeterPic2}}
@@ -231,7 +231,7 @@ Next, the specific *HTTP Request* details need to be specified, mainly the used 
 the destination path, which is appended to the base host. This part should mainly take over the settings set
 in the *HTTP Request Defaults* object, but if needed, some of those can be edited.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter3.png}
 	\caption{Specifying Request options.\protect\autocite{jmeterPic3}}
@@ -242,7 +242,7 @@ Finally, to display the results of the Test Plan, the developer needs to use a *
 are mainly grouped into two categories, tables and graphs, depending on which is needed, with the
 table based reports being more detailed. [@jmeterTutorial]
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter4.png}
 	\caption{Example of a graph based listener.\protect\autocite{jmeterPic4}}
