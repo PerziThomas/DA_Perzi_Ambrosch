@@ -18,8 +18,12 @@ In ASP.NET Core, Dependency Injection is mainly used when creating and implement
 ### Project structure
 The entire geofencing application runs on a client-server architecture. The React frontend and the existing Drivebox application are served as clients by the geofencing backend server built on ASP.NET Core. Communication between the clients and the server is entirely REST and HTTP based. 
 
-![Architecture of the entire Drivebox application with the geofencing included.](source/figures/architecture.png "Screenshot"){#fig:architecture width=90%}
-\ 
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/architecture.png}
+	\caption{Architecture of the entire Drivebox application with the geofencing included.}
+	\label{fig2_1}
+\end{figure}
 
 ## Backend Technologies used
 The backend consists of two major parts, those being the ASP.NET Core webservice and the Microsoft SQL Server database. With ASP.NET Core running on top of the C# programming language, third party libraries are obtainable using the NuGet package manager. All functionality on the database is natively provided and doesn't require the installation of any further extensions. To work with the database and geographical objects the webservice needed to be extended with libraries such as ADO.NET and NetTopologySuite.
@@ -140,8 +144,12 @@ To request a service from the application a class must simple include the servic
 #### Middleware
 To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware and the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used. [@middleware]
 
-![Example of a middleware workflow. [@middleware]](source/figures/middleware_pipe.png "Screenshot"){#fig:middleware width=90%}
-\  
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/middleware_pipe.png}
+	\caption{Example of a middleware workflow.\protect\autocite{middleware}}
+	\label{fig2_2}
+\end{figure}
 
 To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the *IApplicationBuilder* interface must be extended with a method registering the middleware. This methods is then called in the startup file.
 
@@ -206,8 +214,12 @@ To create tables with T-SQL a syntax similar to the SQL one is required. Tables 
 
 In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using an UML-diagram.
 
-![Logical Model of the Database.](source/figures/db_model.png "Screenshot"){#fig:dbmodel width=90%}
-\ 
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/db_model.png}
+	\caption{Logical Model of the Database.}
+	\label{fig2_3}
+\end{figure}
 
 ##### Procedures
 Stored procedures are segments of code which are compiled and executed on the database server. Contrary to a function, a procedure does not have a return value and processed values can only be passed along using out variables. Creating a procedure on SQL Server is simplified by using the GUI of SSMS to create a template of a procedure. Inside the procedure a sequence of T-SQL commands is being executed. Procedures provide the ability to make use of typical programming control structures such as conditions and loops. To execute a stored procedure the *EXEC* command can be used in the SQL editor or the functions provided by libraries in C# like ADO.NET. 
@@ -267,7 +279,7 @@ To create a connection to the database a new instance of the class *SqlConnectio
                 }
 \end{lstlisting} \
 
-To send SQL command to the server a new instance of the *SqlCommand* class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using \@geofenceName when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET.
+To send SQL command to the server a new instance of the *SqlCommand* class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using '(at)geofenceName' when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET.
 
 \begin{lstlisting}[caption=Creating a command to delete a geofence by id while using a placeholder for the id., label=lst:adoPlaceholder, language={[Sharp]C}]       
             SqlCommand cmd = new SqlCommand("DELETE FROM geoFence WHERE id = @id", connection);
@@ -564,10 +576,7 @@ translate("units.length.meter.plural") /* returns "meters" or "Meter" */
 
 
 ### Leaflet
-_Leaflet_ is the leading open-source JavaScript library for interactive maps. It is a technology used by the company for maps in existing apps, and is also ideal for testing applications, since the library
-
-- including all of its features
-- is free to use, with no restrictions like monthly time or data limits for the map services. [@leafletOverview]
+_Leaflet_ is the leading open-source JavaScript library for interactive maps. It is a technology used by the company for maps in existing apps, and is also ideal for testing applications, since the library - including all of its features - is free to use, with no restrictions like monthly time or data limits for the map services. [@leafletOverview]
 
 Because Leaflet is open-source, a lot of additional libraries exist, some of which were used in the app and will be described in the following sections.
 
@@ -888,8 +897,12 @@ Requests onto the server were made according to the HTTP protocol, with a token 
 
 To avoid a constant repetition of boilerplate code inside each controller, ASP.NET Core middleware is used to authenticate the user using the token provided in each request.
 
-![A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.](source/figures/seq_rest.png "Screenshot"){#fig:stress_one width=90%}
-\  
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/seq_rest.png}
+	\caption{A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.}
+	\label{fig2_4}
+\end{figure}
 
 
 ### Sending requests from the frontend
@@ -910,8 +923,12 @@ To calculate intersections between geofences and points in time (POI), two oppor
 ### Raycasting
 Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the POI to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. 
 
-![An example of how a raycasting algorithm works with a polygon. [@raycasting]](source/figures/raycasting_polygon.png "Screenshot"){#fig:ray_poly width=90%}
-\  
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/raycasting_polygon.png}
+	\caption{An example of how a raycasting algorithm works with a polygon.\protect\autocite{raycasting}}
+	\label{fig2_5}
+\end{figure}
 
 This algorithm comes with some drawbacks. First, having to implement it by hand and second, needing to implement every kind of error check that might be needed. Additionally, the speed of calculations is not acceptable for time critical applications, such as Drivebox, and would need even more manual optimizations to match the speed of the methods provided by third party libraries. [@raycasting]
 
@@ -950,8 +967,12 @@ To analyze a non simple MultiLineString, a list of intersection points of the Mu
 
 As a final step, each intersection is processed and modified with information if it enters or leaves a polygon, and when this happened, calculated by using the two coordinates with timestamp happening immediately after an event occurs. Using the distance between these points and the intersection point an approximate crossing time can also be interpolated. Entry and leave events are associated with each other and returned as a collection. If the leave and enter events are equal to the beginning and end of a trip, the trip is classified as staying inside a polygon.
 
-![Processing of a trip as an UML Activity Diagram.](source/figures/acdia_trips.png "Screenshot"){#fig:dia_trips width=90%}
-\  
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/acdia_trips.png}
+	\caption{Processing of a trip as an UML Activity Diagram.}
+	\label{fig2_6}
+\end{figure}
 
 ## Polygon Creation
 To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend.
@@ -1049,8 +1070,12 @@ Geofences can be created as polygons, rectangles, circles or as road geofences b
 
 The different types of geofences are shown in a class diagram. The meaning of non-editable geofences will be described in chapter _Non-editable geofences_.
 
-![Types of geofences.](source/figures/Geofence_types_class_diagram.png "Diagram"){#fig:stress_one width=90%}
-\ 
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/Geofence_types_class_diagram.png}
+	\caption{Types of geofences.}
+	\label{fig2_7}
+\end{figure}
 
 Any created geofence is checked for self-intersections. [@codeSelfIntersection] [@codeLineIntersection] If no problems are found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
 
@@ -1248,8 +1273,12 @@ A label is displayed for every geofence in the map to make it easier to associat
 Leaflet can display labels for polygons, however, these default labels have some problems.\
 The precision with which the position of the label is calculated seems to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centered within or completely outside its polygon. 
 
-![Labels (top left) are displayed at the same point outside their corresponding polygons (bottom right).](source/figures/Label_precision_problem.png "Screenshot"){#fig:stress_one width=90%}
-\ 
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/Label_precision_problem.png}
+	\caption{Labels (top left) are displayed at the same point outside their corresponding polygons (bottom right).}
+	\label{fig2_8}
+\end{figure}
 
 This problem can be solved by starting at a higher initial zoom level, but to keep flexibility in this regard, labels are added manually by rendering a marker on the map for each polygon at a calculated position.
 
@@ -1265,9 +1294,12 @@ If points are distributed unevenly, meaning there is more detail on one side tha
 
 This approach can also lead to problems with concave geometry, like for example a U-shaped polygon. The calculated center lies in the middle of the shape, which in this case is not part of the polygon, causing the label to appear outside the geometry.
 
-![Geofence label is displayed outside the concave polygon's geometry](source/figures/Label_outside_concave_geometry.png "Screenshot"){#fig:stress_one width=90%}
-\ 
-
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/Label_outside_concave_geometry.png}
+	\caption{Geofence label is displayed outside the concave polygon's geometry.}
+	\label{fig2_9}
+\end{figure}
 
 ##### Center of bounding box
 The label can be placed at the center of the bounding box of the polygon, which can easily be done by using basic leaflet methods.
@@ -1284,9 +1316,12 @@ The node package _polylabel_ uses an algorithm to calculate a polygon's _pole of
 
 This approach solves the problem with concave shapes, because the calculated point always lies inside the polygon, and for this reason, it was used to calculate the label positions in the app.
 
-![Geofence label placed at the pole of inaccessibility](source/figures/Label_pole_of_inaccessibility.png "Screenshot"){#fig:stress_one width=90%}
-\ 
-
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/Label_pole_of_inaccessibility.png}
+	\caption{Geofence label placed at the pole of inaccessibility.}
+	\label{fig2_10}
+\end{figure}
 
 #### Dynamic label size
 The size of the geofence labels changes depending on the current zoom level of the map, getting smaller as the user zooms out further, and is hidden for any zoom level smaller than or equal to 6.
@@ -1341,16 +1376,19 @@ Any geofence can be highlighted, setting the map view to show it, as well as cha
 
 The map movement is done by using the _Leaflet_ function _map.flyToBounds_, which changes the map's center and zoom level with a smooth animation to fit the bounds of given geometry. [@leafletDocumentation]
 
-A boolean tag _Highlighted_ is stored for every geofence. Some special cases have to be considered in combination with the _Geofence visibility_ feature:
-
+A boolean tag _Highlighted_ is stored for every geofence. Some special cases have to be considered in combination with the _Geofence visibility_ feature:\
 - If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.
 - If a hidden geofence is highlighted, it is also unhidden.
 - If a highlighted geofence is hidden, it is also set to not be highlighted.
 
 The following state chart describes the different states a geofence can have regarding hiding and highlighting, as well as the actions that lead to changes.
 
-![The geofence visibility states and their interaction.](source/figures/Geofence_visibility_state_chart.png "Diagram"){#fig:stress_one width=90%}
-\ 
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/Geofence_visibility_state_chart.png}
+	\caption{The geofence visibility states and their interaction.}
+	\label{fig2_11}
+\end{figure}
 
 ### Geofence renaming
 Any geofence can be renamed in the Web-Interface.\
@@ -1469,7 +1507,6 @@ By using an AND operation on the storage variable and 2^n, the value of an indiv
 This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as and the changes made to the application to fix those issues.
 
 Optimizing the performance of the frontend can have several positive effects, including, but not limited to
-
 - minimizing lag and making the UI more responsive.
 - minimizing loading times and load on the network by reducing the number of backend calls.
 - allowing the app to run on less powerful devices.
@@ -1495,8 +1532,12 @@ The recorded data can be viewed in different graphical representations, includin
 #### Avoiding unnecessary rerenders
 By looking at a graph of the geofence management app recorded with the _Profiler_, it can be seen that the _LeafletMap_ component takes significantly more time to rerender than all other components and should therefore be optimized.\
 
-![React Profiler View before implementing performance optimizations.](source/figures/React_Profiler_before.png "Screenshot"){#fig:stress_one width=90%}
-\  
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/React_Profiler_before.png}
+	\caption{React Profiler View before implementing performance optimizations.}
+	\label{fig2_12}
+\end{figure}
 
 The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings.\
 
@@ -1522,8 +1563,12 @@ After making these changes, a new graph is recorded for the same actions.\
 The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore.
 This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
 
-![React Profiler View after implementing performance optimizations.](source/figures/React_Profiler_after.png "Screenshot"){#fig:stress_one width=90%}
-\ 
+\begin{figure}[H]
+	\centering
+  \includegraphics[width=0.90\textwidth]{source/figures/React_Profiler_after.png}
+	\caption{React Profiler View after implementing performance optimizations.}
+	\label{fig2_13}
+\end{figure}
 
 Similar changes are also applied to other components that cause lag or rerender unnecessarily.
 
