@@ -548,7 +548,7 @@ and _de.translations.json_:
 #### Using translations in components
 There are two notably different ways in which translations can be integrated in the React code.
 
-- The \lstinline!Translate! tag can be used in a self-closing form with a property <code>id</code> referencing the translation property name in the resource files.
+- The <code>Translate</code> tag can be used in a self-closing form with a property <code>id</code> referencing the translation property name in the resource files.
 
 \begin{lstlisting}[caption=Translation using tag, label=lst:translateTag, language={JavaScript}]
 <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
