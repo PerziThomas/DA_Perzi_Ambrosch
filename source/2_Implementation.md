@@ -1047,7 +1047,7 @@ The different types of geofences are shown in a class diagram. The meaning of no
 ![Types of geofences.](source/figures/Geofence_types_class_diagram.png "Diagram"){#fig:stress_one width=90%}
 \ 
 
-Any created geofence is checked for self-intersections. [@codeSelfIntersection][@codeLineIntersection] If no problems are found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
+Any created geofence is checked for self-intersections. [@codeSelfIntersection] [@codeLineIntersection] If no problems are found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
 
 If an error occurs in the backend, the creation process is aborted. Because the error did not occur in the frontend, Leaflet does not react to it, and the new geofence is added to the map. The drawn geometry therefore needs to be manually removed from the map.
 
