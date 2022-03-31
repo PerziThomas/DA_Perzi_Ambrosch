@@ -58,7 +58,7 @@ A compromise solution was found that could fulfill all design requirements:
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Mockup_drive_logs.PNG}
-	\caption{The final mockup for displaying drive logs.}
+	\caption{The final mockup for displaying drive logs}
 	\label{fig4_1}
 \end{figure}
 
@@ -175,18 +175,18 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 - Using shadows instead of borders for cards
 - Using the color blue for accents
 
-The specific shade of blue to be used was derived from the _Drivebox_ application logo, but this was altered in some places to increase readability of the user interface.
+The specific shade of blue to be used was derived from the _Drivebox_ application logo, but this was altered in some places to increase readability of the user interface and to be more visually appealing.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/UI_Integration_before.png}
-	\caption{UI Mockup before adaptations for integration.}
+	\caption{UI mockup before adaptations for integration}
 	\label{fig4_2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/UI_Integration_after.png}
-	\caption{UI Mockup after adaptations for integration.}
+	\caption{UI mockup adapted for integration into the existing Drivebox application}
 	\label{fig4_3}
 \end{figure}

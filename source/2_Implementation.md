@@ -1073,7 +1073,7 @@ The different types of geofences are shown in a class diagram. The meaning of no
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Geofence_types_class_diagram.png}
-	\caption{Types of geofences.}
+	\caption{The different types of geofences}
 	\label{fig2_7}
 \end{figure}
 
@@ -1276,7 +1276,7 @@ The precision with which the position of the label is calculated seems to be lim
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Label_precision_problem.png}
-	\caption{Labels (top left) are displayed at the same point outside their corresponding polygons (bottom right).}
+	\caption{Labels (top left) are displayed at the same point and outside their corresponding polygons (bottom right)}
 	\label{fig2_8}
 \end{figure}
 
@@ -1297,7 +1297,7 @@ This approach can also lead to problems with concave geometry, like for example 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Label_outside_concave_geometry.png}
-	\caption{Geofence label is displayed outside the concave polygon's geometry.}
+	\caption{Geofence label displayed outside a concave polygon's geometry}
 	\label{fig2_9}
 \end{figure}
 
@@ -1319,7 +1319,7 @@ This approach solves the problem with concave shapes, because the calculated poi
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Label_pole_of_inaccessibility.png}
-	\caption{Geofence label placed at the pole of inaccessibility.}
+	\caption{Geofence label placed at the pole of inaccessibility}
 	\label{fig2_10}
 \end{figure}
 
@@ -1386,7 +1386,7 @@ The following state chart describes the different states a geofence can have reg
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Geofence_visibility_state_chart.png}
-	\caption{The geofence visibility states and their interaction.}
+	\caption{Geofence visibility states and their interaction}
 	\label{fig2_11}
 \end{figure}
 
@@ -1535,7 +1535,7 @@ By looking at a graph of the geofence management app recorded with the _Profiler
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/React_Profiler_before.png}
-	\caption{React Profiler View before implementing performance optimizations.}
+	\caption{Ranked profiler chart shows long render times for LeafletMap}
 	\label{fig2_12}
 \end{figure}
 
@@ -1566,7 +1566,7 @@ This has the effect that the application now runs noticeably smoother, especiall
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/React_Profiler_after.png}
-	\caption{React Profiler View after implementing performance optimizations.}
+	\caption{Ranked chart after implementation of performance optimizations}
 	\label{fig2_13}
 \end{figure}
 
