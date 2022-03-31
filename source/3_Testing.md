@@ -29,7 +29,7 @@ was done in this project. \
 
 ##### Fact vs. Theory \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
-**Facts** are tests which use constant data throughout each running, they are inflexible and always test the same thing.
+*Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
 \begin{lstlisting}[caption=Example of a Fact, label=lst:test, language={[Sharp]C}]
         // A sample Fact Test which ensures a successful connection & authorization to the backend server.
@@ -44,7 +44,7 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
         }
 \end{lstlisting} \
 
-**Theories** on the other hand, are tests which use parameters. This is used for test cases in which 
+*Theories* on the other hand, are tests which use parameters. This is used for test cases in which 
 one might wish to test a function which has a binary result with several values without the need to write
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome. [@xUnitIntro] \
@@ -144,7 +144,7 @@ driver handles mouse movement differently than the Chrome driver.
 
 ### Backend Algorithms
 For unit testing the algorithms functionality there was a need to mock out the required
-components in normal application use. This was achieved using the **Moq** [@moqref] library,
+components in normal application use. This was achieved using the *Moq* [@moqref] library,
 which is used to mock objects in C# for unit tests. \
 
 Mock testing is about only testing one thing in isolation, forcing all other dependencies
@@ -202,7 +202,7 @@ ASP.NET Core backend, which proved to be much more efficient at handling the nec
 it was decided to abandon the optimization of the database based algorithm.
 
 ### ASP.NET
-To test the performance of the RESTful endpoints written in ASP.NET Core, the **Apache JMeter** [@jmeterref] tool was used,
+To test the performance of the RESTful endpoints written in ASP.NET Core, the *Apache JMeter* [@jmeterref] tool was used,
 checking the efficiency of the collision detection algorithm as well as the server's ability to run under load. \
 
 JMeter uses *Test Plans* to send requests to servers, using a basic *Thread Group* to assign the number of clients
