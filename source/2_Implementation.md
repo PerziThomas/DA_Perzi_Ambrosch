@@ -398,9 +398,7 @@ Axios is a JavaScript library for making promise-based HTTP requests. It uses _X
 
 
 #### Comparison with fetch
-The _Fetch API_[@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol.\
-Fetch and axios are very similar to use, with the main difference being different syntax and property names.\
-Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
+The _Fetch API_[@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol. Fetch and axios are very similar to use, with the main difference being different syntax and property names. Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
 
 - built-in XSRF protection
 - automatic JSON conversion of the message body
@@ -452,8 +450,7 @@ await axios(reqObj)
 
 
 ### React-localize-redux
-_React-localize-redux_ is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library.\
-The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
+_React-localize-redux_ is a localization library that enables easy handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library. The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
 
 
 #### Initialization
@@ -560,7 +557,7 @@ and _de.translations.json_:
 
 
 #### Using translations in components
-There are two notably different ways in which translations can be integrated in the React code.
+There are two notably different ways in which translations can be integrated in the React code:
 
 - The \lstinline!Translate! tag can be used in a self-closing form with a property \lstinline!id! referencing the translation property name in the resource files.
 
@@ -704,8 +701,7 @@ _Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the 
 
 
 #### Setup
-The package has to be installed in the project, with the use of a script tag or by installing \lstinline!leaflet-routing-machine! with a package manager such as npm.\
-A basic example of the routing machine with two initial waypoints can be added as follows:
+The package has to be installed in the project, with the use of a script tag or by installing \lstinline!leaflet-routing-machine! with a package manager such as npm. A basic example of the routing machine with two initial waypoints can be added as follows:
 
 \begin{lstlisting}[caption=Initializing Routing Machine, label=lst:routingMachineSetup, language={JavaScript}]
 const instance = L.Routing.control({ // create an instance of routing machine
@@ -728,9 +724,7 @@ OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
 
 ### GeoJSON
-GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016.
-
-The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
+GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
 
 
 #### Geometry object
@@ -760,21 +754,12 @@ If multiple coordinate rings are used in a polygon, the first one must be an out
 : an array of Polygon coordinate arrays
 
 
-##### Polygon
-A polygon consists of one or more coordinate arrays that should be linear rings. A linear ring is a closed LineString, meaning the first and last position share the same coordinates. It must have a minimum of four positions, which would describe a triangle.
-
-If multiple coordinate rings are used in a polygon, the first one must be an outer exterior ring. All other rings must be interior rings that describe holes in the previously defined exterior ring.
-
-
 #### Geometry collection
-A GeometryCollection has a \lstinline!geometries! which contains an array of geometry objects as described above, which can also be empty.\
-GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
+A GeometryCollection has a \lstinline!geometries! which contains an array of geometry objects as described above, which can also be empty. GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
 
 
 #### Feature object
-Features are objects that represent a thing that is spatially bounded. They contain geometry information, but do not represent the geometry itself.
-
-A Feature has a member \lstinline!geometry! which can be either a geometry object or null if no location is specified.
+Features are objects that represent a thing that is spatially bounded. They contain geometry information, but do not represent the geometry itself. A Feature has a member \lstinline!geometry! which can be either a geometry object or null if no location is specified.
 
 
 #### Feature collection
@@ -906,15 +891,13 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 
 
 ### Sending requests from the frontend
-The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application.\
-Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax.\
+The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application. Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax.\
 An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
 
 Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because geofences would normally only be viewed and managed by a single user.\
-Request polling was initially implemented because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
+Request polling was initially implemented for geofence locks because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
 
-When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state.\
-For this reason, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state, so that further requests, like for updates or deletion, can be made for that resource.
+When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state. For this reason, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state, so that further requests, like for updates or deletion, can be made for that resource.
 
 
 ## Calculation Algorithm for intersections
