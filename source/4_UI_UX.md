@@ -29,25 +29,17 @@ An updated list of features was later written in the form of a Use-Case-Diagram,
 
 
 ## Mockup
-During the development process, mockups of the user interface were used to evaluate different workflows, layouts and designs before they were implemented.
-
-The software chosen for this was _Adobe XD_[@adobexdref], because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take.
-
-Some of the specific things that were evaluated with the use of mockups will be mentioned below.
+During the development process, mockups of the user interface were used to evaluate different workflows, layouts and designs before they were implemented. The software chosen for this was _Adobe XD_[@adobexdref], because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take. Some of the specific things that were evaluated with the use of mockups will be mentioned below.
 
 
 ### Basic layout
-Early on, it was decided to split the interface into two main parts, a map view and a collapsible sidebar that contains all other info, like the list of geofences
-
-It was originally planned to have a tab view in this sidebar with tabs for different categories, e.g. a list of geofences and a list of drive logs. This became obsolete when it became clear that the app would only be used for managing the geofences themselves.
+Early on, it was decided to split the interface into two main parts, a map view and a collapsible sidebar that contains all other info, like the list of geofences. It was originally planned to have a tab view in this sidebar with tabs for different categories, e.g. a list of geofences and a list of drive logs. This became obsolete when it became clear that the app would only be used for managing the geofences themselves.
 
 The mockups also included concepts for how the layout would change on smartphones, which also was not needed because the management interface would only have to be used on computers and tablets.
 
 
 ### Drive log display
-Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated.
-
-A compromise solution was found that could fulfill all design requirements:
+Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated. A compromise solution was found that could fulfill all of the following design requirements:
 
 - display entry and exit events
 - display the time spent in each geofence
@@ -81,17 +73,15 @@ Since it would be common for users to want to change locks for several geofences
   - even more flexibility
   - hard to implement bulk operations
 
-Option 3 was chosen for the app because of the added flexibility of the selection model, and because a button bar was needed for other features anyway.\
-Customizable timeslots, like in option four, were not implemented in the app, but the mockup was kept in case they would be added later.
+Option 3 was chosen for the app because of the added flexibility of the selection model, and because a button bar was needed for other features anyway. Customizable timeslots, like in option four, were not implemented in the app, but the mockup was kept in case they would be added later.
 
 
 ## Mobile compatibility
-The geofence management application would mainly be used on PCs, and sometimes on tablets. Smaller devices like smartphones could therefore be neglected.
+According to the company, the geofence management application would mainly be used on PCs, and sometimes on tablets. Smaller devices like smartphones could therefore be neglected.
 
-The UI consists of a map on the left and a sidebar on the right, which starts at a width of 410px, but can be dragged to any size between 410px and 120px less than the total window width.
+The UI consists of a map on the left and a sidebar on the right, which starts at a width of 410px, but can be dragged to any size between 410px and 120px less than the total window width. Switching from a horizontal to a vertical split layout was considered, but this would have been necessary only for screens with very small widths.
 
-The drawing tools from _leaflet-draw_ were tested briefly on a touchscreen device, and all basic functionality appears to be present.\
-Since geofences would mainly be drawn and edited on PC, no further attempt was made to improve the drawing experience on touchscreens.
+The drawing tools from _leaflet-draw_ were tested briefly on a touchscreen device, and all basic functionality appears to be present. Since geofences would mainly be drawn and edited on PC, no further attempt was made to improve the drawing experience on touchscreens.
 
 
 ## Specific design decisions
@@ -99,8 +89,7 @@ In order to improve the usability of the app and to bring it closer to a finishe
 
 
 ### Confirmation dialogs
-A confirmation dialogs is usually used when a significant action is performed. It informs the user of the action to be taken and requires them to confirm the same action a second time.\
-The dialog purposely adds difficulty to performing certain actions in order to avoid triggers that happen by accident or because the user did not understand the consequences of the action. (see [@confirmationDialogs])
+A confirmation dialogs is usually used when a significant action is performed. It informs the user of the action to be taken and requires them to confirm the same action a second time. The dialog purposely adds difficulty to performing certain actions in order to avoid triggers that happen by accident or because the user did not understand the consequences of the action. [@confirmationDialogs]
 
 Standard confirmation dialogs are used in the app whenever any item is deleted, and when geofence geometry is edited. Additionally, all pop-ups that require the user to enter data, for example when creating or renaming geofences, function as confirm dialogs by offering both _confirm_ and _cancel_ options.
 
@@ -131,27 +120,25 @@ _Example: "Delete" and "Cancel" instead of "Yes" and "No"_
 
 
 ### Use of plural forms
-In software, when a label refers to a variable number of items, usually greater than or equal to one, the plural form of the item is often written statically with an "s" in brackets to account for all possibilities, e.g. _geofence(s)_.\
-This is usually only a minor inconvenience for the user, but can be fixed with equally minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise. [@UIPlurals]
+In software, when a label refers to a variable number of items, usually greater than or equal to one, the plural form of the item is often written statically with an "s" in brackets to account for all possibilities, e.g. _geofence(s)_. This is usually only a minor inconvenience for the user, but fixing it can make an application look more professional and completed. This can be done with minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise. [@UIPlurals]
 
 Additionally, in the app, when the geofence bulk delete function (chapter _Bulk operations_) is used with only one item (geofence) selected, the confirmation dialog is displayed like it would be for a conventional, single delete operation, including the name of the geofence instead of the number of geofences to be deleted.
 
 
 ### Word choice for deletion
 The _New York State User Experience Toolkit_[@nysuxtoolkitref] defines the difference between the words as follows:\
+
 "Remove and Delete are defined quite similarly, but the main difference between them is that delete means erase (i.e. rendered nonexistent or nonrecoverable), while remove denotes take away and set aside (but kept in existence)." (Source: [@NYStateUXToolkit])
 
 Since all deletion actions in the app are destructive without an undo-option, as described in chapter _Confirm vs. Undo_, "Delete" is used in all cases, for geofences as well as metadata entries.
 
 
 ### Word choice for creation
-Like with deletion, there are also different words that can be used to describe a creation process.
+Like with deletion, there are also different words that can be used to describe a creation process. The following cases were differentiated in the app:
 
-All buttons that enable the user to create a geofence on the map, by placing points or via route finding, are labelled with "Draw". Once the drawing process is finished, "Create" indicates the actual creation of the geofence with the drawn geometry.
-
-The action for creating a geofence from a preset is marked as "Generate", to indicate that it is not created from scratch, but as a copy of an already existing preset geofence.
-
-In the geofence metadata dialog, the action to create a new entry is called "Add", because since metadata is a simple list of strings, no new item is **created**, and the text input itself is **added** to the list as an item.
+- All buttons that enable the user to create a geofence on the map, by placing points or via route finding, are labelled with "Draw". Once the drawing process is finished, "Create" indicates the actual creation of the geofence with the drawn geometry.
+- The action for creating a geofence from a preset is marked as "Generate", to indicate that it is not created from scratch, but as a copy of an already existing preset geofence.
+- In the geofence metadata dialog, the action to create a new entry is called "Add", because since metadata is a simple list of strings, no new item is _created_, and the text input itself is _added_ to the list as an item.
 
 
 ### Search bar design
@@ -175,7 +162,7 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 - Using shadows instead of borders for cards
 - Using the color blue for accents
 
-The specific shade of blue to be used was derived from the _Drivebox_ application logo, but this was altered in some places to increase readability of the user interface and to be more visually appealing.
+The specific shades of blue that were used were derived from the _Drivebox_ application logo, but were altered in some places to increase readability and to make the user interface visually more appealing.
 
 \begin{figure}[H]
 	\centering
