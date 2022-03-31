@@ -883,7 +883,7 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 
 
 ### Sending requests from the frontend
-\fancyfoot[L]{Ambrosch}
+\fancyfoot[L]{Ambrosch/Perzi}
 The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application. Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax. An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
 
 Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because geofences would normally only be viewed and managed by a single user.\
@@ -893,6 +893,7 @@ When making requests to create resources such as geofences or metadata, the reso
 
 
 ## Calculation Algorithm for intersections
+\fancyfoot[L]{Perzi}
 To calculate intersections between geofences and points in time, two methods were found during the research of possible approaches. First, manual calculation of intersection was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
 
 ### Raycasting
@@ -912,7 +913,7 @@ Microsoft provides methods to calculate intersection points in geographical obje
 
 Using these methods either required doing all calculations inside the database, or to use ASP.NET instead of ASP.NET Core. Both of which were not viable approaches, as the database did not fulfil the time critical requirements of the application, and ASP.NET Core was needed for integration into the rest of the system.
 
-To calculate intersections on the webserver, a third party library was needed. **NETTopologySuite** was picked, as it provides the same functionality as the spatial data package. Additionally, due to the initial higher speed of C#, it was picked for the needed calculations. (See NETTopologySuite chapter)
+To calculate intersections on the webserver, a third party library was needed. \lstinline!NETTopologySuite! was picked, as it provides the same functionality as the spatial data package. Additionally, due to the initial higher speed of C#, it was picked for the needed calculations. (See NETTopologySuite chapter)
 
 ### Point based calculation
 To notify businesses of their vehicles leaving a certain area defined by a geofence, the system needed the ability to work and calculate intersections in real-time. To achieve this, a specification was chosen to receive the last two points from the main Drivebox server, and calculate which polygons these points are interacting with. Practically, this could be done using three calculations.
@@ -933,7 +934,7 @@ Afterwards, the only other requirement was to compare the collections and determ
 ### Route based calculation
 Businesses are also interested in analysis of the trips their vehicles take. To achieve this, the webservice needs to process a trip sent to it by the main Drivebox server and return a collection of all polygons it enters and leaves, as well as the associated timestamps. 
 
-The web service receives a list of coordinates from the Drivebox server, and processes those into a **LineString** object for easier calculation of intersections. To minimize the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
+The web service receives a list of coordinates from the Drivebox server, and processes those into a \lstinline!LineString! object for easier calculation of intersections. To minimize the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
 
 Next, a new LineString object is built, including a representation of the initial LineStrings part inside the polygon. This is done for each polygon, and in cases in which a line string leaves and enters a polygon multiple times, it is converted in a MultiLineString and processed in a special way. Otherwise it can be added to the intersection collection.
 If a MultiLineString is simple, it has no intersection points with itself. If this holds true, then it can simply be split into multiple LineStrings and added to the list of intersections, otherwise it needs to be processed in a special way.
@@ -952,7 +953,7 @@ As a final step, each intersection is processed and modified with information if
 ## Polygon Creation
 To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend.
 
-To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a **SqlServerBytesWriter** object to serialize the object.
+To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object.
 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
          public byte[] ConvertGeometryToBytes(Geometry geometry)
@@ -964,7 +965,7 @@ To send a NETTopologySuite geometric object to the database, it first needs to b
 \end{lstlisting} \
 
 ### Polygons
-Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a **Polygon** with the use of a **GeometryFactoryEX** object, provided by NETTopologySuite. 
+Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a \lstinline!Polygon! with the use of a \lstinline!GeometryFactoryEX! object, provided by NETTopologySuite. 
 
 \begin{lstlisting}[caption=Building a Polygon which can be saved in the Database, label=lst:polyfilter, language={[Sharp]C}]
         public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
@@ -992,10 +993,10 @@ Normal polygons are polygons which are neither a circle nor a road. These are cr
 \end{lstlisting} \
 
 ### Circles
-To create a circle, only two parameters are required. The center point of the circle, as well as a radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the **Point.STBuffer(radius)** call, which builds a circle from a given point.
+To create a circle, only two parameters are required. The center point of the circle, as well as a radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the \lstinline!Point.STBuffer(radius)! call, which builds a circle from a given point.
 
 ### Roads
-To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the **STBuffer(width)** method. The resulting object has a **.Reduce(1)** method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
+To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the \lstinline!STBuffer(width)! method. The resulting object has a \lstinline!.Reduce(1)! method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
 
 ## Performance optimization on the backend
 After performing multiple tests using various tools as described in the chapter *Testing*, a conclusion was reached that the database bottlenecked the system the most. Therefore, two ways were found to counteract this issue.
@@ -1003,7 +1004,7 @@ After performing multiple tests using various tools as described in the chapter 
 ### Caching in ASP.NET
 First, minimizing the number of requests made to the database could decrease the average response times for the trade-off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
 
-To cache polygon data, the **MemoryCache** object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
+To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
 
 \begin{lstlisting}[caption=Set a new cache entry, label=lst:polyfilter, language={[Sharp]C}]
       MemoryCacheEntryOptions entryOptions = new MemoryCacheEntryOptions()
