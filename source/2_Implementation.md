@@ -33,9 +33,9 @@ The backend consists of two major parts, those being the ASP.NET Core webservice
 ASP.NET Core is a framework for building web apps and services, IoT apps as well as mobile backends developed by Microsoft as an evolution of ASP.NET 4.x. Unlike its predecessor ASP.NET Core is multiplatform (contrary to just being working on Windows) and open source. Besides creating traditional webservices, such as RESTful webapps, it can also be used to create other webapps using technologies like Razor Pages and Blazor [@aspintro].
 
 #### Project Creation
-When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, *Program.cs* and *Startup.cs*. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default *WebHostBuilder*.
+When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, \lstinline!Program.cs! and \lstinline!Startup.cs!. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default \lstinline!WebHostBuilder!.
 
-\begin{lstlisting}[caption=The backends Programm.cs file., label=lst:programmcs, language={[Sharp]C}]
+\begin{lstlisting}[caption={[The backends Programm.cs file.]The backends Programm.cs file. Shortened for readability}, label=lst:programmcs, language={[Sharp]C}]
       public class Program
       {
         public static void Main(string[] args)
@@ -58,9 +58,9 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
       }
 \end{lstlisting} \
 
-To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method *ConfigureSerivces* is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs.
+To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs.
 
-\begin{lstlisting}[caption=The backends Startup.cs file shortened for readability., label=lst:startupcs, language={[Sharp]C}]
+\begin{lstlisting}[caption=The Startup.cs file of the backend, label=lst:startupcs, language={[Sharp]C}]
       public class Startup
       {
         public Startup(IConfiguration configuration)
@@ -116,6 +116,7 @@ To setup the REST endpoints of the webservice the Startup.cs file needs to be mo
             });
         }
       }
+      shortened for readability.
 \end{lstlisting} \
 
 #### Services
