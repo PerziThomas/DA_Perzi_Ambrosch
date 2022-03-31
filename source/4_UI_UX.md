@@ -25,7 +25,7 @@ To get a basic overview of the needed functionality, a list was compiled before 
   - The route of the trip can be displayed on a map.
 
 Some features were added later, while others were changed or became obsolete.\
-An updated list of features was later written in the form of a Use-Case-Diagram, which can be seen in chapter _Use Cases_ [TODO: link/number].
+An updated list of features was later written in the form of a Use-Case-Diagram, which can be seen in chapter _Use Cases_.
 
 
 ## Mockup
@@ -134,14 +134,14 @@ _Example: "Delete" and "Cancel" instead of "Yes" and "No"_
 In software, when a label refers to a variable number of items, usually greater than or equal to one, the plural form of the item is often written statically with an "s" in brackets to account for all possibilities, e.g. _geofence(s)_.\
 This is usually only a minor inconvenience for the user, but can be fixed with equally minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise. [@UIPlurals]
 
-Additionally, in the app, when the geofence bulk delete function (chapter _Bulk operations_ [TODO: link/number]) is used with only one item (geofence) selected, the confirmation dialog is displayed like it would be for a conventional, single delete operation, including the name of the geofence instead of the number of geofences to be deleted.
+Additionally, in the app, when the geofence bulk delete function (chapter _Bulk operations_) is used with only one item (geofence) selected, the confirmation dialog is displayed like it would be for a conventional, single delete operation, including the name of the geofence instead of the number of geofences to be deleted.
 
 
 ### Word choice for deletion
 The _New York State User Experience Toolkit_[@nysuxtoolkitref] defines the difference between the words as follows:\
 "Remove and Delete are defined quite similarly, but the main difference between them is that delete means erase (i.e. rendered nonexistent or nonrecoverable), while remove denotes take away and set aside (but kept in existence)." (Source: [@NYStateUXToolkit])
 
-Since all deletion actions in the app are destructive without an undo-option, as described in chapter _Confirm vs. Undo_ [TODO: link/number], "Delete" is used in all cases, for geofences as well as metadata entries.
+Since all deletion actions in the app are destructive without an undo-option, as described in chapter _Confirm vs. Undo_, "Delete" is used in all cases, for geofences as well as metadata entries.
 
 
 ### Word choice for creation
