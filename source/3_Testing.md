@@ -13,7 +13,7 @@ There are several ways to test a piece of software on its functionality. Unit- a
 
 
 ### REST Endpoint Functionality
-Web endpoints using the REST architecture were tested using **xUnit** [@xunitref] as a general testing framework and the **Microsoft ASP.NET Core MVC Testing package** [@mvctestref]
+Web endpoints using the REST architecture were tested using xUnit [@xunitref] as a general testing framework and the Microsoft ASP.NET Core MVC Testing package [@mvctestref]
 to send Web Requests to the server. 
 These tools were used due to the backend being written in C# on top of the ASP.NET Core web framework, keeping up a consistency in the used technologies, 
 ensuring a higher maintainability of all parts of the source code, as well as the ability to use tools developed by Microsoft themselves. \
@@ -30,7 +30,7 @@ was done in this project. \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
 **Facts** are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
-\begin{lstlisting}[caption=Sample of a Fact, label=lst:test, language={[Sharp]C}]
+\begin{lstlisting}[caption=Example of a Fact, label=lst:test, language={[Sharp]C}]
         // A sample Fact Test which ensures a successful connection & authorization to the backend server.
         [Fact]
         public async Task SampleTestAsync()
@@ -48,7 +48,7 @@ one might wish to test a function which has a binary result with several values 
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome. [@xUnitIntro] \
 
-\begin{lstlisting}[caption=Sample of a Theory used to test the Frontend in several browsers., label=lst:theory]
+\begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers., label=lst:theory]
         //A connectivity test to check if both Selenium Browser drivers are working.
         [Theory]
         [InlineData("chrome")]
@@ -70,8 +70,8 @@ such as Firefox and Google Chrome. [@xUnitIntro] \
 
 ##### xUnit and MVC Testing \
 Microsoft provides the *Microsoft.AspNetCore.Mvc.Testing* package for integration testing of applications
-developed on top of ASP.NET Core, such as RESTful services. Using the **WebApplicationFactory** as well as the
-**HttpClient** provided by this package one is able to test their RESTful applications. \
+developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline!WebApplicationFactory! as well as the
+\lstinline!HttpClient! provided by this package one is able to test their RESTful applications. \
 
 \begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest]
         //A Factory to build instances of the application to test.
@@ -98,7 +98,7 @@ developed on top of ASP.NET Core, such as RESTful services. Using the **WebAppli
 \end{lstlisting} \
 
 ### Frontend Functionality
-Testing the functionality of the React Frontend part of the application was achieved using the **Selenium** [@seleniumref]
+Testing the functionality of the React Frontend part of the application was achieved using the Selenium [@seleniumref]
 Framework, specifically the Selenium WebDriver. Selenium, being the industry standard for browser automation
 provides the ability to automate the actions a user would take in a browser, such as clicking, going to a specific URL or reading values of a web page. \
 
@@ -132,7 +132,7 @@ instructed to execute a sequence of statement, similar to how a real user would 
         }
 \end{lstlisting} \
 
-Firefox and Google Chrome were chosen as the testing browsers due to those two making up a large share of the
+Firefox and Google Chrome were chosen as the browsers for testing due to those two making up a large share of the
 Windows web user base. While Safari does have a higher market share than Firefox, the Selenium WebDriver for 
 it is only available for MacOS systems, meaning it could not be used since the testing suite was developed
 on Microsoft Windows. 
@@ -171,7 +171,7 @@ handled all the geofence data.
 
 
 ### MS SQL
-The open source tool **SQLQueryStress** [@sqlstressref] provides the ability to test an SQL Servers ability
+The open source tool SQLQueryStress [@sqlstressref] provides the ability to test an SQL Servers ability
 to operate under a constant stream of requests, achieved by making several threads execute
 SQL commands. \
 

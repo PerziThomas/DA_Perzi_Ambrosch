@@ -301,7 +301,7 @@ There are two ways of executing a SqlCommand, with or without a query. Commands 
 
 To execute stored procedures from the webapp a command needs to be created with the name of the procedure as it's construction parameter. Next the commands *CommandType* needs to be set as *CommandType.StoredProcedure* to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected.
 
-\begin{lstlisting}[caption=Creating a command of a procedure and setting the variables., label=lst:adoProcedure, language={[Sharp]C}]       
+\begin{lstlisting}[caption=Creating a command of a procedure and setting the variables, label=lst:adoProcedure, language={[Sharp]C}]       
             SqlCommand cmd = new SqlCommand("createCircle", connection);
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -826,7 +826,7 @@ To handle the required communication between the frontend and backend applicatio
 ### REST
 REST (Representational State Transfer) is a software architectural style which defines several principles which makes a service RESTful.
 
-For a service to be considered RESTful, it must fulfil six criteria:
+For a service to be considered RESTful, it must fulfil six criteria [@restful]:
 
 1. Uniform Interface
    : This defines the need for all components of the system to follow the same set of rules and thus allows for a standard way of communication.
@@ -872,7 +872,7 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/seq_rest.png}
+  \includegraphics[width=0.75\textwidth]{source/figures/seq_rest.png}
 	\caption{A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.}
 	\label{fig2_4}
 \end{figure}
@@ -888,10 +888,10 @@ When making requests to create resources such as geofences or metadata, the reso
 
 
 ## Calculation Algorithm for intersections
-To calculate intersections between geofences and points in time (POI), two opportunities presented themselves. First, manual calculation of intersection was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
+To calculate intersections between geofences and points in time, two methods were found during the research of possible approaches. First, manual calculation of intersection was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
 
 ### Raycasting
-Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the POI to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. 
+Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. This rule is explained in the remainder of this paragraph. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the point in time to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. 
 
 \begin{figure}[H]
 	\centering
@@ -903,18 +903,18 @@ Raycasting is an algorithm which uses the Odd-Even rule to check if a point is i
 This algorithm comes with some drawbacks. First, having to implement it by hand and second, needing to implement every kind of error check that might be needed. Additionally, the speed of calculations is not acceptable for time critical applications, such as Drivebox, and would need even more manual optimizations to match the speed of the methods provided by third party libraries. [@raycasting]
 
 ### Third Party Methods
-Microsoft provides methods to calculate intersection points in geographical objects inside the spatial data package. In particular, the methods **STContains** and **STIntersects** are used to check if a point is inside a polygon. The difference in the two being that STIntersects returns true for a point which is exactly on the edge of a polygon. For the implementation, STContains was picked, as the increase in speed had a greater benefit than detecting points on the very edge of a polygon, as polygons are saved with an accuracy of less than a meter.
+Microsoft provides methods to calculate intersection points in geographical objects inside the spatial data package. In particular, the methods \lstinline!STContains! and \lstinline!STIntersects! are used to check if a point is inside a polygon. The difference in the two being that STIntersects returns true for a point which is exactly on the edge of a polygon. For the implementation, STContains was picked, as the increase in speed had a greater benefit than detecting points on the very edge of a polygon, as polygons are saved with an accuracy of less than a meter.
 
 Using these methods either required doing all calculations inside the database, or to use ASP.NET instead of ASP.NET Core. Both of which were not viable approaches, as the database did not fulfil the time critical requirements of the application, and ASP.NET Core was needed for integration into the rest of the system.
 
 To calculate intersections on the webserver, a third party library was needed. **NETTopologySuite** was picked, as it provides the same functionality as the spatial data package. Additionally, due to the initial higher speed of C#, it was picked for the needed calculations. (See NETTopologySuite chapter)
 
-### Point based
+### Point based calculation
 To notify businesses of their vehicles leaving a certain area defined by a geofence, the system needed the ability to work and calculate intersections in real-time. To achieve this, a specification was chosen to receive the last two points from the main Drivebox server, and calculate which polygons these points are interacting with. Practically, this could be done using three calculations.
 
 To avoid unnecessary calculations with polygons that are outside of a points scope, all polygons are filtered into two collections, each having all the polygons a point is inside of included.
 
-\begin{lstlisting}[caption=Filter polygons., label=lst:polyfilter, language={[Sharp]C}]
+\begin{lstlisting}[caption=Filter polygons, label=lst:polyfilter, language={[Sharp]C}]
          List<PolygonData> geoFencesPointOne = _databaseManager
             .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
             .Where(p => p.Polygon.Contains(p1)).ToList(); //Get all polygons point 1 is in
@@ -925,7 +925,7 @@ To avoid unnecessary calculations with polygons that are outside of a points sco
 
 Afterwards, the only other requirement was to compare the collections and determine which polygons are being entered, left or stayed in. The webservice then returns a collection of all affected polygons with information about which event is happening currently. The processing of this information is handled by the main Drivebox server.
 
-### Route based
+### Route based calculation
 Businesses are also interested in analysis of the trips their vehicles take. To achieve this, the webservice needs to process a trip sent to it by the main Drivebox server and return a collection of all polygons it enters and leaves, as well as the associated timestamps. 
 
 The web service receives a list of coordinates from the Drivebox server, and processes those into a **LineString** object for easier calculation of intersections. To minimize the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
@@ -940,7 +940,7 @@ As a final step, each intersection is processed and modified with information if
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/acdia_trips.png}
-	\caption{Processing of a trip as an UML Activity Diagram.}
+	\caption{Processing of a trip as an UML Activity Diagram}
 	\label{fig2_6}
 \end{figure}
 
@@ -961,7 +961,7 @@ To send a NETTopologySuite geometric object to the database, it first needs to b
 ### Polygons
 Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a **Polygon** with the use of a **GeometryFactoryEX** object, provided by NETTopologySuite. 
 
-\begin{lstlisting}[caption=Building a Polygon which can be saved in the Database., label=lst:polyfilter, language={[Sharp]C}]
+\begin{lstlisting}[caption=Building a Polygon which can be saved in the Database, label=lst:polyfilter, language={[Sharp]C}]
         public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
         {
             Coordinate[] coordinates = new Coordinate[points.Count];
