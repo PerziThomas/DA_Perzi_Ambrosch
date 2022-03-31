@@ -65,7 +65,7 @@ Since it would be common for users to want to change locks for several geofences
   - actions can only be performed for all geofences, since there is no selection model
 2. Checkboxes to select geofences, and dropdown buttons for each weekday to lock, unlock or toggle all selected geofences' locks on that day
   - more options and flexibility
-  - more buttons - cluttered interface
+  - more buttons / cluttered interface
 3. Checkboxes to select geofences and a button bar with dropdown buttons to lock, unlock or toggle certain weekdays
   - more options and flexibility
   - cleaner interface
