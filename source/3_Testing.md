@@ -1,4 +1,5 @@
 # Testing
+\fancyfoot[L]{Perzi}
 This chapter describes the use of common testing techniques and methods as well as the technologies used during development
 to ensure a stable and secure application which is ready to be used by the company clients.\
 Testing is an important aspect of every piece of software, as it ensures the functionality, security and the coverage

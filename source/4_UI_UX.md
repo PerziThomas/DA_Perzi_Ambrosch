@@ -1,4 +1,5 @@
 # User Interface and User Experience
+\fancyfoot[L]{Ambrosch}
 The frontend should be an easily usable web-interface for managing geofences. It should also have a slick and smart user interface that can be integrated into the existing _DriveBox_-application.
 
 

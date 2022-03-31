@@ -1,4 +1,5 @@
 # Introduction
+\fancyfoot[L]{Ambrosch/Perzi}
 This thesis describes the development of a geofencing application for the ilogs DRiVEBOX GmbH by giving an overview and further descriptions about the technologies used, the implementation of those technologies as well as descriptions and graphics of the result. The system was created in eight weeks by David Ambrosch and Thomas Perzi during the internship at the aforementioned company.
 
 ## Idea
@@ -17,6 +18,7 @@ Version control was handled using a Git server hosted on a Microsoft Azure insta
 The content of this thesis is structured into several chapters. Chapter 2 describes the technologies and software engineering techniques used in the front- and backend parts of the application. Furthermore, algorithms and performance optimizations are described. Chapter 3 highlights the importance of testing in this application and shows the several testing frameworks implemented into it. Chapter 5 describes the various considerations that were taken to evaluate requirements and improve usability and user experience of the frontend. Chapter 6 is a resume which summarizes the projects and the learnings taken from it.
 
 ## Use Cases
+\fancyfoot[L]{Ambrosch}
 To summarize all functionality of the app, a use case diagram is used which shows all the ways a user can interact with the application.\
 The use cases have been grouped into categories for visual clarity and easier understanding. These basic groups and their use cases will be described below.
 The boundary of system in all the following diagrams is considered to be the Geofencing application.
