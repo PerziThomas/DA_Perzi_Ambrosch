@@ -197,14 +197,13 @@ To create tables with T-SQL a syntax similar to the SQL one is required. Tables 
 4. Check 
    : The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
 
-In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram shown displayed in figure 2.3.
+In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram shown displayed in figure 2.3.     Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/db_model.png}
 	\caption{Logical Model of the Database.}
 	\label{fig2_3}
-    Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
 \end{figure}
 
 ##### Procedures
@@ -258,12 +257,14 @@ In the ASP.NET Core application database operations are managed by a *DatabaseMa
 
 To create a connection to the database a new instance of the class *SqlConnection* is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation.
 
+\begin{minipage}[c]
 \begin{lstlisting}[caption=Creating and opening a connection., label=lst:adoOpen, language={[Sharp]C}]   
-                using (SqlConnection connection = new SqlConnection(SQL_STRING))
-                {
-                    connection.Open();
-                }
-\end{lstlisting} \
+    using (SqlConnection connection = new SqlConnection(SQL_STRING))
+    {
+        connection.Open();
+    }
+\end{lstlisting}
+\end{minipage} \
 
 To send SQL command to the server a new instance of the *SqlCommand* class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using '(at)geofenceName' when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET.
 
