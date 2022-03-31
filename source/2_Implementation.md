@@ -35,7 +35,7 @@ ASP.NET Core is a framework for building web apps and services, IoT apps as well
 #### Project Creation
 When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, \lstinline!Program.cs! and \lstinline!Startup.cs!. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default \lstinline!WebHostBuilder!.
 
-\begin{lstlisting}[caption={[The backends Programm.cs file.]The backends Programm.cs file. Shortened for readability}, label=lst:programmcs, language={[Sharp]C}]
+\begin{lstlisting}[caption={The backends Programm.cs file}, label=lst:programmcs, language={[Sharp]C}]
       public class Program
       {
         public static void Main(string[] args)
@@ -60,7 +60,7 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
 
 To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs.
 
-\begin{lstlisting}[caption=The Startup.cs file of the backend, label=lst:startupcs, language={[Sharp]C}]
+\begin{lstlisting}[caption={[The Startup.cs file of the backend]The Startup.cs file of the backend, shortened for readability}, label=lst:startupcs, language={[Sharp]C}]
       public class Startup
       {
         public Startup(IConfiguration configuration)
@@ -129,8 +129,8 @@ When registering a service there are three different options to choose from. The
 2. Scoped
    : Scoped services are created once per client request meaning that they have the same behavior as transient services in a web application.
 3. Singleton
-   : Singleton services are created once the first time they are requested. When the service is requested again the same instance is provided to the requesting object. Singleton objects are disposed once the application shuts down. These services are used when there has to be exactly one instance of a service, for the geofencing application this was chosen when creating the database manager service.
-[@servicelife]
+   : Singleton services are created once the first time they are requested. When the service is requested again the same instance is provided to the requesting object. Singleton objects are disposed once the application shuts down. These services are used when there has to be exactly one instance of a service, for the geofencing application this was chosen when creating the database manager service [@servicelife].
+
 
 To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core.
 
@@ -168,30 +168,14 @@ To add custom middleware into the ASP.NET Core pipeline, the developer must simp
 #### Controller
 Controllers are classes which handle the routing and processing of requests to the web service. When using the annotation *[ApiController]* a controller is declared as an API controller. This holds the benefit of automatically converting responses to a requested format like JSON or XML. Alongside the ApiController annotation the *[Route(route)]* annotation is used to set a general route for all requests going into this controller. An example of this would to use *[Route("api/v1")]* resulting in every request to https://driver.box/api/v1 being routed through this controller.
 
-To map methods to routes and HTTP methods a different set of annotations needs to be used on the desired methods. To associate a method with a route and a method, two annotations need to be used. Firstly, the *[Route(route)]* annotation is reused from the controller. To register the method to a specific HTTP methods ASP.NET Core provides several annotation.
-
-- HttpGet
-- HttpPost
-- HttpPut
-- HttpPatch
-- HttpDelete
-- HttpOptions
-- HttpHead
+To map methods to routes and HTTP methods a different set of annotations needs to be used on the desired methods. To associate a method with a route and a method, two annotations need to be used. Firstly, the *[Route(route)]* annotation is reused from the controller. To register the method to a specific HTTP methods ASP.NET Core provides several annotations.
 
 Each annotation corresponds to the HTTP method with the same name. Apart from routing purposes they do not provide any functionality to the developer. Building the application according to REST and HTTP principles therefore remains a responsibility of the developer.
 
 Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to *IActionResult*. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then *StatusCode* can be used as a code can be customly assigned to it.
 
-\begin{lstlisting}[caption=Return a No Content response., label=lst:nocontent, language={[Sharp]C}]
-       return StatusCode(204);
-\end{lstlisting} \
-
-\begin{lstlisting}[caption=Return an OK response with status code 200., label=lst:okaycode, language={[Sharp]C}]
-       return Ok(databaseManager.GeoFenceHistoryById(idGeoFence));
-\end{lstlisting} \
-
 ### Microsoft SQL Server
-SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL is runs on top of SQL. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
+SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
 
 #### Transact-SQL
 T-SQL is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the *TOP* keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. [@tsql]
@@ -213,13 +197,14 @@ To create tables with T-SQL a syntax similar to the SQL one is required. Tables 
 4. Check 
    : The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
 
-In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using an UML-diagram.
+In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram shown displayed in figure 2.3.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/db_model.png}
 	\caption{Logical Model of the Database.}
 	\label{fig2_3}
+    Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
 \end{figure}
 
 ##### Procedures
