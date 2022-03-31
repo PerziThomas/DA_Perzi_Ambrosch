@@ -562,13 +562,13 @@ and _de.translations.json_:
 #### Using translations in components
 There are two notably different ways in which translations can be integrated in the React code.
 
-- The \lstinline!Translate! tag can be used in a self-closing form with a property \lstinline[language=JavaScript]!id! referencing the translation property name in the resource files.
+- The \lstinline!Translate! tag can be used in a self-closing form with a property \lstinline!id! referencing the translation property name in the resource files.
 
 \begin{lstlisting}[caption=Translation using tag, label=lst:translateTag, language={JavaScript}]
 <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
 \end{lstlisting} \
 
-- The <code>translate</code> function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
+- The \lstinline!translate! function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
 
 \begin{lstlisting}[caption=Translation using function, label=lst:translateFunction, language={JavaScript}]
 translate("units.length.meter.plural") /* returns "meters" or "Meter" */
@@ -608,7 +608,7 @@ The toolbar can also be customized with regards to what features are available. 
 
 
 ### React Leaflet Draw
-_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an <code>EditControl</code> component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
+_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an \lstinline!EditControl! component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
 
 
 #### Setup
@@ -624,7 +624,7 @@ or
 node_modules/leaflet-draw/dist/leaflet.draw.css
 \end{lstlisting} \
 
-Afterwards, an <code>EditControl</code> component can be added to a map to enable drawing features to be used. This component must be placed in a <code>FeatureGroup</code> component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
+Afterwards, an \lstinline!EditControl! component can be added to a map to enable drawing features to be used. This component must be placed in a \lstinline!FeatureGroup! component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
 
 Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
 
@@ -653,8 +653,8 @@ Adding _React Leaflet Draw_ to the map example given above in the chapter _React
 </MapContainer>
 \end{lstlisting} \
 
-The EditControl component provides event handlers for all events related to the drawing functions, like </code>>nCreated, onEdited</code> and <code>onDeleted</code>, which can be overwritten by the developer to add custom functionality.\
-The <code>draw</code> property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
+The EditControl component provides event handlers for all events related to the drawing functions, like \lstinline!onCreated, onEdited! and \lstinline!onDeleted!, which can be overwritten by the developer to add custom functionality.\
+The \lstinline!draw! property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
 
 
 ### Leaflet Geosearch
@@ -662,7 +662,7 @@ _Leaflet Geosearch_ is an extension that adds geosearch functions to a web appli
 
 
 #### Usage with react-leaflet
-To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called <code>GeoSearchField</code>, where a <code>GeoSearchControl</code> element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
+To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called \lstinline!GeoSearchField!, where a \lstinline!GeoSearchControl! element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
 
 \begin{lstlisting}[caption=Initializing geosearch component, label=lst:geosearchSetup, language={JavaScript}]
 const GeoSearchField = ({activeLanguage}) => {
@@ -683,7 +683,7 @@ const GeoSearchField = ({activeLanguage}) => {
 };
 \end{lstlisting} \
 
-This component is then added in the Leaflet <code>MapContainer</code> component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
+This component is then added in the Leaflet \lstinline!MapContainer! component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
 
 \begin{lstlisting}[caption=Adding Geosearch to Leaflet map, label=lst:geosearchSetup, language={JavaScript}]
 <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
@@ -704,7 +704,7 @@ _Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the 
 
 
 #### Setup
-The package has to be installed in the project, with the use of a script tag or by installing <code>leaflet-routing-machine</code> with a package manager such as npm.\
+The package has to be installed in the project, with the use of a script tag or by installing \lstinline!leaflet-routing-machine! with a package manager such as npm.\
 A basic example of the routing machine with two initial waypoints can be added as follows:
 
 \begin{lstlisting}[caption=Initializing Routing Machine, label=lst:routingMachineSetup, language={JavaScript}]
@@ -739,7 +739,7 @@ There are seven basic geometry objects types:
 1. _Position_
 : an array of two or more numbers, representing longitude, latitude and optionally height
 
-For the remaining six types, the explanation refers to the content of that objects <code>coordinates</code> property:
+For the remaining six types, the explanation refers to the content of that objects \lstinline!coordinates! property:
 
 2. _Point_
 : a single position
@@ -767,18 +767,18 @@ If multiple coordinate rings are used in a polygon, the first one must be an out
 
 
 #### Geometry collection
-A GeometryCollection has a <code>geometries</code> which contains an array of geometry objects as described above, which can also be empty.\
+A GeometryCollection has a \lstinline!geometries! which contains an array of geometry objects as described above, which can also be empty.\
 GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
 
 
 #### Feature object
 Features are objects that represent a thing that is spatially bounded. They contain geometry information, but do not represent the geometry itself.
 
-A Feature has a member <code>geometry</code> which can be either a geometry object or null if no location is specified.
+A Feature has a member \lstinline!geometry! which can be either a geometry object or null if no location is specified.
 
 
 #### Feature collection
-A FeatureCollection can be used to group different features together. It has a member <code>features</code>, which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
+A FeatureCollection can be used to group different features together. It has a member \lstinline!features!, which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
 
 
 #### Example
