@@ -1,5 +1,5 @@
 # Implementation
-This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the ASP.NET Core backend, the Microsoft SQL Server as well as the React frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
+This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the ASP.NET Core [@aspref] backend, the Microsoft SQL Server [sqlref] as well as the React [@react] frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
 
 ## Architecture
 \fancyfoot[L]{Perzi}
@@ -371,7 +371,7 @@ Creation of polygons and the calculation of intersections are described in the a
 
 ## Frontend Technologies
 \fancyfoot[L]{Ambrosch}
-The frontend part of the app is a user interface for managing geofences, which was realized as a _React_[@react] web application. The main part of the interface consists of a map provided by _Leaflet_[@leafletOverview]. Due to its open-source nature, additional functionality can be added thanks to a large number of available extensions.
+The frontend part of the app is a user interface for managing geofences, which was realized as a _React_ web application. The main part of the interface consists of a map provided by _Leaflet_[@leafletOverview]. Due to its open-source nature, additional functionality can be added thanks to a large number of available extensions.
 
 
 ### React
