@@ -2,35 +2,35 @@
 This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the ASP.NET Core backend, the Microsoft SQL Server as well as the React frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
 
 ## Architecture
-To create maintainable and extendable software it must be designed in such ways. to architect a software that fulfils the aforementioned criteria a certain set of principles needs to be followed. The geofencing application was built with architectural principles in mind to guarantee the continuation of the development at iLogs.
+To create maintainable and extendable software it must be designed in such ways. To architect a software that fulfils the aforementioned criteria a certain set of principles needs to be followed. The geofencing application was built with architectural principles in mind to guarantee the continuation of the development at iLogs.
 
-Firstly, general principles such as *Separation of concerns* and *Encapsulation* were implemented. Separation of concerns defines that pieces of software should only be doing their own designated work. A service that processes pictures should only process these pictures and not handle anything regarding display on the screen. Developing software according to this principle is simplified due to React and ASP.NET Core providing a clear structure for pieces of software. With controllers, services and middleware in ASP.NET Core and components in React providing structures to separate application concerns. Encapsulation is a way of developing software that only exposes certain parts of itself to other software. In a practical sense this is achieved by limiting the scope of properties in classes with keywords such as *private* and *protected*. This way as long as the defined results of exposed methods and properties are not changed, the internal structure of a class can be changed without outside notice. [@architectureMS]
+Firstly, general principles such as *separation of concerns* and *encapsulation* were implemented. Separation of concerns defines that pieces of software should only be doing their own designated work. A service that processes pictures should only process these pictures and not handle anything regarding display on the screen. Developing software according to this principle is simplified due to React and ASP.NET Core providing a clear structure for pieces of software. With controllers, services and middleware in ASP.NET Core and components in React providing structures to separate application concerns. Encapsulation is a way of developing software that only exposes certain parts of itself to other software. In a practical sense this is achieved by limiting the scope of properties in classes with keywords such as *private* and *protected*. This way as long as the defined results of exposed methods and properties are not changed, the internal structure of a class can be changed without outside notice [@architectureMS].
 
 ### Dependency Injection
-To pass components along inside the application in a managed way, Dependency Injection is implemented by ASP.NET Core. Dependency Injection is a software design pattern used to achieve the Inversion of Control architectural principle. 
+To pass components along inside the application in a managed way, *dependency injection* is implemented by ASP.NET Core. Dependency Injection is a software design pattern used to achieve the Inversion of Control architectural principle. 
 
-Typically, applications are written with a direct way of executing dependencies. This means that classes are directly dependent on other classes at compile time. To invert this structure, interfaces are added which are implemented by the previously depended on classes and called by the depending classes. This way the first class calls the second one at runtime, while the second class depends on the interface controlled by the first class, thus inverting the control flow. This provides the ability to easily plug in new implementations of the interfaces methods. [@architectureMS]
+Typically, applications are written with a direct way of executing dependencies. This means that classes are directly dependent on other classes at compile time. To invert this structure, interfaces are added which are implemented by the previously depended on classes and called by the depending classes. This way the first class calls the second one at runtime, while the second class depends on the interface controlled by the first class, thus inverting the control flow. This provides the ability to easily plug in new implementations of the interfaces methods [@architectureMS].
 
-Dependency Injection adds onto that by also wanting to remove the associated creation of an object when depending on an interface. Additional to the two classes and one interface an injector is created. In the example of ASP.NET Core, this task is handled by the framework. The injector serves the role of creating an instance of the class implementing the interface and injects it into the depending class. [@dependencyinj]
+Dependency Injection adds onto that by also wanting to remove the associated creation of an object when depending on an interface. Additional to the two classes and one interface an injector is created. In the example of ASP.NET Core, this task is handled by the framework. The injector serves the role of creating an instance of the class implementing the interface and injects it into the depending class [@dependencyinj].
 
-In ASP.NET Core, Dependency Injection is mainly used when creating and implementing service classes. For further information on the creation, injection and lifetime of these services see the according sub-chapter in the ASP.NET Core chapter.
+In ASP.NET Core, dependency injection is mainly used when creating and implementing service classes. For further information on the creation, injection and lifetime of these services see the according sub-chapter in the ASP.NET Core chapter.
 
 ### Project structure
 The entire geofencing application runs on a client-server architecture. The React frontend and the existing Drivebox application are served as clients by the geofencing backend server built on ASP.NET Core. Communication between the clients and the server is entirely REST and HTTP based. 
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/architecture.png}
+  \includegraphics[width=0.80\textwidth]{source/figures/architecture.png}
 	\caption{Architecture of the entire Drivebox application with the geofencing included.}
 	\label{fig2_1}
 \end{figure}
 
-## Backend Technologies used
+## Backend Technologies
 The backend consists of two major parts, those being the ASP.NET Core webservice and the Microsoft SQL Server database. With ASP.NET Core running on top of the C# programming language, third party libraries are obtainable using the NuGet package manager. All functionality on the database is natively provided and doesn't require the installation of any further extensions. To work with the database and geographical objects the webservice needed to be extended with libraries such as ADO.NET and NetTopologySuite.
 
 
 ### ASP.NET Core
-ASP.NET Core is a framework for building web apps and services, IoT apps as well as mobile backends developed by Microsoft as an evolution of ASP.NET 4.x. Unlike its predecessor ASP.NET Core is multiplatform (contrary to just being working on Windows) and open source. Besides creating traditional webservices, such as RESTful webapps, it can also be used to create other webapps using technologies like Razor Pages and Blazor. [@aspintro]
+ASP.NET Core is a framework for building web apps and services, IoT apps as well as mobile backends developed by Microsoft as an evolution of ASP.NET 4.x. Unlike its predecessor ASP.NET Core is multiplatform (contrary to just being working on Windows) and open source. Besides creating traditional webservices, such as RESTful webapps, it can also be used to create other webapps using technologies like Razor Pages and Blazor [@aspintro].
 
 #### Project Creation
 When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, *Program.cs* and *Startup.cs*. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default *WebHostBuilder*.
