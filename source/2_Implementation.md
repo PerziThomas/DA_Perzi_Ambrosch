@@ -257,7 +257,7 @@ In the ASP.NET Core application database operations are managed by a *DatabaseMa
 
 To create a connection to the database a new instance of the class *SqlConnection* is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation.
 
-\begin{minipage}[c]{1/textwidth} 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Creating and opening a connection., label=lst:adoOpen, language={[Sharp]C}]   
     using (SqlConnection connection = new SqlConnection(SQL_STRING))
     {
