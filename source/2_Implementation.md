@@ -398,9 +398,7 @@ Axios is a JavaScript library for making promise-based HTTP requests. It uses _X
 
 
 #### Comparison with fetch
-The _Fetch API_[@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol.\
-Fetch and axios are very similar to use, with the main difference being different syntax and property names.\
-Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
+The _Fetch API_[@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol. Fetch and axios are very similar to use, with the main difference being different syntax and property names. Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
 
 - built-in XSRF protection
 - automatic JSON conversion of the message body
@@ -452,8 +450,7 @@ await axios(reqObj)
 
 
 ### React-localize-redux
-_React-localize-redux_ is a localization library that enables easier handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library.\
-The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
+_React-localize-redux_ is a localization library that enables easy handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library. The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
 
 
 #### Initialization
@@ -560,15 +557,15 @@ and _de.translations.json_:
 
 
 #### Using translations in components
-There are two notably different ways in which translations can be integrated in the React code.
+There are two notably different ways in which translations can be integrated in the React code:
 
-- The <code>Translate</code> tag can be used in a self-closing form with a property <code>id</code> referencing the translation property name in the resource files.
+- The \lstinline!Translate! tag can be used in a self-closing form with a property \lstinline!id! referencing the translation property name in the resource files.
 
 \begin{lstlisting}[caption=Translation using tag, label=lst:translateTag, language={JavaScript}]
 <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
 \end{lstlisting} \
 
-- The <code>translate</code> function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
+- The \lstinline!translate! function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
 
 \begin{lstlisting}[caption=Translation using function, label=lst:translateFunction, language={JavaScript}]
 translate("units.length.meter.plural") /* returns "meters" or "Meter" */
@@ -608,7 +605,7 @@ The toolbar can also be customized with regards to what features are available. 
 
 
 ### React Leaflet Draw
-_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an <code>EditControl</code> component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
+_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an \lstinline!EditControl! component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
 
 
 #### Setup
@@ -624,7 +621,7 @@ or
 node_modules/leaflet-draw/dist/leaflet.draw.css
 \end{lstlisting} \
 
-Afterwards, an <code>EditControl</code> component can be added to a map to enable drawing features to be used. This component must be placed in a <code>FeatureGroup</code> component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
+Afterwards, an \lstinline!EditControl! component can be added to a map to enable drawing features to be used. This component must be placed in a \lstinline!FeatureGroup! component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
 
 Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
 
@@ -653,8 +650,8 @@ Adding _React Leaflet Draw_ to the map example given above in the chapter _React
 </MapContainer>
 \end{lstlisting} \
 
-The EditControl component provides event handlers for all events related to the drawing functions, like </code>>nCreated, onEdited</code> and <code>onDeleted</code>, which can be overwritten by the developer to add custom functionality.\
-The <code>draw</code> property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
+The EditControl component provides event handlers for all events related to the drawing functions, like \lstinline!onCreated, onEdited! and \lstinline!onDeleted!, which can be overwritten by the developer to add custom functionality.\
+The \lstinline!draw! property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
 
 
 ### Leaflet Geosearch
@@ -662,7 +659,7 @@ _Leaflet Geosearch_ is an extension that adds geosearch functions to a web appli
 
 
 #### Usage with react-leaflet
-To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called <code>GeoSearchField</code>, where a <code>GeoSearchControl</code> element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
+To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called \lstinline!GeoSearchField!, where a \lstinline!GeoSearchControl! element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
 
 \begin{lstlisting}[caption=Initializing geosearch component, label=lst:geosearchSetup, language={JavaScript}]
 const GeoSearchField = ({activeLanguage}) => {
@@ -683,7 +680,7 @@ const GeoSearchField = ({activeLanguage}) => {
 };
 \end{lstlisting} \
 
-This component is then added in the Leaflet <code>MapContainer</code> component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
+This component is then added in the Leaflet \lstinline!MapContainer! component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
 
 \begin{lstlisting}[caption=Adding Geosearch to Leaflet map, label=lst:geosearchSetup, language={JavaScript}]
 <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
@@ -704,8 +701,7 @@ _Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the 
 
 
 #### Setup
-The package has to be installed in the project, with the use of a script tag or by installing <code>leaflet-routing-machine</code> with a package manager such as npm.\
-A basic example of the routing machine with two initial waypoints can be added as follows:
+The package has to be installed in the project, with the use of a script tag or by installing \lstinline!leaflet-routing-machine! with a package manager such as npm. A basic example of the routing machine with two initial waypoints can be added as follows:
 
 \begin{lstlisting}[caption=Initializing Routing Machine, label=lst:routingMachineSetup, language={JavaScript}]
 const instance = L.Routing.control({ // create an instance of routing machine
@@ -728,9 +724,7 @@ OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
 
 ### GeoJSON
-GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016.
-
-The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
+GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
 
 
 #### Geometry object
@@ -739,7 +733,7 @@ There are seven basic geometry objects types:
 1. _Position_
 : an array of two or more numbers, representing longitude, latitude and optionally height
 
-For the remaining six types, the explanation refers to the content of that objects <code>coordinates</code> property:
+For the remaining six types, the explanation refers to the content of that objects \lstinline!coordinates! property:
 
 2. _Point_
 : a single position
@@ -760,25 +754,16 @@ If multiple coordinate rings are used in a polygon, the first one must be an out
 : an array of Polygon coordinate arrays
 
 
-##### Polygon
-A polygon consists of one or more coordinate arrays that should be linear rings. A linear ring is a closed LineString, meaning the first and last position share the same coordinates. It must have a minimum of four positions, which would describe a triangle.
-
-If multiple coordinate rings are used in a polygon, the first one must be an outer exterior ring. All other rings must be interior rings that describe holes in the previously defined exterior ring.
-
-
 #### Geometry collection
-A GeometryCollection has a <code>geometries</code> which contains an array of geometry objects as described above, which can also be empty.\
-GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
+A GeometryCollection has a \lstinline!geometries! which contains an array of geometry objects as described above, which can also be empty. GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
 
 
 #### Feature object
-Features are objects that represent a thing that is spatially bounded. They contain geometry information, but do not represent the geometry itself.
-
-A Feature has a member <code>geometry</code> which can be either a geometry object or null if no location is specified.
+Features are objects that represent a thing that is spatially bounded. They contain geometry information, but do not represent the geometry itself. A Feature has a member \lstinline!geometry! which can be either a geometry object or null if no location is specified.
 
 
 #### Feature collection
-A FeatureCollection can be used to group different features together. It has a member <code>features</code>, which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
+A FeatureCollection can be used to group different features together. It has a member \lstinline!features!, which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
 
 
 #### Example
@@ -906,15 +891,12 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 
 
 ### Sending requests from the frontend
-The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application.\
-Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax.\
-An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
+The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application. Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax. An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
 
 Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because geofences would normally only be viewed and managed by a single user.\
-Request polling was initially implemented because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
+Request polling was initially implemented for geofence locks because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
 
-When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state.\
-For this reason, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state, so that further requests, like for updates or deletion, can be made for that resource.
+When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state. For this reason, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state, so that further requests, like for updates or deletion, can be made for that resource.
 
 
 ## Calculation Algorithm for intersections
@@ -1048,17 +1030,13 @@ This only led to a marginal increase in performance after testing it with practi
 
 
 ## Geofence Management Web-Interface
-The frontend provides operations for viewing, creating, updating and deleting geofences. It is used by administrators in the companies that use the _DriveBox_.
-
-It is implemented as a React Web-Interface using Leaflet and extensions to work with maps and geographical data.
-
-The frontend was developed as a stand-alone application to be later integrated into the already existing DriveBox application by the company.
+The frontend provides operations for viewing, creating, updating and deleting geofences. It is used by administrators in the companies that use the _DriveBox_. The application is implemented as a React Web-Interface using Leaflet and extensions to work with maps and geographical data. The frontend was developed as a stand-alone application to be later integrated into the already existing Drivebox application by the company.
 
 
 ### Interactive Map
 The central part of the frontend is an interactive map that can be used to view, create and edit geofences. Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data, can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
 
-The map is provided by _Leaflet_. Since this library is open-source, a lot of additional libraries exist, some of which were used to extend the functionality of the app.
+The map is provided by _Leaflet_. Since this library is open-source, a lot of additional libraries exist, some of which are used to extend the functionality of the app.
 
 _React Leaflet_ is also used to enable working with _Leaflet_ in React components more easily. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
 
@@ -1066,14 +1044,12 @@ _Leaflet Draw_ and _React Leaflet Draw_ are used to add drawing functions in the
 
 
 ### Geofence creation
-Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled separately and will be discussed in chapter _Circular geofences_. All other types are converted to polygons when created.
-
-The different types of geofences are shown in a class diagram. The meaning of non-editable geofences will be described in chapter _Non-editable geofences_.
+Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled separately and will be discussed in chapter _Circular geofences_. All other types are converted to polygons when created. The different types of geofences are shown in a class diagram below. The meaning of non-editable geofences will be described in chapter _Non-editable geofences_.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Geofence_types_class_diagram.png}
-	\caption{Types of geofences.}
+	\caption{The different types of geofences}
 	\label{fig2_7}
 \end{figure}
 
@@ -1089,27 +1065,21 @@ If the backend returns a success, the geofence is added directly into the collec
 
 
 ### Generation of geofences from presets
-Geofences can be created from a list of presets, which allows the user to use more complex geofences, like countries or states, without significant drawing effort.
+Geofences can be created from a list of presets, which allows the user to use more complex geofences that are created and offered by the provider of Drivebox, like countries or states, without significant drawing effort.
 
-The available presets with their geometry are stored in the backend. A POST request is sent to the endpoint _/geoFences/createPreset?preset=${id}_ of the backend. This creates a new geofence with a copy of the preset's geometry. The geometry is also sent back to the frontend in the response, where the new geofence can be added directly in the React state.
+The available presets with their geometry are stored in the backend. To generate a geofence from a preset, a POST request is sent to the endpoint _/geoFences/createPreset?preset=${id}_ of the backend. This creates a new geofence with a copy of the preset's geometry. The geometry is also sent back to the frontend in the response, where the new geofence can be added directly in the React state.
 
 
 ### Circular geofences
-Circles, when created with _leaflet-draw_, have a center point defined by a latitude, a longitude and a radius. This information is sent to the backend.
-
-In the backend, the circle is converted into a polygon, which can be saved to the database. The coordinates of this polygon are returned to the frontend, where they are used to add the circle directly in the React state.
+Circles, when created with _leaflet-draw_, have a center point defined by a latitude, a longitude and a radius. This information is sent to the backend, where the circle is converted into a polygon, which can be saved to the database. The coordinates of this polygon are returned to the frontend, where they are used to add the circle directly in the React state.
 
 
 ### Road geofences
 Geofences can be created by setting waypoints, calculating a route and giving it width to make it a road.
 
-The routing function is provided by the node package _leaflet-routing-machine_. The package calculates a route between multiple waypoints on the map using road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
+The routing function is provided by the node package _leaflet-routing-machine_. This package includes functions for calculating a route between multiple waypoints on a map using real world road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
 
-Every time the selected route changes, it is stored in a React state variable.
-
-When the button to create a new road geofence based on the current route is clicked, a dialog is shown, where a name can be given to the geofence. Also, the width of the road can be selected.
-
-The route stored in state and the given name, are sent to the backend endpoint _/geoFences/road?roadType=?_. RoadType refers to the width of the road to be created, by tracing a circle of a certain radius along the path. All accepted values for roadType are:
+In the app, every time the selected route changes, it is stored in a React state variable. When the button to create a new road geofence based on the current route is clicked, a dialog is shown, where a name can be given to the geofence. Also, the width of the road can be selected. The route stored in state and the given name are sent to the backend endpoint _/geoFences/road?roadType=?_. RoadType refers to the width of the road to be created, by tracing a circle of a certain radius along the path. The accepted values for roadType are:
 
 - roadType=1: 3 meters
 - roadType=2: 7 meters
@@ -1123,22 +1093,21 @@ The geometry of geofences that are drawn or loaded from the backend can be chang
 
 Since multiple polygons can be edited at once, all actions need to be performed iteratively for an array of edited layers. Each geofence is converted to a JSON object and sent in a PATCH request to the endpoint _/geoFences/{id}_.
 
-In case of a backend error, the window is reloaded to restore the correct state of all geofences before editing, since the Leaflet map has already saved the changes to the polygons.
+In case of a backend error, the window is reloaded to restore the correct state of all geofences before editing, since the Leaflet map has already saved the changes to the polygons. A more complex solution, like saving a copy of the geofences' geometries before changes are made and then overwriting the map's geometry with this copy in case of an error, would remove the need for a complete reload, but was considered too complex to implement.
 
 
 #### Single edit functionality
-It was considered to implement the edit feature in a way that individual geofences could be set to edit mode, instead of having a global edit mode that can be toggled for all geofences at once.\
-This would likely have performance benefits, since it was observed in manual testing that response times of the interface increased together with the number and complexity of loaded geofences, particularly when edit mode was enabled. 
+It was considered to implement the edit feature in a way that individual geofences could be set to edit mode, instead of having a global edit mode that can be toggled for all geofences at once. This would likely have performance benefits, since it was observed in manual testing that response times of the interface increased together with the number and complexity of loaded geofences, particularly when edit mode was enabled. 
 
-This functionality would be achieved by storing an _editable_ flag for that geofence, and then only rendering geofences that have this flag inside the _FeatureGroup_.
+The functionality would be achieved by storing an _editable_ flag for that geofence, and then only rendering geofences that have this flag inside the _FeatureGroup_.
 
-This feature did not work as intended, since the _Leaflet_ map did not rerender correctly. Also, the performance benefit became less of a priority after implementing pagination.
+This feature did not work as intended, since the _Leaflet_ map did not re-render correctly. Also, the performance benefit became less of a priority after pagination was implemented.
 
 
 #### Making loaded geofences editable
-To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), all geofences are stored in a collection, which is then used to render all editable geometry inside a _FeatureGroup_ of the map.
+To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), all geofences are stored in a collection, which is then used to render all editable geometry inside a separate _FeatureGroup_ in the map.
 
-The geofences fetched from the backend are iterated and a new _Leaflet_ polygon (L.polygon) is created in the frontend from each geofence's coordinates.
+The geofences fetched from the backend are iterated over and a new _Leaflet_ polygon (L.polygon) is created in the frontend from each geofence's coordinates.
 
 \begin{lstlisting}[caption=Geofences are fetched and added in frontend, label=lst:geofenceLoading, language={JavaScript}]
 for (let elem of res.data.geoJson) { // iterate fetched geofences
@@ -1160,7 +1129,7 @@ for (let elem of res.data.geoJson) { // iterate fetched geofences
 }
 \end{lstlisting} \
 
-The _LeafletMap_ component contains a _FeatureGroup_ that includes the component _MyEditComponent_ from _Leaflet Draw_. This means that all geofences that are rendered in this same _FeatureGroup_ are affected by _Leaflet Draw_ and can therefore be edited.
+The _LeafletMap_ component contains a _FeatureGroup_, which includes the component _MyEditComponent_ from _Leaflet Draw_. This means that all geofences that are rendered in this same _FeatureGroup_ are affected by _Leaflet Draw_ and can therefore be edited.
 
 \begin{lstlisting}[caption=Rendering editable geofences, label=lst:geofenceEditing, language={JavaScript}]
 <FeatureGroup>
@@ -1194,9 +1163,7 @@ The _LeafletMap_ component contains a _FeatureGroup_ that includes the component
 #### Non-editable geofences
 Circular geofences and road geofences cannot be edited. Since all geofences are stored as polygons in the backend, circles are converted to an equilateral polygon with over 100 vertices. Moving individual points to change the circle's center or radius would be infeasible for the user. The same applies to road geofences, which, once stored as polygons, cannot be converted back to a route that can easily be changed.
 
-To achieve this, all geofences are given a boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints.
-
-This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ of the map.
+To achieve this, all geofences are given a boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints. This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ in the map.
 
 \begin{lstlisting}[caption=Rendering non-editable geofences, label=lst:geofenceEditing, language={JavaScript}]
 <MapContainer /* shortened */ >
@@ -1228,9 +1195,9 @@ This property is then used to separate all editable from all non-editable geofen
 
 
 ### Map search
-A search function exists, to make it easier to find places on the map by searching for names or addresses. This function is provided by the package _leaflet-geosearch_, which can be easily used and was only slightly customized.
+A search function exists, to make it easier to find places on the map by searching for names or addresses. This function is provided by the package _leaflet-geosearch_, which can be used with minimal effort and was only slightly customized.
 
-A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options. This is then added to the map in the _useEffect_ hook. The component _GeoSearchField_ is also used inside the _LeafletMap_ in order to make the search button available on the map.
+A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options, which is then added to the map in the _useEffect_ hook. The component _GeoSearchField_ also has to be used inside the _LeafletMap_ in order to make the search button available on the map.
 
 \begin{lstlisting}[caption=addingMapSearch, label=lst:mapSearch, language={JavaScript}]
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
@@ -1268,15 +1235,12 @@ export default withLocalize(GeoSearchField);
 
 
 ### Geofence labels
-A label is displayed for every geofence in the map to make it easier to associate a geofence with its corresponding polygon.
-
-Leaflet can display labels for polygons, however, these default labels have some problems.\
-The precision with which the position of the label is calculated seems to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centered within or completely outside its polygon. 
+A label is displayed for every geofence in the map to make it easier to associate a geofence with its corresponding polygon. Leaflet itself can display labels for polygons, however, these default labels have some problems. The precision with which the position of the label is calculated appears to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centered within or completely outside its polygon. 
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Label_precision_problem.png}
-	\caption{Labels (top left) are displayed at the same point outside their corresponding polygons (bottom right).}
+	\caption{Labels (top left) are displayed at the same point and outside their corresponding polygons (bottom right)}
 	\label{fig2_8}
 \end{figure}
 
@@ -1288,16 +1252,14 @@ Since the default labels were replaced with custom markers, the position of thes
 
 
 ##### Average of points
-The label position can be calculated by taking an average of the coordinates of all points of the polygon. This is a good approximation for simple, convex shapes with evenly distributed points.
+The label position can be calculated by taking an average of the coordinates of all points of the polygon. This is a good approximation for simple, convex shapes with evenly distributed points. However, if points are distributed unevenly, meaning there is more detail on one side than the other, the average will shift to that side, and the calculated point will not appear centered anymore.
 
-If points are distributed unevenly, meaning there is more detail on one side than the other, the average will shift to that side, and the calculated point will not appear centered anymore.
-
-This approach can also lead to problems with concave geometry, like for example a U-shaped polygon. The calculated center lies in the middle of the shape, which in this case is not part of the polygon, causing the label to appear outside the geometry.
+This approach can also lead to problems with concave geometry, when the calculated center is not part of the polygon, causing the label to appear outside the geometry. This is especially relevant for road geofences, but can also affect simpler geometries like a U-shape as demonstrated in the image below.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Label_outside_concave_geometry.png}
-	\caption{Geofence label is displayed outside the concave polygon's geometry.}
+	\caption{Geofence label displayed outside a concave polygon's geometry}
 	\label{fig2_9}
 \end{figure}
 
@@ -1312,21 +1274,19 @@ This approach solves the problem with unevenly distributed points, because the c
 
 
 ##### Pole of inaccessibility
-The node package _polylabel_ uses an algorithm to calculate a polygon's _pole of inaccessibility_, defined as "the most distant internal point from the polygon outline". [@polylabelIntro]
+The node package _polylabel_ uses an algorithm to calculate a polygon's _pole of inaccessibility_, defined as "the most distant internal point from the polygon outline". (Source: [@polylabelIntro])
 
 This approach solves the problem with concave shapes, because the calculated point always lies inside the polygon, and for this reason, it was used to calculate the label positions in the app.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Label_pole_of_inaccessibility.png}
-	\caption{Geofence label placed at the pole of inaccessibility.}
+	\caption{Geofence label placed at the pole of inaccessibility}
 	\label{fig2_10}
 \end{figure}
 
 #### Dynamic label size
-The size of the geofence labels changes depending on the current zoom level of the map, getting smaller as the user zooms out further, and is hidden for any zoom level smaller than or equal to 6.
-
-This dynamic sizing is achieved by using a CSS class selector that includes the current zoom level to select the corresponding option from the CSS classes _zoom6_ to _zoom13_.
+The size of the geofence labels changes depending on the current zoom level of the map, getting smaller as the user zooms out further, and is hidden for any zoom level smaller than or equal to 6. This dynamic sizing is achieved by using a CSS class selector that includes the current zoom level to select the corresponding option from the CSS classes _zoom6_ to _zoom13_.
 
 \begin{lstlisting}[caption=Icon with dynamic class name, label=lst:dynamicLabelSize, language={JavaScript}]
 return L.divIcon({
@@ -1337,24 +1297,19 @@ return L.divIcon({
 
 
 ### Geofence deletion
-All geofences, whether they were created by drawing, route creation or from a system geofence, can be deleted via the user interface. 
-
-The geofence is first deleted from the database by sending a DELETE request to the endpoint _/geoFences/${id}_ of the backend. In case of a success, the geofence is also deleted from the React state to avoid having to re-fetch all geofences.
+All geofences, whether they were created by drawing, route creation or from a system geofence, can be deleted via the user interface. A geofence is first deleted from the database by sending a DELETE request to the endpoint _/geoFences/${id}_ of the backend. In case of a success, the geofence is then also deleted directly from the React state to avoid having to re-fetch geofences.
 
 
 ### Geofence edit history
-It was initially planned to display when changes were made to a geofence, and by which user. This would be implemented as a list containing the username of the editor and a timestamp. Since the feature is not intended as a versioning system for geofences, the current state of the geofence or the changes to the geometry are not saved.\
-The list was later changed to include only a timestamp after the company changed some demands regarding how the login and user management would work, and the username became redundant.
+It was initially planned to display when changes were made to a geofence, and by which user. This would be implemented as a list containing the username of the editor and a timestamp. Since the feature is not intended as a versioning system for geofences, the current state of the geofence or the changes to the geometry are not saved. The list was later changed to include only a timestamp after the company changed some demands regarding how the login and user management would work, and the username became redundant.
 
-In the backend, a timestamp is added to a geofence every time it is created or updated.
+To keep track of edit events, a timestamp is added to a geofence every time it is created or updated in the backend.
 
 The edit history is accessed in the frontend when the geoFences are fetched from the server, and is then filtered and passed to the corresponding geofence list item to be displayed in an info card.
 
 
 ### Geofence visibility
-Individual geofences can be hidden from the map to make it visually clearer.
-
-For any geofence with a boolean tag _Hidden_ set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon and therefore improving frontend performance when geofences with large numbers of points are hidden.
+Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag _Hidden_ is stored for each geofence. For any geofence where this tag is set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
 
 #### Storing geofence visibilities
 The information on which geofences are hidden is stored for the convenience of the user. Since most geofences that are hidden can be assumed to stay hidden for the majority of the time, like system geofences, geofences with a large number of points or generally rarely used ones, this is done with _localStorage_, meaning that, contrary to _sessionStorage_, the information is stored not just on page reloads, but in entirely new sessions.
@@ -1372,11 +1327,10 @@ localStorage.setItem("visibility", JSON.stringify(obj)); // save to localStorage
 
 
 ### Geofence highlighting
-Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green).
+Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green). The action of moving the map to the location of the highlighted geofence is achieved by using the _Leaflet_ function _map.flyToBounds_, which changes the map's center and zoom level to fit the bounds of the given geometry and also includes a smooth animation. [@leafletDocumentation]
 
-The map movement is done by using the _Leaflet_ function _map.flyToBounds_, which changes the map's center and zoom level with a smooth animation to fit the bounds of given geometry. [@leafletDocumentation]
+A boolean tag _Highlighted_ is stored for every geofence. Some special cases have to be considered in combination with the _Geofence visibility_ feature:
 
-A boolean tag _Highlighted_ is stored for every geofence. Some special cases have to be considered in combination with the _Geofence visibility_ feature:\
 - If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.
 - If a hidden geofence is highlighted, it is also unhidden.
 - If a highlighted geofence is hidden, it is also set to not be highlighted.
@@ -1386,21 +1340,19 @@ The following state chart describes the different states a geofence can have reg
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Geofence_visibility_state_chart.png}
-	\caption{The geofence visibility states and their interaction.}
+	\caption{Geofence visibility states and their interaction}
 	\label{fig2_11}
 \end{figure}
 
 ### Geofence renaming
-Any geofence can be renamed in the Web-Interface.\
-The user is shown a text dialog to enter a title. A request with this new title is then sent in a PATCH request to the endpoint _/geoFences/${id}_ of the backend, where the database entry is updated. In case of a success, the title is also changed in the React state directly.
+Any geofence can be renamed in the Web-Interface. When the "Rename"-button is clicked, the user is shown a text dialog to enter a new title. A request with this new title is then sent in a PATCH request to the endpoint _/geoFences/${id}_ of the backend, where the database entry is updated. In case of a success, the title is also changed in the React state directly.
 
 
 ### Geofence metadata
 During the internship, the company decided to market the app to smaller districts and specifically, to be used for tracking road maintenance and snow clearing vehicles, which would make it necessary to store additional data for a geofence, like the workers tasked with working on a particular road.
 
 A metadata system was added, which allows for different metadata categories in which data entries can be added in the form of a collection of strings.\
-The app contains two categories, _Workers_ and _Others_, which are hardcoded in both the frontend and backend because they are unlikely to change and can be added manually in the code if needed.\
-If the number of categories unexpectedly rises, or if the user should be able to add categories by themselves, a dynamic management system would be advantageous.
+The app contains two categories, _Workers_ and _Others_, which are hardcoded in both the frontend and backend because they are unlikely to change and can be added manually in the code if needed. If the number of categories unexpectedly increases, or if the user should be able to add categories by themselves, a dynamic management system would be advantageous.
 
 Metadata can be viewed and edited in a dialog window for each geofence. Selecting one of the categories shows all entries for that geofence in that category. New entries can also be created in this category, and existing entries can be deleted. The ability to edit entries is deliberately omitted because they are strings and usually very short, making it just as easy to delete and re-enter incorrect metadata.
 
@@ -1410,10 +1362,9 @@ On adding a new entry, a POST request is sent to the _/GeoFenceMetadata_ endpoin
 
 
 #### Metadata search
-The app includes a search bar, to filter geofences based on their metadata entries, which consists of a selection of the metadata category and a text field to enter a search string.
+The app includes a search bar, to filter geofences based on their metadata entries, which consists of dropdown to select the metadata category, a text field to enter a search string, and a search button.
 
-When the search button is pressed, a GET request is sent to the backend containing the category as well as the search term, to the endpoint _/geoFences/search?searchTerm=\${searchTerm}&metadataCategory=${category}_, which returns a collection of all geofences that fit the search. The actual search process is handled on the backend.\
-The React state is then updated to include the returned geofences, and only these geofences are displayed in the user interface.
+When the search button is pressed, a GET request is sent to the backend containing the category as well as the search term, to the endpoint _/geoFences/search?searchTerm=\${searchTerm}&metadataCategory=${category}_, which returns a collection of all geofences that fit the search. The actual search process is handled on the backend. The React state is then updated to include the returned geofences, and only these geofences are displayed in the user interface.
 
 
 ### Geofence locking
@@ -1462,9 +1413,7 @@ Because the checkboxes are part of custom list elements, a select-all-checkbox a
 
 
 #### Bulk locking
-Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_.
-
-If the action should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
+Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_. If it should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
 
 \begin{lstlisting}[caption=The function for handling bulk locking operations, label=lst:bulkLockingFunction, language={JavaScript}]
 function lockActionMulti(weekday, lockMethod) {
@@ -1493,20 +1442,19 @@ function lockActionMulti(weekday, lockMethod) {
 
 
 #### Bit masking
-A bit mask is a technique used to store and access data as individual bits. This can be useful for storing certain types of data efficiently.
+A bit mask is a technique used to store and access data as individual bits, which can be useful for storing certain types of data more efficiently than would normally be possible.
 
 This could be used as an alternative way to store the days on which a geofence is locked. Since there are seven days, a mask with at least seven bits has to be used, where the first bit represents Monday, the second bit represents Tuesday, and so on. Each bit can be either true (1) or false (0), indicating if that day of the week is locked or not. This way, every combination of locked days can be represented by using one number between 0 (0000000) and 127 (1111111).
 
-To set an individual bit (set it to 1/true), an OR operation is used on the storage variable and the value 2^n, where n is the number of the bit starting from the least significant bit on the right at n=0.\
-To delete an individual bit (set it to 0/false), an AND operation is used on the storage variable and the inverse of 2^n (the value after a NOT operation).\
-A bit can be toggled with an XOR operation on the storage variable and the value 2^n.\
-By using an AND operation on the storage variable and 2^n, the value of an individual bit can be read. [@bitmasks]
+- To set an individual bit (set it to 1/true), an OR operation is used on the storage variable and the value 2^n, where n is the number of the bit starting from the least significant bit on the right at n=0.
+- To delete an individual bit (set it to 0/false), an AND operation is used on the storage variable and the inverse of 2^n (the value after a NOT operation).
+- A bit can be toggled with an XOR operation on the storage variable and the value 2^n.
+- By using an AND operation on the storage variable and 2^n, the value of an individual bit can be read. [@bitmasks]
 
 
 ## Performance optimization on the frontend
-This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as and the changes made to the application to fix those issues.
+This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as and the changes made to the application to fix those issues. Optimizing performance of the frontend can have several positive effects, including, but not limited to:
 
-Optimizing the performance of the frontend can have several positive effects, including, but not limited to
 - minimizing lag and making the UI more responsive.
 - minimizing loading times and load on the network by reducing the number of backend calls.
 - allowing the app to run on less powerful devices.
@@ -1519,14 +1467,17 @@ One of the biggest factors affecting performance of the React app is the number 
 
 
 #### Measuring component render times
-To improve frontend performance, the render times of all components have to be recorded in order to find out which elements cause the most lag.
+To improve frontend performance, the render times of all components have to be recorded in order to find out which elements contain potential bottlenecks and must therefore be optimized.
 
 _React Developer Tools_ is a _Chrome_ extension that adds React debugging tools to the browser's Developer Tools. There are two added tabs, _Components_ and _Profiler_, the latter of which is used for recording and inspecting performance data. [@reactDevToolsChrome]
 
-The _Profiler_ uses React's Profiler API to measure timing data for each component that is rendered. The workflow to use it will be briefly described here.\
-After navigating to the _Profiler_ tab in the browser's Developer Tools, a recording can either be started immediately or set to be started once the page is reloaded. Once the developer has finished performing any actions in the app that they suspect could be impacting performance, the recording can be stopped again. [@reactProfilerIntro]
+The _Profiler_ uses React's Profiler API to measure timing data for each component that is rendered. The workflow to use it will be briefly described here.
 
-The recorded data can be viewed in different graphical representations, including the render durations of each individual element. When testing performance for this app, mostly the _Ranked Chart_ was used, because it is ordered by the time taken to rerender for each component and gives the developer a quick overview where improvements need to be made.
+- After navigating to the _Profiler_ tab, a recording can either be started immediately or set to be started once the page is reloaded.
+- During the recording, the actions for which performance needs to be analyzed are performed in the React app.
+- Once all actions are completed, the recording can be stopped again. [@reactProfilerIntro]
+
+The recorded data can be viewed in different graphical representations, including the render durations of each individual element. When testing performance for this app, mostly the _Ranked Chart_ was used, because it orders all components by the time taken to rerender, which gives the developer a quick overview of where improvements need to be made.
 
 
 #### Avoiding unnecessary rerenders
@@ -1535,13 +1486,11 @@ By looking at a graph of the geofence management app recorded with the _Profiler
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/React_Profiler_before.png}
-	\caption{React Profiler View before implementing performance optimizations.}
+	\caption{Ranked profiler chart shows long render times for LeafletMap}
 	\label{fig2_12}
 \end{figure}
 
-The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings.\
-
-With a custom check function _isEqual_, the _React.memo_ function can be set to rerender only when one of these props changes.
+The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings. With a custom check function _isEqual_, the _React.memo_ function can be set to rerender only when one of these props changes.
 
 \begin{lstlisting}[caption=Using React.memo with custom equality check, label=lst:reactMemo, language={JavaScript}]
 export default withLocalize(React.memo(LeafletMap, isEqual));
@@ -1559,14 +1508,12 @@ function isEqual(prevProps, nextProps) {
 }
 \end{lstlisting} \
 
-After making these changes, a new graph is recorded for the same actions.\
-The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore.
-This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
+After making these changes, a new graph is recorded for the same actions. The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore. This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/React_Profiler_after.png}
-	\caption{React Profiler View after implementing performance optimizations.}
+	\caption{Ranked chart after implementation of performance optimizations}
 	\label{fig2_13}
 \end{figure}
 
@@ -1593,7 +1540,7 @@ Performance of the frontend interface is improved by minimizing the number of re
 In the initial implementation of the bulk operations for locking (chapters _Locking_ and  _Bulk operations_), when an action was performed, the weekday/locking buttons for each affected geofence did not update as expected.\
 The reason was that the locks for each geofence were stored in the React state of that geofence's _GeoFenceListItem_ component and were fetched for that geofence alone only once on initial loading of that component. This means that, when a bulk operation is performed in the parent _GeoFenceList_ component, no rerender is triggered and the locks are not updated in the _GeoFenceListItem_, since non of its props have changed.
 
-To solve this problem, a polling mechanism was implemented, where the _GeoFenceListItems_ repeatedly call the backend after a fixed interval of time. Any updates that happen in the backend are now displayed in the frontend, but can be delayed depending on the interval set for polling.\
+To solve this problem, a polling mechanism was implemented, where the _GeoFenceListItems_ repeatedly call the backend after a fixed interval of time. Any updates that happen in the backend are now displayed in the frontend, albeit with a slight delay depending on the interval set for polling.\
 Performance is notably affected by this approach, due to the high number of network calls, even when no locking data has changed.
 
 
