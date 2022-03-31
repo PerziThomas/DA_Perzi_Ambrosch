@@ -257,26 +257,27 @@ In the ASP.NET Core application database operations are managed by a *DatabaseMa
 
 To create a connection to the database a new instance of the class *SqlConnection* is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation.
 
-\begin{minipage}[c]
+\begin{minipage}[c]{1/textwidth} 
 \begin{lstlisting}[caption=Creating and opening a connection., label=lst:adoOpen, language={[Sharp]C}]   
     using (SqlConnection connection = new SqlConnection(SQL_STRING))
     {
         connection.Open();
     }
-\end{lstlisting}
+\end{lstlisting} 
 \end{minipage} \
 
-To send SQL command to the server a new instance of the *SqlCommand* class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using '(at)geofenceName' when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET.
+To send SQL command to the server a new instance of the *SqlCommand* class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using '(at)geofenceName' when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET. Listing 2.11 describes how a placeholder is used for deleting geofences by ids.
 
-\begin{lstlisting}[caption=Creating a command to delete a geofence by id while using a placeholder for the id., label=lst:adoPlaceholder, language={[Sharp]C}]       
-            SqlCommand cmd = new SqlCommand("DELETE FROM geoFence WHERE id = @id", connection);
-            cmd.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int));
-            cmd.Parameters["@id"].Value = idGeoFence;
+
+\begin{lstlisting}[caption=Deleting a geofence by id, label=lst:adoPlaceholder, language={[Sharp]C}]       
+    SqlCommand cmd = new SqlCommand("DELETE FROM geoFence WHERE id = @id", connection);
+cmd.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int));
+    cmd.Parameters["@id"].Value = idGeoFence;
 \end{lstlisting} \
 
 There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. 
 
-\begin{lstlisting}[caption=Executing a command with and without query., label=lst:adoQuery, language={[Sharp]C}]
+\begin{lstlisting}[caption=Executing a command with and without query, label=lst:adoQuery, language={[Sharp]C}]
             // Reading every selected row to get geofences       
             using (SqlDataReader rdr = cmd.ExecuteReader())
             {
