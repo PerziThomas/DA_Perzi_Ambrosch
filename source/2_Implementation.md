@@ -3,7 +3,7 @@ This chapter describes the concrete implementation of the software. This include
 
 ## Architecture
 \fancyfoot[L]{Perzi}
-To create maintainable and extendable software it must be designed in such ways. To architect a software that fulfils the aforementioned criteria a certain set of principles needs to be followed. The geofencing application was built with architectural principles in mind to guarantee the continuation of the development at iLogs.
+To create maintainable and extendable software it must be designed in such ways. To architect a software that fulfils the aforementioned criteria a certain set of principles needs to be followed. The geofencing application was built with architectural principles in mind to guarantee the continuation of the development at ilogs.
 
 Firstly, general principles such as *separation of concerns* and *encapsulation* were implemented. Separation of concerns defines that pieces of software should only be doing their own designated work. A service that processes pictures should only process these pictures and not handle anything regarding display on the screen. Developing software according to this principle is simplified due to React and ASP.NET Core providing a clear structure for pieces of software. With controllers, services and middleware in ASP.NET Core and components in React providing structures to separate application concerns. Encapsulation is a way of developing software that only exposes certain parts of itself to other software. In a practical sense this is achieved by limiting the scope of properties in classes with keywords such as *private* and *protected*. This way as long as the defined results of exposed methods and properties are not changed, the internal structure of a class can be changed without outside notice [@architectureMS].
 
@@ -35,7 +35,7 @@ The backend consists of two major parts, those being the ASP.NET Core webservice
 ASP.NET Core is a framework for building web apps and services, IoT apps as well as mobile backends developed by Microsoft as an evolution of ASP.NET 4.x. Unlike its predecessor ASP.NET Core is multiplatform (contrary to just being working on Windows) and open source. Besides creating traditional webservices, such as RESTful webapps, it can also be used to create other webapps using technologies like Razor Pages and Blazor [@aspintro].
 
 #### Project Creation
-When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, \lstinline!Program.cs! and \lstinline!Startup.cs!. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default \lstinline!WebHostBuilder!. Listing 2.1 shows the contents of the Programm.cs file.
+When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, \lstinline!Program.cs! and \lstinline!Startup.cs!. Program.cs includes the basic instructions needed to get a ASP.NET Core application running as well as defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default \lstinline!WebHostBuilder!. Listing 2.1 shows the contents of the Program.cs file.
 
 \begin{lstlisting}[caption={Program.cs file of the backend}, label=lst:programmcs, language={[Sharp]C}]
     public class Program
@@ -136,7 +136,7 @@ When registering a service there are three different options to choose from. The
    Singleton services are created once the first time they are requested. When the service is requested again the same instance is provided to the requesting object. Singleton objects are disposed once the application shuts down. These services are used when there has to be exactly one instance of a service, for the geofencing application this was chosen when creating the database manager service [@servicelife].
 
 
-To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core. A concrete implementation of this is shown using the \lstinline!TimePointController! in listing 2.3.
+To request a service from the application a class must simply include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core. A concrete implementation of this is shown using the \lstinline!TimePointController! in listing 2.3.
 \newpage
 
 \begin{lstlisting}[caption=The TimePointController requesting two services, label=lst:servicereq, language={[Sharp]C}]
@@ -148,7 +148,7 @@ To request a service from the application a class must simple include the servic
 \end{lstlisting} \
 
 #### Middleware
-To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware and the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used [@middleware]. A simple graphical representation of this is displayed in figure 2.2.
+To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware on the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used [@middleware]. A simple graphical representation of this is displayed in figure 2.2.
 
 \begin{figure}[H]
 	\centering
@@ -177,10 +177,10 @@ To map methods to routes and HTTP methods a different set of annotations needs t
 
 Each annotation corresponds to the HTTP method with the same name. Apart from routing purposes they do not provide any functionality to the developer. Building the application according to REST and HTTP principles therefore remains a responsibility of the developer.
 
-Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to \lstinline!IActionResult!. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then \lstinline!StatusCode! can be used as a code can be customly assigned to it.
+Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to \lstinline!IActionResult!. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then \lstinline!StatusCode! can be used, as a code can be customly assigned to it.
 
 ### Microsoft SQL Server
-SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) [@ssmsref] is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
+SQL Server is a relational database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses the SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) [@ssmsref] is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
 
 #### Transact-SQL
 T-SQL [@tsqlref] is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the \lstinline!TOP! keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL [@tsql]. An example of this is shown in listing 2.5.
@@ -240,12 +240,12 @@ The geofencing application makes use of stored procedures in several ways. A mai
 ##### Trigger
 Triggers are pieces of code that are executed when data in a table is modified. This can apply for adding, deleting or modifying rows. Triggers are created in a similar way to stored procedures and creation is equally simplified by SSMS. Contrary to procedures, triggers are assigned to a table along a specification if the code should be executed before or after data is inserted. On which action the code should be executed can also be specified. These actions can be specified as *INSERT*, *UPDATE* or *DELETE*. Triggers can be used to block data from being inserted into a table or insert data into another table based on the incoming data.
 
-In the final version of the geofencing application, triggers are not used. They were implemented when calculation of intersections was still based on the database.
+In the final version of the geofencing application, triggers are not used. They were implemented when calculation of intersections was still handled on the database.
 
 #### SQL Spatial
-The spatial extension was an addition provided to SQL Server by Microsoft in 2008. It essentially adds two datatypes to the software, *geometry* and *geography*. These datatypes are provided along a set of functionality to perform spatial calculations and queries on the database. Spatial data is data with geometrical or geographical information attached to it. In most cases those are coordinates. Geometry and geography are different in the fact that geometry is indented for use in a flat coordinate system like a plane. Geography on the other hand is intended for use with globe like coordinates to reflect real world locations and objects. For persisting geofences in the database, geography was chosen, as it makes use of real world GPS coordinates [@spatext].
+The spatial extension was an addition provided to SQL Server by Microsoft in 2008. It essentially adds two datatypes to the software, *geometry* and *geography*. These datatypes are provided a set of functionality to perform spatial calculations and queries on the database. Spatial data is data with geometrical or geographical information attached to it. In most cases those are coordinates. Geometry and geography are different in the fact that geometry is indented for use in a flat coordinate system like a plane. Geography on the other hand is intended for use with globe like coordinates to reflect real world locations and objects. For persisting geofences in the database, geography was chosen, as it makes use of real world GPS coordinates [@spatext].
 
-On top of the basic data types, there are two mains groups of object types provided by the spatial extension. These objects are available for both geometry and geography.
+On top of the basic data types, there are two main groups of object types provided by the spatial extension. These objects are available for both geometry and geography.
 
 1. Simple objects
    
@@ -267,7 +267,7 @@ To manipulate and work with geographical data the extension provides a variety o
 ### ADO.NET
 To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, ADO.NET [@adoref] and the Entity Framework [@efref]. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
 
-In the ASP.NET Core application database operations are managed by a \lstinline!DatabaseManager! object. This object is created and distributed as a singleton service by making use of Dependency Injection. This way the existence of exactly one instance of the class is guaranteed across the whole application at runtime.
+In the ASP.NET Core application database operations are managed by a \lstinline!DatabaseManager! object. This object is created and distributed as a singleton service by making use of dependency injection. This way the existence of exactly one instance of the class is guaranteed across the whole application at runtime.
 
 To create a connection to the database a new instance of the class \lstinline!SqlConnection! is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation. This operation is shown in listing 2.8.
 
@@ -280,7 +280,7 @@ To create a connection to the database a new instance of the class \lstinline!Sq
 \end{lstlisting} 
 \end{minipage} \
 
-To send SQL command to the server a new instance of the \lstinline!SqlCommand! class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using \@geofenceName when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET. Listing 2.9 describes how a placeholder is used for deleting geofences by ids.
+To send SQL commands to the server a new instance of the \lstinline!SqlCommand! class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using \@geofenceName when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the \lstinline!SqlCommand! object. This way no string concatenation is used and the data is handled directly by ADO.NET. Listing 2.9 describes how a placeholder is used for deleting geofences by ids.
 
 
 \begin{lstlisting}[caption=Deleting a geofence by id, label=lst:adoPlaceholder, language={[Sharp]C}]       
@@ -313,7 +313,7 @@ There are two ways of executing a SqlCommand, with or without a query. Commands 
     connection.Close();
 \end{lstlisting} \
 
-To execute stored procedures from the webapp a command needs to be created with the name of the procedure as it's construction parameter. Next the commands \lstinline!CommandType! needs to be set as \lstinline!CommandType.StoredProcedure! to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected. Listing 2.11 describes this process on the example of creating a circular geofence.
+To execute stored procedures from the application a command needs to be created with the name of the procedure as its construction parameter. Next the commands \lstinline!CommandType! needs to be set as \lstinline!CommandType.StoredProcedure! to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected. Listing 2.11 describes this process on the example of creating a circular geofence.
 
 \begin{lstlisting}[caption=Creating a command of a procedure and setting the variables, label=lst:adoProcedure, language={[Sharp]C}]       
     SqlCommand cmd = new SqlCommand("createCircle", connection);
@@ -330,14 +330,14 @@ The Entity Framework (EF), being the Entity Framework Core when using with a .NE
 
 Compared to ADO.NET, EF provides a higher abstraction of database operations to the developer. Operations such as SELECT and INSERT are being handled by the library instead of the developer. To filter selected data, LINQ [@linq] is used. In contrary when doing operations in ADO.NET, commands and connections need to be defined by the developer manually, giving greater control about the processing of data [@efcore].
 
-Due to Microsoft phasing out spatial support in EF Core and the official recommended library for spatial processing being NetTopologySuite, ADO.NET was chosen in the geofencing application. EF Core not providing any native support resulted in operations needing an equal amount of manual processing as in ADO.NET, but with the drawback of additional overhead. Furthermore the low level of ADO.NET allowed for much more performance to be extracted out of the application, contributing positively to the time critical requirement.
+Due to Microsoft phasing out spatial support in EF Core and the official recommended library for spatial processing being NetTopologySuite [@efspatial], ADO.NET was chosen in the geofencing application. EF Core not providing any native support resulted in operations needing an equal amount of manual processing as in ADO.NET, but with the drawback of additional overhead. Furthermore the low level of ADO.NET allowed for much more performance to be extracted out of the application, contributing positively to the time critical requirement.
 
 ### NetTopologySuite
 NetTopologySuite [@nts] (NTS) is a .NET implementation of the JTS Topology Suite software for Java. It implements the Open Geospatial Consortiums (OGC) Simple Features Specification [@ogcref] for SQL like the spatial extension of SQL Server. Due to this a base compatibility is given between the two pieces of software, making communication possible and straightforward. The OGC specification defines a set of objects and methods for geometrical data, all of which are implemented in NTS.
 
 As NTS provides the same functionality when processing geographical data as does SQL Server, it can be used to calculate intersections of driveboxes and geofences. Furthermore it offers ways to convert GeoJSON data into NTS objects, as well as those objects into SQL Bytes to be persisted in the database. Geographical objects follow the OGC specification and have the same labels as described in the Spatial Extension chapter.
 
-To work with NTS a simple installation from the NuGet package manager has to be made. After the installation NTS functionality is accessible from the entire project. To convert a geographical object from SQL Server to one readable by NTS, a new instance of the \lstinline!SqlServerBytesReader! class needs to be created. To specify the data to be of the geography datatype the parameter \lstinline!IsGeography! needs to be set to true. Listing 2.12 shows how geofence data is read from the database and converted into NTS objects.
+To work with NTS a simple installation from the NuGet package manager has to be made. After the installation NTS functionality is accessible from within the entire project. To convert a geographical object from SQL Server to one readable by NTS, a new instance of the \lstinline!SqlServerBytesReader! class needs to be created. To specify the data to be of the geography datatype the parameter \lstinline!IsGeography! needs to be set to true. Listing 2.12 shows how geofence data is read from the database and converted into NTS objects.
 
 
 \begin{lstlisting}[caption=Reading geographical objects from the database, label=lst:sqlbytesreader, language={[Sharp]C}]       
