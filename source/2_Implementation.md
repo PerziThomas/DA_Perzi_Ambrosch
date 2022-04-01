@@ -923,7 +923,7 @@ When making requests to create resources such as geofences or metadata, the reso
 
 ## Calculation Algorithm for intersections
 \fancyfoot[L]{Perzi}
-To calculate intersections between geofences and points in time, two methods were found during the research of possible approaches. First, manual calculation of intersection was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
+To calculate intersections between geofences and points in time, two methods were found during the research of possible approaches. First, manual calculation of intersections was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
 
 ### Raycasting
 Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. This rule is explained in the remainder of this paragraph. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the point in time to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. Figure 2.5 shows a graphical representation of the algorithm.
@@ -935,14 +935,14 @@ Raycasting is an algorithm which uses the Odd-Even rule to check if a point is i
 	\label{fig2_5}
 \end{figure}
 
-This algorithm comes with some drawbacks. First, having to implement it by hand and second, needing to implement every kind of error check that might be needed. Additionally, the speed of calculations is not acceptable for time critical applications, such as Drivebox, and would need even more manual optimizations to match the speed of the methods provided by third party libraries [@raycasting].
+This algorithm comes with some drawbacks. First, having to implement it by hand and second, needing to implement every kind of error check that might be needed. Additionally, the speed of calculations is not acceptable for time critical applications, such as Drivebox, and would need even more manual optimization to match the speed of the methods provided by third party libraries [@raycasting].
 
 ### Third Party Methods
-Microsoft provides methods to calculate intersection points in geographical objects inside the spatial data package. In particular, the methods \lstinline!STContains! and \lstinline!STIntersects! are used to check if a point is inside a polygon. The difference in the two being that STIntersects returns true for a point which is exactly on the edge of a polygon. For the implementation, STContains was picked, as the increase in speed had a greater benefit than detecting points on the very edge of a polygon, as polygons are saved with an accuracy of less than a meter.
+Microsoft provides methods for calculating intersection points in geographical objects inside the spatial data package. In particular, the methods \lstinline!STContains! and \lstinline!STIntersects! are used to check if a point is inside a polygon, the difference in the two being that STIntersects returns true for a point which is exactly on the edge of a polygon. For the implementation, STContains was picked, as the increase in speed had a greater benefit than detecting points on the very edge of a polygon, as polygons are saved with an accuracy of less than a meter.
 
 Using these methods either required doing all calculations inside the database, or to use ASP.NET instead of ASP.NET Core. Both of which were not viable approaches, as the database did not fulfil the time critical requirements of the application, and ASP.NET Core was needed for integration into the rest of the system.
 
-To calculate intersections on the webserver, a third party library was needed. \lstinline!NETTopologySuite! was picked, as it provides the same functionality as the spatial data package. Additionally, due to the initial higher speed of C#, it was picked for the needed calculations. (See NETTopologySuite chapter)
+To calculate intersections on the webserver, a third party library was needed. \lstinline!NETTopologySuite! was picked, as it provides the same functionality as the spatial data package. Additionally, due to the higher initial speed of C#, it was picked for the needed calculations. (See NETTopologySuite chapter)
 
 ### Point based calculation
 To notify businesses of their vehicles leaving a certain area defined by a geofence, the system needed the ability to work and calculate intersections in real-time. To achieve this, a specification was chosen to receive the last two points from the main Drivebox server, and calculate which polygons these points are interacting with. Practically, this could be done using three calculations.
@@ -961,16 +961,16 @@ To avoid unnecessary calculations with polygons that are outside of a points sco
 Afterwards, the only other requirement was to compare the collections and determine which polygons are being entered, left or stayed in. The webservice then returns a collection of all affected polygons with information about which event is happening currently. The processing of this information is handled by the main Drivebox server.
 
 ### Route based calculation
-Businesses are also interested in analysis of the trips their vehicles take. To achieve this, the webservice needs to process a trip sent to it by the main Drivebox server and return a collection of all polygons it enters and leaves, as well as the associated timestamps. 
+Businesses are also interested in analysis of the trips their vehicles take. To achieve this, the webservice needs to process a trip sent to it by the main Drivebox server and return a collection of all polygons it enters or leaves, as well as the associated timestamps. 
 
-The web service receives a list of coordinates from the Drivebox server, and processes those into a \lstinline!LineString! object for easier calculation of intersections. To minimize the number of calculations, all polygons that are not being intersected by the LineString are filtered out as the first step.
+The web service receives a list of coordinates from the Drivebox server, and processes those into a \lstinline!LineString! object for easier calculation of intersections. To minimize the number of calculations, all polygons that are not intersected by the LineString are filtered out in the first step.
 
-Next, a new LineString object is built, including a representation of the initial LineStrings part inside the polygon. This is done for each polygon, and in cases in which a line string leaves and enters a polygon multiple times, it is converted in a MultiLineString and processed in a special way. Otherwise it can be added to the intersection collection.
+Next, a new LineString object is built, including a representation of the initial LineString's part inside the polygon. This is done for each polygon, and in cases in which a line string leaves and enters a polygon multiple times, it is converted in a MultiLineString and processed in a special way. Otherwise it can be added to the intersection collection.
 If a MultiLineString is simple, it has no intersection points with itself. If this holds true, then it can simply be split into multiple LineStrings and added to the list of intersections, otherwise it needs to be processed in a special way.
 
-To analyze a non simple MultiLineString, a list of intersection points of the MultiLineString and the outside bounds of a polygon is created. Next, the MultiLineString is split into points as well, and each point is associated with the nearest point on the bounding of the polygon. This way, an accurate approximation of the crossing points can be found.
+To analyze a non simple MultiLineString, a list of intersection points of the MultiLineString and the outside bounds of a polygon is created. Next, the MultiLineString is split into points as well, and each point is associated with the nearest point on the bounds of the polygon. This way, an accurate approximation of the crossing points can be found.
 
-As a final step, each intersection is processed and modified with information if it enters or leaves a polygon, and when this happened, calculated by using the two coordinates with timestamp happening immediately after an event occurs. Using the distance between these points and the intersection point an approximate crossing time can also be interpolated. Entry and leave events are associated with each other and returned as a collection. If the leave and enter events are equal to the beginning and end of a trip, the trip is classified as staying inside a polygon. The process is described in the following figure in the form of an UML activity diagram.
+As a final step, each intersection is processed and modified with information on if it entered or left a polygon, and when this happened, calculated by using the two coordinates with timestamps happening immediately after an event occurs. Using the distance between these points and the intersection point, an approximate crossing time can also be interpolated. Entry and exit events are associated with each other and returned as a collection. If the entry and exit events are equal to the beginning and end of a trip, the trip is classified as staying inside a polygon. The process is described in the following figure in the form of a UML activity diagram.
 
 \begin{figure}[H]
 	\centering
