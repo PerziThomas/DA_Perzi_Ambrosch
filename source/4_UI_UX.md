@@ -102,13 +102,13 @@ Standard confirmation dialogs are used in the app whenever any item is deleted, 
 #### Confirm vs. Undo
 An alternative to confirm dialogs are _Undo notifications_, where the action in question is not interrupted, but the user is given the option to revert any changes made afterwards, usually for a limited time.
 
-This approach is especially useful for frequent or lightweight actions, since it does not disrupt the workflow as much. However, for actions that are irreversible, require substantial amounts of time or resources to be undone, or initiate complex changes, a confirmation dialog should be used. (see [@confirmationDialogs])
+This approach is especially useful for frequent or lightweight actions, since it does not disrupt the workflow as much. However, for actions that are irreversible, require substantial amounts of time or resources to be undone, or initiate complex changes, a confirmation dialog should be used.
 
 Since it was not planned to make any of the actions in the web-interface reversible, it was neither possible nor necessary to implement an _Undo_ function, and only confirmation dialogs were used.
 
 
 #### Headline texts
-Each confirmation dialog contains a headline, the function of which is to inform the user about the action and its consequences. Speaking from personal previous experience with different software, additional confirmation steps are often quickly learnt by the user, and are then performed without carefully reading the information presented in the user interface. Therefore, it is important to catch the attention of the user by using short and unambiguous texts. This is achieved in two ways: [@confirmationDialogs]
+Each confirmation dialog contains a headline, the function of which is to inform the user about the action and its consequences. Speaking from personal previous experience with different software, additional confirmation steps are often quickly learnt by the user, and are then performed without carefully reading the information presented in the user interface. Therefore, it is important to catch the attention of the user by using short and unambiguous texts. This is achieved in two ways:
 
 - First, by avoiding generic texts and using verbs specific to the action. The user should be able to read the dialog without any additional context.\
 _Example: "Delete geofence?" instead of "Are you sure?"_
@@ -147,7 +147,7 @@ Like with deletion, there are also different words that can be used to describe 
 
 
 ### Search bar design
-The _Salesforce Style Guide_ suggests using ellipses at the end of text prompts, unless the text ends with a question mark [@SalesforceEllipses]. Therefore, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
+The _Salesforce Style Guide_[@salesforcestyleguideref] suggests using ellipses at the end of text prompts, unless the text ends with a question mark [@SalesforceEllipses]. Accordingly, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
 
 The geofence metadata search bar is not visible by default, but can be toggled on with a button. It then takes the place of the pagination functions. This  is done to clear up the interface, since search and pagination can functionally not be used at the same time.
 
