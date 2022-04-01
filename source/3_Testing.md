@@ -188,7 +188,7 @@ is looking to expand the pool of vehicles in the future. \
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress2.png}
-	\caption{Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.}
+	\caption{[Testing the final MS SQL implementation]Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.}
 	\label{fig3_2}
 \end{figure}
 

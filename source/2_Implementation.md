@@ -894,7 +894,7 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.75\textwidth]{source/figures/seq_rest.png}
-	\caption{A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.}
+	\caption{[Communication between the two applications]A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.}
 	\label{fig2_4}
 \end{figure}
 
