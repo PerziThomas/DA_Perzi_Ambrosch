@@ -28,7 +28,7 @@ The category _Geofence creation_ (figure 1.1) contains all use cases for geofenc
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Use_Cases/Geofence_creation.png}
-	\caption{Use cases for geofence creation.}
+	\caption{Use cases for geofence creation}
 	\label{fig1_1}
 \end{figure}
 
@@ -37,7 +37,7 @@ The _Geofence locking_ category (figure 1.2) includes functions for viewing and 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Use_Cases/Geofence_locking.png}
-	\caption{Use cases for geofence locking.}
+	\caption{Use cases for geofence locking}
 	\label{fig1_2}
 \end{figure}
 
@@ -46,7 +46,7 @@ _Geofence metadata_ (figure 1.3) can be viewed, created, deleted or used to filt
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.70\textwidth]{source/figures/Use_Cases/Geofence_metadata.png}
-	\caption{Use cases for geofence metadata.}
+	\caption{Use cases for geofence metadata}
 	\label{fig1_3}
 \end{figure}
 
@@ -55,7 +55,7 @@ Use cases for _Geofence functions_ (figure 1.4) consist of all remaining functio
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Use_Cases/Geofence_functions.png}
-	\caption{Use cases for geofence functions.}
+	\caption{Use cases for geofence functions}
 	\label{fig1_4}
 \end{figure}
 
@@ -64,7 +64,7 @@ Two use cases are provided by the program in the form of _API services_ (figure 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.60\textwidth]{source/figures/Use_Cases/API_Services.png}
-	\caption{Use cases for API services.}
+	\caption{Use cases for API services}
 	\label{fig1_5}
 \end{figure}
 
@@ -73,6 +73,6 @@ _Miscellaneous_ use cases (figure 1.6) are not covered by any of the categories 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.60\textwidth]{source/figures/Use_Cases/Miscellaneous.png}
-	\caption{Use cases for miscellaneous functions.}
+	\caption{Use cases for miscellaneous functions}
 	\label{fig1_6}
 \end{figure}

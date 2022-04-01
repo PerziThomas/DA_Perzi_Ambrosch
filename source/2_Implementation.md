@@ -22,7 +22,7 @@ The entire geofencing application runs on a client-server architecture. The Reac
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.80\textwidth]{source/figures/architecture.png}
-	\caption{Architecture of the entire Drivebox application with the geofencing included.}
+	\caption{Architecture of the entire Drivebox application with the geofencing included}
 	\label{fig2_1}
 \end{figure}
 
@@ -158,7 +158,7 @@ To handle requests in a common way regardless of routes the concept of middlewar
 
 To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the *IApplicationBuilder* interface must be extended with a method registering the middleware. This methods is then called in the startup file.
 
-\begin{lstlisting}[caption=Extending the IApplicationBuilder interface., label=lst:middlewareext, language={[Sharp]C}]
+\begin{lstlisting}[caption=Extending the IApplicationBuilder interface, label=lst:middlewareext, language={[Sharp]C}]
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class AuthHeaderMiddlewareExtensions
     {
@@ -184,7 +184,7 @@ SQL Server is a relations database management system developed by Microsoft. Sim
 #### Transact-SQL
 T-SQL is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the *TOP* keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. An example of this is shown in Listing 2.5. [@tsql]
 
-\begin{lstlisting}[caption=Example of using the TOP keyword., label=lst:topkeyword, language={SQL}]
+\begin{lstlisting}[caption=Example of using the TOP keyword, label=lst:topkeyword, language={SQL}]
     SELECT TOP 12 Id, Name, Description 
     FROM Products ORDER BY Name;
 \end{lstlisting} \
@@ -561,13 +561,13 @@ There are two notably different ways in which translations can be integrated in 
 - The \lstinline!Translate! tag can be used in a self-closing form with a property \lstinline!id! referencing the translation property name in the resource files.
 
 \begin{lstlisting}[caption=Translation using tag, label=lst:translateTag, language={JavaScript}]
-<Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
+    <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
 \end{lstlisting} \
 
 - The \lstinline!translate! function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
 
 \begin{lstlisting}[caption=Translation using function, label=lst:translateFunction, language={JavaScript}]
-translate("units.length.meter.plural") /* returns "meters" or "Meter" */
+    translate("units.length.meter.plural") /* returns "meters" or "Meter" */
 \end{lstlisting} \
 
 
@@ -925,7 +925,7 @@ Raycasting is an algorithm which uses the Odd-Even rule to check if a point is i
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/raycasting_polygon.png}
-	\caption{An example of how a raycasting algorithm works with a polygon\protect\autocite{raycasting}}
+	\caption{Example of how a raycasting algorithm works with a polygon\protect\autocite{raycasting}}
 	\label{fig2_5}
 \end{figure}
 
@@ -1285,7 +1285,7 @@ This approach can also lead to problems with concave geometry, when the calculat
 The label can be placed at the center of the bounding box of the polygon, which can easily be done by using basic leaflet methods.
 
 \begin{lstlisting}[caption=Get center of bounding box, label=lst:labelPosition, language={JavaScript}]
-polygon.getBounds().getCenter()
+    polygon.getBounds().getCenter()
 \end{lstlisting} \
 
 This approach solves the problem with unevenly distributed points, because the center is always calculated from a rectangle with exactly four points. However, it is not a solution for concave polygons like the U-shape described above.
