@@ -127,7 +127,8 @@ To handle requests in a common way regardless of routes the concept of middlewar
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/middleware_pipe.png}
-	\caption{Example of a middleware workflow\protect\autocite{middleware}}
+	\caption[Example of a middleware workflow]%
+    {Example of a middleware workflow\protect\autocite{middleware}}
 	\label{fig2_1}
 \end{figure}
 
@@ -638,6 +639,8 @@ _Leaflet Geosearch_ [@leafletGeosearch] is an extension that adds geosearch func
 
 #### Usage with react-leaflet
 To start using Geosearch with React Leaflet, a component for the search field has to be written. The code in listing 2.25 shows a simple example of such a component called \lstinline!GeoSearchField!, where a \lstinline!GeoSearchControl! element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
+
+\newpage
 
 \begin{lstlisting}[caption=Initializing geosearch component, label=lst:geosearchSetup, language={JavaScript}]
     const GeoSearchField = ({activeLanguage}) => {
