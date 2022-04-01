@@ -1382,7 +1382,8 @@ On adding a new entry, a POST request is sent to the _/GeoFenceMetadata_ endpoin
 #### Metadata search
 The app includes a search bar, to filter geofences based on their metadata entries, which consists of dropdown to select the metadata category, a text field to enter a search string, and a search button.
 
-When the search button is pressed, a GET request is sent to the backend containing the category as well as the search term, to the endpoint _/geoFences/search?searchTerm=\${searchTerm}&metadataCategory=${category}_, which returns a collection of all geofences that fit the search. The actual search process is handled on the backend. The React state is then updated to include the returned geofences, and only these geofences are displayed in the user interface.
+When the search button is pressed, a GET request is sent to the backend containing the category as well as the search term, to the endpoint\
+_/geoFences/search?searchTerm=\${searchTerm}&metadataCategory=${category}_, which returns a collection of all geofences that fit the search. The actual search process is handled on the backend. The React state is then updated to include the returned geofences, and only these geofences are displayed in the user interface.
 
 
 ### Geofence locking
