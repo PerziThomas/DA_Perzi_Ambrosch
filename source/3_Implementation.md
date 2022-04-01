@@ -114,7 +114,8 @@ Raycasting is an algorithm which uses the Odd-Even rule to check if a point is i
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/raycasting_polygon.png}
-	\caption{Example of how a raycasting algorithm works with a polygon\protect\autocite{raycasting}}
+	\caption[Example of how a raycasting algorithm works with a polygon]%
+    {Example of how a raycasting algorithm works with a polygon\protect\autocite{raycasting}}
 	\label{fig3_3}
 \end{figure}
 
@@ -518,7 +519,7 @@ The edit history is accessed in the frontend when the geoFences are fetched from
 ### Geofence visibility
 Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag \lstinline!Hidden! is stored for each geofence. For any geofence where this tag is set to true, no React Leaflet polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
 
-#### Storing geofence visibilities
+#### Storing geofence visibility
 It can be assumed that in most cases when the user hides a geofence, they want to do so permanently or at least indefinitely, for example with system geofences, geofences with a large number of points or generally rarely used ones. Therefore, it makes sense to store the information about which geofences are hidden even when the app is closed. This is achieved by using _localStorage_, which, in contrast to _sessionStorage_, persists data until it is explicitly deleted. Listing 3.13 shows the code for retrieving visibility information from localStorage.
 
 \begin{lstlisting}[caption=Geofence visibility is saved to localStorage, label=lst:geofenceVisibility, language={JavaScript}]

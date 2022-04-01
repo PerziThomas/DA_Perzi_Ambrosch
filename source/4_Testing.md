@@ -210,7 +210,8 @@ amount of requests each thread sends. An example of such a test plan is shown in
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter1.png}
-	\caption{Creating a Test Group in JMeter\protect\autocite{jmeterPic1}}
+	\caption[Creating a Test Group in JMeter]%
+  {Creating a Test Group in JMeter\protect\autocite{jmeterPic1}}
 	\label{fig4_3}
 \end{figure}
 
@@ -221,7 +222,8 @@ parameters and body data. Figure 4.4 shows an example of the interface used to s
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter2.png}
-	\caption{Setting the base HTTP options\protect\autocite{jmeterPic2}}
+	\caption[Setting the base HTTP options]%
+  {Setting the base HTTP options\protect\autocite{jmeterPic2}}
 	\label{fig4_4}
 \end{figure}
 
@@ -232,7 +234,8 @@ in the _HTTP Request Defaults_ object, but if needed, some of those can be edite
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter3.png}
-	\caption{Specifying Request options\protect\autocite{jmeterPic3}}
+	\caption[Specifying Request options]%
+  {Specifying Request options\protect\autocite{jmeterPic3}}
 	\label{fig4_5}
 \end{figure}
 
@@ -243,7 +246,8 @@ table based reports being more detailed [@jmeterTutorial]. An example of how the
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter4.png}
-	\caption{Example of a graph based listener\protect\autocite{jmeterPic4}}
+	\caption[Example of a graph based listener]%
+  {Example of a graph based listener\protect\autocite{jmeterPic4}}
 	\label{fig4_6}
 \end{figure}
 
