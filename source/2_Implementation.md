@@ -883,9 +883,9 @@ Using ASP.NET Cores controller classes, to create high level routing of incoming
     
     This data is used to sort Geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering Geofences.
 
-Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object.
+Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handeled by services which receive data from controllers. An endpoint using DELETE is shown in Listing 2.29.
 
-\begin{lstlisting}[caption=A sample delete endpoint using a MVC approach to separate concerns, label=lst:restctrl, language={[Sharp]C}]
+\begin{lstlisting}[caption=Delete endpoint, label=lst:restctrl, language={[Sharp]C}]
     [HttpDelete]
     [Route("{idGeoFence}")]
     public IActionResult DeleteGeofence(int idGeoFence)
@@ -923,7 +923,7 @@ When making requests to create resources such as geofences or metadata, the reso
 To calculate intersections between geofences and points in time, two methods were found during the research of possible approaches. First, manual calculation of intersection was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
 
 ### Raycasting
-Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. This rule is explained in the remainder of this paragraph. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the point in time to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. 
+Raycasting is an algorithm which uses the Odd-Even rule to check if a point is inside a given polygon. This rule is explained in the remainder of this paragraph. To calculate the containment of a point one just needs to pick another point clearly outside of the space around the polygon. Next, after drawing a straight line from the point in time to the picked point, one must count how often the line intersects with the polygon borders. If the number of intersections is even, the point is outside the polygon, otherwise it is inside. Figure 2.5 shows a graphical representation of the algorithm.
 
 \begin{figure}[H]
 	\centering
@@ -944,7 +944,7 @@ To calculate intersections on the webserver, a third party library was needed. \
 ### Point based calculation
 To notify businesses of their vehicles leaving a certain area defined by a geofence, the system needed the ability to work and calculate intersections in real-time. To achieve this, a specification was chosen to receive the last two points from the main Drivebox server, and calculate which polygons these points are interacting with. Practically, this could be done using three calculations.
 
-To avoid unnecessary calculations with polygons that are outside of a points scope, all polygons are filtered into two collections, each having all the polygons a point is inside of included.
+To avoid unnecessary calculations with polygons that are outside of a points scope, all polygons are filtered into two collections, each having all the polygons a point is inside of included. The following Listing includes the code used to achieve this task.
 
 \begin{lstlisting}[caption=Filter polygons, label=lst:polyfilter, language={[Sharp]C}]
     List<PolygonData> geoFencesPointOne = _databaseManager
@@ -967,19 +967,17 @@ If a MultiLineString is simple, it has no intersection points with itself. If th
 
 To analyze a non simple MultiLineString, a list of intersection points of the MultiLineString and the outside bounds of a polygon is created. Next, the MultiLineString is split into points as well, and each point is associated with the nearest point on the bounding of the polygon. This way, an accurate approximation of the crossing points can be found.
 
-As a final step, each intersection is processed and modified with information if it enters or leaves a polygon, and when this happened, calculated by using the two coordinates with timestamp happening immediately after an event occurs. Using the distance between these points and the intersection point an approximate crossing time can also be interpolated. Entry and leave events are associated with each other and returned as a collection. If the leave and enter events are equal to the beginning and end of a trip, the trip is classified as staying inside a polygon.
+As a final step, each intersection is processed and modified with information if it enters or leaves a polygon, and when this happened, calculated by using the two coordinates with timestamp happening immediately after an event occurs. Using the distance between these points and the intersection point an approximate crossing time can also be interpolated. Entry and leave events are associated with each other and returned as a collection. If the leave and enter events are equal to the beginning and end of a trip, the trip is classified as staying inside a polygon. The process is described in the following figure in the form of an UML activity diagram.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/acdia_trips.png}
-	\caption{Processing of a trip as an UML Activity Diagram}
+	\caption{Processing of a trip}
 	\label{fig2_6}
 \end{figure}
 
 ## Polygon Creation
-To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend.
-
-To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object.
+To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in Listing 2.32.
 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
     public byte[] ConvertGeometryToBytes(Geometry geometry)
@@ -991,7 +989,7 @@ To send a NETTopologySuite geometric object to the database, it first needs to b
 \end{lstlisting} \
 
 ### Polygons
-Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a \lstinline!Polygon! with the use of a \lstinline!GeometryFactoryEX! object, provided by NETTopologySuite. 
+Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a \lstinline!Polygon! with the use of a \lstinline!GeometryFactoryEX! object, provided by NETTopologySuite. The creation of such a polygon is shown in the following listing.
 
 \begin{lstlisting}[caption=Building a Polygon which can be saved in the Database, label=lst:polyfilter, language={[Sharp]C}]
     public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
@@ -1030,7 +1028,7 @@ After performing multiple tests using various tools as described in chapter *Tes
 ### Caching in ASP.NET
 First, minimizing the number of requests made to the database could decrease the average response times for the trade-off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
 
-To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
+To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. The setting of these options as well as the persiting of data in the cache is shown in Listing 2.33. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
 
 \begin{lstlisting}[caption=Set a new cache entry, label=lst:polyfilter, language={[Sharp]C}]
     MemoryCacheEntryOptions entryOptions = new MemoryCacheEntryOptions()
