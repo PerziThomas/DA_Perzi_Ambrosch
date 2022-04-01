@@ -1,5 +1,5 @@
 # Technologies
-This chapter describes the technologies used for developing the application. This includes _ASP.NET Core_ [@aspref] for the backend, the Microsoft _SQL Server_ [@sqlref] as a database as well as _React_ [@react] for frontend webinterface. Several third party libraries are described alongside these main technologies. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen.
+This chapter describes the technologies used for developing the application. This includes _ASP.NET Core_ [@aspref] for the backend, Microsoft _SQL Server_ [@sqlref] as a database as well as _React_ [@react] for the frontend web interface. Several third party libraries are described alongside these main technologies. Certain technologies are also compared with similar alternatives to achieve the desired results and explanations are given on why one was chosen.
 
 ## Backend Technologies
 \fancyfoot[L]{Perzi}

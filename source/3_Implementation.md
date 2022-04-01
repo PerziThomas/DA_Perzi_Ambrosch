@@ -1,5 +1,5 @@
 # Implementation
-This chapter describes the concrete implementation of the software. This includes the technical implementation of frameworks as well as major third party libraries described in the chapter *Technologies*. Furthermore algorithms to calculate intersections with geofences will be explained alongside the implementation of the frontend.
+This chapter describes the concrete implementation of the software in both the backend and the frontend. This includes the technical implementation of frameworks and major third party libraries described in the chapter *Technologies*. Furthermore, algorithms to calculate intersections with geofences are explained.
 
 ## Architecture
 \fancyfoot[L]{Perzi}
