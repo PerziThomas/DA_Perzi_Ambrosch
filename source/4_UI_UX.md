@@ -40,7 +40,7 @@ The mockups also included concepts for how the layout would change on smartphone
 
 
 ### Drive log display
-Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated. A compromise solution was found that could fulfill all of the following design requirements:
+Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated. A compromise solution was found, which is shown in figure 4.1. This solution could fulfill all of the following design requirements:
 
 - display entry and exit events
 - display the time spent in each geofence
@@ -167,7 +167,7 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 - Using shadows instead of borders for cards
 - Using the color blue for accents
 
-The specific shades of blue that were used were derived from the _Drivebox_ application logo, but were altered in some places to increase readability and to make the user interface visually more appealing.
+The specific shades of blue that were used were derived from the _Drivebox_ application logo, but were altered in some places to increase readability and to make the user interface visually more appealing. Figure 4.2 shows the user interface before adaptations were made, while figure 4.3 contains all changes made to the UI.
 
 \begin{figure}[H]
 	\centering

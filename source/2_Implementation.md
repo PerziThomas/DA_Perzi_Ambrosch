@@ -205,7 +205,7 @@ To create tables with T-SQL a syntax similar to the SQL one is required. Tables 
    
    The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
 
-In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram shown displayed in figure 2.3.     Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
+In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram displayed in figure 2.3.     Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
 
 \begin{figure}[H]
 	\centering
@@ -1062,7 +1062,7 @@ _Leaflet Draw_ and _React Leaflet Draw_ are used to add drawing functions in the
 
 
 ### Geofence creation
-Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled separately and will be discussed in chapter _Circular geofences_. All other types are converted to polygons when created. The different types of geofences are shown in a class diagram below. The meaning of non-editable geofences will be described in chapter _Non-editable geofences_.
+Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled separately and will be discussed in chapter _Circular geofences_. All other types are converted to polygons when created. The different types of geofences are shown in a class diagram in figure 2.7. The meaning of non-editable geofences will be described in chapter _Non-editable geofences_.
 
 \begin{figure}[H]
 	\centering
@@ -1253,7 +1253,7 @@ A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSea
 
 
 ### Geofence labels
-A label is displayed for every geofence in the map to make it easier to associate a geofence with its corresponding polygon. Leaflet itself can display labels for polygons, however, these default labels have some problems. The precision with which the position of the label is calculated appears to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centered within or completely outside its polygon. 
+A label is displayed for every geofence in the map to make it easier to associate a geofence with its corresponding polygon. Leaflet itself can display labels for polygons, however, these default labels have some problems. The precision with which the position of the label is calculated appears to be limited by the initial zoom value set for the map, meaning that with a lower default zoom, the label is sometimes either not centered within or completely outside its polygon. An example of this is shown in figure 2.8. 
 
 \begin{figure}[H]
 	\centering
@@ -1272,7 +1272,7 @@ Since the default labels were replaced with custom markers, the position of thes
 ##### Average of points
 The label position can be calculated by taking an average of the coordinates of all points of the polygon. This is a good approximation for simple, convex shapes with evenly distributed points. However, if points are distributed unevenly, meaning there is more detail on one side than the other, the average will shift to that side, and the calculated point will not appear centered anymore.
 
-This approach can also lead to problems with concave geometry, when the calculated center is not part of the polygon, causing the label to appear outside the geometry. This is especially relevant for road geofences, but can also affect simpler geometries like a U-shape as demonstrated in the image below.
+This approach can also lead to problems with concave geometry, when the calculated center is not part of the polygon, causing the label to appear outside the geometry. This is especially relevant for road geofences, but can also affect simpler geometries like a U-shape as demonstrated in figure 2.9 below.
 
 \begin{figure}[H]
 	\centering
@@ -1294,7 +1294,7 @@ This approach solves the problem with unevenly distributed points, because the c
 ##### Pole of inaccessibility
 The node package _polylabel_ uses an algorithm to calculate a polygon's _pole of inaccessibility_, defined as "the most distant internal point from the polygon outline". (Source: [@polylabelIntro])
 
-This approach solves the problem with concave shapes, because the calculated point always lies inside the polygon, and for this reason, it was used to calculate the label positions in the app.
+This approach solves the problem with concave shapes, because the calculated point always lies inside the polygon, and for this reason, it was used to calculate the label positions in the app. Figure 2.10 shows the same concave geofence as above, but with the pole of inaccessibility used to calculate the label's position.
 
 \begin{figure}[H]
 	\centering
@@ -1353,7 +1353,7 @@ A boolean tag _Highlighted_ is stored for every geofence. Some special cases hav
 - If a hidden geofence is highlighted, it is also unhidden.
 - If a highlighted geofence is hidden, it is also set to not be highlighted.
 
-The following state chart describes the different states a geofence can have regarding hiding and highlighting, as well as the actions that lead to changes.
+The state chart diagram in figure 2.11 describes the different states a geofence can have regarding hiding and highlighting, as well as the actions that lead to changes.
 
 \begin{figure}[H]
 	\centering
@@ -1500,7 +1500,7 @@ The recorded data can be viewed in different graphical representations, includin
 
 
 #### Avoiding unnecessary rerenders
-By looking at a graph of the geofence management app recorded with the _Profiler_, it can be seen that the _LeafletMap_ component takes significantly more time to rerender than all other components and should therefore be optimized.\
+Figure 2.12 shows a graph of the geofence management app recorded with the _Profiler_. By looking at this graph, it can be seen that the _LeafletMap_ component takes significantly more time to rerender than all other components and should therefore be optimized.
 
 \begin{figure}[H]
 	\centering
@@ -1527,7 +1527,7 @@ The map component is wrapped in _React.memo_ in order to rerender only when rele
     }
 \end{lstlisting} \
 
-After making these changes, a new graph is recorded for the same actions. The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore. This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
+After making these changes, a new graph is recorded for the same actions, which can be seen in figure 2.13. The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore. This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
 
 \begin{figure}[H]
 	\centering
