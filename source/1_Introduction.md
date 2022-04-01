@@ -23,7 +23,7 @@ To summarize all functionality of the app, a use case diagram is used which show
 The use cases have been grouped into categories for visual clarity and easier understanding. These basic groups and their use cases will be described below.
 The boundary of system in all the following diagrams is considered to be the Geofencing application.
 
-The category _Geofence creation_ contains all use cases for geofence creation. Since geofences can be created in several ways, which are fundamentally different in the way they work, multiple use cases are displayed that are generalized under a parent use case "Create Geofence".
+The category _Geofence creation_ (figure 1.1) contains all use cases for geofence creation. Since geofences can be created in several ways, which are fundamentally different in the way they work, multiple use cases are displayed that are generalized under a parent use case "Create Geofence".
 
 \begin{figure}[H]
 	\centering
@@ -32,7 +32,7 @@ The category _Geofence creation_ contains all use cases for geofence creation. S
 	\label{fig1_1}
 \end{figure}
 
-The _Geofence locking_ category includes functions for viewing and toggling locks, as well as bulk operations, which make use of the toggle feature and are therefore associated.
+The _Geofence locking_ category (figure 1.2) includes functions for viewing and toggling locks, as well as bulk operations, which make use of the toggle feature and are therefore associated.
 
 \begin{figure}[H]
 	\centering
@@ -41,7 +41,7 @@ The _Geofence locking_ category includes functions for viewing and toggling lock
 	\label{fig1_2}
 \end{figure}
 
-_Geofence metadata_ can be viewed, created, deleted or used to filter the list of geofences.
+_Geofence metadata_ (figure 1.3) can be viewed, created, deleted or used to filter the list of geofences.
 
 \begin{figure}[H]
 	\centering
@@ -50,7 +50,7 @@ _Geofence metadata_ can be viewed, created, deleted or used to filter the list o
 	\label{fig1_3}
 \end{figure}
 
-Use cases for _Geofence functions_ consist of all remaining functions that are directly related to geofences, but are not covered by the previous categories. This includes view, edit and delete operations as well as the geofence edit history and visibility features.
+Use cases for _Geofence functions_ (figure 1.4) consist of all remaining functions that are directly related to geofences, but are not covered by the previous categories. This includes view, edit and delete operations as well as the geofence edit history and visibility features.
 
 \begin{figure}[H]
 	\centering
@@ -59,7 +59,7 @@ Use cases for _Geofence functions_ consist of all remaining functions that are d
 	\label{fig1_4}
 \end{figure}
 
-Two use cases are provided by the program in the form of _API services_ not connected to any frontend, a feature to get all intersections between a path and geofences, and a feature that shows geofence entry or exit events.
+Two use cases are provided by the program in the form of _API services_ (figure 1.5) not connected to any frontend, a feature to get all intersections between a path and geofences, and a feature that shows geofence entry or exit events.
 
 \begin{figure}[H]
 	\centering
@@ -68,7 +68,7 @@ Two use cases are provided by the program in the form of _API services_ not conn
 	\label{fig1_5}
 \end{figure}
 
-_Miscellaneous_ use cases are not covered by any of the categories above and include geofence color selection as well as a map search.
+_Miscellaneous_ use cases (figure 1.6) are not covered by any of the categories above and include geofence color selection as well as a map search.
 
 \begin{figure}[H]
 	\centering
