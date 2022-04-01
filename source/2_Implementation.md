@@ -402,7 +402,7 @@ _Axios_ [@axios] is a JavaScript library for making promise-based HTTP requests.
 
 
 #### Comparison with fetch
-The _Fetch API_ [@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol. Fetch and axios are very similar to use, with the main difference being different syntax and property names. Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
+The _Fetch API_ [@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol. Fetch and axios are very similar to use, with the main difference being different syntax and property names. Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features, which are listed below [@axiosVsFetch].
 
 - built-in XSRF protection
 - automatic JSON conversion of the message body
@@ -1056,7 +1056,7 @@ The frontend provides operations for viewing, creating, updating and deleting ge
 
 
 ### Interactive Map
-The central part of the frontend is an interactive map that can be used to view, create and edit geofences. Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data, can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
+The central part of the frontend is an interactive map that can be used to view, create and edit geofences. Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
 
 The map is provided by _Leaflet_. Since this library is open-source, a lot of additional libraries exist, some of which are used to extend the functionality of the app.
 
@@ -1066,7 +1066,7 @@ _Leaflet Draw_ and _React Leaflet Draw_ are used to add drawing functions in the
 
 
 ### Geofence creation
-Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled separately and will be discussed in chapter _Circular geofences_. All other types are converted to polygons when created. The different types of geofences are shown in a class diagram in figure 2.7. The meaning of non-editable geofences will be described in chapter _Non-editable geofences_.
+Geofences can be created as polygons, rectangles, circles or as road geofences by routes. Circle creation is handled separately and will be discussed in chapter _Circular geofences_. All other types are converted to polygons when created. The different types of geofences are shown in a class diagram in figure 2.7. The meaning of the term "non-editable geofences" in this diagram will be described in chapter _Non-editable geofences_.
 
 \begin{figure}[H]
 	\centering
@@ -1077,7 +1077,7 @@ Geofences can be created as polygons, rectangles, circles or as road geofences b
 
 Any created geofence is checked for self-intersections [@codeSelfIntersection] [@codeLineIntersection]. If no problems are found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
 
-If an error occurs in the backend, the creation process is aborted. Because the error did not occur in the frontend, Leaflet does not react to it, and the new geofence is added to the map. The drawn geometry therefore needs to be manually removed from the map. The code to do this is shown in listing 2.34.
+If an error occurs in the backend, the creation process is aborted. Because the error did not occur in the frontend, Leaflet does not react to it, and the new geofence is added to the map anyway. The drawn geometry therefore needs to be removed from the map manually. The code to do this is shown in listing 2.34.
 
 \begin{lstlisting}[caption=Removing geometry from map, label=lst:geofenceCreation, language={JavaScript}]
 createdLayer._map.removeLayer(createdLayer);
@@ -1087,13 +1087,13 @@ If the backend returns a success, the geofence is added directly into the collec
 
 
 ### Generation of geofences from presets
-Geofences can be created from a list of presets, which allows the user to use more complex geofences that are created and offered by the provider of Drivebox, like countries or states, without significant drawing effort.
+Geofences can be created from a list of presets, which allows the user to use more complex geofences like countries or states without significant drawing effort, since they can be created and offered by the provider of Drivebox.
 
 The available presets with their geometry are stored in the backend. To generate a geofence from a preset, a POST request is sent to the endpoint _/geoFences/createPreset?preset=${id}_ of the backend. This creates a new geofence with a copy of the preset's geometry. The geometry is also sent back to the frontend in the response, where the new geofence can be added directly in the React state.
 
 
 ### Circular geofences
-Circles, when created with _leaflet-draw_, have a center point defined by a latitude, a longitude and a radius. This information is sent to the backend, where the circle is converted into a polygon, which can be saved to the database. The coordinates of this polygon are returned to the frontend, where they are used to add the circle directly in the React state.
+Circles, when created with _leaflet-draw_, have a center point defined by a latitude and a longitude, as well as a radius. This information is sent to the backend, where the circle is converted into a polygon, which can be saved to the database. The coordinates of this polygon are returned to the frontend, where they are used to add the circle directly in the React state.
 
 
 ### Road geofences
@@ -1101,7 +1101,7 @@ Geofences can be created by setting waypoints, calculating a route and giving it
 
 The routing function is provided by the node package _leaflet-routing-machine_. This package includes functions for calculating a route between multiple waypoints on a map using real world road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
 
-In the app, every time the selected route changes, it is stored in a React state variable. When the button to create a new road geofence based on the current route is clicked, a dialog is shown, where a name can be given to the geofence. Also, the width of the road can be selected. The route stored in state and the given name are sent to the backend endpoint _/geoFences/road?roadType=?_. RoadType refers to the width of the road to be created, by tracing a circle of a certain radius along the path. The accepted values for roadType are:
+In the app, every time the selected route changes, it is stored in a React state variable. When the button to create a new road geofence based on the currently selected route is clicked, a dialog is shown, where a name can be given to the geofence. Also, the width of the road can be selected. The route stored in state and the given name are sent to the backend endpoint _/geoFences/road?roadType=?_. The parameter _roadType_ refers to the width of the road to be created, by tracing a circle of a certain radius along the path. The accepted values for roadType and their corresponding radii are:
 
 - roadType=1: 3 meters
 - roadType=2: 7 meters
@@ -1113,17 +1113,17 @@ The geofence is created in the backend, and the geometry of the new polygon is r
 ### Geofence editing
 The geometry of geofences that are drawn or loaded from the backend can be changed by the user. The basic editing itself is provided by _leaflet-draw_. The map can be put into an edit mode, where individual points of polygons can be moved by the user. After this, the editing action can be confirmed or cancelled.
 
-Since multiple polygons can be edited at once, all actions need to be performed iteratively for an array of edited layers. Each geofence is converted to a JSON object and sent in a PATCH request to the endpoint _/geoFences/{id}_.
+Since multiple polygons can be edited at once, all further actions need to be performed iteratively for an array of edited layers. Each geofence is converted to a JSON object and sent in a PATCH request to the endpoint _/geoFences/{id}_.
 
 In case of a backend error, the window is reloaded to restore the correct state of all geofences before editing, since the Leaflet map has already saved the changes to the polygons. A more complex solution, like saving a copy of the geofences' geometries before changes are made and then overwriting the map's geometry with this copy in case of an error, would remove the need for a complete reload, but was considered too complex to implement.
 
 
 #### Single edit functionality
-It was considered to implement the edit feature in a way that individual geofences could be set to edit mode, instead of having a global edit mode that can be toggled for all geofences at once. This would likely have performance benefits, since it was observed in manual testing that response times of the interface increased together with the number and complexity of loaded geofences, particularly when edit mode was enabled. 
+It was considered to implement the edit feature in a way that individual geofences could be set to edit mode, instead of having a global edit mode that can be toggled for all geofences at once. This would likely have performance benefits, as it was observed in manual testing that response times of the interface increased with the number and complexity of loaded geofences, particularly when edit mode was enabled. 
 
 The functionality would be achieved by storing an \lstinline!editable! flag for that geofence, and then only rendering geofences that have this flag inside the \lstinline!FeatureGroup!.
 
-This feature did not work as intended, as the Leaflet map did not re-render correctly. Also, the performance benefit became less of a priority after pagination was implemented.
+This feature did not work as intended, as the Leaflet map did not re-render the geofences correctly. Also, the performance benefit from this became less of a priority after pagination was implemented.
 
 
 #### Making loaded geofences editable
@@ -1185,7 +1185,7 @@ The \lstinline!LeafletMap! component contains a \lstinline!FeatureGroup!, which 
 #### Non-editable geofences
 Circular geofences and road geofences cannot be edited. Since all geofences are stored as polygons in the backend, circles are converted to an equilateral polygon with over 100 vertices. Moving individual points to change the circle's center or radius would be infeasible for the user. The same applies to road geofences, which, once stored as polygons, cannot be converted back to a route that can easily be changed.
 
-To achieve this, all geofences are given a boolean property \lstinline!isNotEditable!, which is set to true in the backend for geofences created via the circle or road endpoints. This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-FeatureGroup in the map. Listing 2.37 shows a simplified version of the map component, with individual rendering for editable and non-editable geofences.
+To be able to make certain geofences not editable, all geofences are given a boolean property \lstinline!isNotEditable!, which is set to true in the backend for geofences created via the circle or road endpoints. This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-FeatureGroup in the map. Listing 2.37 shows a simplified version of the map component, with individual rendering for editable and non-editable geofences.
 
 \begin{lstlisting}[caption=Rendering non-editable geofences, label=lst:geofenceEditing, language={JavaScript}]
     <MapContainer /* shortened */ >
@@ -1412,7 +1412,7 @@ The task of determining what geofences should be returned in which page is handl
 
 
 ### Geofence display color
-The user can select from a variety of display colors for the geofences on the map, for better contrast and visibility or for personal preference. This is a global setting, meaning that the color can be changed for all geofences at once. It is not possible to set different colors for individual geofences.
+The user can select from a variety of display colors for the geofences on the map, for better contrast and visibility or because of personal preference. This is a global setting, meaning that the color can be changed for all geofences at once. It is not possible to set different colors for individual geofences.
 
 The currently selected color is stored in a React state variable and used when drawing the polygons on the map. Highlighted geofences are always colored green, overriding the global geofence display color.
 
@@ -1479,17 +1479,17 @@ This could be used as an alternative way to store the days on which a geofence i
 
 ## Performance optimization on the frontend
 \fancyfoot[L]{Ambrosch}
-This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as the changes made to the application to fix those issues. Optimizing performance of the frontend can have several positive effects, including, but not limited to:
+Optimizing frontend performance can have several positive effects, including, but not limited to:
 
 - minimizing lag and making the UI more responsive.
 - minimizing loading times and load on the network by reducing the number of backend calls.
 - allowing the app to run on less powerful devices.
 
-Hereafter, some particular solutions that are used in the geofence web-interface are described in greater detail.
+Hereafter, some particular considerations that were taken in the geofence web-interface are described in greater detail. This includes the methods used to record performance data and find potential issues as well as the changes made to fix those issues.
 
 
-### Reduction of component rerenders
-One of the biggest factors affecting performance of the React app is the number of component rerenders, especially ones which happen after changes to parameters of a component that have no effect on the state of that component. Reducing the number of these unnecessary rerenders is important to improve frontend performance and therefore usability.
+### Reduction of component re-renders
+During testing, it was found that one of the biggest factors affecting performance of the React app is the number of component re-renders, especially unnecessary re-renders which happen after changes to parameters of a component that have no actual effect on that component. Reducing the number of these re-renders is important to improve frontend performance and therefore usability.
 
 
 #### Measuring component render times
@@ -1503,11 +1503,11 @@ The _Profiler_ uses React's Profiler API to measure timing data for each compone
 - During the recording, the actions for which performance needs to be analyzed are performed in the React app.
 - Once all actions are completed, the recording can be stopped again.
 
-The recorded data can be viewed in different graphical representations, including the render durations of each individual element. When testing performance for this app, mostly the _Ranked Chart_ was used, because it orders all components by the time taken to rerender, which gives the developer a quick overview of where improvements need to be made.
+The recorded data can be viewed in different graphical representations, including the render durations of each individual element. When testing performance for this app, mostly the _Ranked Chart_ was used, because it orders all components by the time taken to re-render, which gives the developer a quick overview of where improvements need to be made.
 
 
-#### Avoiding unnecessary rerenders
-Figure 2.12 shows a graph of the geofence management app recorded with the _Profiler_. By looking at this graph, it can be seen that the _LeafletMap_ component takes significantly more time to rerender than all other components and should therefore be optimized.
+#### Avoiding unnecessary re-renders
+Figure 2.12 shows a graph of the geofence management app recorded with the _Profiler_. By looking at this graph, it can be seen that the _LeafletMap_ component takes significantly more time to re-render than all other components and should therefore be optimized.
 
 \begin{figure}[H]
 	\centering
@@ -1516,7 +1516,7 @@ Figure 2.12 shows a graph of the geofence management app recorded with the _Prof
 	\label{fig2_12}
 \end{figure}
 
-The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings. With a custom check function \lstinline!isEqual!, which can be seen in listing 2.44, the _React.memo_ function can be set to rerender only when one of these props changes.
+The map component is wrapped in _React.memo_ in order to re-render only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings. With a custom check function \lstinline!isEqual!, which can be seen in listing 2.44, the _React.memo_ function can be set to re-render only when one of these props changes.
 
 \begin{lstlisting}[caption=Using React.memo with custom equality check, label=lst:reactMemo, language={JavaScript}]
     export default withLocalize(React.memo(LeafletMap, isEqual));
@@ -1543,7 +1543,7 @@ After making these changes, a new graph is recorded for the same actions, which 
 	\label{fig2_13}
 \end{figure}
 
-Similar changes are also applied to other components that cause lag or rerender unnecessarily.
+Similar changes are also applied to other components that were found to cause lag or re-render unnecessarily.
 
 
 ### Reduction of loaded geofences
@@ -1564,13 +1564,13 @@ Performance of the frontend interface is improved by minimizing the number of re
 
 #### Polling geofence locks
 In the initial implementation of the bulk operations for locking (chapters _Locking_ and  _Bulk operations_), when an action was performed, the weekday/locking buttons for each affected geofence did not update as expected.\
-The reason was that the locks for each geofence were stored in the React state of that geofence's _GeoFenceListItem_ component and were fetched for that geofence alone only once on initial loading of that component. This means that, when a bulk operation is performed in the parent _GeoFenceList_ component, no rerender is triggered and the locks are not updated in the _GeoFenceListItem_, since non of its props have changed.
+The reason was that the locks for each geofence were stored in the React state of that geofence's _GeoFenceListItem_ component and were fetched for that geofence alone only once on initial loading of that component. This means that, when a bulk operation is performed in the parent _GeoFenceList_ component, no re-render is triggered and the locks are not updated in the _GeoFenceListItem_, since non of its props have changed.
 
 To solve this problem, a polling mechanism was implemented, where the _GeoFenceListItems_ repeatedly call the backend after a fixed interval of time. Any updates that happen in the backend are now displayed in the frontend, albeit with a slight delay depending on the interval set for polling.\
 Performance is notably affected by this approach, due to the high number of network calls, even when no locking data has changed.
 
 
 #### Lifting state up
-While there are workarounds to force a child component to rerender from its parent [@reactForceChildRerender], in this case, it is more elegant to _lift the state_ of the geofence locks from the _GeoFenceListItems_ to a parent component like _GeoFenceList_ or _Home_.\
-Now, when the state changes in the parent component, for example through _geofence bulk locking operations_, all child components are automatically updated by React and the changes to geofence locks can be seen immediately [@reactLiftingStateUp].
+While there are workarounds to force a child component to re-render from its parent [@reactForceChildRerender], in this case, it is more elegant to _lift the state_ of the geofence locks from the _GeoFenceListItems_ to a parent component like _GeoFenceList_ or _Home_.\
+Now, when the state changes in the parent component, for example through geofence bulk locking operations, all child components are automatically updated by React and the changes to geofence locks can be seen immediately [@reactLiftingStateUp].
 

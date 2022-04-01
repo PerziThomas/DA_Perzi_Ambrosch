@@ -1,5 +1,7 @@
 # User Interface and User Experience
 \fancyfoot[L]{Ambrosch}
+This describes the various considerations that were taken to evaluate requirements and improve usability and user experience of the frontend.
+
 The goal for the frontend of the application was to develop a web-interface for managing geofences. Since this interface would be used by administrators in the companies that use the Drivebox, it should be easily usable and meet professional standards as far as UI and UX design go. Moreover, the frontend should be designed in such a way that it can be integrated seamlessly into the existing Drivebox application.
 
 
@@ -60,7 +62,7 @@ Even though the feature to display drive logs was not needed, the mockup was kep
 
 
 ### Bulk selection and locking
-Since it would be common for users to want to change locks for several geofences at once, for example locking a group of geofences on the weekend, it was necessary to implement the option to select geofences and perform bulk operations. For this, four different options were evaluated in the mockup. These options, as well as their advantages and disadvantages, will be described below:
+Since it would be common for users to want to change locks for several geofences at once, for example locking a group of geofences on the weekend, it was necessary to implement the option to select geofences and perform bulk operations. For this, four different options were evaluated in the mockup. These options, as well as their advantages and disadvantages, will be described below.
 
 1. A select-all checkbox for each day of the week, allowing the user to lock or unlock all geofences for that day
 
@@ -68,15 +70,15 @@ Since it would be common for users to want to change locks for several geofences
   - actions can only be performed for all geofences, since there is no selection model
 2. Checkboxes to select geofences, and dropdown buttons for each weekday to lock, unlock or toggle all selected geofences' locks on that day
 
-  - more options and flexibility
+  - more options and flexibility regarding bulk operations
   - more buttons / cluttered interface
 3. Checkboxes to select geofences and a button bar with dropdown buttons to lock, unlock or toggle certain weekdays
 
-  - more options and flexibility
+  - more options and flexibility regarding bulk operations
   - cleaner interface
 4. A fourth solution was conceptualized that would enable the user to set geofence locks not just on weekdays, but as customizable time slots
 
-  - even more flexibility
+  - more flexibility regarding geofence lock times
   - hard to implement bulk operations
 
 Option 3 was chosen for the app because of the added flexibility of the selection model, and because a button bar was needed for other features anyway. Customizable timeslots, like in option four, were not implemented in the app, but the mockup was kept in case they would be added later.
@@ -148,9 +150,9 @@ Like with deletion, there are also different words that can be used to describe 
 
 
 ### Search bar design
-The _Salesforce Style Guide_ [@salesforcestyleguideref] suggests using ellipses at the end of text prompts, unless the text ends with a question mark [@SalesforceEllipses]. Accordingly, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
+The _Salesforce Style Guide_ [@salesforcestyleguideref] suggests using ellipses at the end of text prompts, unless the text ends with a question mark [@SalesforceEllipses]. Accordingly, ellipses are used in the search bar for geofence metadata (_"Search ..."_) as well as the map location search bar (_"Search a place ..."_).
 
-The geofence metadata search bar is not visible by default, but can be toggled on with a button. It then takes the place of the pagination functions. This  is done to clear up the interface, since search and pagination can functionally not be used at the same time.
+The geofence metadata search bar is not visible by default, but can be toggled on with a button. It then takes the place of the pagination functions. This is done to clear up the interface, and because search and pagination are implemented in a way where they can functionally not be used at the same time.
 
 When the search bar is shown, it includes a "Search"-button, which is connected to the search prompt input field, and a "Clear"-button, which is only shown once at least one character has been entered. The "Clear"-button only clears the text in the input field, but does not reset the actual search. This is only done once the search bar is toggled off, to reduce the chance of accidental resets and unnecessary backend calls.
 
@@ -162,7 +164,7 @@ The language is selected by the user in the Drivebox-App and is then handed to t
 
 
 ## Integration into DriveBox
-Since the Geofencing app was developed to be integrated into the DriveBox application by the company, the look and feel of the User Interface had to be adapted. This mainly meant three things:
+Since the Geofencing app was developed to be integrated into the DriveBox application by the company, the look and feel of the User Interface had to be adapted. This meant three things in particular:
 
 - Using a light theme instead of a dark theme
 - Using shadows instead of borders for cards
