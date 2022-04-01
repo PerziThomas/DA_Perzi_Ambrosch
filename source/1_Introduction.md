@@ -59,7 +59,7 @@ Use cases for _Geofence functions_ (figure 1.4) consist of all remaining functio
 	\label{fig1_4}
 \end{figure}
 
-Two use cases are provided by the program in the form of _API services_ (figure 1.5) not connected to any frontend, a feature to get all intersections between a path and geofences, and a feature that shows geofence entry or exit events.
+Two use cases are provided by the application in the form of _API services_ (figure 1.5) not connected to any frontend, a feature to get all intersections between a path and geofences, and a feature that shows geofence entry or exit events.
 
 \begin{figure}[H]
 	\centering
