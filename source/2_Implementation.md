@@ -980,7 +980,7 @@ As a final step, each intersection is processed and modified with information on
 \end{figure}
 
 ## Polygon Creation
-To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 2.32.
+To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways of processing the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 2.32.
 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
     public byte[] ConvertGeometryToBytes(Geometry geometry)
@@ -1020,7 +1020,7 @@ Normal polygons are polygons which are neither a circle nor a road. These are cr
 \end{lstlisting} \
 
 ### Circles
-To create a circle, only two parameters are required. The center point of the circle, as well as a radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the \lstinline!Point.STBuffer(radius)! call, which builds a circle from a given point.
+To create a circle, only two parameters are required: the center point of the circle and the radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the \lstinline!Point.STBuffer(radius)! call, which builds a circle from a given point.
 
 ### Roads
 To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the \lstinline!STBuffer(width)! method. The resulting object has a \lstinline!.Reduce(1)! method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
