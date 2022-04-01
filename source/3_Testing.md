@@ -32,16 +32,15 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
 *Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing.
 
 \begin{lstlisting}[caption=Example of a Fact, label=lst:test, language={[Sharp]C}]
-        // A sample Fact Test which ensures a successful connection & authorization to the backend server.
-        [Fact]
-        public async Task SampleTestAsync()
-        {
-            HttpClient client = _factory.CreateClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("sampleJWT");
-            HttpResponseMessage response = await client.GetAsync("api/geoFences");
-
-            response.EnsureSuccessStatusCode();
-        }
+    // A sample Fact Test which ensures a successful connection & authorization to the backend server.
+    [Fact]
+    public async Task SampleTestAsync()
+    {
+        HttpClient client = _factory.CreateClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("sampleJWT");
+        HttpResponseMessage response = await client.GetAsync("api/geoFences")
+        response.EnsureSuccessStatusCode();
+    }
 \end{lstlisting} \
 
 *Theories* on the other hand, are tests which use parameters. This is used for test cases in which 
@@ -50,21 +49,21 @@ multiple tests for it. Theories are also suitable when testing frontend function
 such as Firefox and Google Chrome. [@xUnitIntro] \
 
 \begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers., label=lst:theory]
-        //A connectivity test to check if both Selenium Browser drivers are working.
-        [Theory]
-        [InlineData("chrome")]
-        [InlineData("firefox")]
-        public void ConnectivityTest(string driverName)
-        {
-            //Receive a Browser Driver using a helper function.
-            IWebDriver driver = GetDriverByString(driverName); 
-            const string url = "https://www.google.at/";
-            driver.Url = url;
-            string newUrl = driver.Url;
-            driver.Quit();
-            // Check if Browser navigated to provided URL.
-            Assert.Equal(url, newUrl);
-        }
+    //A connectivity test to check if both Selenium Browser drivers are working.
+    [Theory]
+    [InlineData("chrome")]
+    [InlineData("firefox")]
+    public void ConnectivityTest(string driverName)
+    {
+        //Receive a Browser Driver using a helper function.
+        IWebDriver driver = GetDriverByString(driverName); 
+        const string url = "https://www.google.at/";
+        driver.Url = url;
+        string newUrl = driver.Url;
+        driver.Quit();
+        // Check if Browser navigated to provided URL.
+        Assert.Equal(url, newUrl);
+    }
 \end{lstlisting} \
 
 \newpage
@@ -75,27 +74,25 @@ developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline
 \lstinline!HttpClient! provided by this package one is able to test their RESTful applications. \
 
 \begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest]
-        //A Factory to build instances of the application to test.
-        private readonly WebApplicationFactory<DriveboxGeofencingBackend.Startup> _factory;
+    //A Factory to build instances of the application to test.
+    private readonly WebApplicationFactory<DriveboxGeofencingBackend.Startup> _factory;
+    //Using Dependency Injection at the creation of the Test file to create the
+    //WebApplicationFactory instance which in turn will create HttpClients later.
+    public TripTestFixture(WebApplicationFactory<DriveboxGeofencingBackend.Startup> factory)
+    {
+        _factory = factory;
+    }
 
-        //Using Dependency Injection at the creation of the Test file to create the
-        //WebApplicationFactory instance which in turn will create HttpClients later.
-        public TripTestFixture(WebApplicationFactory<DriveboxGeofencingBackend.Startup> factory)
-        {
-            _factory = factory;
-        }
-
-        [Fact]
-        public async Task SampleTestAsync()
-        {
-            //Create a HttpClient from the factory, automatically configured for
-            //the application which is being tested.
-            HttpClient client = _factory.CreateClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("sampleJWT");
-            HttpResponseMessage response = await client.GetAsync("api/geoFences");
-
-            response.EnsureSuccessStatusCode();
-        }
+    [Fact]
+    public async Task SampleTestAsync()
+    {
+        //Create a HttpClient from the factory, automatically configured for
+        //the application which is being tested.
+        HttpClient client = _factory.CreateClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("sampleJWT");
+        HttpResponseMessage response = await client.GetAsync("api/geoFences");
+        response.EnsureSuccessStatusCode();
+    }
 \end{lstlisting} \
 
 ### Frontend Functionality
@@ -113,24 +110,24 @@ Creating tests using Selenium is comparable to writing code in a sequential way,
 instructed to execute a sequence of statement, similar to how a real user would do it.
 
 \begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers., label=lst:selenium]
-        [Theory]
-        [InlineData("chrome")]
-        [InlineData("firefox")]
-        public void OpenSideBarTest(string driverName)
-        {
-            IWebDriver driver = GetDriverByString(driverName);
-            driver.Url = URL;
-            // Check if navigation worked
-            Assert.Equal(URL, driver.Url);
-            // Set a timeout to wait for new elements to appear, simulating a real user wait time
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.FindElement(By.Id("leaflet-map"));
-            Thread.Sleep(1000);
-            // Check if close button of the sidebar is visible to Selenium.
-            bool displayed = driver.FindElement(By.Id("btn_closeDock")).Displayed;
-            driver.Quit();
-            Assert.True(displayed);  
-        }
+    [Theory]
+    [InlineData("chrome")]
+    [InlineData("firefox")]
+    public void OpenSideBarTest(string driverName)
+    {
+        IWebDriver driver = GetDriverByString(driverName);
+        driver.Url = URL;
+        // Check if navigation worked
+        Assert.Equal(URL, driver.Url);
+        // Set a timeout to wait for new elements to appear, simulating a real user wait time
+        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+        driver.FindElement(By.Id("leaflet-map"));
+        Thread.Sleep(1000);
+        // Check if close button of the sidebar is visible to Selenium.
+        bool displayed = driver.FindElement(By.Id("btn_closeDock")).Displayed;
+        driver.Quit();
+        Assert.True(displayed);  
+    }
 \end{lstlisting} \
 
 Firefox and Google Chrome were chosen as the browsers for testing due to those two making up a large share of the
@@ -153,10 +150,10 @@ application making use of dependency injection, which allows for easy mocking. [
 
 
 \begin{lstlisting}[caption=Mocking the database access, label=lst:test, language={[Sharp]C}]
-        var databaseMock = new Mock<IDatabaseManager>();
-        //Setup the object to return a specific object on a specific call.
-        databaseMock.Setup(db => db.GetWeekdaysByGeoFence(47))
-        .Returns(new List<int> { 0, 3, 4 });
+    var databaseMock = new Mock<IDatabaseManager>();
+    //Setup the object to return a specific object on a specific call.
+    databaseMock.Setup(db => db.GetWeekdaysByGeoFence(47))
+    .Returns(new List<int> { 0, 3, 4 });
 \end{lstlisting} \
 
 Testing was done using the same classes as the main application used, to put the focus

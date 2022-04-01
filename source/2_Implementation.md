@@ -38,8 +38,8 @@ ASP.NET Core is a framework for building web apps and services, IoT apps as well
 When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, \lstinline!Program.cs! and \lstinline!Startup.cs!. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default \lstinline!WebHostBuilder!.
 
 \begin{lstlisting}[caption={The backends Programm.cs file}, label=lst:programmcs, language={[Sharp]C}]
-      public class Program
-      {
+    public class Program
+    {
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -57,14 +57,14 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
                         logging.AddDebug();
                     });
                 });
-      }
+    }
 \end{lstlisting} \
 
 To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs.
 
 \begin{lstlisting}[caption={[The Startup.cs file of the backend]The Startup.cs file of the backend, shortened for readability}, label=lst:startupcs, language={[Sharp]C}]
-      public class Startup
-      {
+    public class Startup
+    {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -117,8 +117,7 @@ To setup the REST endpoints of the webservice the Startup.cs file needs to be mo
                 endpoints.MapControllers();
             });
         }
-      }
-      shortened for readability.
+    }
 \end{lstlisting} \
 
 #### Services
@@ -137,11 +136,11 @@ When registering a service there are three different options to choose from. The
 To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core.
 
 \begin{lstlisting}[caption=The TimePointController requesting two services., label=lst:servicereq, language={[Sharp]C}]
-         public TimePointController(ICollisionDetector collisionDetector, IPointAnalyzer pointAnalyzer)
-         {
-            this.collisionDetectorService = collisionDetector;
-            this.pointAnalyzer = pointAnalyzer;
-         }
+    public TimePointController(ICollisionDetector collisionDetector, IPointAnalyzer pointAnalyzer)
+    {
+        this.collisionDetectorService = collisionDetector;
+        this.pointAnalyzer = pointAnalyzer;
+    }
 \end{lstlisting} \
 
 #### Middleware
@@ -157,14 +156,14 @@ To handle requests in a common way regardless of routes the concept of middlewar
 To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the *IApplicationBuilder* interface must be extended with a method registering the middleware. This methods is then called in the startup file.
 
 \begin{lstlisting}[caption=Extending the IApplicationBuilder interface., label=lst:middlewareext, language={[Sharp]C}]
-      // Extension method used to add the middleware to the HTTP request pipeline.
-      public static class AuthHeaderMiddlewareExtensions
-      {
+    // Extension method used to add the middleware to the HTTP request pipeline.
+    public static class AuthHeaderMiddlewareExtensions
+    {
         public static IApplicationBuilder UseAuthHeaderMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<AuthHeaderMiddleware>();
         }
-      }
+    }
 \end{lstlisting} \
 
 #### Controller
@@ -180,7 +179,7 @@ Controllers provide the ability to plainly return objects as a JSON representati
 SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
 
 #### Transact-SQL
-T-SQL is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the *TOP* keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. [@tsql]
+T-SQL is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the *TOP* keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. An example of this is shown in Listing 2.5. [@tsql]
 
 \begin{lstlisting}[caption=Example of using the TOP keyword., label=lst:topkeyword, language={SQL}]
     SELECT TOP 12 Id, Name, Description 
@@ -280,37 +279,37 @@ cmd.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int));
 There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. 
 
 \begin{lstlisting}[caption=Executing a command with and without query, label=lst:adoQuery, language={[Sharp]C}]
-            // Reading every selected row to get geofences       
-            using (SqlDataReader rdr = cmd.ExecuteReader())
+    // Reading every selected row to get geofences       
+    using (SqlDataReader rdr = cmd.ExecuteReader())
+    {
+        while (rdr.Read())
+        {
+            geos.Add(new GeoFence()
             {
-                while (rdr.Read())
-                {
-                    geos.Add(new GeoFence()
-                    {
-                        Id = rdr.GetInt32(0),
-                        Title = rdr.GetString(1),
-                        GeoObj = (Polygon)serverBytesReader.Read(rdr.GetSqlBytes(2).Value)
-                    });
-                }
-            }
+                Id = rdr.GetInt32(0),
+                Title = rdr.GetString(1),
+                GeoObj = (Polygon)serverBytesReader.Read(rdr.GetSqlBytes(2).Value)
+            });
+        }
+    }
 
-            // Executing a command that selects nothing
-            cmd.ExecuteNonQuery();
+    // Executing a command that selects nothing
+    cmd.ExecuteNonQuery();
 
-            //Closing the connection
-            connection.Close();
+    //Closing the connection
+    connection.Close();
 \end{lstlisting} \
 
 To execute stored procedures from the webapp a command needs to be created with the name of the procedure as it's construction parameter. Next the commands *CommandType* needs to be set as *CommandType.StoredProcedure* to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected.
 
 \begin{lstlisting}[caption=Creating a command of a procedure and setting the variables, label=lst:adoProcedure, language={[Sharp]C}]       
-            SqlCommand cmd = new SqlCommand("createCircle", connection);
+    SqlCommand cmd = new SqlCommand("createCircle", connection);
 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@lat", p.Lat.Value));
-            cmd.Parameters.Add(new SqlParameter("@long", p.Long.Value));
-            cmd.Parameters.Add(new SqlParameter("@radius", p.Radius.Value));
-            cmd.Parameters.Add(new SqlParameter("@title", p.Title));
+    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+    cmd.Parameters.Add(new SqlParameter("@lat", p.Lat.Value));
+    cmd.Parameters.Add(new SqlParameter("@long", p.Long.Value));
+    cmd.Parameters.Add(new SqlParameter("@radius", p.Radius.Value));
+    cmd.Parameters.Add(new SqlParameter("@title", p.Title));
 \end{lstlisting} \
 
 #### Comparison with Entity Framework
@@ -328,43 +327,43 @@ As NTS provides the same functionality when processing geographical data as does
 To work with NTS a simple installation from the NuGet package manager has to be made. After the installation NTS functionality is accessible from the entire project. To convert a geographical object from SQL Server to one readable by NTS, a new instance of the *SqlServerBytesReader* class needs to be created. To specify the data to be of the geography datatype the parameter *IsGeography* needs to be set to true.
 
 \begin{lstlisting}[caption=Reading geographical objects from the database., label=lst:sqlbytesreader, language={[Sharp]C}]       
-            SqlServerBytesReader bytesReader = new SqlServerBytesReader() { IsGeography = true };
-            cmd.Parameters.Add(new SqlParameter("@guid", userId))
+    SqlServerBytesReader bytesReader = new SqlServerBytesReader() { IsGeography = true };
+    cmd.Parameters.Add(new SqlParameter("@guid", userId))
 
-            using (SqlDataReader rdr = cmd.ExecuteReader())
+    using (SqlDataReader rdr = cmd.ExecuteReader())
+    {
+        while (rdr.Read())
+        {
+            PolygonData p = new PolygonData()
             {
-                while (rdr.Read())
-                {
-                    PolygonData p = new PolygonData()
-                    {
-                        Title = rdr.GetString(0),
-                        Polygon = (Polygon)bytesReader.Read(rdr.GetSqlBytes(1).Value),
-                        ID = rdr.GetInt32(2),
-                        SystemGeoFence = rdr.GetByte(3) == 1,
-                        IsNotEditable = rdr.GetByte(4) == 1
-                    };
-                    polygons.Add(p);
-                }
-            }
+                Title = rdr.GetString(0),
+                Polygon = (Polygon)bytesReader.Read(rdr.GetSqlBytes(1).Value),
+                ID = rdr.GetInt32(2),
+                SystemGeoFence = rdr.GetByte(3) == 1,
+                IsNotEditable = rdr.GetByte(4) == 1
+            };
+            polygons.Add(p);
+        }
+    }
 \end{lstlisting} \
 
 To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the *GeoJsonSerializer* class to create a JSON.NET serializer that works with GeoJSON. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
 
 \begin{lstlisting}[caption=Get all geofences and convert them to GeoJSON., label=lst:geojsonget, language={[Sharp]C}]       
-            List<PolygonDataWithHistory> polygonDataWithHistories = databaseManager.GetGeoFenceHistories(polys);
-            List<string> geoJsons = new List<string>();
-            JsonSerializer jsonWriter = GeoJsonSerializer.Create();
-            using (StringWriter stringWriter = new StringWriter())
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                foreach (PolygonDataWithHistory p in polygonDataWithHistories)
-                {
-                    jsonWriter.Serialize(jsonTextWriter, p);
-                    geoJsons.Add(stringWriter.ToString());
+    List<PolygonDataWithHistory> polygonDataWithHistories = databaseManager.GetGeoFenceHistories(polys);
+    List<string> geoJsons = new List<string>();
+    JsonSerializer jsonWriter = GeoJsonSerializer.Create();
+    using (StringWriter stringWriter = new StringWriter())
+    using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+    {
+        foreach (PolygonDataWithHistory p in polygonDataWithHistories)
+        {
+            jsonWriter.Serialize(jsonTextWriter, p);
+            geoJsons.Add(stringWriter.ToString());
 
-                    stringWriter.GetStringBuilder().Clear();
-                }
-            }
+            stringWriter.GetStringBuilder().Clear();
+        }
+    }
 \end{lstlisting} \
 
 Creation of polygons and the calculation of intersections are described in the according chapters.
@@ -401,42 +400,42 @@ The _Fetch API_[@fetchAPI] provides the _fetch()_ method to make promise-based A
 An example GET request, including an Authorization header and handling of the request promise, is written with _fetch_ as demonstrated below.
 
 \begin{lstlisting}[caption=Example GET request with fetch, label=lst:fetchExample, language={JavaScript}] 
-const headersObj = new Headers({
-	'Authorization': 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
-});
+    const headersObj = new Headers({
+        'Authorization': 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
+    });
 
-const request = new Request('https://locahost:44301/api', {
-	method: 'get',
-	headers: headersObj
-})
+    const request = new Request('https://locahost:44301/api', {
+        method: 'get',
+        headers: headersObj
+    })
 
-await axios(request)
-.then((res) => res.json()) // convert response stream
-.then(data => {
-	// work with response data
-}).catch(err => {
-	// error handling
-})
+    await axios(request)
+    .then((res) => res.json()) // convert response stream
+    .then(data => {
+        // work with response data
+    }).catch(err => {
+        // error handling
+    })
 \end{lstlisting} \
 
 The same request with _axios_ can be rewritten as follows:
 
 \begin{lstlisting}[caption=Example GET request with axios, label=lst:axiosExample, language={JavaScript}]
-const reqObj = {
-	method: 'get',
-	url: 'https://localhost:44301/api',
-	headers: {
-		Authorization: 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
-	}
-}
+    const reqObj = {
+        method: 'get',
+        url: 'https://localhost:44301/api',
+        headers: {
+            Authorization: 'OTE2MTcyNDgtRDFDMy00QzcwLTg0OTYtMEY5QUYwMUI2NDlE'
+        }
+    }
 
-await axios(reqObj)
-.then(res => {
-	let resObj = res.data; // access the response object
-	// work with response data
-}).catch(err => {
-	// error handling
-})
+    await axios(reqObj)
+    .then(res => {
+        let resObj = res.data; // access the response object
+        // work with response data
+    }).catch(err => {
+        // error handling
+    })
 \end{lstlisting} \
 
 
@@ -462,88 +461,88 @@ In both cases, translation data can be nested for easier naming and grouping of 
 An example of a resource file in _all languages_ format could be called _translations.json_ and would look as follows:
 
 \begin{lstlisting}[caption=Resource file in all-languages format, label=lst:localizeReduxResource, language={JavaScript}]
-{
-	"units": {
-		"length": {
-			"meter": {
-				"singular": [
-					"meter",    (en)
-					"Meter",    (de)
-				],
-				"plural": [
-					"meters",   (en)
-					"Meter",    (de)
-				],
-				"symbol": [
-					"m",        (en)
-					"m",        (de)
-				],
-			}
-		},
-		"time": {
-			"second": {
-				"singular": [
-					"second",   (en)
-					"Sekunde",  (de)
-				],
-				"plural": [
-					"seconds",  (en)
-					"Sekunden", (de)
-				],
-				"symbol": [
-					"s",        (en)
-					"s",        (de)
-				],
-			}
-		}
-	}
-}
+    {
+        "units": {
+            "length": {
+                "meter": {
+                    "singular": [
+                        "meter",    (en)
+                        "Meter",    (de)
+                    ],
+                    "plural": [
+                        "meters",   (en)
+                        "Meter",    (de)
+                    ],
+                    "symbol": [
+                        "m",        (en)
+                        "m",        (de)
+                    ],
+                }
+            },
+            "time": {
+                "second": {
+                    "singular": [
+                        "second",   (en)
+                        "Sekunde",  (de)
+                    ],
+                    "plural": [
+                        "seconds",  (en)
+                        "Sekunden", (de)
+                    ],
+                    "symbol": [
+                        "s",        (en)
+                        "s",        (de)
+                    ],
+                }
+            }
+        }
+    }
 \end{lstlisting} \
 
 With _single language format_, this would instead be split in two files, _en.translations.json_:
 
 \begin{lstlisting}[caption=English resource file in single-language format, label=lst:localizeReduxResource, language={JavaScript}]
-{
-	"units": {
-		"length": {
-			"meter": {
-				"singular": "meter",
-				"plural": "meters",
-				"symbol": "m"
-			}
-		},
-		"time": {
-			"second": {
-				"singular": "second",
-				"plural": "seconds",
-				"symbol": "s"
-			}
-		}
-	}
-}
+    {
+        "units": {
+            "length": {
+                "meter": {
+                    "singular": "meter",
+                    "plural": "meters",
+                    "symbol": "m"
+                }
+            },
+            "time": {
+                "second": {
+                    "singular": "second",
+                    "plural": "seconds",
+                    "symbol": "s"
+                }
+            }
+        }
+    }
 \end{lstlisting} \
 
 and _de.translations.json_:
 
 \begin{lstlisting}[caption=German resource file in single-language format, label=lst:localizeReduxResource, language={JavaScript}]
-{
-	"units": {
-		"length": {
-			"meter": {
-				"singular": "Meter",
-				"plural": "Meter",
-				"symbol": "m"
-			}
-		},
-		"time": {
-			"second": {
-				"singular": "Sekunde",
-				"plural": "Sekunden",
-				"symbol": "s"
-			}
-		}
-	}
-}
+    {
+        "units": {
+            "length": {
+                "meter": {
+                    "singular": "Meter",
+                    "plural": "Meter",
+                    "symbol": "m"
+                }
+            },
+            "time": {
+                "second": {
+                    "singular": "Sekunde",
+                    "plural": "Sekunden",
+                    "symbol": "s"
+                }
+            }
+        }
+    }
 \end{lstlisting} \
 
 
@@ -579,14 +578,14 @@ React Leaflet does not replace Leaflet but it is used in conjunction with it. Wh
 After installing the required dependencies _react, react-dom_ and _leaflet_, a simple map can be added to a React application by adding the following code:
 
 \begin{lstlisting}[caption=Simple React Leaflet map, label=lst:leafletSetup, language={JavaScript}]
-<MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
-	<TileLayer
-		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-		url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
-	/>
+    <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
+        <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
+        />
 
-	<Polygon positions={coordinates /* lat lng coordinate array */} />
-</MapContainer>
+        <Polygon positions={coordinates /* lat lng coordinate array */} />
+    </MapContainer>
 \end{lstlisting} \
 
 
@@ -603,13 +602,13 @@ _React Leaflet Draw_ is a library for using Leaflet Draw features with React Lea
 To be able to include drawing functions in a map, the _leaflet-draw_ styles have to be added to the project by including
 
 \begin{lstlisting}[caption=Adding styles via link, label=lst:leafletDrawStyles, language={JavaScript}]
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
 \end{lstlisting} \
 
 or
 
 \begin{lstlisting}[caption=Adding styles via import, label=lst:leafletDrawStyles, language={JavaScript}]
-node_modules/leaflet-draw/dist/leaflet.draw.css
+    node_modules/leaflet-draw/dist/leaflet.draw.css
 \end{lstlisting} \
 
 Afterwards, an \lstinline!EditControl! component can be added to a map to enable drawing features to be used. This component must be placed in a \lstinline!FeatureGroup! component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
@@ -617,28 +616,28 @@ Afterwards, an \lstinline!EditControl! component can be added to a map to enable
 Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
 
 \begin{lstlisting}[caption=Adding React Leaflet Draw to Leaflet map, label=lst:leafletDrawSetup, language={JavaScript}]
-<MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
-	<TileLayer
-		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-		url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
-	/>
+    <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
+        <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
+        />
 
-	<FeatureGroup>
-		<EditControl
-			position='topright' /* position of the leaflet-draw toolbar */
-			onEdited={this._onEdited}
-			onCreated={this._onCreate}
-			onDeleted={this._onDeleted}
-			draw={{
-				circle: false /* hide circle drawing function */
-			}}
-		/>
+        <FeatureGroup>
+            <EditControl
+                position='topright' /* position of the leaflet-draw toolbar */
+                onEdited={this._onEdited}
+                onCreated={this._onCreate}
+                onDeleted={this._onDeleted}
+                draw={{
+                    circle: false /* hide circle drawing function */
+                }}
+            />
 
-		<Polygon positions={coordinates /* editable polygon */} />
-	</FeatureGroup>
+            <Polygon positions={coordinates /* editable polygon */} />
+        </FeatureGroup>
 
-	<Polygon positions={coordinates /* non-editable polygon */} />
-</MapContainer>
+        <Polygon positions={coordinates /* non-editable polygon */} />
+    </MapContainer>
 \end{lstlisting} \
 
 The EditControl component provides event handlers for all events related to the drawing functions, like \lstinline!onCreated, onEdited! and \lstinline!onDeleted!, which can be overwritten by the developer to add custom functionality.\
@@ -653,37 +652,37 @@ _Leaflet Geosearch_ is an extension that adds geosearch functions to a web appli
 To start using Geosearch with React Leaflet, a component for the search field has to be written. The following code shows a simple example of such a component called \lstinline!GeoSearchField!, where a \lstinline!GeoSearchControl! element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
 
 \begin{lstlisting}[caption=Initializing geosearch component, label=lst:geosearchSetup, language={JavaScript}]
-const GeoSearchField = ({activeLanguage}) => {
-	const map = useMap();
+    const GeoSearchField = ({activeLanguage}) => {
+        const map = useMap();
 
-	const searchControl = new GeoSearchControl({ /* create control (with options) */
-		provider: new OpenStreetMapProvider({params: {'accept-language': activeLanguage}}), /* required */
-		showMarker: false,
-		autoComplete: true,
-	});
+        const searchControl = new GeoSearchControl({ /* create control (with options) */
+            provider: new OpenStreetMapProvider({params: {'accept-language': activeLanguage}}), /* required */
+            showMarker: false,
+            autoComplete: true,
+        });
 
-	useEffect(() => {
-		map?.addControl(searchControl); /* add control to map */
-		return () => map?.removeControl(searchControl);
-	}, [map]);
+        useEffect(() => {
+            map?.addControl(searchControl); /* add control to map */
+            return () => map?.removeControl(searchControl);
+        }, [map]);
 
-	return null;
-};
+        return null;
+    };
 \end{lstlisting} \
 
 This component is then added in the Leaflet \lstinline!MapContainer! component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map.
 
 \begin{lstlisting}[caption=Adding Geosearch to Leaflet map, label=lst:geosearchSetup, language={JavaScript}]
-<MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
-	<TileLayer
-		attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-		url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
-	/>
+    <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
+        <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png" // use openstreetmap.org for international tiles
+        />
 
-	{ showSearch && <GeoSearchField /> /* geosearch, conditionally rendered */ }
+        { showSearch && <GeoSearchField /> /* geosearch, conditionally rendered */ }
 
-	<Polygon positions={coordinates /* lat lng coordinate array */} />
-</MapContainer>
+        <Polygon positions={coordinates /* lat lng coordinate array */} />
+    </MapContainer>
 \end{lstlisting} \
 
 
@@ -695,17 +694,17 @@ _Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the 
 The package has to be installed in the project, with the use of a script tag or by installing \lstinline!leaflet-routing-machine! with a package manager such as npm. A basic example of the routing machine with two initial waypoints can be added as follows:
 
 \begin{lstlisting}[caption=Initializing Routing Machine, label=lst:routingMachineSetup, language={JavaScript}]
-const instance = L.Routing.control({ // create an instance of routing machine
-	waypoints: [
-		map.getBounds().getCenter(), // set initial waypoints within current map bounds
-		{
-			lat: map.getBounds().pad(-0.6).getNorth(),
-			lng: map.getBounds().pad(-0.6).getWest()
-		},
-	]
-}
+    const instance = L.Routing.control({ // create an instance of routing machine
+        waypoints: [
+            map.getBounds().getCenter(), // set initial waypoints within current map bounds
+            {
+                lat: map.getBounds().pad(-0.6).getNorth(),
+                lng: map.getBounds().pad(-0.6).getWest()
+            },
+        ]
+    }
 
-instance.addTo(map); // add routing machine to leaflet map
+    instance.addTo(map); // add routing machine to leaflet map
 \end{lstlisting} \
 
 ### OpenStreetMap
@@ -761,66 +760,66 @@ A FeatureCollection can be used to group different features together. It has a m
 The following example of a GeoJSON objects consists of a FeatureCollection, which includes five features with different geometries: one LineString, two Points and one Polygon.
 
 \begin{lstlisting}[caption=An example GeoJSON object, label=lst:geoJson, language={JavaScript}]
-{
-	"type": "FeatureCollection", /* an array of features */
-	"features": [
-	{
-		"type": "Feature", /* declared as feature */
-		"properties": {}, /* no additional properties */
-		"geometry": { /* geometry object*/
-			"type": "LineString", /* geometry type*/
-			"coordinates": [ /* coordinates depending on geometry type */
-				[-122.47979164123535, 37.830124319877235],
-				[-122.47721672058105, 37.809377088502615]
-			]
-		}
-	},
-	{
-		"type": "Feature",
-		"properties": {},
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-122.48399734497069, 37.83466623607849] /* lat lng coordinate pair / position */
-		}
-	},
-	{
-		"type": "Feature",
-		"properties": {},
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-122.47867584228514, 37.81893781173967]
-		}
-	},
-	{
-		"type": "Feature",
-		"properties": {},
-		"geometry": {
-			"type": "Polygon",
-			"coordinates": [
-				[
-					[-122.48043537139893, 37.82564992009924],
-					[-122.48129367828368, 37.82629397920697],
-					[-122.48240947723389, 37.82544653184479],
-					[-122.48373985290527, 37.82632787689904],
-					[-122.48425483703613, 37.82680244295304],
-					[-122.48605728149415, 37.82639567223645],
-					[-122.4898338317871, 37.82663295542695],
-					[-122.4930953979492, 37.82415839321614],
-					[-122.49700069427489, 37.821887146654376],
-					[-122.4991464614868, 37.82171764783966],
-					[-122.49850273132326, 37.81798857543524],
-					[-122.50923156738281, 37.82090404811055],
-					[-122.51232147216798, 37.823344820392535],
-					[-122.50150680541992, 37.8271414168374],
-					[-122.48743057250977, 37.83093781796035],
-					[-122.48313903808594, 37.82822612280363],
-					[-122.48043537139893, 37.82564992009924]
-				]
-			]
-		}
-	}
-	]
-}
+    {
+        "type": "FeatureCollection", /* an array of features */
+        "features": [
+        {
+            "type": "Feature", /* declared as feature */
+            "properties": {}, /* no additional properties */
+            "geometry": { /* geometry object*/
+                "type": "LineString", /* geometry type*/
+                "coordinates": [ /* coordinates depending on geometry type */
+                    [-122.47979164123535, 37.830124319877235],
+                    [-122.47721672058105, 37.809377088502615]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-122.48399734497069, 37.83466623607849] /* lat lng coordinate pair / position */
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-122.47867584228514, 37.81893781173967]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [-122.48043537139893, 37.82564992009924],
+                        [-122.48129367828368, 37.82629397920697],
+                        [-122.48240947723389, 37.82544653184479],
+                        [-122.48373985290527, 37.82632787689904],
+                        [-122.48425483703613, 37.82680244295304],
+                        [-122.48605728149415, 37.82639567223645],
+                        [-122.4898338317871, 37.82663295542695],
+                        [-122.4930953979492, 37.82415839321614],
+                        [-122.49700069427489, 37.821887146654376],
+                        [-122.4991464614868, 37.82171764783966],
+                        [-122.49850273132326, 37.81798857543524],
+                        [-122.50923156738281, 37.82090404811055],
+                        [-122.51232147216798, 37.823344820392535],
+                        [-122.50150680541992, 37.8271414168374],
+                        [-122.48743057250977, 37.83093781796035],
+                        [-122.48313903808594, 37.82822612280363],
+                        [-122.48043537139893, 37.82564992009924]
+                    ]
+                ]
+            }
+        }
+        ]
+    }
 \end{lstlisting} \
 
 ## Communication between Frontend and Drivebox Server
@@ -860,13 +859,13 @@ Using ASP.NET Cores controller classes, to create high level routing of incoming
 Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object.
 
 \begin{lstlisting}[caption=A sample delete endpoint using a MVC approach to separate concerns., label=lst:restctrl, language={[Sharp]C}]
-        [HttpDelete]
-        [Route("{idGeoFence}")]
-        public IActionResult DeleteGeofence(int idGeoFence)
-        {
-            databaseManager.DeleteGeofence(idGeoFence);
-            return StatusCode(204);
-        }
+    [HttpDelete]
+    [Route("{idGeoFence}")]
+    public IActionResult DeleteGeofence(int idGeoFence)
+    {
+        databaseManager.DeleteGeofence(idGeoFence);
+        return StatusCode(204);
+    }
 \end{lstlisting} \
 
 ### Requests
@@ -921,12 +920,12 @@ To notify businesses of their vehicles leaving a certain area defined by a geofe
 To avoid unnecessary calculations with polygons that are outside of a points scope, all polygons are filtered into two collections, each having all the polygons a point is inside of included.
 
 \begin{lstlisting}[caption=Filter polygons, label=lst:polyfilter, language={[Sharp]C}]
-         List<PolygonData> geoFencesPointOne = _databaseManager
-            .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
-            .Where(p => p.Polygon.Contains(p1)).ToList(); //Get all polygons point 1 is in
-         List<PolygonData> geoFencesPointTwo = _databaseManager
-            .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
-            .Where(p => p.Polygon.Contains(p2)).ToList(); // Do the same for point 2
+    List<PolygonData> geoFencesPointOne = _databaseManager
+       .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
+       .Where(p => p.Polygon.Contains(p1)).ToList(); //Get all polygons point 1 is in
+    List<PolygonData> geoFencesPointTwo = _databaseManager
+       .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
+       .Where(p => p.Polygon.Contains(p2)).ToList(); // Do the same for point 2
 \end{lstlisting} \
 
 Afterwards, the only other requirement was to compare the collections and determine which polygons are being entered, left or stayed in. The webservice then returns a collection of all affected polygons with information about which event is happening currently. The processing of this information is handled by the main Drivebox server.
@@ -956,40 +955,40 @@ To create a polygon which can be saved in the database, some processing of the i
 To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object.
 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
-         public byte[] ConvertGeometryToBytes(Geometry geometry)
-         {
-            SqlServerBytesWriter writer = new SqlServerBytesWriter();
-            byte[] bytes = writer.Write(geometry);
-            return bytes;
-         }
+    public byte[] ConvertGeometryToBytes(Geometry geometry)
+    {
+       SqlServerBytesWriter writer = new SqlServerBytesWriter();
+       byte[] bytes = writer.Write(geometry);
+       return bytes;
+    }
 \end{lstlisting} \
 
 ### Polygons
 Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a \lstinline!Polygon! with the use of a \lstinline!GeometryFactoryEX! object, provided by NETTopologySuite. 
 
 \begin{lstlisting}[caption=Building a Polygon which can be saved in the Database, label=lst:polyfilter, language={[Sharp]C}]
-        public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
+    public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
+    {
+        Coordinate[] coordinates = new Coordinate[points.Count];
+        for (int i = 0; i < points.Count; i++)
         {
-            Coordinate[] coordinates = new Coordinate[points.Count];
-            for (int i = 0; i < points.Count; i++)
-            {
-                GeoPoint p = points[i];
-                coordinates[i] = new Coordinate(p.Long.Value, p.Lat.Value);
-            }
-
-            GeometryFactoryEx factory = new GeometryFactoryEx() {
-                OrientationOfExteriorRing = LinearRingOrientation.CCW 
-               //Set a counter clockwise orientation to work on both
-               // hemispheres.    
-            };
-            Polygon poly = factory.CreatePolygon(coordinates);
-            poly.SRID = 4326; // Using the global coordinate system
-            if(!poly.IsValid) //Throw error if data is processed wrong on the frontend
-            {
-                throw new TopologyException("Entered invalid Polygon");
-            }
-            return poly;
+            GeoPoint p = points[i];
+            coordinates[i] = new Coordinate(p.Long.Value, p.Lat.Value);
         }
+
+        GeometryFactoryEx factory = new GeometryFactoryEx() {
+            OrientationOfExteriorRing = LinearRingOrientation.CCW 
+           //Set a counter clockwise orientation to work on both
+           // hemispheres.    
+        };
+        Polygon poly = factory.CreatePolygon(coordinates);
+        poly.SRID = 4326; // Using the global coordinate system
+        if(!poly.IsValid) //Throw error if data is processed wrong on the frontend
+        {
+            throw new TopologyException("Entered invalid Polygon");
+        }
+        return poly;
+    }
 \end{lstlisting} \
 
 ### Circles
@@ -1007,13 +1006,13 @@ First, minimizing the number of requests made to the database could decrease the
 To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
 
 \begin{lstlisting}[caption=Set a new cache entry, label=lst:polyfilter, language={[Sharp]C}]
-      MemoryCacheEntryOptions entryOptions = new MemoryCacheEntryOptions()
-         {
-            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
-            SlidingExpiration = TimeSpan.FromMinutes(1)
-         };
+    MemoryCacheEntryOptions entryOptions = new MemoryCacheEntryOptions()
+    {
+          AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
+          SlidingExpiration = TimeSpan.FromMinutes(1)
+    };
 
-         _cache.Set("dbPolygons", polygons, entryOptions);
+    _cache.Set("dbPolygons", polygons, entryOptions);
 \end{lstlisting} \
 
 
@@ -1105,53 +1104,53 @@ To make all geofences editable (not just those that were drawn, but also those t
 The geofences fetched from the backend are iterated over and a new _Leaflet_ polygon (L.polygon) is created in the frontend from each geofence's coordinates.
 
 \begin{lstlisting}[caption=Geofences are fetched and added in frontend, label=lst:geofenceLoading, language={JavaScript}]
-for (let elem of res.data.geoJson) { // iterate fetched geofences
-  let currentGeoFence = JSON.parse(elem);
+    for (let elem of res.data.geoJson) { // iterate fetched geofences
+    let currentGeoFence = JSON.parse(elem);
 
-  // swap lat and long
-  for (let coordinateSubArray of currentGeoFence.Polygon.coordinates) {
-    for (let coordinatePair of coordinateSubArray) {
-      let temp = coordinatePair[0];
-      coordinatePair[0] = coordinatePair[1];
-      coordinatePair[1] = temp;
+    // swap lat and long
+    for (let coordinateSubArray of currentGeoFence.Polygon.coordinates) {
+        for (let coordinatePair of coordinateSubArray) {
+        let temp = coordinatePair[0];
+        coordinatePair[0] = coordinatePair[1];
+        coordinatePair[1] = temp;
+        }
     }
-  }
 
-  currentGeoFence.Hidden = tempVisibilityObj[`id_${currentGeoFence.ID}`] || false;
-  let newPoly = L.polygon(currentGeoFence.Polygon.coordinates); // create polygon from coordinates of fetched geofence
-  newPoly.geoFence = currentGeoFence; // add geofence object in polygon object (for later use of metadata)
-  newGeoFences.set(currentGeoFence.ID, newPoly);
-}
+    currentGeoFence.Hidden = tempVisibilityObj[`id_${currentGeoFence.ID}`] || false;
+    let newPoly = L.polygon(currentGeoFence.Polygon.coordinates); // create polygon from coordinates of fetched geofence
+    newPoly.geoFence = currentGeoFence; // add geofence object in polygon object (for later use of metadata)
+    newGeoFences.set(currentGeoFence.ID, newPoly);
+    }
 \end{lstlisting} \
 
 The _LeafletMap_ component contains a _FeatureGroup_, which includes the component _MyEditComponent_ from _Leaflet Draw_. This means that all geofences that are rendered in this same _FeatureGroup_ are affected by _Leaflet Draw_ and can therefore be edited.
 
 \begin{lstlisting}[caption=Rendering editable geofences, label=lst:geofenceEditing, language={JavaScript}]
-<FeatureGroup>
-    <MyEditComponent /* for on-map drawing functions */
-        currentUserName={currentUserName}
-        geoFences={geoFences}
-        map={map}
-        addGeoFenceInState={addGeoFenceInState}
-        {...props}
-    ></MyEditComponent>
+    <FeatureGroup>
+        <MyEditComponent /* for on-map drawing functions */
+            currentUserName={currentUserName}
+            geoFences={geoFences}
+            map={map}
+            addGeoFenceInState={addGeoFenceInState}
+            {...props}
+        ></MyEditComponent>
 
-    {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
-    {[...geoFences.keys()].filter(id => {
-        return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
-    }).map(id => {
-        return (
-            <MyPolygon /* custom polygon component for handling visibility and color */
-                polygon={geoFences.get(id)}
-                idGeoFence={id}
-                key={'editPoly_' + id}
-                hidden={geoFences.get(id).geoFence.Hidden}
-                pathOptions={geoFences.get(id).pathOptions || (geoFences.get(id).geoFence.Highlighted ? highlightedPolyOptions : polygonColor)}
-                {...props}
-            ></MyPolygon>
-        );
-    })}
-</FeatureGroup>
+        {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
+        {[...geoFences.keys()].filter(id => {
+            return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
+        }).map(id => {
+            return (
+                <MyPolygon /* custom polygon component for handling visibility and color */
+                    polygon={geoFences.get(id)}
+                    idGeoFence={id}
+                    key={'editPoly_' + id}
+                    hidden={geoFences.get(id).geoFence.Hidden}
+                    pathOptions={geoFences.get(id).pathOptions || (geoFences.get(id).geoFence.Highlighted ? highlightedPolyOptions : polygonColor)}
+                    {...props}
+                ></MyPolygon>
+            );
+        })}
+    </FeatureGroup>
 \end{lstlisting} \
 
 
@@ -1161,31 +1160,31 @@ Circular geofences and road geofences cannot be edited. Since all geofences are 
 To achieve this, all geofences are given a boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints. This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ in the map.
 
 \begin{lstlisting}[caption=Rendering non-editable geofences, label=lst:geofenceEditing, language={JavaScript}]
-<MapContainer /* shortened */ >
-    {/* shortened */}
+    <MapContainer /* shortened */ >
+        {/* shortened */}
 
-    {/*display non-editable geofences (circles, roads and geofences generated from presets)*/}
-    {[...geoFences.keys()].filter(id => {
-        return (geoFences.get(id).geoFence.SystemGeoFence || geoFences.get(id).geoFence.IsNotEditable)
-    }).map(id => {
-        return (
-            <MyPolygon /* shortened */ ></MyPolygon>
-        );
-    })}
-
-    <FeatureGroup>
-        <MyEditComponent /* shortened */ ></MyEditComponent>
-
-        {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
+        {/*display non-editable geofences (circles, roads and geofences generated from presets)*/}
         {[...geoFences.keys()].filter(id => {
-            return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
+            return (geoFences.get(id).geoFence.SystemGeoFence || geoFences.get(id).geoFence.IsNotEditable)
         }).map(id => {
             return (
                 <MyPolygon /* shortened */ ></MyPolygon>
             );
         })}
-    </FeatureGroup>
-</MapContainer>
+
+        <FeatureGroup>
+            <MyEditComponent /* shortened */ ></MyEditComponent>
+
+            {/*display editable geofences (not circles or roads) inside edit-featuregroup*/}
+            {[...geoFences.keys()].filter(id => {
+                return (geoFences.get(id) && !geoFences.get(id).geoFence.SystemGeoFence && !geoFences.get(id).geoFence.IsNotEditable)
+            }).map(id => {
+                return (
+                    <MyPolygon /* shortened */ ></MyPolygon>
+                );
+            })}
+        </FeatureGroup>
+    </MapContainer>
 \end{lstlisting} \
 
 
@@ -1195,37 +1194,37 @@ A search function exists, to make it easier to find places on the map by searchi
 A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options, which is then added to the map in the _useEffect_ hook. The component _GeoSearchField_ also has to be used inside the _LeafletMap_ in order to make the search button available on the map.
 
 \begin{lstlisting}[caption=addingMapSearch, label=lst:mapSearch, language={JavaScript}]
-import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
-import { useMap } from 'react-leaflet';
-import { useEffect } from 'react';
-import { withLocalize } from 'react-localize-redux';
-import '../../css/GeoSearch.css';
+    import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+    import { useMap } from 'react-leaflet';
+    import { useEffect } from 'react';
+    import { withLocalize } from 'react-localize-redux';
+    import '../../css/GeoSearch.css';
 
-const GeoSearchField = ({translate, activeLanguage}) => {
-    let map = useMap();
+    const GeoSearchField = ({translate, activeLanguage}) => {
+        let map = useMap();
 
-    // @ts-ignore
-    const searchControl = new GeoSearchControl({ // define search control with options
-        provider: new OpenStreetMapProvider({params: {'accept-language': activeLanguage.code.split("-")[0]}}),
-        autoComplete: true,
-        autoCompleteDelay: 500,
-        showMarker: false,
-        showPopup: false,
-        searchLabel: translate("searchGeo.hint"), // handle multi-language support
-        classNames: { // used for custom styling
-            resetButton: 'gs-resetButton',
-        }
-    });
+        // @ts-ignore
+        const searchControl = new GeoSearchControl({ // define search control with options
+            provider: new OpenStreetMapProvider({params: {'accept-language': activeLanguage.code.split("-")[0]}}),
+            autoComplete: true,
+            autoCompleteDelay: 500,
+            showMarker: false,
+            showPopup: false,
+            searchLabel: translate("searchGeo.hint"), // handle multi-language support
+            classNames: { // used for custom styling
+                resetButton: 'gs-resetButton',
+            }
+        });
 
-    useEffect(() => {
-        map?.addControl(searchControl); // add search control to map
-        return () => map?.removeControl(searchControl);
-    }, [map])
+        useEffect(() => {
+            map?.addControl(searchControl); // add search control to map
+            return () => map?.removeControl(searchControl);
+        }, [map])
 
-    return null;
-}
+        return null;
+    }
 
-export default withLocalize(GeoSearchField);
+    export default withLocalize(GeoSearchField);
 \end{lstlisting} \
 
 
@@ -1284,10 +1283,10 @@ This approach solves the problem with concave shapes, because the calculated poi
 The size of the geofence labels changes depending on the current zoom level of the map, getting smaller as the user zooms out further, and is hidden for any zoom level smaller than or equal to 6. This dynamic sizing is achieved by using a CSS class selector that includes the current zoom level to select the corresponding option from the CSS classes _zoom6_ to _zoom13_.
 
 \begin{lstlisting}[caption=Icon with dynamic class name, label=lst:dynamicLabelSize, language={JavaScript}]
-return L.divIcon({
-    className: "",
-    html: `<div class="tooltipMarker ${"zoom" + (zoomLevel > 6 ? zoomLevel : 6)}">${title}</div>`,
-});
+    return L.divIcon({
+        className: "",
+        html: `<div class="tooltipMarker ${"zoom" + (zoomLevel > 6 ? zoomLevel : 6)}">${title}</div>`,
+    });
 \end{lstlisting} \
 
 
@@ -1310,14 +1309,14 @@ Individual geofences can be hidden from the map to make it visually clearer. To 
 The information on which geofences are hidden is stored for the convenience of the user. Since most geofences that are hidden can be assumed to stay hidden for the majority of the time, like system geofences, geofences with a large number of points or generally rarely used ones, this is done with _localStorage_, meaning that, contrary to _sessionStorage_, the information is stored not just on page reloads, but in entirely new sessions.
 
 \begin{lstlisting}[caption=Geofence visibility is saved to localStorage, label=lst:geofenceVisibility, language={JavaScript}]
-let obj = {...visibilityObj};
+    let obj = {...visibilityObj};
 
-newGeoFences.forEach(e => {
-    obj[`id_${e.geoFence.ID}`] = e.geoFence.Hidden || false; // if no value is stored, set as not hidden
-});
+    newGeoFences.forEach(e => {
+        obj[`id_${e.geoFence.ID}`] = e.geoFence.Hidden || false; // if no value is stored, set as not hidden
+    });
 
-setVisibilityObj(obj);
-localStorage.setItem("visibility", JSON.stringify(obj)); // save to localStorage
+    setVisibilityObj(obj);
+    localStorage.setItem("visibility", JSON.stringify(obj)); // save to localStorage
 \end{lstlisting} \
 
 
@@ -1397,13 +1396,13 @@ To allow the user to select geofences for which the bulk operations should be pe
 Because the checkboxes are part of custom list elements, a select-all-checkbox also has to be added manually. The current _selectAllState_ (NONE, SOME or ALL) is determined after every clickEvent on a checkbox by counting the number of selected geofences, and is used to show an unchecked, indeterminate or checked select-all-checkbox respectively. This checkbox can also be clicked itself to select all loaded geofences if none are selected, or to deselect all if some or all are selected.
 
 \begin{lstlisting}[caption=Checkboxes are displayed depending on selectionState, label=lst:selectionCheckboxes, language={JavaScript}]
-<Checkbox
-    id="cb_all"
-    style={{ color: buttonColors.bright }}
-    indeterminate={selectAllState === selectionState.SOME}
-    checked={selectAllState !== selectionState.NONE}
-    onChange={() => onSelectAllChanged()}
-></Checkbox>
+    <Checkbox
+        id="cb_all"
+        style={{ color: buttonColors.bright }}
+        indeterminate={selectAllState === selectionState.SOME}
+        checked={selectAllState !== selectionState.NONE}
+        onChange={() => onSelectAllChanged()}
+    ></Checkbox>
 \end{lstlisting} \
 
 
@@ -1411,28 +1410,28 @@ Because the checkboxes are part of custom list elements, a select-all-checkbox a
 Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_. If it should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
 
 \begin{lstlisting}[caption=The function for handling bulk locking operations, label=lst:bulkLockingFunction, language={JavaScript}]
-function lockActionMulti(weekday, lockMethod) {
-    let weekdaysToLock = []; // use array to allow handling of multiple days
-    if (weekday === -1) // all weekdays
-        weekdaysToLock = [1, 2, 3, 4, 5, 6, 0];
-    else
-        weekdaysToLock = [weekday];
+    function lockActionMulti(weekday, lockMethod) {
+        let weekdaysToLock = []; // use array to allow handling of multiple days
+        if (weekday === -1) // all weekdays
+            weekdaysToLock = [1, 2, 3, 4, 5, 6, 0];
+        else
+            weekdaysToLock = [weekday];
 
-    let newGeoFenceLocks = geoFenceLocks;
-    for (let currentDayToLock of weekdaysToLock) { // repeat for each weekday
-        for (let id of selection) { // repeat for each selected geofence
-            switch (lockMethod) {
-                case 0: lockDay(newGeoFenceLocks, id, currentDayToLock);     break;
-                case 1: unlockDay(newGeoFenceLocks, id, currentDayToLock);   break;
-                case 2: toggleDay(newGeoFenceLocks, id, currentDayToLock);   break;
-                default: return;
+        let newGeoFenceLocks = geoFenceLocks;
+        for (let currentDayToLock of weekdaysToLock) { // repeat for each weekday
+            for (let id of selection) { // repeat for each selected geofence
+                switch (lockMethod) {
+                    case 0: lockDay(newGeoFenceLocks, id, currentDayToLock);     break;
+                    case 1: unlockDay(newGeoFenceLocks, id, currentDayToLock);   break;
+                    case 2: toggleDay(newGeoFenceLocks, id, currentDayToLock);   break;
+                    default: return;
+                }
+
+                callBackendLocking(id, weekday, lockMethod); // locking on backend, separately from frontend in state
             }
-
-            callBackendLocking(id, weekday, lockMethod); // locking on backend, separately from frontend in state
         }
+        setGeoFenceLocks({...newGeoFenceLocks});
     }
-    setGeoFenceLocks({...newGeoFenceLocks});
-}
 \end{lstlisting} \
 
 
@@ -1489,19 +1488,19 @@ By looking at a graph of the geofence management app recorded with the _Profiler
 The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings. With a custom check function _isEqual_, the _React.memo_ function can be set to rerender only when one of these props changes.
 
 \begin{lstlisting}[caption=Using React.memo with custom equality check, label=lst:reactMemo, language={JavaScript}]
-export default withLocalize(React.memo(LeafletMap, isEqual));
+    export default withLocalize(React.memo(LeafletMap, isEqual));
 
-function isEqual(prevProps, nextProps) {
-    if (compareByReference(prevProps.geoFences, nextProps.geoFences) &&
-        objAreEqual(prevProps.currentUserName, nextProps.currentUserName) &&
-        objAreEqual(prevProps.swapLatLngOnExport, nextProps.swapLatLngOnExport) &&
-        objAreEqual(prevProps.selectedRoute, nextProps.selectedRoute) &&
-        objAreEqual(prevProps.routeMode, nextProps.routeMode) &&
-        objAreEqual(prevProps.polygonColor, nextProps.polygonColor)) {
-        return true;
+    function isEqual(prevProps, nextProps) {
+        if (compareByReference(prevProps.geoFences, nextProps.geoFences) &&
+            objAreEqual(prevProps.currentUserName, nextProps.currentUserName) &&
+            objAreEqual(prevProps.swapLatLngOnExport, nextProps.swapLatLngOnExport) &&
+            objAreEqual(prevProps.selectedRoute, nextProps.selectedRoute) &&
+            objAreEqual(prevProps.routeMode, nextProps.routeMode) &&
+            objAreEqual(prevProps.polygonColor, nextProps.polygonColor)) {
+            return true;
+        }
+        return false;
     }
-    return false;
-}
 \end{lstlisting} \
 
 After making these changes, a new graph is recorded for the same actions. The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore. This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
