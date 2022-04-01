@@ -62,15 +62,19 @@ Even though the feature to display drive logs was not needed, the mockup was kep
 Since it would be common for users to want to change locks for several geofences at once, for example locking a group of geofences on the weekend, it was necessary to implement the option to select geofences and perform bulk operations. For this, four different options were evaluated in the mockup. These options, as well as their advantages and disadvantages, will be described below:
 
 1. A select-all checkbox for each day of the week, allowing the user to lock or unlock all geofences for that day
+
   - easy to use and intuitive
   - actions can only be performed for all geofences, since there is no selection model
 2. Checkboxes to select geofences, and dropdown buttons for each weekday to lock, unlock or toggle all selected geofences' locks on that day
+
   - more options and flexibility
   - more buttons / cluttered interface
 3. Checkboxes to select geofences and a button bar with dropdown buttons to lock, unlock or toggle certain weekdays
+
   - more options and flexibility
   - cleaner interface
 4. A fourth solution was conceptualized that would enable the user to set geofence locks not just on weekdays, but as customizable time slots
+
   - even more flexibility
   - hard to implement bulk operations
 
