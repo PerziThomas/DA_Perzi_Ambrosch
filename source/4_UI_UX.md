@@ -94,7 +94,7 @@ In order to improve the usability of the app and to bring it closer to a finishe
 
 
 ### Confirmation dialogs
-A confirmation dialogs is usually used when a significant action is performed. It informs the user of the action to be taken and requires them to confirm the same action a second time. The dialog purposely adds difficulty to performing certain actions in order to avoid triggers that happen by accident or because the user did not understand the consequences of the action [@confirmationDialogs].
+A confirmation dialog is usually used when a significant action is performed. It informs the user of the action to be taken and requires them to confirm the same action a second time. The dialog purposely adds difficulty to performing certain actions in order to avoid triggers that happen by accident or because the user did not understand the consequences of the action [@confirmationDialogs].
 
 Standard confirmation dialogs are used in the app whenever any item is deleted, and when geofence geometry is edited. Additionally, all pop-ups that require the user to enter data, for example when creating or renaming geofences, function as confirm dialogs by offering both _confirm_ and _cancel_ options.
 
