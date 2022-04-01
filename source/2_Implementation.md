@@ -831,17 +831,17 @@ REST (Representational State Transfer) is a software architectural style which d
 
 For a service to be considered RESTful, it must fulfil six criteria [@restful]:
 
-1. Uniform Interface
+1. _Uniform Interface_
    : This defines the need for all components of the system to follow the same set of rules and thus allows for a standard way of communication.
-2. Client-Server
+2. _Client-Server_
    : Tasks and concerns have to be strictly separated between the client and the server. 
-3. Stateless
+3. _Stateless_
    : Each request sent to the server must provide enough information so that it can be processed without the need to consult any previous requests.
-4. Cacheable
+4. _Cacheable_
    : A response message must include a flag which provides information about it being cacheable.
-5. Layered system
+5. _Layered system_
    : A system is composed of layers which are only able to interact with their next immediate neighbors and are unable to see further beyond that.
-6. Code on demand 
+6. _Code on demand_
    : Optionally, code can be downloaded to extend a clients functionality. 
 
 A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format. [@restful]

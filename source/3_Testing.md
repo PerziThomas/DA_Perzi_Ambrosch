@@ -48,7 +48,7 @@ one might wish to test a function which has a binary result with several values 
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome. [@xUnitIntro] \
 
-\begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers., label=lst:theory]
+\begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers., label=lst:theory, language={[Sharp]C}]
     //A connectivity test to check if both Selenium Browser drivers are working.
     [Theory]
     [InlineData("chrome")]
@@ -73,7 +73,7 @@ Microsoft provides the *Microsoft.AspNetCore.Mvc.Testing* package for integratio
 developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline!WebApplicationFactory! as well as the
 \lstinline!HttpClient! provided by this package one is able to test their RESTful applications. \
 
-\begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest]
+\begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest, language={[Sharp]C}]
     //A Factory to build instances of the application to test.
     private readonly WebApplicationFactory<DriveboxGeofencingBackend.Startup> _factory;
     //Using Dependency Injection at the creation of the Test file to create the
@@ -109,7 +109,7 @@ to automate the browser, checking values still had to be done using xUnit. \
 Creating tests using Selenium is comparable to writing code in a sequential way, as the drivers are being
 instructed to execute a sequence of statement, similar to how a real user would do it.
 
-\begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers., label=lst:selenium]
+\begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers., label=lst:selenium, language={[Sharp]C}]
     [Theory]
     [InlineData("chrome")]
     [InlineData("firefox")]
