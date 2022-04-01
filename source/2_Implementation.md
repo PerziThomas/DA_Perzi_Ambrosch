@@ -848,7 +848,7 @@ Listing 2.28 shows an example GeoJSON object consisting of a FeatureCollection, 
 To handle the required communication between the frontend and backend applications of the geofence system, a RESTful webservice was implemented using the ASP.NET Core framework. This service provides the capability to use HTTP for exchanging the information about geofences required to create and modify geofences, as well as calculating intersections.
 
 ### REST
-REST (Representational State Transfer) is a software architectural style which defines several principles which makes a service RESTful.
+REST (Representational State Transfer) is a software architectural style which defines several principles which make a service RESTful.
 
 For a service to be considered RESTful, it must fulfil six criteria [@restful]:
 
@@ -869,12 +869,12 @@ For a service to be considered RESTful, it must fulfil six criteria [@restful]:
    A system is composed of layers which are only able to interact with their next immediate neighbors and are unable to see further beyond that.
 6. Code on demand
    
-   Optionally, code can be downloaded to extend a clients functionality. 
+   Optionally, code can be downloaded to extend a client's functionality. 
 
 A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format [@restful].
 
 ### Controllers
-Using ASP.NET Cores controller classes, to create high level routing of incoming HTTP-Requests, the web service is divided into three main components.
+Using ASP.NET Core's controller classes to create high level routing of incoming HTTP-Requests, the web service is divided into three main components.
 
 1. Geofences
    
@@ -886,7 +886,7 @@ Using ASP.NET Cores controller classes, to create high level routing of incoming
     
     This data is used to sort Geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering Geofences.
 
-Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handeled by services which receive data from controllers. An endpoint using DELETE is shown in listing 2.29.
+Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handled by services which receive data from controllers. An endpoint using DELETE is shown in listing 2.29.
 
 \begin{lstlisting}[caption=Delete endpoint, label=lst:restctrl, language={[Sharp]C}]
     [HttpDelete]
@@ -899,7 +899,7 @@ Controllers provide the ability to create API-Endpoints for all commonly used HT
 \end{lstlisting} \
 
 ### Requests
-Requests onto the server were made according to the HTTP protocol, with a token included in the Authorization header to authenticate a user on the backend. Data is transmitted using JSON objects in the request body, as well as the GeoJSON format in the special case of geofence communication. (See GeoJSON chapter).
+Requests onto the server are made according to the HTTP protocol, with a token included in the Authorization header to authenticate a user on the backend. Data is transmitted using JSON objects in the request body, as well as the GeoJSON format in the special case of geofence communication (see GeoJSON chapter).
 
 To avoid a constant repetition of boilerplate code inside each controller, ASP.NET Core middleware is used to authenticate the user using the token provided in each request. Figure 2.4 is a sequence diagram showing the communication between the front- and backend applications.
 
@@ -915,10 +915,10 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 \fancyfoot[L]{Ambrosch/Perzi}
 The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application. Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax. An example comparison between fetch and axios is given in chapter _Comparison between fetch and axios_.
 
-Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because geofences would normally only be viewed and managed by a single user.\
+Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because the same geofences would normally only be viewed and managed by a single user.\
 Request polling was initially implemented for geofence locks because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
 
-When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state. For this reason, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state, so that further requests, like for updates or deletion, can be made for that resource.
+When making requests to create resources such as geofences or metadata, the resource already exists in the frontend and is therefore added directly in the React state. To ensure that further requests, like for updates or deletion, can be made for that resource, the _id_ of the object that is created in the database must be returned to the frontend, where it is added to the resource in the state.
 
 
 ## Calculation Algorithm for intersections
