@@ -17,12 +17,12 @@ Dependency Injection adds onto that by also wanting to remove the associated cre
 In ASP.NET Core, dependency injection is mainly used when creating and implementing service classes. For further information on the creation, injection and lifetime of these services see the according sub-chapter in the ASP.NET Core chapter.
 
 ### Project structure
-The entire geofencing application runs on a client-server architecture. The React frontend and the existing Drivebox application are served as clients by the geofencing backend server built on ASP.NET Core. Communication between the clients and the server is entirely REST and HTTP based. 
+The entire geofencing application runs on a client-server architecture. The React frontend and the existing Drivebox application are served as clients by the geofencing backend server built on ASP.NET Core. Communication between the clients and the server is entirely REST and HTTP based. The following figure describes the architecture of the Drivebox application with the addition of the geofencing module.
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.80\textwidth]{source/figures/architecture.png}
-	\caption{Architecture of the entire Drivebox application with the geofencing included}
+  \includegraphics[width=0.70\textwidth]{source/figures/architecture.png}
+	\caption{Drivebox application architecture}
 	\label{fig2_1}
 \end{figure}
 
@@ -35,9 +35,9 @@ The backend consists of two major parts, those being the ASP.NET Core webservice
 ASP.NET Core is a framework for building web apps and services, IoT apps as well as mobile backends developed by Microsoft as an evolution of ASP.NET 4.x. Unlike its predecessor ASP.NET Core is multiplatform (contrary to just being working on Windows) and open source. Besides creating traditional webservices, such as RESTful webapps, it can also be used to create other webapps using technologies like Razor Pages and Blazor [@aspintro].
 
 #### Project Creation
-When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, \lstinline!Program.cs! and \lstinline!Startup.cs!. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default \lstinline!WebHostBuilder!.
+When creating a new project using Visual Studio 2019's template of a ASP.NET Core webservice, a workspace is created included a project. This project additionally includes two files, \lstinline!Program.cs! and \lstinline!Startup.cs!. Program.cs includes the basic instructions needed to get a ASP.NET Core application running additionally to defining which Startup object should be used. Logging behavior can also be defined in this file. The web application is created by using the default \lstinline!WebHostBuilder!. Listing 2.1 shows the contents of the Programm.cs file.
 
-\begin{lstlisting}[caption={The backends Programm.cs file}, label=lst:programmcs, language={[Sharp]C}]
+\begin{lstlisting}[caption={Program.cs file of the backend}, label=lst:programmcs, language={[Sharp]C}]
     public class Program
     {
         public static void Main(string[] args)
@@ -60,9 +60,9 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
     }
 \end{lstlisting} \
 
-To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs.
+To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs. The Startup.cs file is shown in a shortened form in Listing 2.2.
 
-\begin{lstlisting}[caption={[The Startup.cs file of the backend]The Startup.cs file of the backend, shortened for readability}, label=lst:startupcs, language={[Sharp]C}]
+\begin{lstlisting}[caption={[Startup.cs file of the backend]The Startup.cs file of the backend, shortened for readability}, label=lst:startupcs, language={[Sharp]C}]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -136,7 +136,7 @@ When registering a service there are three different options to choose from. The
    Singleton services are created once the first time they are requested. When the service is requested again the same instance is provided to the requesting object. Singleton objects are disposed once the application shuts down. These services are used when there has to be exactly one instance of a service, for the geofencing application this was chosen when creating the database manager service [@servicelife].
 
 
-To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core.
+To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core. A concrete implementation of this is shown using the \lstinline!TimePointController! in Listing 2.3.
 
 \begin{lstlisting}[caption=The TimePointController requesting two services, label=lst:servicereq, language={[Sharp]C}]
     public TimePointController(ICollisionDetector collisionDetector, IPointAnalyzer pointAnalyzer)
@@ -147,7 +147,7 @@ To request a service from the application a class must simple include the servic
 \end{lstlisting} \
 
 #### Middleware
-To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware and the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used. [@middleware]
+To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware and the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used [@middleware]. A simple graphical representation of this is displayed in figure 2.2.
 
 \begin{figure}[H]
 	\centering
@@ -156,7 +156,7 @@ To handle requests in a common way regardless of routes the concept of middlewar
 	\label{fig2_2}
 \end{figure}
 
-To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the *IApplicationBuilder* interface must be extended with a method registering the middleware. This methods is then called in the startup file.
+To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the \lstinline!IApplicationBuilder! interface must be extended with a method registering the middleware. This methods is then called in the startup file. Listing 2.4 shows the registration of a middleware for reading the Authorization header of a HTTP request.
 
 \begin{lstlisting}[caption=Extending the IApplicationBuilder interface, label=lst:middlewareext, language={[Sharp]C}]
     // Extension method used to add the middleware to the HTTP request pipeline.
@@ -170,13 +170,13 @@ To add custom middleware into the ASP.NET Core pipeline, the developer must simp
 \end{lstlisting} \
 
 #### Controller
-Controllers are classes which handle the routing and processing of requests to the web service. When using the annotation *[ApiController]* a controller is declared as an API controller. This holds the benefit of automatically converting responses to a requested format like JSON or XML. Alongside the ApiController annotation the *[Route(route)]* annotation is used to set a general route for all requests going into this controller. An example of this would to use *[Route("api/v1")]* resulting in every request to https://driver.box/api/v1 being routed through this controller.
+Controllers are classes which handle the routing and processing of requests to the web service. When using the annotation \lstinline![ApiController]! a controller is declared as an API controller. This holds the benefit of automatically converting responses to a requested format like JSON or XML. Alongside the ApiController annotation the \lstinline![Route(route)]! annotation is used to set a general route for all requests going into this controller. An example of this would to use \lstinline![Route("api/v1")]! resulting in every request to https://driver.box/api/v1 being routed through this controller.
 
-To map methods to routes and HTTP methods a different set of annotations needs to be used on the desired methods. To associate a method with a route and a method, two annotations need to be used. Firstly, the *[Route(route)]* annotation is reused from the controller. To register the method to a specific HTTP methods ASP.NET Core provides several annotations.
+To map methods to routes and HTTP methods a different set of annotations needs to be used on the desired methods. To associate a method with a route and a method, two annotations need to be used. Firstly, the \lstinline![Route(route)]! annotation is reused from the controller. To register the method to a specific HTTP methods ASP.NET Core provides several annotations.
 
 Each annotation corresponds to the HTTP method with the same name. Apart from routing purposes they do not provide any functionality to the developer. Building the application according to REST and HTTP principles therefore remains a responsibility of the developer.
 
-Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to *IActionResult*. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then *StatusCode* can be used as a code can be customly assigned to it.
+Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to \lstinline!IActionResult!. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then \lstinline!StatusCode! can be used as a code can be customly assigned to it.
 
 ### Microsoft SQL Server
 SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
@@ -205,12 +205,12 @@ To create tables with T-SQL a syntax similar to the SQL one is required. Tables 
    
    The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
 
-In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram displayed in figure 2.3.     Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
+In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram displayed in figure 2.3. Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/db_model.png}
-	\caption{Logical Model of the Database.}
+	\caption{Logical Model of the Database}
 	\label{fig2_3}
 \end{figure}
 
@@ -219,9 +219,10 @@ Stored procedures are segments of code which are compiled and executed on the da
 
 Variables can be declared inside the body of a stored procedure. These can have a name and a datatype. A special useable datatype for these variables is *TABLE* which creates a temporary table for results of a select to be saved in. Normal select queries can then be performed on this temporary table.
 
-The geofencing application makes use of stored procedures in several ways. A main application is the creation of special geofences such as circles and roads, as those need a special type of processing. Next the logic for locking geofences on certain days of the weeks is also implemented using stored procedures. 
+The geofencing application makes use of stored procedures in several ways. A main application is the creation of special geofences such as circles and roads, as those need a special type of processing. Next the logic for locking geofences on certain days of the weeks is also implemented using stored procedures. Listing 2.6 shows the structure of such a procedure which creates a circular geofence.
 
-\begin{lstlisting}[caption=Procedure to create a circle geofence, label=lst:procCircle, language={SQL}]
+
+\begin{lstlisting}[caption=Circle geofence procedure, label=lst:procCircle, language={SQL}]
     CREATE PROCEDURE [dbo].[createCircle] (@lat DECIMAL(18,10), @long DECIMAL(18,10), @radius INT, @title VARCHAR(300), @idUser uniqueidentifier(100))
     AS
     BEGIN
@@ -247,25 +248,26 @@ On top of the basic data types, there are two mains groups of object types provi
 
 1. Simple objects
    
-   Simple, single spatial objects that are completely connected in their instance. These include *Points*, *LineStrings* and *Polygons*.
+   Simple, single spatial objects that are completely connected in their instance. These include \lstinline!Points!, \lstinline!LineStrings! and \lstinline!Polygons!.
 2. Collection objects
    
-   Collections of simple objects with multiple independent instances. These include *MultiPoints*, *MultiLineStrings* and *MultiPolygons*.
+   Collections of simple objects with multiple independent instances. These include \lstinline!MultiPoints!, \lstinline!MultiLineStrings! and \lstinline!MultiPolygons!.
 
-To create these spatial objects the well-known-text (WKT) format is used. The spatial extension provides methods to create objects from WKT. To create a polygon from a WKT source, the method *geography::STPolyFromText(wkt, 4326)* is used. To create a point object, the method *geography::Point(lat, long, 4326)* is used. To create any other geography object the method *geography::STGeomFromText(wkt, 4326)* can be used. The number 4326 at the end of every methods specifies the coordinate system used for the object. This number is specified as the Spatial Referencing System Identifier (SRID). SRID 4326 is the system that specifies the latitudes and longitudes along the entire globe. For applications working in a specific area of the world which need an additional grade of coordinate accuracy another SRID can be chosen. Due to drivebox not needing accuracy in the range of centimeters and the market being open to grow the global SRID 4326 was chosen.
+To create these spatial objects the well-known-text (WKT) format is used. The spatial extension provides methods to create objects from WKT. To create a polygon from a WKT source, the method \lstinline!geography::STPolyFromText(wkt, 4326)! is used. To create a point object, the method \lstinline!geography::Point(lat, long, 4326)! is used. To create any other geography object the method \lstinline!geography::STGeomFromText(wkt, 4326)! can be used. The number 4326 at the end of every methods specifies the coordinate system used for the object. This number is specified as the Spatial Referencing System Identifier (SRID). SRID 4326 is the system that specifies the latitudes and longitudes along the entire globe. For applications working in a specific area of the world which need an additional grade of coordinate accuracy another SRID can be chosen. Due to drivebox not needing accuracy in the range of centimeters and the market being open to grow the global SRID 4326 was chosen.
 
-To manipulate and work with geographical data the extension provides a variety of methods. The geofencing application mainly makes use of the *STBuffer()* method on objects. This method increases the size of a object in every direction, turning it either into a Polygon or a MultiPolygon, depending on the initial object. It is used to create circle and road geofences on the database, as these use a Point and a LineString as a base respectively. These Polygons often have over one hundred points, resulting in a loss of performance on the frontend and when calculating intersections. To simplify these shapes, the method *Reduce(1)* is used. It removes unnecessary points of a Polygon and returns a new, more performant object with less points.
+To manipulate and work with geographical data the extension provides a variety of methods. The geofencing application mainly makes use of the \lstinline!STBuffer()! method on objects. This method increases the size of a object in every direction, turning it either into a Polygon or a MultiPolygon, depending on the initial object. It is used to create circle and road geofences on the database, as these use a Point and a LineString as a base respectively. The command to create a circle is shown in Listing 2.7. These Polygons often have over one hundred points, resulting in a loss of performance on the frontend and when calculating intersections. To simplify these shapes, the method \lstinline!Reduce(1)! is used. It removes unnecessary points of a Polygon and returns a new, more performant object with less points.
+
 
 \begin{lstlisting}[caption=Creating of a circle, label=lst:statCircle, language={SQL}]   
     geography::Point(@lat, @long, 4326).STBuffer(@radius)
 \end{lstlisting} \
 
 ### ADO.NET
-To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, *ADO.NET* and the *Entity Framework*. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
+To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, ADO.NET and the Entity Framework. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
 
-In the ASP.NET Core application database operations are managed by a *DatabaseManager* object. This object is created and distributed as a singleton service by making use of Dependency Injection. This way the existence of exactly one instance of the class is guaranteed across the whole application at runtime.
+In the ASP.NET Core application database operations are managed by a \lstinline!DatabaseManager! object. This object is created and distributed as a singleton service by making use of Dependency Injection. This way the existence of exactly one instance of the class is guaranteed across the whole application at runtime.
 
-To create a connection to the database a new instance of the class *SqlConnection* is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation.
+To create a connection to the database a new instance of the class \lstinline!SqlConnection! is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation. This operation is shown in Listing 2.8.
 
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Creating and opening a connection, label=lst:adoOpen, language={[Sharp]C}]   
@@ -276,7 +278,7 @@ To create a connection to the database a new instance of the class *SqlConnectio
 \end{lstlisting} 
 \end{minipage} \
 
-To send SQL command to the server a new instance of the *SqlCommand* class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using '(at)geofenceName' when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET. Listing 2.11 describes how a placeholder is used for deleting geofences by ids.
+To send SQL command to the server a new instance of the \lstinline!SqlCommand! class is created. This instance is constructed with a SQL command in form of a string as a construction parameter. To avoid the risk of SQL-Injection vulnerabilities variables defined by user inputs are being substituted by placeholders in the initial string. To specify a placeholder in a SQL string a variable name with an @ in front is used. An example of this would be using \@geofenceName when inserting a new geofence into the database. To use the actual value instead of the placeholder a new parameter needs to be added to the SqlCommand object. This way no string concatenation is used and the data is handled directly by ADO.NET. Listing 2.9 describes how a placeholder is used for deleting geofences by ids.
 
 
 \begin{lstlisting}[caption=Deleting a geofence by id, label=lst:adoPlaceholder, language={[Sharp]C}]       
@@ -285,7 +287,7 @@ To send SQL command to the server a new instance of the *SqlCommand* class is cr
     cmd.Parameters["@id"].Value = idGeoFence;
 \end{lstlisting} \
 
-There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. 
+There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. Both operations are described in Listing 2.10.
 
 \begin{lstlisting}[caption=Executing a command with and without query, label=lst:adoQuery, language={[Sharp]C}]
     // Reading every selected row to get geofences       
@@ -309,7 +311,7 @@ There are two ways of executing a SqlCommand, with or without a query. Commands 
     connection.Close();
 \end{lstlisting} \
 
-To execute stored procedures from the webapp a command needs to be created with the name of the procedure as it's construction parameter. Next the commands *CommandType* needs to be set as *CommandType.StoredProcedure* to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected.
+To execute stored procedures from the webapp a command needs to be created with the name of the procedure as it's construction parameter. Next the commands \lstinline!CommandType! needs to be set as \lstinline!CommandType.StoredProcedure! to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected. Listing 2.11 describes this process on the example of creating a circular geofence.
 
 \begin{lstlisting}[caption=Creating a command of a procedure and setting the variables, label=lst:adoProcedure, language={[Sharp]C}]       
     SqlCommand cmd = new SqlCommand("createCircle", connection);
@@ -333,7 +335,8 @@ NetTopologySuite [@nts] (NTS) is a .NET implementation of the JTS Topology Suite
 
 As NTS provides the same functionality when processing geographical data as does SQL Server, it can be used to calculate intersections of driveboxes and geofences. Furthermore it offers ways to convert GeoJSON data into NTS objects, as well as those objects into SQL Bytes to be persisted in the database. Geographical objects follow the OGC specification and have the same labels as described in the Spatial Extension chapter.
 
-To work with NTS a simple installation from the NuGet package manager has to be made. After the installation NTS functionality is accessible from the entire project. To convert a geographical object from SQL Server to one readable by NTS, a new instance of the *SqlServerBytesReader* class needs to be created. To specify the data to be of the geography datatype the parameter *IsGeography* needs to be set to true.
+To work with NTS a simple installation from the NuGet package manager has to be made. After the installation NTS functionality is accessible from the entire project. To convert a geographical object from SQL Server to one readable by NTS, a new instance of the \lstinline!SqlServerBytesReader! class needs to be created. To specify the data to be of the geography datatype the parameter \lstinline!IsGeography! needs to be set to true. Listing 2.12 shows how geofence data is read from the database and converted into NTS objects.
+
 
 \begin{lstlisting}[caption=Reading geographical objects from the database, label=lst:sqlbytesreader, language={[Sharp]C}]       
     SqlServerBytesReader bytesReader = new SqlServerBytesReader() { IsGeography = true };
@@ -356,7 +359,7 @@ To work with NTS a simple installation from the NuGet package manager has to be 
     }
 \end{lstlisting} \
 
-To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the *GeoJsonSerializer* class to create a JSON.NET serializer that works with GeoJSON. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
+To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the \lstinline!GeoJsonSerializer! class to create a JSON.NET serializer that works with GeoJSON, the usage of which is described in Listing 2.13. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
 
 \begin{lstlisting}[caption=Get all geofences and convert them to GeoJSON, label=lst:geojsonget, language={[Sharp]C}]       
     List<PolygonDataWithHistory> polygonDataWithHistories = databaseManager.GetGeoFenceHistories(polys);
@@ -375,7 +378,7 @@ To then relay this information to the React webapp, it needs to be converted int
     }
 \end{lstlisting} \
 
-Creation of polygons and the calculation of intersections are described in the according chapters.
+The creation of polygons and the calculation of intersections are described in the according chapters.
 
 ## Frontend Technologies
 \fancyfoot[L]{Ambrosch}
@@ -900,7 +903,7 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.75\textwidth]{source/figures/seq_rest.png}
-	\caption{Communication between the two applications.}
+	\caption{Communication between the two applications}
 	\label{fig2_4}
 \end{figure}
 
