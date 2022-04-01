@@ -167,7 +167,7 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 - Using shadows instead of borders for cards
 - Using the color blue for accents
 
-The specific shades of blue that were used were derived from the _Drivebox_ application logo, but were altered in some places to increase readability and to make the user interface visually more appealing. Figure 4.2 shows the user interface before adaptations were made, while figure 4.3 contains all changes made to the UI.
+The specific shades of blue that were used were derived from the _Drivebox_ application logo, but were altered in some places to increase readability and to make the user interface visually more appealing. Figure 4.2 shows the user interface before adaptations were made, while figure 4.3 contains all changes made to the UI for integration.
 
 \begin{figure}[H]
 	\centering
