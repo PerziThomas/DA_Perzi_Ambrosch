@@ -1,5 +1,5 @@
 # Implementation
-This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the ASP.NET Core [@aspref] backend, the Microsoft SQL Server [@sqlref] as well as the React [@react] frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
+This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the _ASP.NET Core_ [@aspref] backend, the Microsoft _SQL Server_ [@sqlref] as well as the _React_ [@react] frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
 
 ## Architecture
 \fancyfoot[L]{Perzi}
@@ -171,7 +171,7 @@ To add custom middleware into the ASP.NET Core pipeline, the developer must simp
 \end{lstlisting} \
 
 #### Controller
-Controllers are classes which handle the routing and processing of requests to the web service. When using the annotation \lstinline![ApiController]! a controller is declared as an API controller. This holds the benefit of automatically converting responses to a requested format like JSON or XML. Alongside the ApiController annotation the \lstinline![Route(route)]! annotation is used to set a general route for all requests going into this controller. An example of this would to use \lstinline![Route("api/v1")]! resulting in every request to https://driver.box/api/v1 being routed through this controller.
+Controllers are classes which handle the routing and processing of requests to the web service. When using the annotation \lstinline![ApiController]! a controller is declared as an API controller. This holds the benefit of automatically converting responses to a requested format like JSON or XML. Alongside the ApiController annotation the \lstinline![Route(route)]! annotation is used to set a general route for all requests going into this controller. An example of this would to use \lstinline![Route("api/v1")]! resulting in every request to *https://driver.box/api/v1* being routed through this controller.
 
 To map methods to routes and HTTP methods a different set of annotations needs to be used on the desired methods. To associate a method with a route and a method, two annotations need to be used. Firstly, the \lstinline![Route(route)]! annotation is reused from the controller. To register the method to a specific HTTP methods ASP.NET Core provides several annotations.
 
@@ -180,10 +180,10 @@ Each annotation corresponds to the HTTP method with the same name. Apart from ro
 Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to \lstinline!IActionResult!. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then \lstinline!StatusCode! can be used, as a code can be customly assigned to it.
 
 ### Microsoft SQL Server
-SQL Server is a relational database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses the SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) [@ssmsref] is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
+SQL Server is a relational database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses the SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as *SQL Server Management Studio* (SSMS) [@ssmsref] is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
 
 #### Transact-SQL
-T-SQL [@tsqlref] is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the \lstinline!TOP! keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL [@tsql]. An example of this is shown in listing 2.5.
+*T-SQL* [@tsqlref] is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the \lstinline!TOP! keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL [@tsql]. An example of this is shown in listing 2.5.
 
 \begin{lstlisting}[caption=Example of using the TOP keyword, label=lst:topkeyword, language={SQL}]
     SELECT TOP 12 Id, Name, Description 
@@ -265,7 +265,7 @@ To manipulate and work with geographical data the extension provides a variety o
 \end{lstlisting} \
 
 ### ADO.NET
-To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, ADO.NET [@adoref] and the Entity Framework [@efref]. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
+To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, *ADO.NET* [@adoref] and the *Entity Framework* [@efref]. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
 
 In the ASP.NET Core application database operations are managed by a \lstinline!DatabaseManager! object. This object is created and distributed as a singleton service by making use of dependency injection. This way the existence of exactly one instance of the class is guaranteed across the whole application at runtime.
 
@@ -289,7 +289,7 @@ To send SQL commands to the server a new instance of the \lstinline!SqlCommand! 
     cmd.Parameters["@id"].Value = idGeoFence;
 \end{lstlisting} \
 
-There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. Both operations are described in listing 2.10.
+There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a \lstinline!SqlDataReader! being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. Both operations are described in listing 2.10.
 
 \begin{lstlisting}[caption=Executing a command with and without query, label=lst:adoQuery, language={[Sharp]C}]
     // Reading every selected row to get geofences       
@@ -328,12 +328,12 @@ To execute stored procedures from the application a command needs to be created 
 #### Comparison with Entity Framework
 The Entity Framework (EF), being the Entity Framework Core when using with a .NET Core application, is a higher level database access library by Microsoft for .NET applications. It is built on top of ADO.NET and provides the developer with a higher level object-relational mapper to work with objects retrieved from a database. Entity Framework Core provides two ways of creating models, a database-first and a code-first model, generating the other part from the given one. To map classes to database tables and vice-versa, scaffoldings and migrations are used.
 
-Compared to ADO.NET, EF provides a higher abstraction of database operations to the developer. Operations such as SELECT and INSERT are being handled by the library instead of the developer. To filter selected data, LINQ [@linq] is used. In contrary when doing operations in ADO.NET, commands and connections need to be defined by the developer manually, giving greater control about the processing of data [@efcore].
+Compared to ADO.NET, EF provides a higher abstraction of database operations to the developer. Operations such as SELECT and INSERT are being handled by the library instead of the developer. To filter selected data, *LINQ* [@linq] is used. In contrary when doing operations in ADO.NET, commands and connections need to be defined by the developer manually, giving greater control about the processing of data [@efcore].
 
 Due to Microsoft phasing out spatial support in EF Core and the official recommended library for spatial processing being NetTopologySuite [@efspatial], ADO.NET was chosen in the geofencing application. EF Core not providing any native support resulted in operations needing an equal amount of manual processing as in ADO.NET, but with the drawback of additional overhead. Furthermore the low level of ADO.NET allowed for much more performance to be extracted out of the application, contributing positively to the time critical requirement.
 
 ### NetTopologySuite
-NetTopologySuite [@nts] (NTS) is a .NET implementation of the JTS Topology Suite software for Java. It implements the Open Geospatial Consortiums (OGC) Simple Features Specification [@ogcref] for SQL like the spatial extension of SQL Server. Due to this a base compatibility is given between the two pieces of software, making communication possible and straightforward. The OGC specification defines a set of objects and methods for geometrical data, all of which are implemented in NTS.
+*NetTopologySuite* [@nts] (NTS) is a .NET implementation of the JTS Topology Suite software for Java. It implements the Open Geospatial Consortiums (OGC) Simple Features Specification [@ogcref] for SQL like the spatial extension of SQL Server. Due to this a base compatibility is given between the two pieces of software, making communication possible and straightforward. The OGC specification defines a set of objects and methods for geometrical data, all of which are implemented in NTS.
 
 As NTS provides the same functionality when processing geographical data as does SQL Server, it can be used to calculate intersections of driveboxes and geofences. Furthermore it offers ways to convert GeoJSON data into NTS objects, as well as those objects into SQL Bytes to be persisted in the database. Geographical objects follow the OGC specification and have the same labels as described in the Spatial Extension chapter.
 
@@ -411,7 +411,7 @@ The _Fetch API_ [@fetchAPI] provides the _fetch()_ method to make promise-based 
 - built-in support for download progress
 - wider range of supported browsers
 
-An example GET request, including an Authorization header and handling of the request promise, is written with _fetch_ as demonstrated in listing 2.14.
+An example GET request, including an Authorization header and handling of the request promise, is written with fetch as demonstrated in listing 2.14.
 
 \begin{lstlisting}[caption=Example GET request with fetch, label=lst:fetchExample, language={JavaScript}] 
     const headersObj = new Headers({
@@ -613,7 +613,7 @@ _React Leaflet Draw_ [@reactleafletdrawref] is a library for using Leaflet Draw 
 
 
 #### Setup
-To be able to include drawing functions in a map, the _leaflet-draw_ styles have to be added to the project by including a link tag as can be seen in listing 2.22
+To be able to include drawing functions in a map, the Leaflet Draw styles have to be added to the project by including a link tag as can be seen in listing 2.22
 
 \begin{lstlisting}[caption=Adding styles via link, label=lst:leafletDrawStyles, language={JavaScript}]
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
@@ -724,7 +724,7 @@ The package has to be installed in the project with the use of a script tag or b
 ### OpenStreetMap
 _OpenStreetMap_ [@openStreetMapAbout] is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries.
 
-OpenStreetMap is the default map provider used by the _Leaflet_ extension.
+OpenStreetMap is the default map provider used by the Leaflet extension.
 
 
 ### GeoJSON
@@ -884,7 +884,7 @@ Using ASP.NET Core's controller classes to create high level routing of incoming
     Used to analyze trips either in real time or after the completion of one.
 3. Geofence Metadata
     
-    This data is used to sort geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering geofences.
+    This data is used to sort geofences using attributes set by the user. For example, geofences can be attributed to a worker or a company. Metadata is only used for filtering geofences.
 
 Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handled by services which receive data from controllers. An endpoint using DELETE is shown in listing 2.29.
 
@@ -980,7 +980,7 @@ As a final step, each intersection is processed and modified with information on
 \end{figure}
 
 ## Polygon Creation
-To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways of processing the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 2.31.
+To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways of processing the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into _SQLBytes_. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 2.31.
 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
     public byte[] ConvertGeometryToBytes(Geometry geometry)
@@ -1058,11 +1058,11 @@ The frontend provides operations for viewing, creating, updating and deleting ge
 ### Interactive Map
 The central part of the frontend is an interactive map that can be used to view, create and edit geofences. Interactive, in this case, means that all operations that involve direct interaction with the underlying geographical data can be carried out directly on the map, instead of, for example, by entering coordinates in an input field.
 
-The map is provided by _Leaflet_. Since this library is open-source, a lot of additional libraries exist, some of which are used to extend the functionality of the app.
+The map is provided by Leaflet. Since this library is open-source, a lot of additional libraries exist, some of which are used to extend the functionality of the app.
 
-_React Leaflet_ is also used to enable working with _Leaflet_ in React components more easily. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
+_React Leaflet_ is also used to enable working with Leaflet in React components more easily. While the application is written with React Leaflet where possible, in some cases, solutions involving the standard Leaflet have to be used to achieve a specific task.
 
-_Leaflet Draw_ and _React Leaflet Draw_ are used to add drawing functions in the map. These libraries offer event handlers for creating and editing shapes, which are overwritten in the app to handle custom behavior like confirmation dialogs and communication with the backend.
+Leaflet Draw and React Leaflet Draw are used to add drawing functions in the map. These libraries offer event handlers for creating and editing shapes, which are overwritten in the app to handle custom behavior like confirmation dialogs and communication with the backend.
 
 
 ### Geofence creation
@@ -1333,7 +1333,7 @@ The edit history is accessed in the frontend when the geoFences are fetched from
 
 
 ### Geofence visibility
-Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag \lstinline!Hidden! is stored for each geofence. For any geofence where this tag is set to true, no _react-leaflet_ polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
+Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag \lstinline!Hidden! is stored for each geofence. For any geofence where this tag is set to true, no React Leaflet polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
 
 #### Storing geofence visibilities
 It can be assumed that in most cases when the user hides a geofence, they want to do so permanently or at least indefinitely, for example with system geofences, geofences with a large number of points or generally rarely used ones. Therefore, it makes sense to store the information about which geofences are hidden even when the app is closed. This is achieved by using _localStorage_, which, in contrast to _sessionStorage_, persists data until it is explicitly deleted. Listing 2.41 shows the code for retrieving visibility information from localStorage.
@@ -1353,7 +1353,7 @@ It can be assumed that in most cases when the user hides a geofence, they want t
 ### Geofence highlighting
 Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green). The action of moving the map to the location of the highlighted geofence is achieved by using the Leaflet function \lstinline!map.flyToBounds!, which changes the map's center and zoom level to fit the bounds of the given geometry and also includes a smooth animation.
 
-A boolean tag \lstinline!Highlighted! is stored for every geofence. Some special cases have to be considered in combination with the Geofence visibility feature:
+A boolean tag \lstinline!Highlighted! is stored for every geofence. Some special cases have to be considered in combination with the geofence visibility feature:
 
 - If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.
 - If a hidden geofence is highlighted, it is also unhidden.
@@ -1547,7 +1547,7 @@ Similar changes are also applied to other components that were found to cause la
 
 
 ### Reduction of loaded geofences
-During manual testing of the app, it became clear that frontend performance is connected to the number of geofences that are loaded at any given point in time. This effect was magnified when multiple geofences with high point counts, like state presets or road geofences, were displayed at once. This appears to be a limitation inherent to the _leaflet_ map that cannot be fixed in itself. Instead, the user of the app is given the option to have less geofences shown on the map at once.
+During manual testing of the app, it became clear that frontend performance is connected to the number of geofences that are loaded at any given point in time. This effect was magnified when multiple geofences with high point counts, like state presets or road geofences, were displayed at once. This appears to be a limitation inherent to the Leaflet map that cannot be fixed in itself. Instead, the user of the app is given the option to have less geofences shown on the map at once.
 
 A pagination feature, as described in chapter _Pagination_, splits the total collection of geofences and only displays a portion in the frontend list and map. The feature also allows the user to change the number of geofences to be displayed per page, which can be set higher if performance allows it or lowered if otherwise.
 
@@ -1555,7 +1555,7 @@ A geofence hiding feature, as described in chapter  _Geofence visibility_, also 
 
 
 ### Reduction of editable geometries
-While the edit mode provided by _leaflet-draw_ is enabled in the _leaflet_ map, all editable polygons are shown with draggable edit markers for each point of their geometry. These edit markers, when present in large quantities, cause considerable lag when edit mode is enabled. To improve this, certain geofences are marked as non-editable and are not shown in the map's edit mode, as described in chapter _Non-editable geofences_.
+While the edit mode provided by Leaflet Draw is enabled in the Leaflet map, all editable polygons are shown with draggable edit markers for each point of their geometry. These edit markers, when present in large quantities, cause considerable lag when edit mode is enabled. To improve this, certain geofences are marked as non-editable and are not shown in the map's edit mode, as described in chapter _Non-editable geofences_.
 
 
 ### Reduction of backend calls

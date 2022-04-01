@@ -89,7 +89,7 @@ According to the company, the geofence management application would mainly be us
 
 The UI consists of a map on the left and a sidebar on the right, which starts at a width of 410px, but can be dragged to any size between 410px and 120px less than the total window width. Switching from a horizontal to a vertical split layout was considered, but this would have been necessary only for screens with very small widths.
 
-The drawing tools from _leaflet-draw_ were tested briefly on a touchscreen device, and all basic functionality appears to be present. Since geofences would mainly be drawn and edited on PC, no further attempt was made to improve the drawing experience on touchscreens.
+The drawing tools from Leaflet Draw were tested briefly on a touchscreen device, and all basic functionality appears to be present. Since geofences would mainly be drawn and edited on PC, no further attempt was made to improve the drawing experience on touchscreens.
 
 
 ## Specific design decisions
@@ -158,7 +158,7 @@ When the search bar is shown, it includes a "Search"-button, which is connected 
 
 
 ## Multi-language support
-To comply with the already existing Drivebox-App, the user interface is offered in both English and German. This includes all texts, like labels, tooltips, error messages, and also native texts used by libraries such as labels in the _Leaflet_-map, wherever they could be changed.
+To comply with the already existing Drivebox-App, the user interface is offered in both English and German. This includes all texts, like labels, tooltips, error messages, and also native texts used by libraries such as labels in the Leaflet-map, wherever they could be changed.
 
 The language is selected by the user in the Drivebox-App and is then handed to the Geofencing application.
 

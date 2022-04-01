@@ -14,7 +14,7 @@ There are several ways to test a piece of software on its functionality. Unit- a
 
 
 ### REST Endpoint Functionality
-Web endpoints using the REST architecture were tested using xUnit [@xunitref] as a general testing framework and the Microsoft ASP.NET Core MVC Testing package [@mvctestref]
+Web endpoints using the REST architecture were tested using _xUnit_ [@xunitref] as a general testing framework and the Microsoft _ASP.NET Core MVC Testing package_ [@mvctestref]
 to send web requests to the server. 
 These tools were used due to the backend being written in C# on top of the ASP.NET Core web framework, keeping up a consistency in the used technologies, 
 ensuring a higher maintainability of all parts of the source code, as well as the ability to use tools developed by Microsoft themselves. \
@@ -96,7 +96,7 @@ developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline
 \end{lstlisting} \
 
 ### Frontend Functionality
-Testing the functionality of the React frontend part of the application was achieved using the Selenium [@seleniumref]
+Testing the functionality of the React frontend part of the application was achieved using the _Selenium_ [@seleniumref]
 framework, specifically the Selenium WebDriver. Selenium, being the industry standard for browser automation
 provides the ability to automate the actions a user would take in a browser, such as clicking, going to a specific URL or reading values of a web page. \
 
@@ -141,7 +141,7 @@ driver handles mouse movement differently than the Chrome driver.
 
 ### Backend Algorithms
 For unit testing the algorithms functionality there was a need to mock out the required
-components in normal application use. This was achieved using the Moq [@moqref] library,
+components in normal application use. This was achieved using the _Moq_ [@moqref] library,
 which is used to mock objects in C# for unit tests. \
 
 Mock testing is about only testing one thing in isolation, forcing all other dependencies
@@ -169,7 +169,7 @@ handled all the geofence data.
 
 
 ### MS SQL
-The open source tool SQLQueryStress [@sqlstressref] provides the ability to test an SQL Servers ability
+The open source tool _SQLQueryStress_ [@sqlstressref] provides the ability to test an SQL Servers ability
 to operate under a constant stream of requests, achieved by making several threads execute
 SQL commands. The following figure shows an overview of the application as well as the results of testing a procedure under heavy load. \
 
@@ -199,7 +199,7 @@ ASP.NET Core backend, which proved to be much more efficient at handling the nec
 it was decided to abandon the optimization of the database based algorithm.
 
 ### ASP.NET
-To test the performance of the RESTful endpoints written in ASP.NET Core, the Apache JMeter [@jmeterref] tool was used,
+To test the performance of the RESTful endpoints written in ASP.NET Core, the _Apache JMeter_ [@jmeterref] tool was used,
 checking the efficiency of the collision detection algorithm as well as the server's ability to run under load. \
 
 JMeter uses _Test Plans_ to send requests to servers, using a basic _Thread Group_ to assign the number of clients
