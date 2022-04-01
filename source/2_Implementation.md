@@ -1,5 +1,5 @@
 # Implementation
-This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the ASP.NET Core [@aspref] backend, the Microsoft SQL Server [sqlref] as well as the React [@react] frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
+This chapter describes the concrete implementation of the software. This includes technologies as well as the technical implementation in the ASP.NET Core [@aspref] backend, the Microsoft SQL Server [@sqlref] as well as the React [@react] frontend. Frameworks as well as major third party libraries are explained alongside standardized formats. Certain technologies will also be compared with similar alternatives to achieve the desired results as well as explanations given on why one was chosen. Furthermore algorithms to calculate intersections with geofences will be explained. 
 
 ## Architecture
 \fancyfoot[L]{Perzi}
@@ -60,7 +60,7 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
     }
 \end{lstlisting} \
 
-To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs. The Startup.cs file is shown in a shortened form in Listing 2.2.
+To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs. The Startup.cs file is shown in a shortened form in listing 2.2.
 
 \begin{lstlisting}[caption={[Startup.cs file of the backend]The Startup.cs file of the backend, shortened for readability}, label=lst:startupcs, language={[Sharp]C}]
     public class Startup
@@ -136,7 +136,8 @@ When registering a service there are three different options to choose from. The
    Singleton services are created once the first time they are requested. When the service is requested again the same instance is provided to the requesting object. Singleton objects are disposed once the application shuts down. These services are used when there has to be exactly one instance of a service, for the geofencing application this was chosen when creating the database manager service [@servicelife].
 
 
-To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core. A concrete implementation of this is shown using the \lstinline!TimePointController! in Listing 2.3.
+To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core. A concrete implementation of this is shown using the \lstinline!TimePointController! in listing 2.3.
+\newpage
 
 \begin{lstlisting}[caption=The TimePointController requesting two services, label=lst:servicereq, language={[Sharp]C}]
     public TimePointController(ICollisionDetector collisionDetector, IPointAnalyzer pointAnalyzer)
@@ -179,10 +180,10 @@ Each annotation corresponds to the HTTP method with the same name. Apart from ro
 Controllers provide the ability to plainly return objects as a JSON representation by setting the associated class as a return type. To receive more control over the response the return type must be set to \lstinline!IActionResult!. This interface is implemented by several classes representing HTTP status codes. If there is no such classes implemented for a specific status code then \lstinline!StatusCode! can be used as a code can be customly assigned to it.
 
 ### Microsoft SQL Server
-SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
+SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) [@ssmsref] is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
 
 #### Transact-SQL
-T-SQL is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the *TOP* keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. An example of this is shown in Listing 2.5. [@tsql]
+T-SQL [@tsqlref] is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the \lstinline!TOP! keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. An example of this is shown in listing 2.5. [@tsql]
 
 \begin{lstlisting}[caption=Example of using the TOP keyword, label=lst:topkeyword, language={SQL}]
     SELECT TOP 12 Id, Name, Description 
@@ -255,7 +256,8 @@ On top of the basic data types, there are two mains groups of object types provi
 
 To create these spatial objects the well-known-text (WKT) format is used. The spatial extension provides methods to create objects from WKT. To create a polygon from a WKT source, the method \lstinline!geography::STPolyFromText(wkt, 4326)! is used. To create a point object, the method \lstinline!geography::Point(lat, long, 4326)! is used. To create any other geography object the method \lstinline!geography::STGeomFromText(wkt, 4326)! can be used. The number 4326 at the end of every methods specifies the coordinate system used for the object. This number is specified as the Spatial Referencing System Identifier (SRID). SRID 4326 is the system that specifies the latitudes and longitudes along the entire globe. For applications working in a specific area of the world which need an additional grade of coordinate accuracy another SRID can be chosen. Due to drivebox not needing accuracy in the range of centimeters and the market being open to grow the global SRID 4326 was chosen.
 
-To manipulate and work with geographical data the extension provides a variety of methods. The geofencing application mainly makes use of the \lstinline!STBuffer()! method on objects. This method increases the size of a object in every direction, turning it either into a Polygon or a MultiPolygon, depending on the initial object. It is used to create circle and road geofences on the database, as these use a Point and a LineString as a base respectively. The command to create a circle is shown in Listing 2.7. These Polygons often have over one hundred points, resulting in a loss of performance on the frontend and when calculating intersections. To simplify these shapes, the method \lstinline!Reduce(1)! is used. It removes unnecessary points of a Polygon and returns a new, more performant object with less points.
+To manipulate and work with geographical data the extension provides a variety of methods. The geofencing application mainly makes use of the \lstinline!STBuffer()! method on objects. This method increases the size of a object in every direction, turning it either into a Polygon or a MultiPolygon, depending on the initial object. It is used to create circle and road geofences on the database, as these use a Point and a LineString as a base respectively. The command to create a circle is shown in listing 2.7. These Polygons often have over one hundred points, resulting in a loss of performance on the frontend and when calculating intersections. To simplify these shapes, the method \lstinline!Reduce(1)! is used. It removes unnecessary points of a Polygon and returns a new, more performant object with less points.
+
 
 
 \begin{lstlisting}[caption=Creating of a circle, label=lst:statCircle, language={SQL}]   
@@ -263,11 +265,11 @@ To manipulate and work with geographical data the extension provides a variety o
 \end{lstlisting} \
 
 ### ADO.NET
-To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, ADO.NET and the Entity Framework. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
+To establish a connection from the ASP.NET Core application to the database a library is needed. Microsoft provides two options to implement these connections, ADO.NET [@adoref] and the Entity Framework [@efref]. ADO.NET provides a selection of methods to work with SQL databases of all kinds. To work with a database a provider is needed. In case of SQL Server this is the Microsoft ADO.NET for SQL Server provider. For a database like Oracle another one would be used.
 
 In the ASP.NET Core application database operations are managed by a \lstinline!DatabaseManager! object. This object is created and distributed as a singleton service by making use of Dependency Injection. This way the existence of exactly one instance of the class is guaranteed across the whole application at runtime.
 
-To create a connection to the database a new instance of the class \lstinline!SqlConnection! is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation. This operation is shown in Listing 2.8.
+To create a connection to the database a new instance of the class \lstinline!SqlConnection! is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation. This operation is shown in listing 2.8.
 
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Creating and opening a connection, label=lst:adoOpen, language={[Sharp]C}]   
@@ -287,7 +289,7 @@ To send SQL command to the server a new instance of the \lstinline!SqlCommand! c
     cmd.Parameters["@id"].Value = idGeoFence;
 \end{lstlisting} \
 
-There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. Both operations are described in Listing 2.10.
+There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a *SqlDataReader* being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. Both operations are described in listing 2.10.
 
 \begin{lstlisting}[caption=Executing a command with and without query, label=lst:adoQuery, language={[Sharp]C}]
     // Reading every selected row to get geofences       
@@ -331,7 +333,7 @@ Compared to ADO.NET, EF provides a higher abstraction of database operations to 
 Due to Microsoft phasing out spatial support in EF Core and the official recommended library for spatial processing being NetTopologySuite, ADO.NET was chosen in the geofencing application. EF Core not providing any native support resulted in operations needing an equal amount of manual processing as in ADO.NET, but with the drawback of additional overhead. Furthermore the low level of ADO.NET allowed for much more performance to be extracted out of the application, contributing positively to the time critical requirement.
 
 ### NetTopologySuite
-NetTopologySuite [@nts] (NTS) is a .NET implementation of the JTS Topology Suite software for Java. It implements the Open Geospatial Consortiums (OGC) Simple Features Specification for SQL like the spatial extension of SQL Server. Due to this a base compatibility is given between the two pieces of software, making communication possible and straightforward. The OGC specification defines a set of objects and methods for geometrical data, all of which are implemented in NTS.
+NetTopologySuite [@nts] (NTS) is a .NET implementation of the JTS Topology Suite software for Java. It implements the Open Geospatial Consortiums (OGC) Simple Features Specification [@ogcref] for SQL like the spatial extension of SQL Server. Due to this a base compatibility is given between the two pieces of software, making communication possible and straightforward. The OGC specification defines a set of objects and methods for geometrical data, all of which are implemented in NTS.
 
 As NTS provides the same functionality when processing geographical data as does SQL Server, it can be used to calculate intersections of driveboxes and geofences. Furthermore it offers ways to convert GeoJSON data into NTS objects, as well as those objects into SQL Bytes to be persisted in the database. Geographical objects follow the OGC specification and have the same labels as described in the Spatial Extension chapter.
 
@@ -359,7 +361,7 @@ To work with NTS a simple installation from the NuGet package manager has to be 
     }
 \end{lstlisting} \
 
-To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the \lstinline!GeoJsonSerializer! class to create a JSON.NET serializer that works with GeoJSON, the usage of which is described in Listing 2.13. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
+To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the \lstinline!GeoJsonSerializer! class to create a JSON.NET serializer that works with GeoJSON, the usage of which is described in listing 2.13. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
 
 \begin{lstlisting}[caption=Get all geofences and convert them to GeoJSON, label=lst:geojsonget, language={[Sharp]C}]       
     List<PolygonDataWithHistory> polygonDataWithHistories = databaseManager.GetGeoFenceHistories(polys);
@@ -883,7 +885,7 @@ Using ASP.NET Cores controller classes, to create high level routing of incoming
     
     This data is used to sort Geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering Geofences.
 
-Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handeled by services which receive data from controllers. An endpoint using DELETE is shown in Listing 2.29.
+Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handeled by services which receive data from controllers. An endpoint using DELETE is shown in listing 2.29.
 
 \begin{lstlisting}[caption=Delete endpoint, label=lst:restctrl, language={[Sharp]C}]
     [HttpDelete]
@@ -944,7 +946,7 @@ To calculate intersections on the webserver, a third party library was needed. \
 ### Point based calculation
 To notify businesses of their vehicles leaving a certain area defined by a geofence, the system needed the ability to work and calculate intersections in real-time. To achieve this, a specification was chosen to receive the last two points from the main Drivebox server, and calculate which polygons these points are interacting with. Practically, this could be done using three calculations.
 
-To avoid unnecessary calculations with polygons that are outside of a points scope, all polygons are filtered into two collections, each having all the polygons a point is inside of included. The following Listing includes the code used to achieve this task.
+To avoid unnecessary calculations with polygons that are outside of a points scope, all polygons are filtered into two collections, each having all the polygons a point is inside of included. The following listing includes the code used to achieve this task.
 
 \begin{lstlisting}[caption=Filter polygons, label=lst:polyfilter, language={[Sharp]C}]
     List<PolygonData> geoFencesPointOne = _databaseManager
@@ -977,7 +979,7 @@ As a final step, each intersection is processed and modified with information if
 \end{figure}
 
 ## Polygon Creation
-To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in Listing 2.32.
+To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways to process the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 2.32.
 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
     public byte[] ConvertGeometryToBytes(Geometry geometry)
@@ -1028,7 +1030,7 @@ After performing multiple tests using various tools as described in chapter *Tes
 ### Caching in ASP.NET
 First, minimizing the number of requests made to the database could decrease the average response times for the trade-off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
 
-To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. The setting of these options as well as the persiting of data in the cache is shown in Listing 2.33. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
+To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. The setting of these options as well as the persiting of data in the cache is shown in listing 2.33. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
 
 \begin{lstlisting}[caption=Set a new cache entry, label=lst:polyfilter, language={[Sharp]C}]
     MemoryCacheEntryOptions entryOptions = new MemoryCacheEntryOptions()

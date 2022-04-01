@@ -4,7 +4,7 @@ This chapter describes the use of common testing techniques and methods as well 
 to ensure a stable and secure application which is ready to be used by the company clients.\
 Testing is an important aspect of every piece of software, as it ensures the functionality, security and the coverage
 of the implemented code. Software testing is generally organized into two categories, functional and non-functional testing,
-with both types being used to test the DriveBox Geofencing software. [@testingTypes]
+with both types being used to test the DriveBox Geofencing software [@testingTypes].
 
 Functional testing will be described in its own sub chapter, while non functional testing will mainly be described in the form of stress testing.
 
@@ -28,7 +28,7 @@ was done in this project. \
 \newpage
 
 ##### Fact vs. Theory \
-Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
+Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. 
 *Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing. A fact to test if a \lstinline!HttpClient! can connect to the server is shown is Listing 3.1.
 
 \begin{lstlisting}[caption=Example of a Fact, label=lst:test, language={[Sharp]C}]
