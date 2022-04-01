@@ -466,10 +466,10 @@ Localize has to be initialized with settings, which must include an array of sup
 #### Adding translation data
 There are two different ways to add translations:
 
-- The _addTranslation_ method is used to add translation data in an _all languages_ format, which means the translations for all languages are stored together in a single file.
+- The _addTranslation_ method is used to add translation data in _all languages_ format, which means the translations for all languages are stored together in a single file.
 - The _addTranslationForLangage_ method adds translation data in _single language_ format, meaning that there is one resource file for each supported language.
 
-Translation data is stored in JSON files which are then imported and added to localize. When using the _single language_ format, each translation consists of a property name and the translation for that language. When using the all languages_ format, for every property name, an array of translation texts for the different languages is used instead, in the order used for initialization.\
+Translation data is stored in JSON files which are then imported and added to localize. When using the _single language_ format, each translation consists of a property name and the translation for that language. When using _all languages_ format, for every property name, an array of translation texts for the different languages is used instead, in the order used for initialization.\
 In both cases, translation data can be nested for easier naming and grouping of properties. This nested structure is represented via periods (".") in the id when calling the translation values.
 
 An example of a resource file in _all languages_ format could be called _translations.json_ and would look as demonstrated in listing 2.16:
@@ -513,7 +513,7 @@ An example of a resource file in _all languages_ format could be called _transla
     }
 \end{lstlisting} \
 
-With _single language format_, this would instead be split in two files, _en.translations.json_ (shown in listing 2.17):
+With _single language format_, this would instead be split into two files, _en.translations.json_ (shown in listing 2.17):
 
 \begin{lstlisting}[caption=English resource file in single-language format, label=lst:localizeReduxResource, language={JavaScript}]
     {
