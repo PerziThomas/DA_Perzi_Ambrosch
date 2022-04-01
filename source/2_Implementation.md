@@ -1257,7 +1257,7 @@ A label is displayed for every geofence in the map to make it easier to associat
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/Label_precision_problem.png}
+  \includegraphics[width=0.70\textwidth]{source/figures/Label_precision_problem.png}
 	\caption{Labels (top left) are displayed at the same point and outside their corresponding polygons (bottom right)}
 	\label{fig2_8}
 \end{figure}
@@ -1276,7 +1276,7 @@ This approach can also lead to problems with concave geometry, when the calculat
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/Label_outside_concave_geometry.png}
+  \includegraphics[width=0.70\textwidth]{source/figures/Label_outside_concave_geometry.png}
 	\caption{Geofence label displayed outside a concave polygon's geometry}
 	\label{fig2_9}
 \end{figure}
@@ -1298,7 +1298,7 @@ This approach solves the problem with concave shapes, because the calculated poi
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/Label_pole_of_inaccessibility.png}
+  \includegraphics[width=0.70\textwidth]{source/figures/Label_pole_of_inaccessibility.png}
 	\caption{Geofence label placed at the pole of inaccessibility}
 	\label{fig2_10}
 \end{figure}
