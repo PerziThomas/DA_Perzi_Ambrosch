@@ -778,7 +778,7 @@ A FeatureCollection can be used to group different features together. It has a m
 
 
 #### Example
-Listing 2.28 shows an example GeoJSON object consisting of a FeatureCollection, which includes five features with different geometries: one LineString, two Points and one Polygon.
+Listing 2.28 shows an example GeoJSON object consisting of a FeatureCollection, which includes four features with different geometries: one LineString, two Points and one Polygon.
 
 \begin{lstlisting}[caption=An example GeoJSON object, label=lst:geoJson, language={JavaScript}]
     {
@@ -854,7 +854,7 @@ For a service to be considered RESTful, it must fulfil six criteria [@restful]:
 
 1. Uniform Interface
    
-   This defines the need for all components of the system to follow the same set of rules and thus allows for a standard way of communication.
+   This defines the need for all components of the system to follow the same set of rules and thus allowing for a standard way of communication.
 2. Client-Server
    
    Tasks and concerns have to be strictly separated between the client and the server. 
@@ -884,7 +884,7 @@ Using ASP.NET Core's controller classes to create high level routing of incoming
     Used to analyze trips either in real time or after the completion of one.
 3. Geofence Metadata
     
-    This data is used to sort Geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering Geofences.
+    This data is used to sort geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering geofences.
 
 Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handled by services which receive data from controllers. An endpoint using DELETE is shown in listing 2.29.
 
@@ -980,7 +980,7 @@ As a final step, each intersection is processed and modified with information on
 \end{figure}
 
 ## Polygon Creation
-To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways of processing the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 2.32.
+To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways of processing the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into SQLBytes. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 2.31.
 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
     public byte[] ConvertGeometryToBytes(Geometry geometry)
@@ -1026,7 +1026,7 @@ To create a circle, only two parameters are required: the center point of the ci
 To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the \lstinline!STBuffer(width)! method. The resulting object has a \lstinline!.Reduce(1)! method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
 
 ## Performance optimization on the backend
-After performing multiple tests using various tools as described in chapter *Testing*, a conclusion was reached that the database bottlenecked the system the most. Therefore, two ways were found to counteract this issue.
+After performing multiple tests using various tools as described in the chapter *Testing*, a conclusion was reached that the database bottlenecked the system the most. Therefore, two ways were found to counteract this issue.
 
 ### Caching in ASP.NET
 First, minimizing the number of requests made to the database could decrease the average response times for the trade-off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
@@ -1097,7 +1097,7 @@ Circles, when created with _leaflet-draw_, have a center point defined by a lati
 
 
 ### Road geofences
-Geofences can be created by setting waypoints, calculating a route and giving it width to make it a road.
+Geofences can be created by setting waypoints, calculating a route and giving it a width to make it a road.
 
 The routing function is provided by the node package _leaflet-routing-machine_. This package includes functions for calculating a route between multiple waypoints on a map using real world road data. Waypoints can be dragged around on the map, and additional via points can be added by clicking or dragging to alter the route.
 
@@ -1123,7 +1123,7 @@ It was considered to implement the edit feature in a way that individual geofenc
 
 The functionality would be achieved by storing an \lstinline!editable! flag for that geofence, and then only rendering geofences that have this flag inside the \lstinline!FeatureGroup!.
 
-This feature did not work as intended, since the Leaflet map did not re-render correctly. Also, the performance benefit became less of a priority after pagination was implemented.
+This feature did not work as intended, as the Leaflet map did not re-render correctly. Also, the performance benefit became less of a priority after pagination was implemented.
 
 
 #### Making loaded geofences editable
@@ -1285,6 +1285,8 @@ This approach can also lead to problems with concave geometry, when the calculat
 	\label{fig2_9}
 \end{figure}
 
+\newpage
+
 ##### Center of bounding box
 The label can be placed at the center of the bounding box of the polygon, which can easily be done by using basic leaflet methods, as shown in listing 2.39.
 
@@ -1331,7 +1333,7 @@ The edit history is accessed in the frontend when the geoFences are fetched from
 
 
 ### Geofence visibility
-Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag \lstinline!Hidden! is stored for each geofence. For any geofence where this tag is set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
+Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag \lstinline!Hidden! is stored for each geofence. For any geofence where this tag is set to true, no _react-leaflet_ polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
 
 #### Storing geofence visibilities
 The information on which geofences are hidden is stored for the convenience of the user. Since most geofences that are hidden can be assumed to stay hidden for the majority of the time, like system geofences, geofences with a large number of points or generally rarely used ones, this is done with _localStorage_, meaning that, contrary to _sessionStorage_, the information is stored not just on page reloads, but in entirely new sessions. Listing 2.41 shows the code for retrieving visibility information from storage.
@@ -1391,7 +1393,7 @@ _/geoFences/search?searchTerm=\${searchTerm}&metadataCategory=${category}_, whic
 
 
 ### Geofence locking
-One of the main use cases of the app is for theft protection. An object (a car or machine) can be tracked with the DriveBox, and if it leaves a geofence, an alarm can be sent out. For this feature, there is also the option to lock geofences on certain days of the week, so that for example no alarm is triggered on the weekend.
+One of the main use cases of the app is theft protection. An object (a car or machine) can be tracked with the DriveBox, and if it leaves a geofence, an alarm can be sent out. For this feature, there is also the option to lock geofences on certain days of the week, so that for example no alarm is triggered on the weekend.
 
 In the app, every geofence has a button for each weekday, which shows the current state and allows the user to toggle the lock on or off. When one of these buttons is pressed, a GET request is sent to the endpoint _/geoFences/${id}/${weekday}/2_, including the _id_ of the geofence, the weekday and the locking method, with the following options:
 
@@ -1412,7 +1414,7 @@ The task of determining what geofences should be returned in which page is handl
 ### Geofence display color
 The user can select from a variety of display colors for the geofences on the map, for better contrast and visibility or for personal preference. This is a global setting, meaning that the color can be changed for all geofences at once. It is not possible to set different colors for individual geofences.
 
-The currently selected color is stored in a React state variable and used when drawing the Polygons on the map. Highlighted geofences are always colored green, overriding the global geofence display color.
+The currently selected color is stored in a React state variable and used when drawing the polygons on the map. Highlighted geofences are always colored green, overriding the global geofence display color.
 
 
 ### Bulk operations
@@ -1477,7 +1479,7 @@ This could be used as an alternative way to store the days on which a geofence i
 
 ## Performance optimization on the frontend
 \fancyfoot[L]{Ambrosch}
-This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as and the changes made to the application to fix those issues. Optimizing performance of the frontend can have several positive effects, including, but not limited to:
+This chapter describes the considerations made to improve performance of the React app. This includes the methods used to record performance data and find potential issues, as well as the changes made to the application to fix those issues. Optimizing performance of the frontend can have several positive effects, including, but not limited to:
 
 - minimizing lag and making the UI more responsive.
 - minimizing loading times and load on the network by reducing the number of backend calls.
@@ -1487,7 +1489,7 @@ Hereafter, some particular solutions that are used in the geofence web-interface
 
 
 ### Reduction of component rerenders
-One of the biggest factors affecting performance of the React app is the number of component rerenders, especially ones which happen after changes to parameters of a component, that have no effect on the state of that component. Reducing the number of these unnecessary rerenders is important to improve frontend performance and therefore usability.
+One of the biggest factors affecting performance of the React app is the number of component rerenders, especially ones which happen after changes to parameters of a component that have no effect on the state of that component. Reducing the number of these unnecessary rerenders is important to improve frontend performance and therefore usability.
 
 
 #### Measuring component render times
@@ -1547,17 +1549,17 @@ Similar changes are also applied to other components that cause lag or rerender 
 ### Reduction of loaded geofences
 During manual testing of the app, it became clear that frontend performance is connected to the number of geofences that are loaded at any given point in time. This effect was magnified when multiple geofences with high point counts, like state presets or road geofences, were displayed at once. This appears to be a limitation inherent to the _leaflet_ map that cannot be fixed in itself. Instead, the user of the app is given the option to have less geofences shown on the map at once.
 
-A pagination feature, as described in chapter _Pagination_, splits the total collection of geofences and only displays a portion in the frontend list and map. The feature also allows the user to change the number of geofences to be displayed per page, which can be chosen higher if performance allows it or lower if otherwise.
+A pagination feature, as described in chapter _Pagination_, splits the total collection of geofences and only displays a portion in the frontend list and map. The feature also allows the user to change the number of geofences to be displayed per page, which can be set higher if performance allows it or lowered if otherwise.
 
 A geofence hiding feature, as described in chapter  _Geofence visibility_, also makes it possible to hide specific geofences from the map, which cleans up the view for the user, but can also improve performance by not rendering particularly complex geofences.
 
 
 ### Reduction of editable geometries
-While the edit mode provided by _leaflet-draw_ is enabled in the _leaflet_ map, all editable polygons are shown with draggable edit markers for each point of their geometry. These edit markers, when present in large quantities, cause considerably lag when edit mode is enabled. To improve this, certain geofences are marked as non-editable and are not shown in the map's edit mode, as described in chapter _Non-editable geofences_.
+While the edit mode provided by _leaflet-draw_ is enabled in the _leaflet_ map, all editable polygons are shown with draggable edit markers for each point of their geometry. These edit markers, when present in large quantities, cause considerable lag when edit mode is enabled. To improve this, certain geofences are marked as non-editable and are not shown in the map's edit mode, as described in chapter _Non-editable geofences_.
 
 
 ### Reduction of backend calls
-Performance of the frontend interface is improved by minimizing the number of requests made to the backend, by avoiding techniques like polling. This reduces the total loading times and load on the network, and also making some UI elements more responsive by not relying on backend data for updates.
+Performance of the frontend interface is improved by minimizing the number of requests made to the backend, by avoiding techniques like polling. This reduces the total loading times and load on the network, and also makes some UI elements more responsive by not relying on backend data for updates.
 
 
 #### Polling geofence locks
