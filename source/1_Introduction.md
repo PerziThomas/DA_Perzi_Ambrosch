@@ -15,7 +15,7 @@ At ilogs, a SCRUM-like framework was used to define project goals. Every week on
 Version control was handled using a Git server hosted on a Microsoft Azure instance. No git flow was followed while working on the project due to it being an overengineered solution for a project with only two people working on it. 
 
 ## Overview
-The content of this thesis is structured into several chapters. Chapter 2 describes the technologies and software engineering techniques used in the front- and backend parts of the application. Furthermore, algorithms and performance optimizations are described. Chapter 3 highlights the importance of testing in this application and shows the several testing frameworks implemented into it. Chapter 5 describes the various considerations that were taken to evaluate requirements and improve usability and user experience of the frontend. Chapter 6 is a resume which summarizes the projects and the learnings taken from it.
+The content of this thesis is structured into several chapters. Chapter 2 describes the technologies and software engineering techniques used in the front- and backend parts of the application. Furthermore, algorithms and performance optimizations are described. Chapter 3 highlights the importance of testing in this application and shows the several testing frameworks implemented into it. Chapter 4 describes the various considerations that were taken to evaluate requirements and improve usability and user experience of the frontend. Chapter 5 is a resume which summarizes the projects and the learnings taken from it.
 
 ## Use Cases
 \fancyfoot[L]{Ambrosch}
