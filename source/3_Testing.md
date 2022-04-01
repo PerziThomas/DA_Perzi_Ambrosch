@@ -29,7 +29,7 @@ was done in this project. \
 
 ##### Fact vs. Theory \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. \
-*Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing.
+*Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing. A fact to test if a \lstinline!HttpClient! can connect to the server is shown is Listing 3.1.
 
 \begin{lstlisting}[caption=Example of a Fact, label=lst:test, language={[Sharp]C}]
     // A sample Fact Test which ensures a successful connection & authorization to the backend server.
@@ -46,7 +46,7 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
 *Theories* on the other hand, are tests which use parameters. This is used for test cases in which 
 one might wish to test a function which has a binary result with several values without the need to write
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
-such as Firefox and Google Chrome. [@xUnitIntro] \
+such as Firefox and Google Chrome [@xUnitIntro]. Usage of a theory is shown in Listing 3.2.\
 
 \begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers, label=lst:theory, language={[Sharp]C}]
     //A connectivity test to check if both Selenium Browser drivers are working.
@@ -69,9 +69,9 @@ such as Firefox and Google Chrome. [@xUnitIntro] \
 \newpage
 
 ##### xUnit and MVC Testing \
-Microsoft provides the *Microsoft.AspNetCore.Mvc.Testing* package for integration testing of applications
+Microsoft provides the Microsoft.AspNetCore.Mvc.Testing package for integration testing of applications
 developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline!WebApplicationFactory! as well as the
-\lstinline!HttpClient! provided by this package one is able to test their RESTful applications. \
+\lstinline!HttpClient! provided by this package one is able to test their RESTful applications. Listing 3.3 shows how to use the MVC testing package alongside xUnit to test if a \lstinline!HttpClient! can to the server. \
 
 \begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest, language={[Sharp]C}]
     //A Factory to build instances of the application to test.
@@ -107,9 +107,9 @@ with the ability to run the same testing code for multiple browsers. Selenium on
 to automate the browser, checking values still had to be done using xUnit. \
 
 Creating tests using Selenium is comparable to writing code in a sequential way, as the drivers are being
-instructed to execute a sequence of statement, similar to how a real user would do it.
+instructed to execute a sequence of statement, similar to how a real user would do it. The following listing shows how to create a Selenium client which checks if the sidebar of a webpage can be opened.
 
-\begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers, label=lst:selenium, language={[Sharp]C}]
+\begin{lstlisting}[caption=Selenium example, label=lst:selenium, language={[Sharp]C}]
     [Theory]
     [InlineData("chrome")]
     [InlineData("firefox")]
@@ -141,12 +141,12 @@ driver handles mouse movement differently than the Chrome driver.
 
 ### Backend Algorithms
 For unit testing the algorithms functionality there was a need to mock out the required
-components in normal application use. This was achieved using the *Moq* [@moqref] library,
+components in normal application use. This was achieved using the Moq [@moqref] library,
 which is used to mock objects in C# for unit tests. \
 
 Mock testing is about only testing one thing in isolation, forcing all other dependencies
 of this component to work in a set way. This is achieved due to most components of the
-application making use of dependency injection, which allows for easy mocking. [@moqTutorial] \
+application making use of dependency injection, which allows for easy mocking [@moqTutorial]. Listing 3.5 shows how to mock the database service used in the backend. \
 
 
 \begin{lstlisting}[caption=Mocking the database access, label=lst:test, language={[Sharp]C}]
@@ -171,24 +171,24 @@ handled all the geofence data.
 ### MS SQL
 The open source tool SQLQueryStress [@sqlstressref] provides the ability to test an SQL Servers ability
 to operate under a constant stream of requests, achieved by making several threads execute
-SQL commands. \
+SQL commands. The following figure shows an overview of the application as well as the results of testing a procedure under heavy load. \
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress1.png}
-	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe}
+	\caption{Testing an procedure}
 	\label{fig3_1}
 \end{figure}
 
 After testing the pure procedures in the database alone, disregarding any other bottleneck which
 could come up due to the network, it was concluded that the Microsoft SQL Geospatial functions were
 not able to provide the efficiency needed to satisfy the Drivebox demands in scalability, as the company
-is looking to expand the pool of vehicles in the future. \
+is looking to expand the pool of vehicles in the future. The results of the final tests with optimised procedures are displayed in figure 3.2.\
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress2.png}
-	\caption{Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions}
+	\caption{Testing the calculation implementation}
 	\label{fig3_2}
 \end{figure}
 
@@ -199,13 +199,13 @@ ASP.NET Core backend, which proved to be much more efficient at handling the nec
 it was decided to abandon the optimization of the database based algorithm.
 
 ### ASP.NET
-To test the performance of the RESTful endpoints written in ASP.NET Core, the *Apache JMeter* [@jmeterref] tool was used,
+To test the performance of the RESTful endpoints written in ASP.NET Core, the Apache JMeter [@jmeterref] tool was used,
 checking the efficiency of the collision detection algorithm as well as the server's ability to run under load. \
 
-JMeter uses *Test Plans* to send requests to servers, using a basic *Thread Group* to assign the number of clients
+JMeter uses _Test Plans_ to send requests to servers, using a basic _Thread Group_ to assign the number of clients
 accessing the server at the same time. Besides setting the number of simultaneous threads running, developers are
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
-amount of requests each thread sends.
+amount of requests each thread sends. An example of such a test plan is shown in figure 3.3.
 
 \begin{figure}[H]
 	\centering
@@ -214,9 +214,9 @@ amount of requests each thread sends.
 	\label{fig3_3}
 \end{figure}
 
-Following that, the developer must add a *HTTP Request Defaults* object which provides JMeter with the basic
+Following that, the developer must add a _HTTP Request Defaults_ object which provides JMeter with the basic
 information about the server to be tested, such as the base hostname, the port and the protocol, as well as
-parameters and body data.
+parameters and body data. Figure 3.4 shows an example of the interface used to set these options.
 
 \begin{figure}[H]
 	\centering
@@ -225,9 +225,9 @@ parameters and body data.
 	\label{fig3_4}
 \end{figure}
 
-Next, the specific *HTTP Request* details need to be specified, mainly the used HTTP Method, as well as
+Next, the specific _HTTP Request_ details need to be specified, mainly the used HTTP Method, as well as
 the destination path, which is appended to the base host. This part should mainly take over the settings set
-in the *HTTP Request Defaults* object, but if needed, some of those can be edited.
+in the _HTTP Request Defaults_ object, but if needed, some of those can be edited. The interface is shown in the following figure.
 
 \begin{figure}[H]
 	\centering
@@ -236,15 +236,15 @@ in the *HTTP Request Defaults* object, but if needed, some of those can be edite
 	\label{fig3_5}
 \end{figure}
 
-Finally, to display the results of the Test Plan, the developer needs to use a *Listener*. Listeners
+Finally, to display the results of the Test Plan, the developer needs to use a _Listener_. Listeners
 are mainly grouped into two categories, tables and graphs, depending on which is needed, with the
-table based reports being more detailed. [@jmeterTutorial]
+table based reports being more detailed [@jmeterTutorial]. An example of how the result of a graph based listener could look like is provided in figure 3.6.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter4.png}
 	\caption{Example of a graph based listener\protect\autocite{jmeterPic4}}
-	\label{fig3_5}
+	\label{fig3_6}
 \end{figure}
 
 Test procedures in JMeter were designed similarly to the ones made in SQLQueryStress, with a main focus
