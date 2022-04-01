@@ -138,7 +138,7 @@ When registering a service there are three different options to choose from. The
 
 To request a service from the application a class must simple include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core.
 
-\begin{lstlisting}[caption=The TimePointController requesting two services., label=lst:servicereq, language={[Sharp]C}]
+\begin{lstlisting}[caption=The TimePointController requesting two services, label=lst:servicereq, language={[Sharp]C}]
     public TimePointController(ICollisionDetector collisionDetector, IPointAnalyzer pointAnalyzer)
     {
         this.collisionDetectorService = collisionDetector;
@@ -152,7 +152,7 @@ To handle requests in a common way regardless of routes the concept of middlewar
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/middleware_pipe.png}
-	\caption{Example of a middleware workflow.\protect\autocite{middleware}}
+	\caption{Example of a middleware workflow\protect\autocite{middleware}}
 	\label{fig2_2}
 \end{figure}
 
@@ -221,7 +221,7 @@ Variables can be declared inside the body of a stored procedure. These can have 
 
 The geofencing application makes use of stored procedures in several ways. A main application is the creation of special geofences such as circles and roads, as those need a special type of processing. Next the logic for locking geofences on certain days of the weeks is also implemented using stored procedures. 
 
-\begin{lstlisting}[caption=Procedure to create a circle geofence., label=lst:procCircle, language={SQL}]
+\begin{lstlisting}[caption=Procedure to create a circle geofence, label=lst:procCircle, language={SQL}]
     CREATE PROCEDURE [dbo].[createCircle] (@lat DECIMAL(18,10), @long DECIMAL(18,10), @radius INT, @title VARCHAR(300), @idUser uniqueidentifier(100))
     AS
     BEGIN
@@ -256,7 +256,7 @@ To create these spatial objects the well-known-text (WKT) format is used. The sp
 
 To manipulate and work with geographical data the extension provides a variety of methods. The geofencing application mainly makes use of the *STBuffer()* method on objects. This method increases the size of a object in every direction, turning it either into a Polygon or a MultiPolygon, depending on the initial object. It is used to create circle and road geofences on the database, as these use a Point and a LineString as a base respectively. These Polygons often have over one hundred points, resulting in a loss of performance on the frontend and when calculating intersections. To simplify these shapes, the method *Reduce(1)* is used. It removes unnecessary points of a Polygon and returns a new, more performant object with less points.
 
-\begin{lstlisting}[caption=Creating of a circle., label=lst:statCircle, language={SQL}]   
+\begin{lstlisting}[caption=Creating of a circle, label=lst:statCircle, language={SQL}]   
     geography::Point(@lat, @long, 4326).STBuffer(@radius)
 \end{lstlisting} \
 
@@ -268,7 +268,7 @@ In the ASP.NET Core application database operations are managed by a *DatabaseMa
 To create a connection to the database a new instance of the class *SqlConnection* is created. Passed along as a construction parameter is a connection string to specify the server and the database user credentials. To work with this connection it needs to be opened after creation.
 
 \begin{minipage}[c]{1\textwidth} 
-\begin{lstlisting}[caption=Creating and opening a connection., label=lst:adoOpen, language={[Sharp]C}]   
+\begin{lstlisting}[caption=Creating and opening a connection, label=lst:adoOpen, language={[Sharp]C}]   
     using (SqlConnection connection = new SqlConnection(SQL_STRING))
     {
         connection.Open();
@@ -281,7 +281,7 @@ To send SQL command to the server a new instance of the *SqlCommand* class is cr
 
 \begin{lstlisting}[caption=Deleting a geofence by id, label=lst:adoPlaceholder, language={[Sharp]C}]       
     SqlCommand cmd = new SqlCommand("DELETE FROM geoFence WHERE id = @id", connection);
-cmd.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int));
+    cmd.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int));
     cmd.Parameters["@id"].Value = idGeoFence;
 \end{lstlisting} \
 
@@ -335,7 +335,7 @@ As NTS provides the same functionality when processing geographical data as does
 
 To work with NTS a simple installation from the NuGet package manager has to be made. After the installation NTS functionality is accessible from the entire project. To convert a geographical object from SQL Server to one readable by NTS, a new instance of the *SqlServerBytesReader* class needs to be created. To specify the data to be of the geography datatype the parameter *IsGeography* needs to be set to true.
 
-\begin{lstlisting}[caption=Reading geographical objects from the database., label=lst:sqlbytesreader, language={[Sharp]C}]       
+\begin{lstlisting}[caption=Reading geographical objects from the database, label=lst:sqlbytesreader, language={[Sharp]C}]       
     SqlServerBytesReader bytesReader = new SqlServerBytesReader() { IsGeography = true };
     cmd.Parameters.Add(new SqlParameter("@guid", userId))
 
@@ -358,7 +358,7 @@ To work with NTS a simple installation from the NuGet package manager has to be 
 
 To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the *GeoJsonSerializer* class to create a JSON.NET serializer that works with GeoJSON. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
 
-\begin{lstlisting}[caption=Get all geofences and convert them to GeoJSON., label=lst:geojsonget, language={[Sharp]C}]       
+\begin{lstlisting}[caption=Get all geofences and convert them to GeoJSON, label=lst:geojsonget, language={[Sharp]C}]       
     List<PolygonDataWithHistory> polygonDataWithHistories = databaseManager.GetGeoFenceHistories(polys);
     List<string> geoJsons = new List<string>();
     JsonSerializer jsonWriter = GeoJsonSerializer.Create();
@@ -882,7 +882,7 @@ Using ASP.NET Cores controller classes, to create high level routing of incoming
 
 Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object.
 
-\begin{lstlisting}[caption=A sample delete endpoint using a MVC approach to separate concerns., label=lst:restctrl, language={[Sharp]C}]
+\begin{lstlisting}[caption=A sample delete endpoint using a MVC approach to separate concerns, label=lst:restctrl, language={[Sharp]C}]
     [HttpDelete]
     [Route("{idGeoFence}")]
     public IActionResult DeleteGeofence(int idGeoFence)
@@ -925,7 +925,7 @@ Raycasting is an algorithm which uses the Odd-Even rule to check if a point is i
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/raycasting_polygon.png}
-	\caption{An example of how a raycasting algorithm works with a polygon.\protect\autocite{raycasting}}
+	\caption{An example of how a raycasting algorithm works with a polygon\protect\autocite{raycasting}}
 	\label{fig2_5}
 \end{figure}
 

@@ -48,7 +48,7 @@ one might wish to test a function which has a binary result with several values 
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome. [@xUnitIntro] \
 
-\begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers., label=lst:theory, language={[Sharp]C}]
+\begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers, label=lst:theory, language={[Sharp]C}]
     //A connectivity test to check if both Selenium Browser drivers are working.
     [Theory]
     [InlineData("chrome")]
@@ -109,7 +109,7 @@ to automate the browser, checking values still had to be done using xUnit. \
 Creating tests using Selenium is comparable to writing code in a sequential way, as the drivers are being
 instructed to execute a sequence of statement, similar to how a real user would do it.
 
-\begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers., label=lst:selenium, language={[Sharp]C}]
+\begin{lstlisting}[caption=Code which tests if the sidebar is openable in both browsers, label=lst:selenium, language={[Sharp]C}]
     [Theory]
     [InlineData("chrome")]
     [InlineData("firefox")]
@@ -176,7 +176,7 @@ SQL commands. \
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress1.png}
-	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe.}
+	\caption{Testing an algorithmic procedure on its performance under a constant load for a longer timeframe}
 	\label{fig3_1}
 \end{figure}
 
@@ -188,7 +188,7 @@ is looking to expand the pool of vehicles in the future. \
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress2.png}
-	\caption{Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions.}
+	\caption{Testing the final implementation of the algorithm using procedures and native MS SQL Geospatial functions}
 	\label{fig3_2}
 \end{figure}
 
@@ -210,7 +210,7 @@ amount of requests each thread sends.
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter1.png}
-	\caption{Creating a Test Group in JMeter.\protect\autocite{jmeterPic1}}
+	\caption{Creating a Test Group in JMeter\protect\autocite{jmeterPic1}}
 	\label{fig3_3}
 \end{figure}
 
@@ -221,7 +221,7 @@ parameters and body data.
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter2.png}
-	\caption{Setting the base HTTP options.\protect\autocite{jmeterPic2}}
+	\caption{Setting the base HTTP options\protect\autocite{jmeterPic2}}
 	\label{fig3_4}
 \end{figure}
 
@@ -232,7 +232,7 @@ in the *HTTP Request Defaults* object, but if needed, some of those can be edite
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter3.png}
-	\caption{Specifying Request options.\protect\autocite{jmeterPic3}}
+	\caption{Specifying Request options\protect\autocite{jmeterPic3}}
 	\label{fig3_5}
 \end{figure}
 
@@ -243,7 +243,7 @@ table based reports being more detailed. [@jmeterTutorial]
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter4.png}
-	\caption{Example of a graph based listener.\protect\autocite{jmeterPic4}}
+	\caption{Example of a graph based listener\protect\autocite{jmeterPic4}}
 	\label{fig3_5}
 \end{figure}
 
