@@ -889,12 +889,12 @@ Controllers provide the ability to create API-Endpoints for all commonly used HT
 ### Requests
 Requests onto the server were made according to the HTTP protocol, with a token included in the Authorization header to authenticate a user on the backend. Data is transmitted using JSON objects in the request body, as well as the GeoJSON format in the special case of geofence communication. (See GeoJSON chapter).
 
-To avoid a constant repetition of boilerplate code inside each controller, ASP.NET Core middleware is used to authenticate the user using the token provided in each request.
+To avoid a constant repetition of boilerplate code inside each controller, ASP.NET Core middleware is used to authenticate the user using the token provided in each request. Figure 2.4 is a sequence diagram showing the communication between the front- and backend applications.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.75\textwidth]{source/figures/seq_rest.png}
-	\caption{[Communication between the two applications]A sample sequence diagram of how the two applications communicate with each other. In this case fetching a list of geofences and afterwards adding a new one.}
+	\caption{Communication between the two applications.}
 	\label{fig2_4}
 \end{figure}
 
