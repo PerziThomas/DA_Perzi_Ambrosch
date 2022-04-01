@@ -29,7 +29,7 @@ was done in this project. \
 
 ##### Fact vs. Theory \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. 
-*Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing. A fact to test if a \lstinline!HttpClient! can connect to the server is shown is Listing 3.1.
+*Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing. A fact to test if a \lstinline!HttpClient! can connect to the server is shown is listing 4.1.
 
 \begin{lstlisting}[caption=Example of a Fact, label=lst:test, language={[Sharp]C}]
     // A sample Fact Test which ensures a successful connection & authorization to the backend server.
@@ -46,7 +46,7 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
 *Theories* on the other hand are tests which use parameters. This is used for test cases in which 
 one might wish to test a function which has a binary result with several values without the need to write
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
-such as Firefox and Google Chrome [@xUnitIntro]. Usage of a theory is shown in Listing 3.2.\
+such as Firefox and Google Chrome [@xUnitIntro]. Usage of a theory is shown in listing 4.2.\
 
 \begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers, label=lst:theory, language={[Sharp]C}]
     //A connectivity test to check if both Selenium Browser drivers are working.
@@ -71,7 +71,7 @@ such as Firefox and Google Chrome [@xUnitIntro]. Usage of a theory is shown in L
 ##### xUnit and MVC Testing \
 Microsoft provides the Microsoft.AspNetCore.Mvc.Testing package for integration testing of applications
 developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline!WebApplicationFactory! as well as the
-\lstinline!HttpClient! provided by this package one is able to test their RESTful applications. Listing 3.3 shows how to use the MVC testing package alongside xUnit to test if a \lstinline!HttpClient! can to the server. \
+\lstinline!HttpClient! provided by this package one is able to test their RESTful applications. listing 4.3 shows how to use the MVC testing package alongside xUnit to test if a \lstinline!HttpClient! can to the server. \
 
 \begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest, language={[Sharp]C}]
     //A Factory to build instances of the application to test.
@@ -146,7 +146,7 @@ which is used to mock objects in C# for unit tests. \
 
 Mock testing is about only testing one thing in isolation, forcing all other dependencies
 of this component to work in a set way. This is achieved due to most components of the
-application making use of dependency injection, which allows for easy mocking [@moqTutorial]. Listing 3.5 shows how to mock the database service used in the backend. \
+application making use of dependency injection, which allows for easy mocking [@moqTutorial]. Listing 4.5 shows how to mock the database service used in the backend. \
 
 
 \begin{lstlisting}[caption=Mocking the database access, label=lst:test, language={[Sharp]C}]
@@ -177,19 +177,19 @@ SQL commands. The following figure shows an overview of the application as well 
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress1.png}
 	\caption{Testing an procedure}
-	\label{fig3_1}
+	\label{fig4_1}
 \end{figure}
 
 After testing the pure procedures in the database alone, disregarding any other bottleneck which
 could come up due to the network, it was concluded that the Microsoft SQL Geospatial functions were
 not able to provide the efficiency needed to satisfy the Drivebox demands in scalability, as the company
-is looking to expand the pool of vehicles in the future. The results of the final tests with optimised procedures are displayed in figure 3.2.\
+is looking to expand the pool of vehicles in the future. The results of the final tests with optimised procedures are displayed in figure 4.2.\
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/sqlstress2.png}
 	\caption{Testing the calculation implementation}
-	\label{fig3_2}
+	\label{fig4_2}
 \end{figure}
 
 With the final and most accurate implementation of the algorithm being able to handle requests at an acceptable rate,
@@ -205,24 +205,24 @@ checking the efficiency of the collision detection algorithm as well as the serv
 JMeter uses _Test Plans_ to send requests to servers, using a basic _Thread Group_ to assign the number of clients
 accessing the server at the same time. Besides setting the number of simultaneous threads running, developers are
 also able to make these threads start up after a certain amount of time (Ramp-Up Period), as well as setting the
-amount of requests each thread sends. An example of such a test plan is shown in figure 3.3.
+amount of requests each thread sends. An example of such a test plan is shown in figure 4.3.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter1.png}
 	\caption{Creating a Test Group in JMeter\protect\autocite{jmeterPic1}}
-	\label{fig3_3}
+	\label{fig4_3}
 \end{figure}
 
 Following that, the developer must add a _HTTP Request Defaults_ object which provides JMeter with the basic
 information about the server to be tested, such as the base hostname, the port and the protocol, as well as
-parameters and body data. Figure 3.4 shows an example of the interface used to set these options.
+parameters and body data. Figure 4.4 shows an example of the interface used to set these options.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter2.png}
 	\caption{Setting the base HTTP options\protect\autocite{jmeterPic2}}
-	\label{fig3_4}
+	\label{fig4_4}
 \end{figure}
 
 Next, the specific _HTTP Request_ details need to be specified, mainly the used HTTP Method, as well as
@@ -233,18 +233,18 @@ in the _HTTP Request Defaults_ object, but if needed, some of those can be edite
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter3.png}
 	\caption{Specifying Request options\protect\autocite{jmeterPic3}}
-	\label{fig3_5}
+	\label{fig4_5}
 \end{figure}
 
 Finally, to display the results of the Test Plan, the developer needs to use a _Listener_. Listeners
 are mainly grouped into two categories, tables and graphs, depending on which is needed, with the
-table based reports being more detailed [@jmeterTutorial]. An example of how the result of a graph based listener could look like is provided in figure 3.6.
+table based reports being more detailed [@jmeterTutorial]. An example of how the result of a graph based listener could look like is provided in figure 4.6.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/jmeter4.png}
 	\caption{Example of a graph based listener\protect\autocite{jmeterPic4}}
-	\label{fig3_6}
+	\label{fig4_6}
 \end{figure}
 
 Test procedures in JMeter were designed similarly to the ones made in SQLQueryStress, with a main focus

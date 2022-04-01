@@ -112,7 +112,6 @@ When registering a service there are three different options to choose from. The
 
 
 To request a service from the application a class must simply include the services interface in its constructor. Providing the associated service object is then handled by ASP.NET Core. A concrete implementation of this is shown using the \lstinline!TimePointController! in listing 2.3.
-\newpage
 
 \begin{lstlisting}[caption=The TimePointController requesting two services, label=lst:servicereq, language={[Sharp]C}]
     public TimePointController(ICollisionDetector collisionDetector, IPointAnalyzer pointAnalyzer)
@@ -123,13 +122,13 @@ To request a service from the application a class must simply include the servic
 \end{lstlisting} \
 
 #### Middleware
-To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware on the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used [@middleware]. A simple graphical representation of this is displayed in figure 2.2.
+To handle requests in a common way regardless of routes the concept of middleware can be used. ASP.NET Core works on a concept of a request entering the system, getting processed by middleware and then returning a response. Therefore the acts of routing a request, checking CORS, authorization and authentication as well as handling the request on an endpoint is considered middleware. The developer now has the ability to insert custom middleware into this pipeline. Middleware can either pass along the request to the next middleware on the pipeline or terminate the request. When a request is terminated it is passed back in the reverse order of operations before being returned as a response. To pass a request along the call *await next.Invoke()* is used [@middleware]. A simple graphical representation of this is displayed in figure 2.1.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/middleware_pipe.png}
 	\caption{Example of a middleware workflow\protect\autocite{middleware}}
-	\label{fig2_2}
+	\label{fig2_1}
 \end{figure}
 
 To add custom middleware into the ASP.NET Core pipeline, the developer must simply register it in the Startup.cs file. To do this the \lstinline!IApplicationBuilder! interface must be extended with a method registering the middleware. This methods is then called in the startup file. Listing 2.4 shows the registration of a middleware for reading the Authorization header of a HTTP request.
@@ -181,13 +180,13 @@ To create tables with T-SQL a syntax similar to the SQL one is required. Tables 
    
    The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
 
-In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram displayed in figure 2.3. Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
+In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram displayed in figure 2.2. Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/db_model.png}
 	\caption{Logical Model of the Database}
-	\label{fig2_3}
+	\label{fig2_2}
 \end{figure}
 
 ##### Procedures

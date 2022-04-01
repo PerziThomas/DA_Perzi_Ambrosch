@@ -43,7 +43,7 @@ The mockups also included concepts for how the layout would change on smartphone
 
 
 ### Drive log display
-Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated. A compromise solution was found, which is shown in figure 4.1. This solution could fulfill all of the following design requirements:
+Because it was originally considered to display information on drive logs in the user interface, several concepts for the display of entry and exit events were evaluated. A compromise solution was found, which is shown in figure 5.1. This solution could fulfill all of the following design requirements:
 
 - display entry and exit events
 - display the time spent in each geofence
@@ -55,7 +55,7 @@ Because it was originally considered to display information on drive logs in the
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/Mockup_drive_logs.PNG}
 	\caption{The final mockup for displaying drive logs}
-	\label{fig4_1}
+	\label{fig5_1}
 \end{figure}
 
 Even though the feature to display drive logs was not needed, the mockup was kept in case it would be implemented at a later point.
@@ -170,18 +170,18 @@ Since the Geofencing app was developed to be integrated into the DriveBox applic
 - Using shadows instead of borders for cards
 - Using the color blue for accents
 
-The specific shades of blue that were used were derived from the _Drivebox_ application logo, but were altered in some places to increase readability and to make the user interface visually more appealing. Figure 4.2 shows the user interface before adaptations were made, while figure 4.3 contains all changes made to the UI for integration.
+The specific shades of blue that were used were derived from the _Drivebox_ application logo, but were altered in some places to increase readability and to make the user interface visually more appealing. Figure 5.2 shows the user interface before adaptations were made, while figure 5.3 contains all changes made to the UI for integration.
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/UI_Integration_before.png}
 	\caption{UI mockup before adaptations for integration}
-	\label{fig4_2}
+	\label{fig5_2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
   \includegraphics[width=0.90\textwidth]{source/figures/UI_Integration_after.png}
 	\caption{UI mockup adapted for integration into the existing Drivebox application}
-	\label{fig4_3}
+	\label{fig5_3}
 \end{figure}
