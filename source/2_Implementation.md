@@ -729,21 +729,27 @@ GeoJSON is a format for encoding geospatial data based on _JavaScript Object Not
 #### Geometry object
 There are seven basic geometry objects types:
 
-1. _Position_
-: an array of two or more numbers, representing longitude, latitude and optionally height
+1. Position
+
+    an array of two or more numbers, representing longitude, latitude and optionally height
 
 For the remaining six types, the explanation refers to the content of that objects \lstinline!coordinates! property:
 
-2. _Point_
-: a single position
-3. _MultiPoint_
-: an array of positions
-4. _LineString_
-: an array of two or more points
-5. _MultiLineString_
-: an array of LineString coordinate arrays
-6. _Polygon_
-: an array of linear ring coordinate arrays
+2. Point
+
+    a single position
+3. MultiPoint
+
+    an array of positions
+4. LineString
+
+    an array of two or more points
+5. MultiLineString
+
+    an array of LineString coordinate arrays
+6. Polygon
+
+    an array of linear ring coordinate arrays
 
 A linear ring is a closed LineString, meaning the first and last position share the same coordinates. It must have a minimum of four positions, which would describe a triangle.
 
