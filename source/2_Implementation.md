@@ -1044,7 +1044,7 @@ To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Co
 
 
 ### Using Geo-Indexes in MS SQL
-Using Geo-Indexes for more effective calculation of intersections on the database was an option first considered to be implemented. When creating a Spatial Index, grid levels are set to **Medium** by default, when doing calculations with point data, setting these to **High** can have a positive performance impact.
+Using Geo-Indexes for more effective calculation of intersections on the database was an option first considered to be implemented. When creating a Spatial Index, grid levels are set to *Medium* by default, when doing calculations with point data, setting these to *High* can have a positive performance impact.
 
 This only led to a marginal increase in performance after testing it with practical data, hence why further research into the topic was abandoned.
 
