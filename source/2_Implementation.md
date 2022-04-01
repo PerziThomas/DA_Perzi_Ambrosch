@@ -649,7 +649,7 @@ Adding _React Leaflet Draw_ to the map example given above in the chapter _React
     </MapContainer>
 \end{lstlisting} \
 
-The EditControl component provides event handlers for all events related to the drawing functions, like \lstinline!onCreated, onEdited! and \lstinline!onDeleted!, which can be overwritten by the developer to add custom functionality.\
+The \lstinline!EditControl! component provides event handlers for all events related to the drawing functions, like \lstinline!onCreated, onEdited! and \lstinline!onDeleted!, which can be overwritten by the developer to add custom functionality.\
 The \lstinline!draw! property allows the developer to enable or disable certain features or buttons in the extension's toolbar.
 
 
@@ -700,7 +700,7 @@ _Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the 
 
 
 #### Setup
-The package has to be installed in the project, with the use of a script tag or by installing \lstinline!leaflet-routing-machine! with a package manager such as npm. A basic example of the routing machine with two initial waypoints can be added as follows:
+The package has to be installed in the project, with the use of a script tag or by installing _leaflet-routing-machine_ with a package manager such as npm. A basic example of the routing machine with two initial waypoints can be added as follows:
 
 \begin{lstlisting}[caption=Initializing Routing Machine, label=lst:routingMachineSetup, language={JavaScript}]
     const instance = L.Routing.control({ // create an instance of routing machine
@@ -723,7 +723,7 @@ OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
 
 ### GeoJSON
-GeoJSON is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
+_GeoJSON_ is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
 
 
 #### Geometry object
@@ -760,7 +760,7 @@ If multiple coordinate rings are used in a polygon, the first one must be an out
 
 
 #### Geometry collection
-A GeometryCollection has a \lstinline!geometries! which contains an array of geometry objects as described above, which can also be empty. GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
+A GeometryCollection has a property \lstinline!geometries! which contains an array of geometry objects as described above, which can also be empty. GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
 
 
 #### Feature object
@@ -1117,15 +1117,15 @@ In case of a backend error, the window is reloaded to restore the correct state 
 #### Single edit functionality
 It was considered to implement the edit feature in a way that individual geofences could be set to edit mode, instead of having a global edit mode that can be toggled for all geofences at once. This would likely have performance benefits, since it was observed in manual testing that response times of the interface increased together with the number and complexity of loaded geofences, particularly when edit mode was enabled. 
 
-The functionality would be achieved by storing an _editable_ flag for that geofence, and then only rendering geofences that have this flag inside the _FeatureGroup_.
+The functionality would be achieved by storing an \lstinline!editable! flag for that geofence, and then only rendering geofences that have this flag inside the \lstinline!FeatureGroup!.
 
-This feature did not work as intended, since the _Leaflet_ map did not re-render correctly. Also, the performance benefit became less of a priority after pagination was implemented.
+This feature did not work as intended, since the Leaflet map did not re-render correctly. Also, the performance benefit became less of a priority after pagination was implemented.
 
 
 #### Making loaded geofences editable
-To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), all geofences are stored in a collection, which is then used to render all editable geometry inside a separate _FeatureGroup_ in the map.
+To make all geofences editable (not just those that were drawn, but also those that were loaded from the backend), all geofences are stored in a collection, which is then used to render all editable geometry inside a separate \lstinline!FeatureGroup! in the map.
 
-The geofences fetched from the backend are iterated over and a new _Leaflet_ polygon (L.polygon) is created in the frontend from each geofence's coordinates.
+The geofences fetched from the backend are iterated over and a new Leaflet polygon (\lstinline!L.polygon!) is created in the frontend from each geofence's coordinates.
 
 \begin{lstlisting}[caption=Geofences are fetched and added in frontend, label=lst:geofenceLoading, language={JavaScript}]
     for (let elem of res.data.geoJson) { // iterate fetched geofences
@@ -1147,7 +1147,7 @@ The geofences fetched from the backend are iterated over and a new _Leaflet_ pol
     }
 \end{lstlisting} \
 
-The _LeafletMap_ component contains a _FeatureGroup_, which includes the component _MyEditComponent_ from _Leaflet Draw_. This means that all geofences that are rendered in this same _FeatureGroup_ are affected by _Leaflet Draw_ and can therefore be edited.
+The \lstinline!LeafletMap! component contains a \lstinline!FeatureGroup!, which includes the component \lstinline!MyEditComponent! from Leaflet Draw. This means that all geofences that are rendered in this same \lstinline!FeatureGroup! are affected by Leaflet Draw and can therefore be edited.
 
 \begin{lstlisting}[caption=Rendering editable geofences, label=lst:geofenceEditing, language={JavaScript}]
     <FeatureGroup>
@@ -1181,7 +1181,7 @@ The _LeafletMap_ component contains a _FeatureGroup_, which includes the compone
 #### Non-editable geofences
 Circular geofences and road geofences cannot be edited. Since all geofences are stored as polygons in the backend, circles are converted to an equilateral polygon with over 100 vertices. Moving individual points to change the circle's center or radius would be infeasible for the user. The same applies to road geofences, which, once stored as polygons, cannot be converted back to a route that can easily be changed.
 
-To achieve this, all geofences are given a boolean property _isNotEditable_, which is set to true in the backend for geofences created via the circle or road endpoints. This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-_FeatureGroup_ in the map.
+To achieve this, all geofences are given a boolean property \lstinline!isNotEditable!, which is set to true in the backend for geofences created via the circle or road endpoints. This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-FeatureGroup in the map.
 
 \begin{lstlisting}[caption=Rendering non-editable geofences, label=lst:geofenceEditing, language={JavaScript}]
     <MapContainer /* shortened */ >
@@ -1215,7 +1215,7 @@ To achieve this, all geofences are given a boolean property _isNotEditable_, whi
 ### Map search
 A search function exists, to make it easier to find places on the map by searching for names or addresses. This function is provided by the package _leaflet-geosearch_, which can be used with minimal effort and was only slightly customized.
 
-A custom React component _GeoSearchField_ is used. In it, an instance of _GeoSearchControl_ provided by _leaflet-geosearch_ is created with customization options, which is then added to the map in the _useEffect_ hook. The component _GeoSearchField_ also has to be used inside the _LeafletMap_ in order to make the search button available on the map.
+A custom React component \lstinline!GeoSearchField! is used. In it, an instance of \lstinline!GeoSearchControl! provided by _leaflet-geosearch_ is created with customization options, which is then added to the map in the \lstinline!useEffect! hook. The component \lstinline!GeoSearchField! also has to be used inside the LeafletMap in order to make the search button available on the map.
 
 \begin{lstlisting}[caption=addingMapSearch, label=lst:mapSearch, language={JavaScript}]
     import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
@@ -1327,7 +1327,7 @@ The edit history is accessed in the frontend when the geoFences are fetched from
 
 
 ### Geofence visibility
-Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag _Hidden_ is stored for each geofence. For any geofence where this tag is set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
+Individual geofences can be hidden from the map to make it visually clearer. To achieve this, a boolean tag \lstinline!Hidden! is stored for each geofence. For any geofence where this tag is set to true, no _react-leaflet_ Polygon is rendered in the map, and it is instead replaced with an empty tag. This has the added benefit of not rendering the polygon's geometry on the map, which was found to improve frontend performance significantly when geofences with large numbers of points are hidden.
 
 #### Storing geofence visibilities
 The information on which geofences are hidden is stored for the convenience of the user. Since most geofences that are hidden can be assumed to stay hidden for the majority of the time, like system geofences, geofences with a large number of points or generally rarely used ones, this is done with _localStorage_, meaning that, contrary to _sessionStorage_, the information is stored not just on page reloads, but in entirely new sessions.
@@ -1345,9 +1345,9 @@ The information on which geofences are hidden is stored for the convenience of t
 
 
 ### Geofence highlighting
-Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green). The action of moving the map to the location of the highlighted geofence is achieved by using the _Leaflet_ function _map.flyToBounds_, which changes the map's center and zoom level to fit the bounds of the given geometry and also includes a smooth animation. [@leafletDocumentation]
+Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green). The action of moving the map to the location of the highlighted geofence is achieved by using the _Leaflet_ function \lstinline!map.flyToBounds!, which changes the map's center and zoom level to fit the bounds of the given geometry and also includes a smooth animation. [@leafletDocumentation]
 
-A boolean tag _Highlighted_ is stored for every geofence. Some special cases have to be considered in combination with the _Geofence visibility_ feature:
+A boolean tag \lstinline!Highlighted! is stored for every geofence. Some special cases have to be considered in combination with the Geofence visibility feature:
 
 - If a geofence is highlighted, and its tag therefore set to be true, the tag of all other geofences is set to be false, to ensure that only one geofence is highlighted at a time.
 - If a hidden geofence is highlighted, it is also unhidden.
@@ -1387,7 +1387,7 @@ _/geoFences/search?searchTerm=\${searchTerm}&metadataCategory=${category}_, whic
 
 
 ### Geofence locking
-One of the main use cases of the app is for theft protection. An object (a car or machine) can be tracked with the _DriveBox_, and if it leaves a geofence, an alarm can be sent out. For this feature, there is also the option to lock geofences on certain days of the week, so that for example no alarm is triggered on the weekend.
+One of the main use cases of the app is for theft protection. An object (a car or machine) can be tracked with the DriveBox, and if it leaves a geofence, an alarm can be sent out. For this feature, there is also the option to lock geofences on certain days of the week, so that for example no alarm is triggered on the weekend.
 
 In the app, every geofence has a button for each weekday, which shows the current state and allows the user to toggle the lock on or off. When one of these buttons is pressed, a GET request is sent to the endpoint _/geoFences/${id}/${weekday}/2_, including the _id_ of the geofence, the weekday and the locking method, with the following options:
 
@@ -1432,7 +1432,7 @@ Because the checkboxes are part of custom list elements, a select-all-checkbox a
 
 
 #### Bulk locking
-Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_. If it should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function _lockActionMulti_ is called recursively for every weekday value from 0 to 6.
+Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_. If it should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function \lstinline!lockActionMulti! is called recursively for every weekday value from 0 to 6.
 
 \begin{lstlisting}[caption=The function for handling bulk locking operations, label=lst:bulkLockingFunction, language={JavaScript}]
     function lockActionMulti(weekday, lockMethod) {
@@ -1510,7 +1510,7 @@ Figure 2.12 shows a graph of the geofence management app recorded with the _Prof
 	\label{fig2_12}
 \end{figure}
 
-The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings. With a custom check function _isEqual_, the _React.memo_ function can be set to rerender only when one of these props changes.
+The map component is wrapped in _React.memo_ in order to rerender only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings. With a custom check function \lstinline!isEqual!, the _React.memo_ function can be set to rerender only when one of these props changes.
 
 \begin{lstlisting}[caption=Using React.memo with custom equality check, label=lst:reactMemo, language={JavaScript}]
     export default withLocalize(React.memo(LeafletMap, isEqual));
