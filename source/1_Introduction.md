@@ -45,7 +45,7 @@ _Geofence metadata_ can be viewed, created, deleted or used to filter the list o
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/Use_Cases/Geofence_metadata.png}
+  \includegraphics[width=0.70\textwidth]{source/figures/Use_Cases/Geofence_metadata.png}
 	\caption{Use cases for geofence metadata.}
 	\label{fig1_3}
 \end{figure}
@@ -63,7 +63,7 @@ Two use cases are provided by the program in the form of _API services_ not conn
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/Use_Cases/API_Services.png}
+  \includegraphics[width=0.60\textwidth]{source/figures/Use_Cases/API_Services.png}
 	\caption{Use cases for API services.}
 	\label{fig1_5}
 \end{figure}
@@ -72,7 +72,7 @@ _Miscellaneous_ use cases are not covered by any of the categories above and inc
 
 \begin{figure}[H]
 	\centering
-  \includegraphics[width=0.90\textwidth]{source/figures/Use_Cases/Miscellaneous.png}
+  \includegraphics[width=0.60\textwidth]{source/figures/Use_Cases/Miscellaneous.png}
 	\caption{Use cases for miscellaneous functions.}
 	\label{fig1_6}
 \end{figure}
