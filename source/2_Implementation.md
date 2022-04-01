@@ -622,7 +622,7 @@ or
 
 Afterwards, an \lstinline!EditControl! component can be added to a map to enable drawing features to be used. This component must be placed in a \lstinline!FeatureGroup! component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
 
-Adding _React Leaflet Draw_ to the map example given above in the chapter _React Leaflet_ would produce the following code:
+Adding _React Leaflet Draw_ to the map example given above in chapter _React Leaflet_ would produce the following code:
 
 \begin{lstlisting}[caption=Adding React Leaflet Draw to Leaflet map, label=lst:leafletDrawSetup, language={JavaScript}]
     <MapContainer center={[0, 0] /* initial coordinates of map bounds */} zoom={13}>
@@ -907,7 +907,7 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 
 ### Sending requests from the frontend
 \fancyfoot[L]{Ambrosch/Perzi}
-The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application. Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax. An example comparison between fetch and axios is given in the chapter _Comparison between fetch and axios_.
+The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application. Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax. An example comparison between fetch and axios is given in chapter _Comparison between fetch and axios_.
 
 Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because geofences would normally only be viewed and managed by a single user.\
 Request polling was initially implemented for geofence locks because individual geofence's locks did not update when using bulk locking operations. This was later found to be a problem with React not re-rendering and was solved by moving the React state up.
@@ -1022,7 +1022,7 @@ To create a circle, only two parameters are required. The center point of the ci
 To create a road, a line of coordinates, similar to how trips are processed, is provided in the request to the web server. Alongside these coordinates a road width is provided, which in turn serves as the parameter provided to the \lstinline!STBuffer(width)! method. The resulting object has a \lstinline!.Reduce(1)! method applied to itself afterwards, which is used to simplify the road polygon and optimize performance across the whole system.
 
 ## Performance optimization on the backend
-After performing multiple tests using various tools as described in the chapter *Testing*, a conclusion was reached that the database bottlenecked the system the most. Therefore, two ways were found to counteract this issue.
+After performing multiple tests using various tools as described in chapter *Testing*, a conclusion was reached that the database bottlenecked the system the most. Therefore, two ways were found to counteract this issue.
 
 ### Caching in ASP.NET
 First, minimizing the number of requests made to the database could decrease the average response times for the trade-off of not always having completely correct geofence data in the frontend. Due to the vitality of correct data when calculating intersections, caching could only be performed for operations with frontend communication.
