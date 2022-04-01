@@ -126,10 +126,13 @@ Services are classes serviced by the application by making use of Dependency Inj
 When registering a service there are three different options to choose from. These options are also defined as lifetimes.
 
 1. Transient
+
    Whenever this service is requested a new instance is created. This lifetime works best for non resource intensive services. Once a request ends these services are disposed.
 2. Scoped
+
    Scoped services are created once per client request meaning that they have the same behavior as transient services in a web application.
 3. Singleton
+
    Singleton services are created once the first time they are requested. When the service is requested again the same instance is provided to the requesting object. Singleton objects are disposed once the application shuts down. These services are used when there has to be exactly one instance of a service, for the geofencing application this was chosen when creating the database manager service [@servicelife].
 
 
