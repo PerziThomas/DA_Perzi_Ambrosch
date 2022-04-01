@@ -705,7 +705,7 @@ _Leaflet Routing Machine_[@leafletRoutingMachine] is a Leaflet extension that ad
 
 
 #### Setup
-The package has to be installed in the project, with the use of a script tag or by installing _leaflet-routing-machine_ with a package manager such as npm. A basic example of the routing machine with two initial waypoints can be added as described in listing 2.27:
+The package has to be installed in the project with the use of a script tag or by installing _leaflet-routing-machine_ with a package manager such as npm. A basic example of the routing machine with two initial waypoints can be added as described in listing 2.27:
 
 \begin{lstlisting}[caption=Initializing Routing Machine, label=lst:routingMachineSetup, language={JavaScript}]
     const instance = L.Routing.control({ // create an instance of routing machine
@@ -728,7 +728,7 @@ OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
 
 ### GeoJSON
-_GeoJSON_ is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic objects and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of features.
+_GeoJSON_ is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic entities and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of geometries or features.
 
 
 #### Geometry object
@@ -760,12 +760,13 @@ A linear ring is a closed LineString, meaning the first and last position share 
 
 If multiple coordinate rings are used in a polygon, the first one must be an outer exterior ring. All other rings must be interior rings that describe holes in the previously defined exterior ring.
 
-7. _MultiPolygon_
-: an array of Polygon coordinate arrays
+7. MultiPolygon
+
+    an array of Polygon coordinate arrays
 
 
 #### Geometry collection
-A GeometryCollection has a property \lstinline!geometries! which contains an array of geometry objects as described above, which can also be empty. GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
+A GeometryCollection has a property \lstinline!geometries! which contains an array of geometry objects as described above. This array can also be empty. GeometryCollections can be used to describe geometry not possible with the normal geometry types, like polygons that consist of multiple exterior rings.
 
 
 #### Feature object
@@ -773,7 +774,7 @@ Features are objects that represent a thing that is spatially bounded. They cont
 
 
 #### Feature collection
-A FeatureCollection can be used to group different features together. It has a member \lstinline!features!, which is an array where each element is a Feature object as described above. This array can also be empty [@geoJsonSpecification].
+A FeatureCollection can be used to group different features together. It has a member \lstinline!features!, which is an array where each element is a Feature object as described above. This array can also be empty.
 
 
 #### Example
