@@ -384,7 +384,7 @@ The creation of polygons and the calculation of intersections are described in t
 
 ## Frontend Technologies
 \fancyfoot[L]{Ambrosch}
-The frontend part of the app is a user interface for managing geofences, which was realized as a _React_ web application. The main part of the interface consists of a map provided by _Leaflet_[@leafletOverview]. Due to its open-source nature, additional functionality can be added thanks to a large number of available extensions.
+The frontend part of the app is a user interface for managing geofences, which was realized as a _React_ web application. The main part of the interface consists of a map provided by _Leaflet_ [@leafletOverview]. Due to its open-source nature, additional functionality can be added thanks to a large number of available extensions.
 
 
 ### React
@@ -392,17 +392,17 @@ React is a JavaScript library that allows developers to build declarative and co
 
 React can be integrated into existing websites easily by using script-tags and creating components through JS code. However, when starting from scratch or when creating a more complex application, it is advantageous to use additional tools.
 
-_Create React App_[@createReactApp] is an officially supported setup tool without configuration and builds a small one-page example application as a starting point.\
+_Create React App_ [@createReactApp] is an officially supported setup tool without configuration and builds a small one-page example application as a starting point.\
 To start, if npm is used as a package manager, the command _npx create-react-app my-app_ is run, where _my-app_ is replaced with then name of the application. This creates a directory of that name at the current location which contains the example application.\
 After navigating to the app with _cd my-app_, it can be executed by running _npm start_. The app will then by default be available at _http://localhost:3000/_ [@createReactAppGettingStarted].
 
 
 ### Axios
-_Axios_[@axios] is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js.
+_Axios_ [@axios] is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js.
 
 
 #### Comparison with fetch
-The _Fetch API_[@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol. Fetch and axios are very similar to use, with the main difference being different syntax and property names. Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
+The _Fetch API_ [@fetchAPI] provides the _fetch()_ method to make promise-based API requests via the HTTP protocol. Fetch and axios are very similar to use, with the main difference being different syntax and property names. Both fetch and axios provide all basic functionality needed for making and handling API requests, but axios provides some additional features: [@axiosVsFetch]
 
 - built-in XSRF protection
 - automatic JSON conversion of the message body
@@ -454,7 +454,7 @@ Listing 2.15 shows the same request rewritten with axios.
 
 
 ### React-localize-redux
-_React-localize-redux_[@reactlocalizereduxref] is a localization library that enables easy handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library. The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language [@reactLocalizeRedux].
+_React-localize-redux_ [@reactlocalizereduxref] is a localization library that enables easy handling of translations in React applications. It is built on the native React _Context_ [@reactContext], but understanding or using context is not necessary when using the library. The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language [@reactLocalizeRedux].
 
 
 #### Initialization
@@ -583,7 +583,7 @@ Because Leaflet is open-source, a lot of additional libraries exist, some of whi
 
 
 ### React Leaflet
-_React Leaflet_[@reactleafletref] is a node library that offers React components for Leaflet maps, making it easier to use in a React context. It is responsible for things such as providing hooks or rendering Leaflet layers by itself to avoid updating the DOM tree.
+_React Leaflet_ [@reactleafletref] is a node library that offers React components for Leaflet maps, making it easier to use in a React context. It is responsible for things such as providing hooks or rendering Leaflet layers by itself to avoid updating the DOM tree.
 
 React Leaflet does not replace Leaflet but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases solutions involving standard Leaflet have to be used to achieve a specific task.
 
@@ -604,12 +604,12 @@ After installing the required dependencies _react, react-dom_ and _leaflet_, a s
 
 
 ### Leaflet Draw
-The JavaScript library _Leaflet Draw_[@leafletdrawref] adds interactive drawing features to Leaflet maps. The library can be used to add a toolbar to Leaflet maps, containing options for drawing different shapes, as well as editing them.\
+The JavaScript library _Leaflet Draw_ [@leafletdrawref] adds interactive drawing features to Leaflet maps. The library can be used to add a toolbar to Leaflet maps, containing options for drawing different shapes, as well as editing them.\
 The toolbar can also be customized with regards to what features are available [@leafletDrawDocumentation].
 
 
 ### React Leaflet Draw
-_React Leaflet Draw_[@reactleafletdrawref] is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an \lstinline!EditControl! component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers [@reactLeafletDrawIntro].
+_React Leaflet Draw_ [@reactleafletdrawref] is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an \lstinline!EditControl! component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers [@reactLeafletDrawIntro].
 
 
 #### Setup
@@ -659,7 +659,7 @@ The \lstinline!draw! property allows the developer to enable or disable certain 
 
 
 ### Leaflet Geosearch
-_Leaflet Geosearch_[@leafletGeosearch] is an extension that adds geosearch functions to a web application, with functions including coordinate search as well as address lookup. The data for this is supplied by a provider, with default options such as _Google,_ or _OpenStreetMap_. The library supports easy integration with Leaflet maps, but the functionality can also be used without Leaflet.
+_Leaflet Geosearch_ [@leafletGeosearch] is an extension that adds geosearch functions to a web application, with functions including coordinate search as well as address lookup. The data for this is supplied by a provider, with default options such as _Google,_ or _OpenStreetMap_. The library supports easy integration with Leaflet maps, but the functionality can also be used without Leaflet.
 
 
 #### Usage with react-leaflet
@@ -701,7 +701,7 @@ This component is then added in the Leaflet \lstinline!MapContainer! component. 
 
 
 ### Leaflet Routing Machine
-_Leaflet Routing Machine_[@leafletRoutingMachine] is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints.
+_Leaflet Routing Machine_ [@leafletRoutingMachine] is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints.
 
 
 #### Setup
@@ -722,13 +722,13 @@ The package has to be installed in the project with the use of a script tag or b
 \end{lstlisting} \
 
 ### OpenStreetMap
-_OpenStreetMap_[@openStreetMapAbout] is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries.
+_OpenStreetMap_ [@openStreetMapAbout] is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries.
 
 OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
 
 ### GeoJSON
-_GeoJSON_ is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic entities and their properties. The latest standard for the format is specified in _RFC 7946_[@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of geometries or features.
+_GeoJSON_ is a format for encoding geospatial data based on _JavaScript Object Notation_. It defines various types of objects to represent geographic entities and their properties. The latest standard for the format is specified in _RFC 7946_ [@geoJsonSpecification], which was published in August 2016. The format supports seven different geometry objects as well as _Feature_ objects, which can have additional information, and collection objects to group sets of geometries or features.
 
 
 #### Geometry object
@@ -1298,7 +1298,7 @@ This approach solves the problem with unevenly distributed points, because the c
 
 
 ##### Pole of inaccessibility
-The node package _polylabel_[@polylabelIntro] uses an algorithm to calculate a polygon's _pole of inaccessibility_, defined as the point within the polygon's area with the largest distance to its outline.
+The node package _polylabel_ [@polylabelIntro] uses an algorithm to calculate a polygon's _pole of inaccessibility_, defined as the point within the polygon's area with the largest distance to its outline.
 
 This approach solves the problem with concave shapes, because the calculated point always lies inside the polygon, and for this reason, it was used to calculate the label positions in the app. Figure 2.10 shows the same concave geofence as above, but with the pole of inaccessibility used to calculate the label's position.
 
@@ -1495,7 +1495,7 @@ One of the biggest factors affecting performance of the React app is the number 
 #### Measuring component render times
 To improve frontend performance, the render times of all components have to be recorded in order to find out which elements contain potential bottlenecks and must therefore be optimized.
 
-_React Developer Tools_[@reactDevToolsChrome] is a _Chrome_ extension that adds React debugging tools to the browser's Developer Tools. There are two added tabs, _Components_ and _Profiler_, the latter of which is used for recording and inspecting performance data.
+_React Developer Tools_ [@reactDevToolsChrome] is a _Chrome_ extension that adds React debugging tools to the browser's Developer Tools. There are two added tabs, _Components_ and _Profiler_, the latter of which is used for recording and inspecting performance data.
 
 The _Profiler_ uses React's Profiler API to measure timing data for each component that is rendered. The workflow to use it will be briefly described here [@reactProfilerIntro].
 

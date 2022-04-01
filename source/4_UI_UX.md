@@ -15,7 +15,8 @@ To get a basic overview of the needed functionality, a list was compiled before 
 - Geofences can be created either as circles, polygons or rectangles.
   - Persistence is handled separately, by creating geofences first, then commiting them to the database.
 - Geofences can be edited.
-  - It is not clear yet if circles should be edited by changing center and radius, if yes, they cannot be stored as polygons.
+  - It is not clear yet if circles should be edited by changing center and radius
+  - If this should be possible, they cannot be stored as polygons.
 - Geofences can be deleted.
 - Certain activation days can be set for individual geofences.
   - If a Drivebox leaves a geofence while it is active, an alarm is sent.
@@ -30,7 +31,7 @@ An updated list of features was later written in the form of a Use-Case-Diagram,
 
 
 ## Mockup
-During the development process, mockups of the user interface were used to evaluate different workflows, layouts and designs before they were implemented. The software chosen for this was _Adobe XD_[@adobexdref], because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take. Some of the specific things that were evaluated with the use of mockups will be mentioned below.
+During the development process, mockups of the user interface were used to evaluate different workflows, layouts and designs before they were implemented. The software chosen for this was _Adobe XD_ [@adobexdref], because of its ease of use and the possibility to create interactive mockups to simulate different flows between screens that the user can take. Some of the specific things that were evaluated with the use of mockups will be mentioned below.
 
 
 ### Basic layout
@@ -131,7 +132,7 @@ Additionally, in the app, when the geofence bulk delete function (chapter _Bulk 
 
 
 ### Word choice for deletion
-The _New York State User Experience Toolkit_[@nysuxtoolkitref] defines the difference between the words as follows:\
+The _New York State User Experience Toolkit_ [@nysuxtoolkitref] defines the difference between the words as follows:\
 
 "Remove and Delete are defined quite similarly, but the main difference between them is that delete means erase (i.e. rendered nonexistent or nonrecoverable), while remove denotes take away and set aside (but kept in existence)." (Source: [@NYStateUXToolkit])
 
@@ -147,7 +148,7 @@ Like with deletion, there are also different words that can be used to describe 
 
 
 ### Search bar design
-The _Salesforce Style Guide_[@salesforcestyleguideref] suggests using ellipses at the end of text prompts, unless the text ends with a question mark [@SalesforceEllipses]. Accordingly, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
+The _Salesforce Style Guide_ [@salesforcestyleguideref] suggests using ellipses at the end of text prompts, unless the text ends with a question mark [@SalesforceEllipses]. Accordingly, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
 
 The geofence metadata search bar is not visible by default, but can be toggled on with a button. It then takes the place of the pagination functions. This  is done to clear up the interface, since search and pagination can functionally not be used at the same time.
 
