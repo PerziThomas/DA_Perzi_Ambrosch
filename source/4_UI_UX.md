@@ -94,7 +94,7 @@ In order to improve the usability of the app and to bring it closer to a finishe
 
 
 ### Confirmation dialogs
-A confirmation dialogs is usually used when a significant action is performed. It informs the user of the action to be taken and requires them to confirm the same action a second time. The dialog purposely adds difficulty to performing certain actions in order to avoid triggers that happen by accident or because the user did not understand the consequences of the action. [@confirmationDialogs]
+A confirmation dialogs is usually used when a significant action is performed. It informs the user of the action to be taken and requires them to confirm the same action a second time. The dialog purposely adds difficulty to performing certain actions in order to avoid triggers that happen by accident or because the user did not understand the consequences of the action [@confirmationDialogs].
 
 Standard confirmation dialogs are used in the app whenever any item is deleted, and when geofence geometry is edited. Additionally, all pop-ups that require the user to enter data, for example when creating or renaming geofences, function as confirm dialogs by offering both _confirm_ and _cancel_ options.
 
@@ -125,7 +125,7 @@ _Example: "Delete" and "Cancel" instead of "Yes" and "No"_
 
 
 ### Use of plural forms
-In software, when a label refers to a variable number of items, usually greater than or equal to one, the plural form of the item is often written statically with an "s" in brackets to account for all possibilities, e.g. _geofence(s)_. This is usually only a minor inconvenience for the user, but fixing it can make an application look more professional and completed. This can be done with minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise. [@UIPlurals]
+In software, when a label refers to a variable number of items, usually greater than or equal to one, the plural form of the item is often written statically with an "s" in brackets to account for all possibilities, e.g. _geofence(s)_. This is usually only a minor inconvenience for the user, but fixing it can make an application look more professional and completed. This can be done with minimal effort, by using the singular form if the number of items equals one, and using the plural form otherwise [@UIPlurals].
 
 Additionally, in the app, when the geofence bulk delete function (chapter _Bulk operations_) is used with only one item (geofence) selected, the confirmation dialog is displayed like it would be for a conventional, single delete operation, including the name of the geofence instead of the number of geofences to be deleted.
 
@@ -147,7 +147,7 @@ Like with deletion, there are also different words that can be used to describe 
 
 
 ### Search bar design
-The _Salesforce Style Guide_ suggests using ellipses at the end of text prompts, unless the text ends with a question mark. [@SalesforceEllipses] Therefore, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
+The _Salesforce Style Guide_ suggests using ellipses at the end of text prompts, unless the text ends with a question mark [@SalesforceEllipses]. Therefore, ellipses are used in the search bar for geofence metadata ("Search ...") as well as the map location search bar ("Search a place ...").
 
 The geofence metadata search bar is not visible by default, but can be toggled on with a button. It then takes the place of the pagination functions. This  is done to clear up the interface, since search and pagination can functionally not be used at the same time.
 

@@ -183,7 +183,7 @@ Controllers provide the ability to plainly return objects as a JSON representati
 SQL Server is a relations database management system developed by Microsoft. Similar to other systems such as Oracle, MySQL and PostgreSQL it uses SQL standard as a querying language. Additionally it uses Microsofts own SQL dialect for instructions. Transact-SQL, also known as T-SQL. To work with SQL Server a tool such as SQL Server Management Studio (SSMS) [@ssmsref] is required, this is also provided by Microsoft. SSMS provides a view of all functionality provided by SQL Server in a directory like view. The developer is able to easily create plain T-SQL statements in the editor as well as procedures and triggers.
 
 #### Transact-SQL
-T-SQL [@tsqlref] is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the \lstinline!TOP! keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL. An example of this is shown in listing 2.5. [@tsql]
+T-SQL [@tsqlref] is an extension of the standard SQL language. It provides further features to the developer when creating database statement to increase the simplicity and performance of queries. The basic syntax of querying data and defining statements remains the same. An example of this is the \lstinline!TOP! keyword which is used to only displayed the first x results of a query. This keyword only exists within T-SQL and is not usable when working the standard SQL [@tsql]. An example of this is shown in listing 2.5.
 
 \begin{lstlisting}[caption=Example of using the TOP keyword, label=lst:topkeyword, language={SQL}]
     SELECT TOP 12 Id, Name, Description 
@@ -243,7 +243,7 @@ Triggers are pieces of code that are executed when data in a table is modified. 
 In the final version of the geofencing application, triggers are not used. They were implemented when calculation of intersections was still based on the database.
 
 #### SQL Spatial
-The spatial extension was an addition provided to SQL Server by Microsoft in 2008. It essentially adds two datatypes to the software, *geometry* and *geography*. These datatypes are provided along a set of functionality to perform spatial calculations and queries on the database. Spatial data is data with geometrical or geographical information attached to it. In most cases those are coordinates. Geometry and geography are different in the fact that geometry is indented for use in a flat coordinate system like a plane. Geography on the other hand is intended for use with globe like coordinates to reflect real world locations and objects. For persisting geofences in the database, geography was chosen, as it makes use of real world GPS coordinates. [@spatext]
+The spatial extension was an addition provided to SQL Server by Microsoft in 2008. It essentially adds two datatypes to the software, *geometry* and *geography*. These datatypes are provided along a set of functionality to perform spatial calculations and queries on the database. Spatial data is data with geometrical or geographical information attached to it. In most cases those are coordinates. Geometry and geography are different in the fact that geometry is indented for use in a flat coordinate system like a plane. Geography on the other hand is intended for use with globe like coordinates to reflect real world locations and objects. For persisting geofences in the database, geography was chosen, as it makes use of real world GPS coordinates [@spatext].
 
 On top of the basic data types, there are two mains groups of object types provided by the spatial extension. These objects are available for both geometry and geography.
 
@@ -328,7 +328,7 @@ To execute stored procedures from the webapp a command needs to be created with 
 #### Comparison with Entity Framework
 The Entity Framework (EF), being the Entity Framework Core when using with a .NET Core application, is a higher level database access library by Microsoft for .NET applications. It is built on top of ADO.NET and provides the developer with a higher level object-relational mapper to work with objects retrieved from a database. Entity Framework Core provides two ways of creating models, a database-first and a code-first model, generating the other part from the given one. To map classes to database tables and vice-versa, scaffoldings and migrations are used.
 
-Compared to ADO.NET, EF provides a higher abstraction of database operations to the developer. Operations such as SELECT and INSERT are being handled by the library instead of the developer. To filter selected data, LINQ [@linq] is used. In contrary when doing operations in ADO.NET, commands and connections need to be defined by the developer manually, giving greater control about the processing of data. [@efcore]
+Compared to ADO.NET, EF provides a higher abstraction of database operations to the developer. Operations such as SELECT and INSERT are being handled by the library instead of the developer. To filter selected data, LINQ [@linq] is used. In contrary when doing operations in ADO.NET, commands and connections need to be defined by the developer manually, giving greater control about the processing of data [@efcore].
 
 Due to Microsoft phasing out spatial support in EF Core and the official recommended library for spatial processing being NetTopologySuite, ADO.NET was chosen in the geofencing application. EF Core not providing any native support resulted in operations needing an equal amount of manual processing as in ADO.NET, but with the drawback of additional overhead. Furthermore the low level of ADO.NET allowed for much more performance to be extracted out of the application, contributing positively to the time critical requirement.
 
@@ -394,11 +394,11 @@ React can be integrated into existing websites easily by using script-tags and c
 
 _Create React App_[@createReactApp] is an officially supported setup tool without configuration and builds a small one-page example application as a starting point.\
 To start, if npm is used as a package manager, the command _npx create-react-app my-app_ is run, where _my-app_ is replaced with then name of the application. This creates a directory of that name at the current location which contains the example application.\
-After navigating to the app with _cd my-app_, it can be executed by running _npm start_. The app will then by default be available at _http://localhost:3000/_. [@createReactAppGettingStarted]
+After navigating to the app with _cd my-app_, it can be executed by running _npm start_. The app will then by default be available at _http://localhost:3000/_ [@createReactAppGettingStarted].
 
 
 ### Axios
-Axios is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js. [@axios]
+Axios is a JavaScript library for making promise-based HTTP requests. It uses _XMLHttpRequests_ when used in the browser, and the native _http_ package when used with node.js [@axios].
 
 
 #### Comparison with fetch
@@ -454,13 +454,13 @@ The same request with _axios_ can be rewritten as follows:
 
 
 ### React-localize-redux
-_React-localize-redux_ is a localization library that enables easy handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library. The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language. [@reactLocalizeRedux]
+_React-localize-redux_ is a localization library that enables easy handling of translations in React applications. It is built on the native React _Context_[@reactContext], but understanding or using context is not necessary when using the library. The extension allows developers to define texts for different languages in JSON files, which can then be loaded and displayed depending on the selected language [@reactLocalizeRedux].
 
 
 #### Initialization
 All child components of the _LocalizeProvider_ component can work with the _localize_ function. Therefore, it makes sense to place this high in the hierarchy by wrapping the application in an instance of _LocalizeProvider_.
 
-Localize has to be initialized with settings, which must include an array of supported languages, and can include translation settings and initialization options, such as the default language or different rendering options. [@reactLocalizeRedux]
+Localize has to be initialized with settings, which must include an array of supported languages, and can include translation settings and initialization options, such as the default language or different rendering options [@reactLocalizeRedux].
 
 
 #### Adding translation data
@@ -470,7 +470,7 @@ There are two different ways to add translations:
 - The _addTranslationForLangage_ method adds translation data in _single language_ format, meaning that there is one resource file for each supported language.
 
 Translation data is stored in JSON files which are then imported and added to localize. When using the _single language_ format, each translation consists of a property name and the translation for that language. When using the all languages_ format, for every property name, an array of translation texts for the different languages is used instead, in the order used for initialization.\
-In both cases, translation data can be nested for easier naming and grouping of properties. This nested structure is represented via periods (".") in the id when calling the translation values. [@reactLocalizeRedux]
+In both cases, translation data can be nested for easier naming and grouping of properties. This nested structure is represented via periods (".") in the id when calling the translation values [@reactLocalizeRedux].
 
 An example of a resource file in _all languages_ format could be called _translations.json_ and would look as follows:
 
@@ -569,7 +569,7 @@ There are two notably different ways in which translations can be integrated in 
     <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
 \end{lstlisting} \
 
-- The \lstinline!translate! function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. [@reactLocalizeRedux]
+- The \lstinline!translate! function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props [@reactLocalizeRedux].
 
 \begin{lstlisting}[caption=Translation using function, label=lst:translateFunction, language={JavaScript}]
     translate("units.length.meter.plural") /* returns "meters" or "Meter" */
@@ -577,13 +577,13 @@ There are two notably different ways in which translations can be integrated in 
 
 
 ### Leaflet
-_Leaflet_ is the leading open-source JavaScript library for interactive maps. It is a technology used by the company for maps in existing apps, and is also ideal for testing applications, since the library - including all of its features - is free to use, with no restrictions like monthly time or data limits for the map services. [@leafletOverview]
+_Leaflet_ is the leading open-source JavaScript library for interactive maps. It is a technology used by the company for maps in existing apps, and is also ideal for testing applications, since the library - including all of its features - is free to use, with no restrictions like monthly time or data limits for the map services [@leafletOverview].
 
 Because Leaflet is open-source, a lot of additional libraries exist, some of which were used in the app and will be described in the following sections.
 
 
 ### React Leaflet
-_React Leaflet_ is a node library that offers React components for Leaflet maps, making it easier to use in a React context. It is responsible for things such as providing hooks or rendering Leaflet layers by itself to avoid updating the DOM tree. [@reactLeafletIntro]
+_React Leaflet_ is a node library that offers React components for Leaflet maps, making it easier to use in a React context. It is responsible for things such as providing hooks or rendering Leaflet layers by itself to avoid updating the DOM tree [@reactLeafletIntro].
 
 React Leaflet does not replace Leaflet but it is used in conjunction with it. While the application is written with React Leaflet where possible, in some cases solutions involving standard Leaflet have to be used to achieve a specific task.
 
@@ -605,11 +605,11 @@ After installing the required dependencies _react, react-dom_ and _leaflet_, a s
 
 ### Leaflet Draw
 The JavaScript library _Leaflet Draw_ adds interactive drawing features to Leaflet maps. The library can be used to add a toolbar to Leaflet maps, containing options for drawing different shapes, as well as editing them.\
-The toolbar can also be customized with regards to what features are available. [@leafletDrawDocumentation]
+The toolbar can also be customized with regards to what features are available [@leafletDrawDocumentation].
 
 
 ### React Leaflet Draw
-_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an \lstinline!EditControl! component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers. [@reactLeafletDrawIntro]
+_React Leaflet Draw_ is a library for using Leaflet Draw features with React Leaflet. It achieves this by providing an \lstinline!EditControl! component that is used in the Leaflet Map and can then be used to customize the Leaflet Draw toolbar or to overwrite event handlers [@reactLeafletDrawIntro].
 
 
 #### Setup
@@ -659,7 +659,7 @@ The \lstinline!draw! property allows the developer to enable or disable certain 
 
 
 ### Leaflet Geosearch
-_Leaflet Geosearch_ is an extension that adds geosearch functions to a web application, with functions including coordinate search as well as address lookup. The data for this is supplied by a provider, with default options such as _Google,_ or _OpenStreetMap_. The library supports easy integration with Leaflet maps, but the functionality can also be used without Leaflet. [@leafletGeosearch]
+_Leaflet Geosearch_ is an extension that adds geosearch functions to a web application, with functions including coordinate search as well as address lookup. The data for this is supplied by a provider, with default options such as _Google,_ or _OpenStreetMap_. The library supports easy integration with Leaflet maps, but the functionality can also be used without Leaflet [@leafletGeosearch].
 
 
 #### Usage with react-leaflet
@@ -701,7 +701,7 @@ This component is then added in the Leaflet \lstinline!MapContainer! component. 
 
 
 ### Leaflet Routing Machine
-_Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints. [@leafletRoutingMachine]
+_Leaflet Routing Machine_ is a Leaflet extension that adds routing tools to the standard map. It offers route finding with start, destination and via points, with integrated map controls for adding, editing and removing waypoints [@leafletRoutingMachine].
 
 
 #### Setup
@@ -722,7 +722,7 @@ The package has to be installed in the project, with the use of a script tag or 
 \end{lstlisting} \
 
 ### OpenStreetMap
-_OpenStreetMap_ is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries. [@openStreetMapAbout]
+_OpenStreetMap_ is a community driven project to provide geographical map data. This data can be used for any purpose without any costs, as long as credit is given. Since map data is provided by a great variety of contributors, a special emphasis is placed on local knowledge. A combination of technologies like aerial photography, GPS and maps is used to verify the accuracy of geographical entries [@openStreetMapAbout].
 
 OpenStreetMap is the default map provider used by the _Leaflet_ extension.
 
@@ -773,7 +773,7 @@ Features are objects that represent a thing that is spatially bounded. They cont
 
 
 #### Feature collection
-A FeatureCollection can be used to group different features together. It has a member \lstinline!features!, which is an array where each element is a Feature object as described above. This array can also be empty. [@geoJsonSpecification]
+A FeatureCollection can be used to group different features together. It has a member \lstinline!features!, which is an array where each element is a Feature object as described above. This array can also be empty [@geoJsonSpecification].
 
 
 #### Example
@@ -870,7 +870,7 @@ For a service to be considered RESTful, it must fulfil six criteria [@restful]:
    
    Optionally, code can be downloaded to extend a clients functionality. 
 
-A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format. [@restful]
+A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format [@restful].
 
 ### Controllers
 Using ASP.NET Cores controller classes, to create high level routing of incoming HTTP-Requests, the web service is divided into three main components.
@@ -934,7 +934,7 @@ Raycasting is an algorithm which uses the Odd-Even rule to check if a point is i
 	\label{fig2_5}
 \end{figure}
 
-This algorithm comes with some drawbacks. First, having to implement it by hand and second, needing to implement every kind of error check that might be needed. Additionally, the speed of calculations is not acceptable for time critical applications, such as Drivebox, and would need even more manual optimizations to match the speed of the methods provided by third party libraries. [@raycasting]
+This algorithm comes with some drawbacks. First, having to implement it by hand and second, needing to implement every kind of error check that might be needed. Additionally, the speed of calculations is not acceptable for time critical applications, such as Drivebox, and would need even more manual optimizations to match the speed of the methods provided by third party libraries [@raycasting].
 
 ### Third Party Methods
 Microsoft provides methods to calculate intersection points in geographical objects inside the spatial data package. In particular, the methods \lstinline!STContains! and \lstinline!STIntersects! are used to check if a point is inside a polygon. The difference in the two being that STIntersects returns true for a point which is exactly on the edge of a polygon. For the implementation, STContains was picked, as the increase in speed had a greater benefit than detecting points on the very edge of a polygon, as polygons are saved with an accuracy of less than a meter.
@@ -1074,7 +1074,7 @@ Geofences can be created as polygons, rectangles, circles or as road geofences b
 	\label{fig2_7}
 \end{figure}
 
-Any created geofence is checked for self-intersections. [@codeSelfIntersection] [@codeLineIntersection] If no problems are found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
+Any created geofence is checked for self-intersections [@codeSelfIntersection] [@codeLineIntersection]. If no problems are found, the geofence is converted into a JSON object and sent in a POST request to the endpoint _/geoFences/_ of the backend.
 
 If an error occurs in the backend, the creation process is aborted. Because the error did not occur in the frontend, Leaflet does not react to it, and the new geofence is added to the map. The drawn geometry therefore needs to be manually removed from the map.
 
@@ -1348,7 +1348,7 @@ The information on which geofences are hidden is stored for the convenience of t
 
 
 ### Geofence highlighting
-Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green). The action of moving the map to the location of the highlighted geofence is achieved by using the _Leaflet_ function \lstinline!map.flyToBounds!, which changes the map's center and zoom level to fit the bounds of the given geometry and also includes a smooth animation. [@leafletDocumentation]
+Any geofence can be highlighted, setting the map view to show it, as well as changing it to a highlight color (green). The action of moving the map to the location of the highlighted geofence is achieved by using the _Leaflet_ function \lstinline!map.flyToBounds!, which changes the map's center and zoom level to fit the bounds of the given geometry and also includes a smooth animation [@leafletDocumentation].
 
 A boolean tag \lstinline!Highlighted! is stored for every geofence. Some special cases have to be considered in combination with the Geofence visibility feature:
 
@@ -1471,7 +1471,7 @@ This could be used as an alternative way to store the days on which a geofence i
 - To set an individual bit (set it to 1/true), an OR operation is used on the storage variable and the value 2^n, where n is the number of the bit starting from the least significant bit on the right at n=0.
 - To delete an individual bit (set it to 0/false), an AND operation is used on the storage variable and the inverse of 2^n (the value after a NOT operation).
 - A bit can be toggled with an XOR operation on the storage variable and the value 2^n.
-- By using an AND operation on the storage variable and 2^n, the value of an individual bit can be read. [@bitmasks]
+- By using an AND operation on the storage variable and 2^n, the value of an individual bit can be read [@bitmasks].
 
 
 ## Performance optimization on the frontend
@@ -1492,13 +1492,13 @@ One of the biggest factors affecting performance of the React app is the number 
 #### Measuring component render times
 To improve frontend performance, the render times of all components have to be recorded in order to find out which elements contain potential bottlenecks and must therefore be optimized.
 
-_React Developer Tools_ is a _Chrome_ extension that adds React debugging tools to the browser's Developer Tools. There are two added tabs, _Components_ and _Profiler_, the latter of which is used for recording and inspecting performance data. [@reactDevToolsChrome]
+_React Developer Tools_ is a _Chrome_ extension that adds React debugging tools to the browser's Developer Tools. There are two added tabs, _Components_ and _Profiler_, the latter of which is used for recording and inspecting performance data [@reactDevToolsChrome].
 
 The _Profiler_ uses React's Profiler API to measure timing data for each component that is rendered. The workflow to use it will be briefly described here.
 
 - After navigating to the _Profiler_ tab, a recording can either be started immediately or set to be started once the page is reloaded.
 - During the recording, the actions for which performance needs to be analyzed are performed in the React app.
-- Once all actions are completed, the recording can be stopped again. [@reactProfilerIntro]
+- Once all actions are completed, the recording can be stopped again [@reactProfilerIntro].
 
 The recorded data can be viewed in different graphical representations, including the render durations of each individual element. When testing performance for this app, mostly the _Ranked Chart_ was used, because it orders all components by the time taken to rerender, which gives the developer a quick overview of where improvements need to be made.
 
@@ -1569,5 +1569,5 @@ Performance is notably affected by this approach, due to the high number of netw
 
 #### Lifting state up
 While there are workarounds to force a child component to rerender from its parent [@reactForceChildRerender], in this case, it is more elegant to __lift the state__ of the geofence locks from the _GeoFenceListItems_ to a parent component like _GeoFenceList_ or _Home_.\
-Now, when the state changes in the parent component, for example through _geofence bulk locking operations_, all child components are automatically updated by React and the changes to geofence locks can be seen immediately. [@reactLiftingStateUp]
+Now, when the state changes in the parent component, for example through _geofence bulk locking operations_, all child components are automatically updated by React and the changes to geofence locks can be seen immediately [@reactLiftingStateUp].
 
