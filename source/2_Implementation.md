@@ -193,13 +193,17 @@ T-SQL is an extension of the standard SQL language. It provides further features
 To create tables with T-SQL a syntax similar to the SQL one is required. Tables consist of attributes and constraints. Each attribute in a table has a name and a datatype alongside information if it is allowed to be NULL. Attributes may also be referred to as columns. Constraints are special conditions data must fulfill to be insert into the table. The most important constraints in a table are the following:
 
 1. Primary Key
-   : Primary keys are indexes applied to a single or multiple columns in a table. These columns are often also seen as the identifying columns of a table used to reference data inside this table in a different one. There can only be one primary key per table.
+   
+   Primary keys are indexes applied to a single or multiple columns in a table. These columns are often also seen as the identifying columns of a table used to reference data inside this table in a different one. There can only be one primary key per table.
 2. Unique
-   : Functionally has the same behavior as a primary key. The only difference being that there can be multiple unique constraints and the values of the affected columns may be NULL.
+   
+   Functionally has the same behavior as a primary key. The only difference being that there can be multiple unique constraints and the values of the affected columns may be NULL.
 3. Foreign Key
-   : Foreign key constrains are used to associate a column with another column in a different table. This may only be done if the column(s) on the referenced table are either part of a primary key or a unique constraint. When data related to the foreign key is deleted on the associated table there are different handling approaches. Firstly nothing can be done about it at all and the values of the foreign key columns stay the same. Secondly the delete may be cascaded downwards and the row referencing the deleted row is also deleted. Finally the value of the foreign key columns can also be set to NULL.
+   
+   Foreign key constrains are used to associate a column with another column in a different table. This may only be done if the column(s) on the referenced table are either part of a primary key or a unique constraint. When data related to the foreign key is deleted on the associated table there are different handling approaches. Firstly nothing can be done about it at all and the values of the foreign key columns stay the same. Secondly the delete may be cascaded downwards and the row referencing the deleted row is also deleted. Finally the value of the foreign key columns can also be set to NULL.
 4. Check 
-   : The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
+   
+   The check constraint is used to check if a certain condition applies. This can be used to specify a certain allowed age range as an example.
 
 In the geofencing application a combination of several constraints was used to create the tables needed for the application to function. The relationships are best described using the ER-diagram shown displayed in figure 2.3.     Attributes above the separator line are parts of the Primary Key. If there is no line, then all attributes are primary key parts.
 
@@ -242,9 +246,11 @@ The spatial extension was an addition provided to SQL Server by Microsoft in 200
 On top of the basic data types, there are two mains groups of object types provided by the spatial extension. These objects are available for both geometry and geography.
 
 1. Simple objects
-   : Simple, single spatial objects that are completely connected in their instance. These include *Points*, *LineStrings* and *Polygons*.
+   
+   Simple, single spatial objects that are completely connected in their instance. These include *Points*, *LineStrings* and *Polygons*.
 2. Collection objects
-   : Collections of simple objects with multiple independent instances. These include *MultiPoints*, *MultiLineStrings* and *MultiPolygons*.
+   
+   Collections of simple objects with multiple independent instances. These include *MultiPoints*, *MultiLineStrings* and *MultiPolygons*.
 
 To create these spatial objects the well-known-text (WKT) format is used. The spatial extension provides methods to create objects from WKT. To create a polygon from a WKT source, the method *geography::STPolyFromText(wkt, 4326)* is used. To create a point object, the method *geography::Point(lat, long, 4326)* is used. To create any other geography object the method *geography::STGeomFromText(wkt, 4326)* can be used. The number 4326 at the end of every methods specifies the coordinate system used for the object. This number is specified as the Spatial Referencing System Identifier (SRID). SRID 4326 is the system that specifies the latitudes and longitudes along the entire globe. For applications working in a specific area of the world which need an additional grade of coordinate accuracy another SRID can be chosen. Due to drivebox not needing accuracy in the range of centimeters and the market being open to grow the global SRID 4326 was chosen.
 
@@ -834,18 +840,24 @@ REST (Representational State Transfer) is a software architectural style which d
 
 For a service to be considered RESTful, it must fulfil six criteria [@restful]:
 
-1. _Uniform Interface_
-   : This defines the need for all components of the system to follow the same set of rules and thus allows for a standard way of communication.
-2. _Client-Server_
-   : Tasks and concerns have to be strictly separated between the client and the server. 
-3. _Stateless_
-   : Each request sent to the server must provide enough information so that it can be processed without the need to consult any previous requests.
-4. _Cacheable_
-   : A response message must include a flag which provides information about it being cacheable.
-5. _Layered system_
-   : A system is composed of layers which are only able to interact with their next immediate neighbors and are unable to see further beyond that.
-6. _Code on demand_
-   : Optionally, code can be downloaded to extend a clients functionality. 
+1. Uniform Interface
+   
+   This defines the need for all components of the system to follow the same set of rules and thus allows for a standard way of communication.
+2. Client-Server
+   
+   Tasks and concerns have to be strictly separated between the client and the server. 
+3. Stateless
+   
+   Each request sent to the server must provide enough information so that it can be processed without the need to consult any previous requests.
+4. Cacheable
+   
+   A response message must include a flag which provides information about it being cacheable.
+5. Layered system
+   
+   A system is composed of layers which are only able to interact with their next immediate neighbors and are unable to see further beyond that.
+6. Code on demand
+   
+   Optionally, code can be downloaded to extend a clients functionality. 
 
 A REST resource is defined as a combination of data, the corresponding metadata as well as links leading to another associated state. Resources should be self-descriptive. Resources can be represented through any kind of format. [@restful]
 
@@ -853,11 +865,14 @@ A REST resource is defined as a combination of data, the corresponding metadata 
 Using ASP.NET Cores controller classes, to create high level routing of incoming HTTP-Requests, the web service is divided into three main components.
 
 1. Geofences
-   : General interaction with geofence objects, providing actions such as adding, deleting, modifying and reading them (CRUD). Furthermore, options to lock geofences on certain days of the week are also provided.
+   
+   General interaction with geofence objects, providing actions such as adding, deleting, modifying and reading them (CRUD). Furthermore, options to lock geofences on certain days of the week are also provided.
 2. TimePoints
-    : Used to analyze trips either in real time or after the completion of one.
+    
+    Used to analyze trips either in real time or after the completion of one.
 3. Geofence Metadata
-    : This data is used to sort Geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering Geofences.
+    
+    This data is used to sort Geofences using attributes set by the user. For example, Geofences can be attributed to a worker or a company. Metadata is only used for filtering Geofences.
 
 Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object.
 
