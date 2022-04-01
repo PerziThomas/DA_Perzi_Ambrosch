@@ -10,12 +10,12 @@ Functional testing will be described in its own sub chapter, while non functiona
 
 
 ## Functional Testing
-There are several ways to test a piece of software on its functionality. Unit- and Integration-Testing make up the majority of these methods. These methods also implemented to test the back- and frontend parts of the Geofencing application. 
+There are several ways to test a piece of software on its functionality. Unit- and Integration-Testing make up the majority of these methods. These methods are also implemented to test the back- and frontend parts of the Geofencing application. 
 
 
 ### REST Endpoint Functionality
 Web endpoints using the REST architecture were tested using xUnit [@xunitref] as a general testing framework and the Microsoft ASP.NET Core MVC Testing package [@mvctestref]
-to send Web Requests to the server. 
+to send web requests to the server. 
 These tools were used due to the backend being written in C# on top of the ASP.NET Core web framework, keeping up a consistency in the used technologies, 
 ensuring a higher maintainability of all parts of the source code, as well as the ability to use tools developed by Microsoft themselves. \
 
@@ -43,7 +43,7 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
     }
 \end{lstlisting} \
 
-*Theories* on the other hand, are tests which use parameters. This is used for test cases in which 
+*Theories* on the other hand are tests which use parameters. This is used for test cases in which 
 one might wish to test a function which has a binary result with several values without the need to write
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome [@xUnitIntro]. Usage of a theory is shown in Listing 3.2.\
@@ -96,8 +96,8 @@ developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline
 \end{lstlisting} \
 
 ### Frontend Functionality
-Testing the functionality of the React Frontend part of the application was achieved using the Selenium [@seleniumref]
-Framework, specifically the Selenium WebDriver. Selenium, being the industry standard for browser automation
+Testing the functionality of the React frontend part of the application was achieved using the Selenium [@seleniumref]
+framework, specifically the Selenium WebDriver. Selenium, being the industry standard for browser automation
 provides the ability to automate the actions a user would take in a browser, such as clicking, going to a specific URL or reading values of a web page. \
 
 Selenium runs on a system based on drivers for each individual browser, such as Google Chrome, Firefox or
@@ -194,7 +194,7 @@ is looking to expand the pool of vehicles in the future. The results of the fina
 
 With the final and most accurate implementation of the algorithm being able to handle requests at an acceptable rate,
 it became clear that response times were rising exponentially with an increasing number of clients, which would not be
-acceptable in a scaling production environment. After tests were done using NetTopologySuite in the 
+acceptable in a scaling production environment. Due to this performance issue laying with SQL Server, horizontal scaling would end up being a too expensive solution. After tests were done using NetTopologySuite in the 
 ASP.NET Core backend, which proved to be much more efficient at handling the necessary calculations,
 it was decided to abandon the optimization of the database based algorithm.
 
