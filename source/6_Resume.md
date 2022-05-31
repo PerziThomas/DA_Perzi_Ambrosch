@@ -12,8 +12,15 @@ All in all, the internship has been a great success on a personal and technical 
 \begin{table}[]
 \begin{tabular}{|l|l|l|l|}
 \hline
-\textbf{Date} & \textbf{Participants}                              & \textbf{Agreements} & \textbf{Deadline} \\ \hline
-12.05.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Finish Content      & 15.05.2022        \\ \hline
-31.05.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Finish Layout       & 31.05.2022        \\ \hline
+\textbf{Date} & \textbf{Participants}                              & \textbf{Agreements}                                                              & \textbf{Deadline} \\ \hline
+05.08.2021    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & General agreements on use of technologies for writing the thesis                 &                   \\ \hline
+24.08.2021    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Setup GitHub project to collaborate on MarkDown and LaTeX writing                & 01.09.2021        \\ \hline
+09.12.2021    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Creating the index of the thesis PR \#1 \& writing a mock chapter PR \#2         & 13.12.2021        \\ \hline
+13.12.2021    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Setup of the continuous creation of PDF files automated by GitHub Actions PR \#3 & 20.12.2021        \\ \hline
+10.01.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Chapters Testing and frontend implementations PR \#4 \#5                         & 31.01.2022        \\ \hline
+01.02.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Frontend Performance \& Algorithms chapter PR \#6 \#7                            & 15.02.2022        \\ \hline
+16.02.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Back- and Frontend communication \& Introduction PR \#8 \#9                      & 01.03.2022        \\ \hline
+08.03.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Backend and Frontend Technologies \& Formalities PR \#10 \#11 \#12               & 20.03.2022        \\ \hline
+20.03.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Corrections and new LaTeX Template PR \#13                                       & 01.04.2022        \\ \hline
 \end{tabular}
 \end{table}
