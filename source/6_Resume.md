@@ -22,5 +22,5 @@ All in all, the internship has been a great success on a personal and technical 
 16.02.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Back- and Frontend communication \& Introduction PR \#8 \#9                      & 01.03.2022        \\ \hline
 08.03.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Backend and Frontend Technologies \& Formalities PR \#10 \#11 \#12               & 20.03.2022        \\ \hline
 20.03.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Corrections and new LaTeX Template PR \#13                                       & 01.04.2022        \\ \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
