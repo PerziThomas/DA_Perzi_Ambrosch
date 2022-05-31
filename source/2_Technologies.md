@@ -34,7 +34,7 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
                     });
                 });
     }
-\end{lstlisting} \
+\end{lstlisting} 
 \end{minipage} \
 
 To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs. The Startup.cs file is shown in a shortened form in listing 2.2.
@@ -96,7 +96,7 @@ To setup the REST endpoints of the webservice the Startup.cs file needs to be mo
             });
         }
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 #### Services
@@ -124,7 +124,7 @@ To request a service from the application a class must simply include the servic
         this.collisionDetectorService = collisionDetector;
         this.pointAnalyzer = pointAnalyzer;
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 #### Middleware
@@ -150,7 +150,7 @@ To add custom middleware into the ASP.NET Core pipeline, the developer must simp
             return builder.UseMiddleware<AuthHeaderMiddleware>();
         }
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 #### Controller
@@ -172,7 +172,7 @@ SQL Server is a relational database management system developed by Microsoft. Si
 \begin{lstlisting}[caption=Example of using the TOP keyword, label=lst:topkeyword, language={SQL}]
     SELECT TOP 12 Id, Name, Description 
     FROM Products ORDER BY Name;
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 ##### Tables
@@ -220,7 +220,7 @@ The geofencing application makes use of stored procedures in several ways. A mai
         SELECT id, geoObj FROM geoFence WHERE id = @idGeoFence;
     END
     GO
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 ##### Trigger
@@ -247,7 +247,7 @@ To manipulate and work with geographical data the extension provides a variety o
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Creating of a circle, label=lst:statCircle, language={SQL}]   
     geography::Point(@lat, @long, 4326).STBuffer(@radius)
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 ### ADO.NET
@@ -273,7 +273,7 @@ To send SQL commands to the server a new instance of the \lstinline!SqlCommand! 
     SqlCommand cmd = new SqlCommand("DELETE FROM geoFence WHERE id = @id", connection);
     cmd.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.Int));
     cmd.Parameters["@id"].Value = idGeoFence;
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 There are two ways of executing a SqlCommand, with or without a query. Commands that are executed without a query do not return anything upon execution. This is used for operations or procedures that do not involve a SELECT statement. Commands can be executed with a query in several ways, with a \lstinline!SqlDataReader! being the most frequent one. A data reader provides the ability to iterate over every row of the returned table and process the data. After a command is executed and the query, if existing, is processed the connection is closed again to prevent any possible memory leaks. Both operations are described in listing 2.10.
@@ -299,7 +299,7 @@ There are two ways of executing a SqlCommand, with or without a query. Commands 
 
     //Closing the connection
     connection.Close();
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 To execute stored procedures from the application a command needs to be created with the name of the procedure as its construction parameter. Next the commands \lstinline!CommandType! needs to be set as \lstinline!CommandType.StoredProcedure! to flag it as a procedure. Finally to set the variables of the procedure the same approach as using placeholders is done. Parameters are added to the command and given a value. Procedures are then executed the same way as normal SQL statements, with or without a query depending on the fact of data being selected. Listing 2.11 describes this process on the example of creating a circular geofence.
@@ -313,7 +313,7 @@ To execute stored procedures from the application a command needs to be created 
     cmd.Parameters.Add(new SqlParameter("@long", p.Long.Value));
     cmd.Parameters.Add(new SqlParameter("@radius", p.Radius.Value));
     cmd.Parameters.Add(new SqlParameter("@title", p.Title));
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 #### Comparison with Entity Framework
@@ -350,7 +350,7 @@ To work with NTS a simple installation from the NuGet package manager has to be 
             polygons.Add(p);
         }
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 To then relay this information to the React webapp, it needs to be converted into a readable format for Leaflet. To convert a NTS geographical object to GeoJSON, the NTS GeoJSON extension needs to be installed via NuGet. This extension provides the \lstinline!GeoJsonSerializer! class to create a JSON.NET serializer that works with GeoJSON, the usage of which is described in listing 2.13. Geographical objects processed by this object get serialized into a GeoJSON which is put in the HTTP Response body.
@@ -371,7 +371,7 @@ To then relay this information to the React webapp, it needs to be converted int
             stringWriter.GetStringBuilder().Clear();
         }
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 The creation of polygons and the calculation of intersections are described in the according chapters.
@@ -425,7 +425,7 @@ An example GET request, including an Authorization header and handling of the re
     }).catch(err => {
         // error handling
     })
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 Listing 2.15 shows the same request rewritten with axios.
@@ -447,7 +447,7 @@ Listing 2.15 shows the same request rewritten with axios.
     }).catch(err => {
         // error handling
     })
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 
@@ -510,7 +510,7 @@ An example of a resource file in _all languages_ format could be called _transla
             }
         }
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 With _single language format_, this would instead be split into two files, _en.translations.json_ (shown in listing 2.17):
@@ -535,7 +535,7 @@ With _single language format_, this would instead be split into two files, _en.t
             }
         }
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 and _de.translations.json_ (shown in listing 2.18):
@@ -560,7 +560,7 @@ and _de.translations.json_ (shown in listing 2.18):
             }
         }
     }
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 
@@ -572,7 +572,7 @@ There are two notably different ways in which translations can be integrated in 
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Translation using tag, label=lst:translateTag, language={JavaScript}]
     <Translate id="units.length.meter.plural" /> /* will be replaced with "meters" or "Meter" depending on language */
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 - The \lstinline!translate! function is given the _id_ as a parameter and returns the translation depending on the currently active language. This function based approach is generally more flexible and allows the translation to be used more easily for situations like usage in string manipulation or when passing component props. The use of this function is shown in listing 2.20.
@@ -580,7 +580,7 @@ There are two notably different ways in which translations can be integrated in 
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Translation using function, label=lst:translateFunction, language={JavaScript}]
     translate("units.length.meter.plural") /* returns "meters" or "Meter" */
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 
@@ -609,7 +609,7 @@ After installing the required dependencies _react, react-dom_ and _leaflet_, a s
 
         <Polygon positions={coordinates /* lat lng coordinate array */} />
     </MapContainer>
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 
@@ -628,7 +628,7 @@ To be able to include drawing functions in a map, the Leaflet Draw styles have t
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Adding styles via link, label=lst:leafletDrawStyles, language={JavaScript}]
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 or by using a dependency (shown in listing 2.23).
@@ -636,7 +636,7 @@ or by using a dependency (shown in listing 2.23).
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Adding styles via import, label=lst:leafletDrawStyles, language={JavaScript}]
     node_modules/leaflet-draw/dist/leaflet.draw.css
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 Afterwards, an \lstinline!EditControl! component can be added to a map to enable drawing features to be used. This component must be placed in a \lstinline!FeatureGroup! component, and all geometry that is drawn inside this FeatureGroup will be made editable by the extension once the "edit"-button is clicked.
@@ -667,7 +667,7 @@ Listing 2.24 shows the result of adding _React Leaflet Draw_ to the map example 
 
         <Polygon positions={coordinates /* non-editable polygon */} />
     </MapContainer>
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 The \lstinline!EditControl! component provides event handlers for all events related to the drawing functions, like \lstinline!onCreated, onEdited! and \lstinline!onDeleted!, which can be overwritten by the developer to add custom functionality.\
@@ -701,7 +701,7 @@ To start using Geosearch with React Leaflet, a component for the search field ha
 
         return null;
     };
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 This component is then added in the Leaflet \lstinline!MapContainer! component. Since the search is added as a component, this component can be rendered conditionally to show or hide the search bar in the map. This is shown in listing 2.26.
@@ -718,7 +718,7 @@ This component is then added in the Leaflet \lstinline!MapContainer! component. 
 
         <Polygon positions={coordinates /* lat lng coordinate array */} />
     </MapContainer>
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 
@@ -742,7 +742,7 @@ The package has to be installed in the project with the use of a script tag or b
     }
 
     instance.addTo(map); // add routing machine to leaflet map
-\end{lstlisting} \
+\end{lstlisting}
 \end{minipage} \
 
 ### OpenStreetMap
