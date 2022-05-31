@@ -31,6 +31,7 @@ was done in this project. \
 Unlike other testing frameworks, which use attributes like [Test], xUnit uses [Fact] and [Theory]. 
 *Facts* are tests which use constant data throughout each running, they are inflexible and always test the same thing. A fact to test if a \lstinline!HttpClient! can connect to the server is shown is listing 4.1.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Example of a Fact, label=lst:test, language={[Sharp]C}]
     // A sample Fact Test which ensures a successful connection & authorization to the backend server.
     [Fact]
@@ -41,13 +42,15 @@ Unlike other testing frameworks, which use attributes like [Test], xUnit uses [F
         HttpResponseMessage response = await client.GetAsync("api/geoFences")
         response.EnsureSuccessStatusCode();
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 *Theories* on the other hand are tests which use parameters. This is used for test cases in which 
 one might wish to test a function which has a binary result with several values without the need to write
 multiple tests for it. Theories are also suitable when testing frontend functionality using different browsers
 such as Firefox and Google Chrome [@xUnitIntro]. Usage of a theory is shown in listing 4.2.\
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Example of a Theory used to test the Frontend in several browsers, label=lst:theory, language={[Sharp]C}]
     //A connectivity test to check if both Selenium Browser drivers are working.
     [Theory]
@@ -64,7 +67,8 @@ such as Firefox and Google Chrome [@xUnitIntro]. Usage of a theory is shown in l
         // Check if Browser navigated to provided URL.
         Assert.Equal(url, newUrl);
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 \newpage
 
@@ -73,6 +77,7 @@ Microsoft provides the Microsoft.AspNetCore.Mvc.Testing package for integration 
 developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline!WebApplicationFactory! as well as the
 \lstinline!HttpClient! provided by this package one is able to test their RESTful applications. listing 4.3 shows how to use the MVC testing package alongside xUnit to test if a \lstinline!HttpClient! can to the server. \
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Basic usage of the MVC Testing package in conjunction with xUnit., label=lst:mvcTest, language={[Sharp]C}]
     //A Factory to build instances of the application to test.
     private readonly WebApplicationFactory<DriveboxGeofencingBackend.Startup> _factory;
@@ -93,7 +98,8 @@ developed on top of ASP.NET Core, such as RESTful services. Using the \lstinline
         HttpResponseMessage response = await client.GetAsync("api/geoFences");
         response.EnsureSuccessStatusCode();
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 ### Frontend Functionality
 Testing the functionality of the React frontend part of the application was achieved using the _Selenium_ [@seleniumref]
@@ -109,6 +115,7 @@ to automate the browser, checking values still had to be done using xUnit. \
 Creating tests using Selenium is comparable to writing code in a sequential way, as the drivers are being
 instructed to execute a sequence of statement, similar to how a real user would do it. The following listing shows how to create a Selenium client which checks if the sidebar of a webpage can be opened.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Selenium example, label=lst:selenium, language={[Sharp]C}]
     [Theory]
     [InlineData("chrome")]
@@ -128,7 +135,8 @@ instructed to execute a sequence of statement, similar to how a real user would 
         driver.Quit();
         Assert.True(displayed);  
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 Firefox and Google Chrome were chosen as the browsers for testing due to those two making up a large share of the
 Windows web user base. While Safari does have a higher market share than Firefox, the Selenium WebDriver for 
@@ -148,13 +156,14 @@ Mock testing is about only testing one thing in isolation, forcing all other dep
 of this component to work in a set way. This is achieved due to most components of the
 application making use of dependency injection, which allows for easy mocking [@moqTutorial]. Listing 4.5 shows how to mock the database service used in the backend. \
 
-
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Mocking the database access, label=lst:test, language={[Sharp]C}]
     var databaseMock = new Mock<IDatabaseManager>();
     //Setup the object to return a specific object on a specific call.
     databaseMock.Setup(db => db.GetWeekdaysByGeoFence(47))
     .Returns(new List<int> { 0, 3, 4 });
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 Testing was done using the same classes as the main application used, to put the focus
 on the algorithm functionality, with routes and geofences being entered by hand to ensure

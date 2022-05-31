@@ -804,7 +804,6 @@ A FeatureCollection can be used to group different features together. It has a m
 #### Example
 Listing 2.28 shows an example GeoJSON object consisting of a FeatureCollection, which includes four features with different geometries: one LineString, two Points and one Polygon.
 
-\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=An example GeoJSON object, label=lst:geoJson, language={JavaScript}]
     {
         "type": "FeatureCollection", /* an array of features */
@@ -867,4 +866,3 @@ Listing 2.28 shows an example GeoJSON object consisting of a FeatureCollection, 
         ]
     }
 \end{lstlisting}
-\end{minipage} \

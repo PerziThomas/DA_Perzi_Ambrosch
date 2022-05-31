@@ -71,6 +71,7 @@ Using ASP.NET Core's controller classes to create high level routing of incoming
 
 Controllers provide the ability to create API-Endpoints for all commonly used HTTP methods (GET, POST, DELETE, etc...) using annotations. Methods annotated as such supply ready-to-use objects needed for the processing of requests, such as request and response objects, as well as automatic parsing of the request body to a C# object. Processing is handled by services which receive data from controllers. An endpoint using DELETE is shown in listing 3.1.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Delete endpoint, label=lst:restctrl, language={[Sharp]C}]
     [HttpDelete]
     [Route("{idGeoFence}")]
@@ -79,7 +80,8 @@ Controllers provide the ability to create API-Endpoints for all commonly used HT
         databaseManager.DeleteGeofence(idGeoFence);
         return StatusCode(204);
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 ### Requests
 Requests onto the server are made according to the HTTP protocol, with a token included in the Authorization header to authenticate a user on the backend. Data is transmitted using JSON objects in the request body, as well as the GeoJSON format in the special case of geofence communication (see GeoJSON chapter).
@@ -133,6 +135,7 @@ To notify businesses of their vehicles leaving a certain area defined by a geofe
 
 To avoid unnecessary calculations with polygons that are outside of a points scope, all polygons are filtered into two collections, each having all the polygons a point is inside of included. The following listing includes the code used to achieve this task.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Filter polygons, label=lst:polyfilter, language={[Sharp]C}]
     List<PolygonData> geoFencesPointOne = _databaseManager
        .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
@@ -140,7 +143,8 @@ To avoid unnecessary calculations with polygons that are outside of a points sco
     List<PolygonData> geoFencesPointTwo = _databaseManager
        .GetPolygons(true, true, (Guid)_contextAccessor.HttpContext.Items["authKey"])
        .Where(p => p.Polygon.Contains(p2)).ToList(); // Do the same for point 2
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 Afterwards, the only other requirement was to compare the collections and determine which polygons are being entered, left or stayed in. The webservice then returns a collection of all affected polygons with information about which event is happening currently. The processing of this information is handled by the main Drivebox server.
 
@@ -166,6 +170,7 @@ As a final step, each intersection is processed and modified with information on
 ## Polygon Creation
 To create a polygon which can be saved in the database, some processing of the input data needs to be done. As there are three kinds of polygons, there are also three different ways of processing the data received from the frontend. To send a NETTopologySuite geometric object to the database, it first needs to be converted into _SQLBytes_. This is done by using a \lstinline!SqlServerBytesWriter! object to serialize the object, the implementation of which is shown in listing 3.3.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Converting a Geometry object to SqlBytes, label=lst:polyfilter, language={[Sharp]C}]
     public byte[] ConvertGeometryToBytes(Geometry geometry)
     {
@@ -173,11 +178,13 @@ To create a polygon which can be saved in the database, some processing of the i
        byte[] bytes = writer.Write(geometry);
        return bytes;
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 ### Polygons
 Normal polygons are polygons which are neither a circle nor a road. These are created by reading the coordinates provided in the input GeoJSON file and creating a \lstinline!Polygon! with the use of a \lstinline!GeometryFactoryEX! object, provided by NETTopologySuite. The creation of such a polygon is shown in the following listing.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Building a Polygon which can be saved in the Database, label=lst:polyfilter, language={[Sharp]C}]
     public Polygon BuildPolygonFromGeoPoints(List<GeoPoint> points)
     {
@@ -201,7 +208,8 @@ Normal polygons are polygons which are neither a circle nor a road. These are cr
         }
         return poly;
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 ### Circles
 To create a circle, only two parameters are required: the center point of the circle and the radius in meters. Creation of the actual circle object is done inside a T-SQL procedure, and achieved using the \lstinline!Point.STBuffer(radius)! call, which builds a circle from a given point.
@@ -217,6 +225,7 @@ First, minimizing the number of requests made to the database could decrease the
 
 To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Core through dependency injection was used. Data is saved in the cache either for an absolute maximum of 30 minutes or one minute without it being accessed. The setting of these options as well as the persiting of data in the cache is shown in listing 3.5. These numbers were arbitrarily picked and will likely be changed in the final production version according to user numbers and feedback.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Set a new cache entry, label=lst:polyfilter, language={[Sharp]C}]
     MemoryCacheEntryOptions entryOptions = new MemoryCacheEntryOptions()
     {
@@ -225,7 +234,8 @@ To cache polygon data, the \lstinline!MemoryCache! object provided by ASP.NET Co
     };
 
     _cache.Set("dbPolygons", polygons, entryOptions);
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 ### Using Geo-Indexes in MS SQL
@@ -263,9 +273,11 @@ Any created geofence is checked for self-intersections [@codeSelfIntersection] [
 
 If an error occurs in the backend, the creation process is aborted. Because the error did not occur in the frontend, Leaflet does not react to it, and the new geofence is added to the map anyway. The drawn geometry therefore needs to be removed from the map manually. The code to do this is shown in listing 3.6.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Removing geometry from map, label=lst:geofenceCreation, language={JavaScript}]
 createdLayer._map.removeLayer(createdLayer);
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 If the backend returns a success, the geofence is added directly into the collection in the state of the React app, to avoid having to reload the entire page or re-fetch all geofences.
 
@@ -315,6 +327,7 @@ To make all geofences editable (not just those that were drawn, but also those t
 
 The geofences fetched from the backend are iterated over and a new Leaflet polygon (\lstinline!L.polygon!) is created in the frontend from each geofence's coordinates. The code for creating geofences from the backend data is shown in listing 3.7.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Geofences are fetched and added in frontend, label=lst:geofenceLoading, language={JavaScript}]
     for (let elem of res.data.geoJson) { // iterate fetched geofences
     let currentGeoFence = JSON.parse(elem);
@@ -333,10 +346,12 @@ The geofences fetched from the backend are iterated over and a new Leaflet polyg
     newPoly.geoFence = currentGeoFence; // add geofence object in polygon object (for later use of metadata)
     newGeoFences.set(currentGeoFence.ID, newPoly);
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 The \lstinline!LeafletMap! component contains a \lstinline!FeatureGroup!, which includes the component \lstinline!MyEditComponent! from Leaflet Draw. This means that all geofences that are rendered in this same \lstinline!FeatureGroup! are affected by Leaflet Draw and can therefore be edited. Listing 3.8 shows this FeatureGroup, containing the EditComponent as well as the code for rendering the geofences.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Rendering editable geofences, label=lst:geofenceEditing, language={JavaScript}]
     <FeatureGroup>
         <MyEditComponent /* for on-map drawing functions */
@@ -363,7 +378,8 @@ The \lstinline!LeafletMap! component contains a \lstinline!FeatureGroup!, which 
             );
         })}
     </FeatureGroup>
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 #### Non-editable geofences
@@ -371,6 +387,7 @@ Circular geofences and road geofences cannot be edited. Since all geofences are 
 
 To be able to make certain geofences not editable, all geofences are given a boolean property \lstinline!isNotEditable!, which is set to true in the backend for geofences created via the circle or road endpoints. This property is then used to separate all editable from all non-editable geofences, and render only those that can be edited inside the edit-FeatureGroup in the map. Listing 3.9 shows a simplified version of the map component, with individual rendering for editable and non-editable geofences.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Rendering non-editable geofences, label=lst:geofenceEditing, language={JavaScript}]
     <MapContainer /* shortened */ >
         {/* shortened */}
@@ -397,7 +414,8 @@ To be able to make certain geofences not editable, all geofences are given a boo
             })}
         </FeatureGroup>
     </MapContainer>
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 ### Map search
@@ -405,6 +423,7 @@ A search function exists, to make it easier to find places on the map by searchi
 
 A custom React component \lstinline!GeoSearchField! is used, the code for which can be seen in listing 3.10. In this component, an instance of \lstinline!GeoSearchControl! provided by _leaflet-geosearch_ is created with customization options, which is then added to the map in the \lstinline!useEffect! hook. The component \lstinline!GeoSearchField! also has to be used inside the LeafletMap in order to make the search button available on the map.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=addingMapSearch, label=lst:mapSearch, language={JavaScript}]
     import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
     import { useMap } from 'react-leaflet';
@@ -437,7 +456,8 @@ A custom React component \lstinline!GeoSearchField! is used, the code for which 
     }
 
     export default withLocalize(GeoSearchField);
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 ### Geofence labels
@@ -474,9 +494,11 @@ This approach can also lead to problems with concave geometry, when the calculat
 ##### Center of bounding box
 The label can be placed at the center of the bounding box of the polygon, which can easily be done by using basic leaflet methods, as shown in listing 3.11.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Get center of bounding box, label=lst:labelPosition, language={JavaScript}]
     polygon.getBounds().getCenter()
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 This approach solves the problem with unevenly distributed points, because the center is always calculated from a rectangle with exactly four points. However, it is not a solution for concave polygons like the U-shape described above.
 
@@ -496,12 +518,14 @@ This approach solves the problem with concave shapes, because the calculated poi
 #### Dynamic label size
 The size of the geofence labels changes depending on the current zoom level of the map, getting smaller as the user zooms out further, and is hidden for any zoom level smaller than or equal to 6. This dynamic sizing is achieved by using a CSS class selector that includes the current zoom level to select the corresponding option from the CSS classes _zoom6_ to _zoom13_. The code for this icon, including said selector, is shown in listing 3.12.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Icon with dynamic class name, label=lst:dynamicLabelSize, language={JavaScript}]
     return L.divIcon({
         className: "",
         html: `<div class="tooltipMarker ${"zoom" + (zoomLevel > 6 ? zoomLevel : 6)}">${title}</div>`,
     });
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 ### Geofence deletion
@@ -522,6 +546,7 @@ Individual geofences can be hidden from the map to make it visually clearer. To 
 #### Storing geofence visibility
 It can be assumed that in most cases when the user hides a geofence, they want to do so permanently or at least indefinitely, for example with system geofences, geofences with a large number of points or generally rarely used ones. Therefore, it makes sense to store the information about which geofences are hidden even when the app is closed. This is achieved by using _localStorage_, which, in contrast to _sessionStorage_, persists data until it is explicitly deleted. Listing 3.13 shows the code for retrieving visibility information from localStorage.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Geofence visibility is saved to localStorage, label=lst:geofenceVisibility, language={JavaScript}]
     let obj = {...visibilityObj};
 
@@ -531,7 +556,8 @@ It can be assumed that in most cases when the user hides a geofence, they want t
 
     setVisibilityObj(obj);
     localStorage.setItem("visibility", JSON.stringify(obj)); // save to localStorage
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 ### Geofence highlighting
@@ -610,6 +636,7 @@ To allow the user to select geofences for which the bulk operations should be pe
 
 Because the checkboxes are part of custom list elements, a select-all-checkbox also has to be added manually. The current _selectAllState_ (NONE, SOME or ALL) is determined after every clickEvent on a checkbox by counting the number of selected geofences, and is used to show an unchecked, indeterminate or checked select-all-checkbox respectively. This checkbox can also be clicked itself to select all loaded geofences if none are selected, or to deselect all if some or all are selected. Listing 3.14 shows the customized checkbox component as it was used in the app.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Checkboxes are displayed depending on selectionState, label=lst:selectionCheckboxes, language={JavaScript}]
     <Checkbox
         id="cb_all"
@@ -618,12 +645,14 @@ Because the checkboxes are part of custom list elements, a select-all-checkbox a
         checked={selectAllState !== selectionState.NONE}
         onChange={() => onSelectAllChanged()}
     ></Checkbox>
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 #### Bulk locking
 Bulk actions are available for locking, unlocking and toggling locks for geofences on any weekday individually or on all weekdays at once. A function, which is shown in listing 3.15, is called with the weekday and the lockMethod (0 for locking, 1 for unlocking and 2 for toggling). For all selected geofences, the locking is performed as described in chapter _Geofence locking_. If it should be performed for all weekdays, indicated by a value for _weekday_ of -1, the function \lstinline!lockActionMulti! is called recursively for every weekday value from 0 to 6.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=The function for handling bulk locking operations, label=lst:bulkLockingFunction, language={JavaScript}]
     function lockActionMulti(weekday, lockMethod) {
         let weekdaysToLock = []; // use array to allow handling of multiple days
@@ -647,7 +676,8 @@ Bulk actions are available for locking, unlocking and toggling locks for geofenc
         }
         setGeoFenceLocks({...newGeoFenceLocks});
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 
 #### Bit masking
@@ -702,6 +732,7 @@ Figure 3.10 shows a graph of the geofence management app recorded with the _Prof
 
 The map component is wrapped in _React.memo_ in order to re-render only when relevant props have changed. In the case of this app, that means a change in the collection of geofences to be displayed, a change regarding road geofence creation that is displayed in the map, polygon color or some meta settings. With a custom check function \lstinline!isEqual!, which can be seen in listing 3.16, the _React.memo_ function can be set to re-render only when one of these props changes.
 
+\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Using React.memo with custom equality check, label=lst:reactMemo, language={JavaScript}]
     export default withLocalize(React.memo(LeafletMap, isEqual));
 
@@ -716,7 +747,8 @@ The map component is wrapped in _React.memo_ in order to re-render only when rel
         }
         return false;
     }
-\end{lstlisting} \
+\end{lstlisting}
+\end{minipage} \
 
 After making these changes, a new graph is recorded for the same actions, which can be seen in figure 3.11. The render duration of the map component has been reduced from 585.6 ms to a value clearly below 0.5 ms, where it does not show up at the top of the _Profiler_'s ranked chart anymore. This has the effect that the application now runs noticeably smoother, especially when handling the map, since the _LeafletMap_ component does not update every time the map position or the zoom changes.
 
