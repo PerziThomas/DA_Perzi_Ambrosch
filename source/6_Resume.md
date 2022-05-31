@@ -9,7 +9,11 @@ Problems that occurred during the development phases could all be resolved by ei
 All in all, the internship has been a great success on a personal and technical level. The application was developed to the fullest satisfaction of the product owners, and we had the opportunity to further develop our skills. Finally, this thesis serves as the documentation of the creation and development of the geofencing application project.
 
 # Protocol
-| Date        | Participants| Agreements  | Deadline    | 
-| ----------- | ----------- | ----------- | ----------- |
-| 31.05.2022  | DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch | Finishing Layout | 01.06.2022 |
-| 12.05.2022  | DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch | Finishing Content | 15.05.2022 |
+\begin{table}[]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Date} & \textbf{Participants}                              & \textbf{Agreements} & \textbf{Deadline} \\ \hline
+12.05.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Finish Content      & 15.05.2022        \\ \hline
+31.05.2022    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & Finish Layout       & 31.05.2022        \\ \hline
+\end{tabular}
+\end{table}
