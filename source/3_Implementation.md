@@ -2,7 +2,7 @@
 This chapter describes the concrete implementation of the software in both the backend and the frontend. This includes the technical implementation of frameworks and major third party libraries described in the chapter *Technologies*. Furthermore, algorithms to calculate intersections with geofences are explained. Finally, ways of improving performance in all parts of the application are described.
 
 ## Architecture
-\fancyfoot[L]{Perzi}
+\fancyfoot[C]{Perzi}
 To create maintainable and extendable software it must be designed in such ways. To architect a software that fulfils the aforementioned criteria a certain set of principles needs to be followed. The geofencing application was built with architectural principles in mind to guarantee the continuation of the development at ilogs.
 
 Firstly, general principles such as *separation of concerns* and *encapsulation* were implemented. Separation of concerns defines that pieces of software should only be doing their own designated work. A service that processes pictures should only process these pictures and not handle anything regarding display on the screen. Developing software according to this principle is simplified due to React and ASP.NET Core providing a clear structure for pieces of software. With controllers, services and middleware in ASP.NET Core and components in React providing structures to separate application concerns. Encapsulation is a way of developing software that only exposes certain parts of itself to other software. In a practical sense this is achieved by limiting the scope of properties in classes with keywords such as *private* and *protected*. This way as long as the defined results of exposed methods and properties are not changed, the internal structure of a class can be changed without outside notice [@architectureMS].
@@ -27,7 +27,7 @@ The entire geofencing application runs on a client-server architecture. The Reac
 \end{figure}
 
 ## Communication between Frontend and Drivebox Server
-\fancyfoot[L]{Perzi}
+\fancyfoot[C]{Perzi}
 To handle the required communication between the frontend and backend applications of the geofence system, a RESTful webservice was implemented using the ASP.NET Core framework. This service provides the capability to use HTTP for exchanging the information about geofences required to create and modify geofences, as well as calculating intersections.
 
 ### REST
@@ -97,7 +97,7 @@ To avoid a constant repetition of boilerplate code inside each controller, ASP.N
 
 
 ### Sending requests from the frontend
-\fancyfoot[L]{Ambrosch/Perzi}
+\fancyfoot[C]{Ambrosch/Perzi}
 The requests were initially sent from the frontend by using the Fetch API, but this was later changed to axios to comply with the company's standards and the existing Drivebox application. Since only basic requests were made, switching from one technology to the other was fairly trivial, as the changes mainly affected property names and object syntax. An example comparison between fetch and axios is given in chapter _Comparison between fetch and axios_.
 
 Requests for geofences are made once on initial loading of the application. A polling solution was considered, but was not implemented, as it would have negatively affected performance. Also, it was not seen as necessary to have geofences update in real time, because the same geofences would normally only be viewed and managed by a single user.\
@@ -107,7 +107,7 @@ When making requests to create resources such as geofences or metadata, the reso
 
 
 ## Calculation Algorithm for intersections
-\fancyfoot[L]{Perzi}
+\fancyfoot[C]{Perzi}
 To calculate intersections between geofences and points in time, two methods were found during the research of possible approaches. First, manual calculation of intersections was possible with the use of a raycasting algorithm. The other way of checking if a point is within a polygon was to use methods and functions provided by Microsoft or other third party libraries.
 
 ### Raycasting
@@ -245,7 +245,7 @@ This only led to a marginal increase in performance after testing it with practi
 
 
 ## Geofence Management Web-Interface
-\fancyfoot[L]{Ambrosch}
+\fancyfoot[C]{Ambrosch}
 The frontend provides operations for viewing, creating, updating and deleting geofences. It is used by administrators in the companies that use the _DriveBox_. The application is implemented as a React Web-Interface using Leaflet and extensions to work with maps and geographical data. The frontend was developed as a stand-alone application to be later integrated into the already existing Drivebox application by the company.
 
 
@@ -692,7 +692,7 @@ This could be used as an alternative way to store the days on which a geofence i
 
 
 ## Performance optimization on the frontend
-\fancyfoot[L]{Ambrosch}
+\fancyfoot[C]{Ambrosch}
 Optimizing frontend performance can have several positive effects, including, but not limited to:
 
 - minimizing lag and making the UI more responsive.

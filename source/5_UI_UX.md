@@ -1,5 +1,5 @@
 # User Interface and User Experience
-\fancyfoot[L]{Ambrosch}
+\fancyfoot[C]{Ambrosch}
 This describes the various considerations that were taken to evaluate requirements and improve usability and user experience of the frontend.
 
 The goal for the frontend of the application was to develop a web-interface for managing geofences. Since this interface would be used by administrators in the companies that use the Drivebox, it should be easily usable and meet professional standards as far as UI and UX design go. Moreover, the frontend should be designed in such a way that it can be integrated seamlessly into the existing Drivebox application.

@@ -2,6 +2,7 @@
 This chapter describes the technologies used for developing the application. This includes _ASP.NET Core_ [@aspref] for the backend, Microsoft _SQL Server_ [@sqlref] as a database as well as _React_ [@react] for the frontend web interface. Several third party libraries are described alongside these main technologies. Certain technologies are also compared with similar alternatives to achieve the desired results and explanations are given on why one was chosen.
 
 ## Backend Technologies
+\fancyfoot[C]{Perzi}
 The backend consists of two major parts, those being the ASP.NET Core webservice and the Microsoft SQL Server database. With ASP.NET Core running on top of the C# programming language, third party libraries are obtainable using the NuGet package manager. All functionality on the database is natively provided and doesn't require the installation of any further extensions. To work with the database and geographical objects the webservice needed to be extended with libraries such as ADO.NET and NetTopologySuite.
 
 
@@ -374,6 +375,7 @@ To then relay this information to the React webapp, it needs to be converted int
 The creation of polygons and the calculation of intersections are described in the according chapters.
 
 ## Frontend Technologies
+\fancyfoot[C]{Ambrosch}
 The frontend part of the app is a user interface for managing geofences, which was realized as a _React_ web application. The main part of the interface consists of a map provided by _Leaflet_ [@leafletOverview]. Due to its open-source nature, additional functionality can be added thanks to a large number of available extensions.
 
 
