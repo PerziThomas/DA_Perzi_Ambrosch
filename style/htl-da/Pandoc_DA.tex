@@ -13,6 +13,12 @@
 \def\autorB{David Ambrosch 5BHIF}
 \def\abgabeDatum{\todayshort}
 
+\fancypagestyle{mystyle}{%
+  \fancyhf{}%
+  \fancyfoot[LE,RO]{\thepage~of \pageref{LastPage}}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
 \begin{document}
 
 
@@ -22,6 +28,12 @@
 	
 \tableofcontents
 \pagenumbering{arabic}	
+
+\xpatchcmd{\chapter}{%
+  \thispagestyle{plain}%
+}{%
+  \pagestyle{mystyle}
+}{}{}
 
 \input{./chapters/00_ee.tex}
 
