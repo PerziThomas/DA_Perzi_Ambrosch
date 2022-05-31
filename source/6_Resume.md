@@ -8,7 +8,7 @@ Problems that occurred during the development phases could all be resolved by ei
 
 All in all, the internship has been a great success on a personal and technical level. The application was developed to the fullest satisfaction of the product owners, and we had the opportunity to further develop our skills. Finally, this thesis serves as the documentation of the creation and development of the geofencing application project.
 
-# Protocol
+# Protocol {-}
 \begin{table}[htbp]
 \begin{tabularx}{\linewidth}{|l|X|X|X|}
 \hline
