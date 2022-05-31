@@ -10,7 +10,7 @@ All in all, the internship has been a great success on a personal and technical 
 
 # Protocol
 \begin{table}[htbp]
-\begin{tabularx}{|l|l|l|l|}
+\begin{tabularx}{\linewidth}{|l|l|l|l|}
 \hline
 \textbf{Date} & \textbf{Participants}                              & \textbf{Agreements}                                                              & \textbf{Deadline} \\ \hline
 05.08.2021    & DI Prof. Ingo Kofler, Thomas Perzi, David Ambrosch & General agreements on use of technologies for writing the thesis                 &                   \\ \hline
