@@ -39,7 +39,6 @@ When creating a new project using Visual Studio 2019's template of a ASP.NET Cor
 
 To setup the REST endpoints of the webservice the Startup.cs file needs to be modified. Furthermore the method \lstinline!ConfigureServices! is provided, which is used to register controllers, services, singletons and the cache to the application at runtime. Additionally HTTP typical functionality such as authorization and CORS are also configurable in Startup.cs. The Startup.cs file is shown in a shortened form in listing 2.2.
 
-\begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption={[Startup.cs file of the backend]The Startup.cs file of the backend, shortened for readability}, label=lst:startupcs, language={[Sharp]C}]
     public class Startup
     {
@@ -96,8 +95,7 @@ To setup the REST endpoints of the webservice the Startup.cs file needs to be mo
             });
         }
     }
-\end{lstlisting}
-\end{minipage} \
+\end{lstlisting} \
 
 #### Services
 Services are classes serviced by the application by making use of Dependency Injection. After registering a service in the Startup.cs file, it can be accessed from anywhere within the application using the associated interface. To define a service, it must simply be registered in Startup.cs, the service itself therefore does not "know" of itself as being one. Services consist of two files, an interface and an associated class which implements the defined methods. 
@@ -681,8 +679,6 @@ _Leaflet Geosearch_ [@leafletGeosearch] is an extension that adds geosearch func
 #### Usage with react-leaflet
 To start using Geosearch with React Leaflet, a component for the search field has to be written. The code in listing 2.25 shows a simple example of such a component called \lstinline!GeoSearchField!, where a \lstinline!GeoSearchControl! element is first defined with options and is then added to the map. The options object requires the provider to be set and includes optional arguments for things like render style, autocompletion options and display of the search result.
 
-\newpage
-
 \begin{minipage}[c]{1\textwidth} 
 \begin{lstlisting}[caption=Initializing geosearch component, label=lst:geosearchSetup, language={JavaScript}]
     const GeoSearchField = ({activeLanguage}) => {
@@ -845,17 +841,6 @@ Listing 2.28 shows an example GeoJSON object consisting of a FeatureCollection, 
                         [-122.48043537139893, 37.82564992009924],
                         [-122.48129367828368, 37.82629397920697],
                         [-122.48240947723389, 37.82544653184479],
-                        [-122.48373985290527, 37.82632787689904],
-                        [-122.48425483703613, 37.82680244295304],
-                        [-122.48605728149415, 37.82639567223645],
-                        [-122.4898338317871, 37.82663295542695],
-                        [-122.4930953979492, 37.82415839321614],
-                        [-122.49700069427489, 37.821887146654376],
-                        [-122.4991464614868, 37.82171764783966],
-                        [-122.49850273132326, 37.81798857543524],
-                        [-122.50923156738281, 37.82090404811055],
-                        [-122.51232147216798, 37.823344820392535],
-                        [-122.50150680541992, 37.8271414168374],
                         [-122.48743057250977, 37.83093781796035],
                         [-122.48313903808594, 37.82822612280363],
                         [-122.48043537139893, 37.82564992009924]
